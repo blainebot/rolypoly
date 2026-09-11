@@ -1,0 +1,85 @@
+{
+  "domain": "Music",
+  "prompt": "Name a Pink Floyd studio album.",
+  "scene": "pinkfloyd",
+  "answers": [
+    {
+      "name": "The Dark Side of the Moon",
+      "value": 3,
+      "fact": "Spent over 900 weeks on the Billboard 200, longer than any other album."
+    },
+    {
+      "name": "The Wall",
+      "value": 4,
+      "fact": "Grew out of Roger Waters spitting at a fan during the 1977 tour and feeling appalled at himself."
+    },
+    {
+      "name": "Wish You Were Here",
+      "value": 5,
+      "fact": "Syd Barrett turned up at the sessions so changed that the band did not recognise him."
+    },
+    {
+      "name": "Animals",
+      "value": 7,
+      "fact": "The inflatable pig on the cover broke loose over Battersea and drifted into Heathrow's flight paths."
+    },
+    {
+      "name": "The Division Bell",
+      "value": 10,
+      "fact": "Much of it was cut on the Astoria, David Gilmour's converted houseboat on the Thames."
+    },
+    {
+      "name": "The Piper at the Gates of Dawn",
+      "value": 11,
+      "fact": "Written almost entirely by Syd Barrett; the title is a chapter of The Wind in the Willows.",
+      "aliases": [
+        "piper"
+      ]
+    },
+    {
+      "name": "Meddle",
+      "value": 12,
+      "fact": "Echoes fills the whole second side, opening with a piano note played through a Leslie speaker."
+    },
+    {
+      "name": "A Momentary Lapse of Reason",
+      "value": 13,
+      "fact": "Made after Waters left, while he was in court trying to stop the others using the name."
+    },
+    {
+      "name": "The Final Cut",
+      "value": 14,
+      "fact": "Subtitled a requiem for the post-war dream, and the last album Waters made with the band."
+    },
+    {
+      "name": "Atom Heart Mother",
+      "value": 15,
+      "fact": "The title suite runs 23 minutes with choir and brass. The sleeve is a photograph of a cow."
+    },
+    {
+      "name": "The Endless River",
+      "value": 16,
+      "fact": "Assembled in 2014 from Division Bell sessions as a farewell to Richard Wright."
+    },
+    {
+      "name": "A Saucerful of Secrets",
+      "value": 17,
+      "fact": "The only Pink Floyd album with both Syd Barrett and David Gilmour on it."
+    },
+    {
+      "name": "Ummagumma",
+      "value": 18,
+      "fact": "Half live, half studio, with a quarter of the studio disc handed to each member."
+    },
+    {
+      "name": "Obscured by Clouds",
+      "value": 22,
+      "fact": "A soundtrack for the French film La Vallée, recorded in two short bursts outside Paris."
+    },
+    {
+      "name": "More",
+      "value": 24,
+      "fact": "Their first soundtrack, for Barbet Schroeder's film about heroin on Ibiza."
+    }
+  ]
+}

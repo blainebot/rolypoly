@@ -1,0 +1,107 @@
+{
+  "domain": "Literature",
+  "prompt": "Name a character from Alice's Adventures in Wonderland or Through the Looking-Glass.",
+  "scene": "wonderland",
+  "answers": [
+    {
+      "name": "Alice",
+      "value": 3,
+      "fact": "Named for Alice Liddell, who asked Carroll for a story during a rowing trip in 1862."
+    },
+    {
+      "name": "White Rabbit",
+      "value": 4,
+      "fact": "The first thing Alice sees, checking a pocket watch and fretting about being late."
+    },
+    {
+      "name": "Cheshire Cat",
+      "value": 5,
+      "fact": "Vanishes by degrees until only the grin is left, which Alice calls the most curious thing she ever saw."
+    },
+    {
+      "name": "Mad Hatter",
+      "value": 6,
+      "fact": "Never actually called mad in the book — Carroll writes him simply as the Hatter.",
+      "aliases": [
+        "hatter"
+      ]
+    },
+    {
+      "name": "Queen of Hearts",
+      "value": 7,
+      "fact": "Orders beheadings constantly. Not one of them is ever carried out."
+    },
+    {
+      "name": "Caterpillar",
+      "value": 9,
+      "fact": "Sits on a mushroom smoking a hookah and asks Alice who on earth she is."
+    },
+    {
+      "name": "March Hare",
+      "value": 10,
+      "fact": "Host of the tea party, drawn from the old phrase mad as a March hare."
+    },
+    {
+      "name": "Dormouse",
+      "value": 11,
+      "fact": "Sleeps through the tea party and is eventually stuffed head-first into the teapot."
+    },
+    {
+      "name": "Humpty Dumpty",
+      "value": 12,
+      "fact": "In Looking-Glass he explains Jabberwocky to Alice and insists a word means whatever he chooses."
+    },
+    {
+      "name": "Red Queen",
+      "value": 13,
+      "fact": "From Through the Looking-Glass, not Wonderland — routinely confused with the Queen of Hearts."
+    },
+    {
+      "name": "Tweedledum and Tweedledee",
+      "value": 14,
+      "fact": "Recite The Walrus and the Carpenter, then agree to have a battle.",
+      "aliases": [
+        "tweedledum",
+        "tweedledee"
+      ]
+    },
+    {
+      "name": "White Queen",
+      "value": 15,
+      "fact": "Lives backwards in time and can believe six impossible things before breakfast."
+    },
+    {
+      "name": "Mock Turtle",
+      "value": 16,
+      "fact": "Weeps through his own story. His name comes from mock turtle soup, which is made with veal."
+    },
+    {
+      "name": "White Knight",
+      "value": 18,
+      "fact": "Falls off his horse at every opportunity, and is widely read as Carroll's portrait of himself."
+    },
+    {
+      "name": "Gryphon",
+      "value": 19,
+      "fact": "Escorts Alice to the Mock Turtle and dismisses the Queen's executions as pure fancy."
+    },
+    {
+      "name": "Duchess",
+      "value": 20,
+      "fact": "Nurses a baby that turns into a pig, and finds a heavy-handed moral in absolutely everything."
+    },
+    {
+      "name": "Jabberwock",
+      "value": 22,
+      "fact": "Appears only inside the poem Alice reads in mirror writing, and is slain with a vorpal sword."
+    },
+    {
+      "name": "Bill the Lizard",
+      "value": 26,
+      "fact": "Sent down the chimney of the White Rabbit's house and promptly kicked back out of it.",
+      "aliases": [
+        "bill"
+      ]
+    }
+  ]
+}

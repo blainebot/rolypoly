@@ -1,0 +1,61 @@
+{
+  "domain": "Music",
+  "prompt": "Name someone who played on a Beatles recording but was not a Beatle.",
+  "answers": [
+    {
+      "name": "Billy Preston",
+      "value": 4,
+      "fact": "Keyboards on Get Back — the only outside musician ever credited on a Beatles single label."
+    },
+    {
+      "name": "George Martin",
+      "value": 6,
+      "fact": "Producer, but also the piano solo on In My Life, sped up to sound like a harpsichord."
+    },
+    {
+      "name": "Eric Clapton",
+      "value": 9,
+      "fact": "Played the lead on While My Guitar Gently Weeps, uncredited at the time."
+    },
+    {
+      "name": "Yoko Ono",
+      "value": 12,
+      "fact": "Sang a line on The Continuing Story of Bungalow Bill."
+    },
+    {
+      "name": "Nicky Hopkins",
+      "value": 16,
+      "fact": "Electric piano on Revolution — one of the most-recorded session pianists in rock."
+    },
+    {
+      "name": "Andy White",
+      "value": 20,
+      "fact": "Session drummer on the album version of Love Me Do, with Ringo moved to tambourine."
+    },
+    {
+      "name": "Brian Jones",
+      "value": 21,
+      "fact": "The Rolling Stones guitarist played saxophone on You Know My Name."
+    },
+    {
+      "name": "Mal Evans",
+      "value": 22,
+      "fact": "The band's roadie, swinging the anvil on Maxwell's Silver Hammer."
+    },
+    {
+      "name": "Alan Civil",
+      "value": 24,
+      "fact": "French horn solo on For No One, recorded above the instrument's comfortable range."
+    },
+    {
+      "name": "David Mason",
+      "value": 26,
+      "fact": "Piccolo trumpet on Penny Lane, after McCartney heard him on TV."
+    },
+    {
+      "name": "Anil Bhagwat",
+      "value": 28,
+      "fact": "Tabla on Love You To, the first Beatles track built on Indian classical instrumentation."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "domain": "Food",
+  "prompt": "Name a variety of apple.",
+  "answers": [
+    {
+      "name": "Gala",
+      "value": 3,
+      "fact": "A New Zealand seedling from the 1930s, now the most-grown apple in the US."
+    },
+    {
+      "name": "Red Delicious",
+      "value": 4,
+      "fact": "Bred for looks and shipping durability more than flavour."
+    },
+    {
+      "name": "Granny Smith",
+      "value": 4,
+      "fact": "A chance seedling found in an Australian compost heap in the 1860s."
+    },
+    {
+      "name": "Fuji",
+      "value": 4,
+      "fact": "Developed in Japan, named for the town of Fujisaki rather than the mountain."
+    },
+    {
+      "name": "Honeycrisp",
+      "value": 5,
+      "fact": "Bred in Minnesota for cells that rupture loudly when bitten."
+    },
+    {
+      "name": "Golden Delicious",
+      "value": 6,
+      "fact": "Unrelated to Red Delicious; a parent of both Gala and Jonagold."
+    },
+    {
+      "name": "McIntosh",
+      "value": 7,
+      "fact": "Found in Ontario in 1811. The computer was named after it, spelling changed."
+    },
+    {
+      "name": "Cripps Pink",
+      "value": 9,
+      "fact": "Sold under the Pink Lady trademark, which is a brand rather than a variety name.",
+      "aliases": [
+        "pink lady"
+      ]
+    },
+    {
+      "name": "Braeburn",
+      "value": 9,
+      "fact": "Another New Zealand chance seedling; keeps for months in storage."
+    },
+    {
+      "name": "Jonagold",
+      "value": 11,
+      "fact": "A Jonathan and Golden Delicious cross out of Cornell."
+    },
+    {
+      "name": "Cosmic Crisp",
+      "value": 13,
+      "fact": "Released in 2019 after two decades of breeding at Washington State."
+    },
+    {
+      "name": "Cortland",
+      "value": 15,
+      "fact": "Slow to brown when cut, which made it a salad standard."
+    },
+    {
+      "name": "Macoun",
+      "value": 16,
+      "fact": "A short-season New England favourite that bruises too easily to ship far."
+    },
+    {
+      "name": "Winesap",
+      "value": 18,
+      "fact": "A 19th-century American cider apple."
+    },
+    {
+      "name": "Northern Spy",
+      "value": 20,
+      "fact": "Takes over a decade to bear fruit. Prized for pie."
+    },
+    {
+      "name": "Gravenstein",
+      "value": 22,
+      "fact": "Grown in Sonoma County since the Russian colony at Fort Ross."
+    },
+    {
+      "name": "Arkansas Black",
+      "value": 24,
+      "fact": "Nearly purple-black, and almost inedible until it has sat for two months."
+    },
+    {
+      "name": "Newtown Pippin",
+      "value": 26,
+      "fact": "Franklin sent them to London. America's first commercially exported apple."
+    },
+    {
+      "name": "Esopus Spitzenburg",
+      "value": 30,
+      "fact": "Said to have been Thomas Jefferson's favourite."
+    }
+  ]
+}

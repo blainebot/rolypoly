@@ -1,0 +1,58 @@
+{
+  "domain": "Geography",
+  "prompt": "Name a country that shares a land border with Germany.",
+  "answers": [
+    {
+      "name": "France",
+      "value": 3,
+      "fact": "The Rhine marks much of it; Alsace has changed hands four times since 1870."
+    },
+    {
+      "name": "Poland",
+      "value": 4,
+      "fact": "The Oder–Neisse line, fixed at the end of the Second World War."
+    },
+    {
+      "name": "Austria",
+      "value": 4,
+      "fact": "Germany's longest border with any country."
+    },
+    {
+      "name": "Netherlands",
+      "value": 6,
+      "fact": "Kerkrade and Herzogenrath are one town split down a single street.",
+      "aliases": [
+        "holland"
+      ]
+    },
+    {
+      "name": "Switzerland",
+      "value": 7,
+      "fact": "The German town of Büsingen sits as an enclave entirely inside Swiss territory."
+    },
+    {
+      "name": "Belgium",
+      "value": 8,
+      "fact": "The old Vennbahn railway leaves five scraps of Germany stranded inside Belgium."
+    },
+    {
+      "name": "Czech Republic",
+      "value": 9,
+      "fact": "Runs along the Ore Mountains and the Bohemian Forest.",
+      "aliases": [
+        "czechia",
+        "czech"
+      ]
+    },
+    {
+      "name": "Denmark",
+      "value": 11,
+      "fact": "Germany's only border with a Nordic country, settled by plebiscite in 1920."
+    },
+    {
+      "name": "Luxembourg",
+      "value": 13,
+      "fact": "The shortest of the nine, traced by the Moselle, Sûre and Our rivers."
+    }
+  ]
+}

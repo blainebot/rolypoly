@@ -1,0 +1,56 @@
+{
+  "domain": "Geography",
+  "prompt": "Name a country with territory inside the Arctic Circle.",
+  "scene": "arctic",
+  "answers": [
+    {
+      "name": "Russia",
+      "value": 3,
+      "fact": "Nearly half the land inside the circle is Russian, including Murmansk, the largest city north of the line."
+    },
+    {
+      "name": "Norway",
+      "value": 4,
+      "fact": "Tromsø sits well inside it and supports a university, a brewery and a symphony orchestra."
+    },
+    {
+      "name": "Canada",
+      "value": 5,
+      "fact": "The line crosses Yukon, the Northwest Territories and Nunavut."
+    },
+    {
+      "name": "Sweden",
+      "value": 6,
+      "fact": "Kiruna is being physically moved, building by building, because the iron mine beneath it is swallowing the town."
+    },
+    {
+      "name": "Finland",
+      "value": 7,
+      "fact": "Rovaniemi sits almost exactly on the line and has built an entire tourist economy on that fact."
+    },
+    {
+      "name": "United States",
+      "value": 9,
+      "fact": "Only by way of Alaska. Utqiagvik goes roughly two months without seeing the sun.",
+      "aliases": [
+        "usa",
+        "us",
+        "america",
+        "united states of america"
+      ]
+    },
+    {
+      "name": "Iceland",
+      "value": 14,
+      "fact": "The mainland stops just short of the line — only the island of Grímsey actually crosses it."
+    },
+    {
+      "name": "Denmark",
+      "value": 18,
+      "fact": "Through Greenland, which puts the overwhelming majority of Danish territory inside the circle.",
+      "aliases": [
+        "greenland"
+      ]
+    }
+  ]
+}

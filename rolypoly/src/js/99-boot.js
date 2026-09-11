@@ -1,0 +1,9 @@
+$("gameno").textContent=GAMENO;
+buildWorld();
+moveWorld(0);
+renderBug("pace");
+startPacing();
+buildIntro();
+$("digBtn").onclick=dig;
+$("tuckBtn").onclick=tuck;
+$("answer").addEventListener("keydown",e=>{if(e.key==="Enter")dig()});

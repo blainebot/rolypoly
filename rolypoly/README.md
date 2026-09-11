@@ -1,0 +1,151 @@
+# rolypoly.gg
+
+A daily press-your-luck trivia dig. Five prompts, five unrelated domains. Every
+right answer digs Poly deeper. Dig again to keep going, or tuck and roll to bank
+the round. One wrong answer wakes Rumble and wipes out everything unbanked.
+
+The whole game is one self-contained HTML file with no runtime dependencies.
+
+## Running it
+
+```bash
+npm run check     # validate content, then build
+npm run serve     # build and serve dist/ locally
+```
+
+`npm run build` writes `dist/index.html`. That file is the game — open it
+directly, drag it onto any static host, or email it to someone.
+
+## Hosting
+
+The build output is a single static file, so anything that serves static files
+works. Three routes, in order of how much extra you have to set up:
+
+**GitHub Pages — nothing extra.** `.github/workflows/pages.yml` already builds and
+publishes on every push to main. Turn it on once under Settings → Pages → Source →
+"GitHub Actions". The catch: on a free personal account Pages only serves from a
+**public** repository. Private repos need GitHub Pro. The URL is
+`https://<you>.github.io/rolypoly/` — the built file has no relative paths, so
+serving from a subfolder is fine.
+
+**Vercel — one signup, zero configuration, works with a private repo.**
+`vercel.json` already sets the build command and output directory, so importing the
+repo is the whole job. Note the free Hobby plan is for non-commercial use; if the
+game ever earns money it needs a paid plan.
+
+**Cloudflare Pages — one signup, works with a private repo.** It does not read any
+config file, so enter these by hand:
+
+| Setting          | Value                                                 |
+|------------------|-------------------------------------------------------|
+| Build command    | `node scripts/validate.mjs && node scripts/build.mjs` |
+| Output directory | `dist`                                                |
+| Framework preset | None                                                  |
+
+**Netlify — one signup, zero configuration.** `netlify.toml` already specifies the
+build command and publish folder, so importing the repo is the whole job.
+
+All four give branch previews and rebuild on push. Pick on whether the repo needs
+to stay private.
+
+## Layout
+
+```
+src/
+  template.html      page shell
+  css/styles.css     all styling
+  js/                engine, concatenated in filename order
+content/
+  config.json        which game is live
+  games/001/*.json   one folder per game, five rounds each
+  games/002/*.json
+scripts/
+  build.mjs          inlines everything into dist/index.html
+  validate.mjs       checks content before it can ship
+```
+
+The `src/js/` files are numbered because they are concatenated, not imported.
+They share one scope, exactly as the original single file did. Keep the numbers
+spaced so you can insert a module without renaming everything.
+
+`00-tiers.js` contains the marker `/*__ROUNDS__*/`, which the build replaces
+with the compiled content. Don't remove it.
+
+## Writing content
+
+See `content/TEMPLATE.md`. Add a game by creating `content/games/<num>/`
+with five round files, then pointing `activeGame` in `content/config.json` at it.
+Every game is bundled into the build; only the active one is played. Run `npm run validate` before committing — it
+catches missing facts, colliding aliases, out-of-range values, and rounds with
+no cheap opening answer.
+
+## Tier rules
+
+A value is in centimetres and decides both the score and the colour of Poly's
+shell when she finds it. Assign by how many people could produce the answer, not
+by how much you personally like it.
+
+| Tier        | Value | The kind of answer it is                                   |
+|-------------|-------|------------------------------------------------------------|
+| Leaf litter | 1–7   | Most people who know the topic at all name this first       |
+| Topsoil     | 8–14  | Comes up if you think for a moment                          |
+| Root line   | 15–24 | You need to actually know the subject                       |
+| Bedrock     | 25+   | A genuine deep cut; most players will never reach it        |
+
+Two rules that matter more than the exact numbers:
+
+1. **Every round needs at least one answer under 8.** Without a cheap opening
+   move there is no safe first dig, and the round becomes a coin flip.
+2. **Spread the values.** If everything is worth 10, digging again is a free
+   decision and the game stops being about restraint. The validator warns when
+   a round's range is under 8.
+
+Anchor values to something measurable rather than instinct — Wikipedia pageviews
+bucketed into the four bands works well — then hand-adjust the outliers. The
+values currently in the repo were assigned by feel and should be re-derived once
+there is a rule.
+
+## Rumble's costumes
+
+Each round can name a `scene` in its JSON; without one it falls back to the domain
+name. Scene art lives in `SCENE` in `src/js/40-sprites.js` and fills up to four
+slots: `hat`, `prop`, `eyes` and `float`. Everything on his body goes inside the
+scaled figure group; anything drifting around him goes in `float`.
+
+A scene can also set `bg` to recolour the whole Rumble panel. Without one it
+falls back to red (`--bust`, #B93A2B), which is the trap: red, maroon and mid
+navy props vanish against it. Either pick a `bg` that suits the scene, or keep
+props above roughly 1.8:1 contrast with the red. Whatever you choose, the panel
+text and the "Shake it off" button are cream, so the background has to stay dark
+enough to read them.
+
+Two traps, both of which caught us: a red prop on the red default panel is
+invisible, and a near-black prop is invisible on any dark background. Rumble's
+own fur is #B0824F, so a scene that also has black props needs a mid-tone
+background — roughly 0.06 to 0.13 relative luminance — to keep both readable.
+When a prop can't avoid a clash, put a cream plate behind it, as the German flag
+does.
+
+Use `.sc-<scene> .figure` to scale or shift him when a prop needs the room.
+
+## Answer matching
+
+Players' answers are matched in this order, and none of these cost them a round:
+
+1. Exact match against the canonical name or an alias.
+2. Partial match — a surname, or any distinctive word of four or more letters.
+   Ambiguous partials ask the player to be more specific.
+3. Fuzzy match by edit distance, tolerance scaled to word length. Offered as
+   "Did you mean X?" rather than accepted silently, so a lucky typo never scores
+   an answer the player didn't know.
+
+Only an answer that fails all three wakes Rumble.
+
+## Known gaps
+
+- No daily rotation or persistence yet. `config.json` picks the game by hand.
+  All games are already bundled, so rotation is a date lookup away.
+- Off-list answers are always wrong. A real version needs either exhaustive
+  hand-authored lists or a model judging submissions at play time.
+- No sound.
+- Content is five sample rounds, not a bank.

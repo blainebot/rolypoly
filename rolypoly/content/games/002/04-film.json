@@ -1,0 +1,182 @@
+{
+  "domain": "Film",
+  "prompt": "Name a feature film directed by Steven Spielberg.",
+  "answers": [
+    {
+      "name": "Jaws",
+      "value": 3,
+      "fact": "Shot on open water against everyone's advice; the shark broke down so often it barely appears."
+    },
+    {
+      "name": "E.T. the Extra-Terrestrial",
+      "value": 4,
+      "fact": "The crew shot largely in sequence so the child actors' goodbyes would be real.",
+      "aliases": [
+        "et",
+        "e t"
+      ]
+    },
+    {
+      "name": "Jurassic Park",
+      "value": 4,
+      "fact": "Spielberg cut it remotely from Poland while beginning Schindler's List."
+    },
+    {
+      "name": "Schindler's List",
+      "value": 5,
+      "fact": "He refused a salary, calling it blood money."
+    },
+    {
+      "name": "Raiders of the Lost Ark",
+      "value": 6,
+      "fact": "Conceived with George Lucas on a beach in Hawaii while waiting on Star Wars reviews.",
+      "aliases": [
+        "raiders"
+      ]
+    },
+    {
+      "name": "Saving Private Ryan",
+      "value": 7,
+      "fact": "The Omaha Beach landing runs about 24 minutes and was shot in Ireland."
+    },
+    {
+      "name": "Close Encounters of the Third Kind",
+      "value": 8,
+      "fact": "The five-note phrase was chosen from hundreds John Williams wrote as candidates.",
+      "aliases": [
+        "close encounters"
+      ]
+    },
+    {
+      "name": "Indiana Jones and the Last Crusade",
+      "value": 9,
+      "fact": "Sean Connery was cast as the father despite being only twelve years older than Harrison Ford.",
+      "aliases": [
+        "last crusade"
+      ]
+    },
+    {
+      "name": "Indiana Jones and the Temple of Doom",
+      "value": 10,
+      "fact": "So grim on release that it helped push the American ratings board to invent PG-13.",
+      "aliases": [
+        "temple of doom"
+      ]
+    },
+    {
+      "name": "Catch Me If You Can",
+      "value": 11,
+      "fact": "Based on Frank Abagnale's account of himself, much of which has since been questioned."
+    },
+    {
+      "name": "Minority Report",
+      "value": 11,
+      "fact": "The gesture interface was designed by consultants who later built real versions of it."
+    },
+    {
+      "name": "Lincoln",
+      "value": 12,
+      "fact": "Daniel Day-Lewis based the voice on descriptions of it as reedy and high, not sonorous."
+    },
+    {
+      "name": "War of the Worlds",
+      "value": 12,
+      "fact": "Made quickly after Wells' novel had sat with Spielberg since childhood."
+    },
+    {
+      "name": "Hook",
+      "value": 13,
+      "fact": "Spielberg has repeatedly said he dislikes it."
+    },
+    {
+      "name": "The Lost World: Jurassic Park",
+      "value": 13,
+      "fact": "His only sequel to his own film until Crystal Skull.",
+      "aliases": [
+        "lost world"
+      ]
+    },
+    {
+      "name": "West Side Story",
+      "value": 13,
+      "fact": "His first musical, made at 74, with no subtitles on the Spanish dialogue by design."
+    },
+    {
+      "name": "The Fabelmans",
+      "value": 14,
+      "fact": "A version of his own childhood and his parents' divorce."
+    },
+    {
+      "name": "Munich",
+      "value": 14,
+      "fact": "Written by Tony Kushner, who went on to write Lincoln and West Side Story for him."
+    },
+    {
+      "name": "The Color Purple",
+      "value": 15,
+      "fact": "Whoopi Goldberg's first film role; it took eleven nominations and won nothing."
+    },
+    {
+      "name": "The Terminal",
+      "value": 15,
+      "fact": "Loosely inspired by Mehran Karimi Nasseri, who lived for years in Charles de Gaulle airport."
+    },
+    {
+      "name": "A.I. Artificial Intelligence",
+      "value": 16,
+      "fact": "Inherited from Stanley Kubrick, who had developed it for years before his death.",
+      "aliases": [
+        "ai",
+        "a i"
+      ]
+    },
+    {
+      "name": "Bridge of Spies",
+      "value": 16,
+      "fact": "The Coen brothers rewrote the script."
+    },
+    {
+      "name": "Empire of the Sun",
+      "value": 17,
+      "fact": "Christian Bale's first film, at thirteen, from J.G. Ballard's account of his own internment."
+    },
+    {
+      "name": "War Horse",
+      "value": 17,
+      "fact": "Adapted from the stage play, and shot on Dartmoor."
+    },
+    {
+      "name": "The Post",
+      "value": 18,
+      "fact": "Written, shot and released inside nine months."
+    },
+    {
+      "name": "Amistad",
+      "value": 19,
+      "fact": "Anthony Hopkins delivered a seven-page courtroom speech in a single take."
+    },
+    {
+      "name": "The Adventures of Tintin",
+      "value": 21,
+      "fact": "His only animated feature, made with performance capture alongside Peter Jackson.",
+      "aliases": [
+        "tintin"
+      ]
+    },
+    {
+      "name": "1941",
+      "value": 22,
+      "fact": "His first flop, and the reason he says he learned to control a budget."
+    },
+    {
+      "name": "Always",
+      "value": 24,
+      "fact": "A remake of the 1943 film A Guy Named Joe, and Audrey Hepburn's last screen role."
+    },
+    {
+      "name": "Duel",
+      "value": 25,
+      "fact": "Made for television in 1971 and released to cinemas overseas. The truck driver is never shown."
+    }
+  ]
+}

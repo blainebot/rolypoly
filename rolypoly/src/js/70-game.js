@@ -1,0 +1,190 @@
+function say(t,cls){$("msg").textContent=t;$("msg").className="msg "+(cls||"")}
+function renderFacts(){
+  $("facts").innerHTML=found.length
+    ? `<div class="chips">`+found.map((x,i)=>
+        `<span class="chip${i===found.length-1?" fresh":""}">${x.n}<i>+${x.v}</i></span>`).join("")+`</div>`
+    : "";
+}
+function revealFacts(){
+  if(!found.length){$("facts").innerHTML="";return}
+  $("facts").innerHTML=`<div class="dugup">What you dug up</div>`+
+    found.map(x=>`<div class="fact"><b>${x.n}</b><i>+${x.v}</i><p>${x.f}</p></div>`).join("");
+}
+
+function loadRound(){
+  const r=ROUNDS[idx];
+  roundDepth=0;found=[];chamberHit=false;$("chamberBox").innerHTML="";
+  $("domain").textContent=r.domain.toLowerCase();
+  $("prompt").textContent=r.prompt;
+  $("facts").innerHTML="";
+  $("missedBox").innerHTML="";
+  $("confirmBox").innerHTML="";
+  $("answer").value="";$("answer").disabled=false;
+  $("entry").hidden=false;$("deadend").hidden=true;
+  $("digBtn").hidden=false;$("digBtn").disabled=false;$("digBtn").textContent="Dig";
+  $("tuckBtn").disabled=true;$("tuckBtn").textContent="Tuck and roll";
+  $("tuckBtn").onclick=tuck;
+  $("den").classList.remove("gone","tremble");$("den").innerHTML=SLEEPER(false);
+  $("gainNum").textContent="0";$("gainPlus").textContent="";
+  setShell("sand");
+  rollIn(idx===0);
+  updateHud();
+  say("");
+  softFocus();
+}
+
+function reveal(hit,then){
+  const t=tierFor(hit.v);
+  const from=roundDepth-hit.v, x=paceX;
+  setShell(t.v);
+  stopPacing();
+  renderBug("dig");
+  newDrop(x,from,roundDepth);
+  $("controls").hidden=true;
+  $("reveal").hidden=false;
+  $("revName").textContent=hit.n;
+  $("revTier").textContent=t.name;
+  $("revTier").className="stamp t-"+t.v;
+  moveWorld(roundDepth);
+  if(calm()){newCorridor(roundDepth,x);startPacing();
+    $("revCm").textContent="+"+hit.v;
+    setTimeout(()=>{$("reveal").hidden=true;$("controls").hidden=false;then()},400);
+    return;
+  }
+  let n=0;const step=Math.max(1,Math.ceil(hit.v/20));
+  $("revCm").textContent="+0";
+  const iv=setInterval(()=>{n=Math.min(hit.v,n+step);$("revCm").textContent="+"+n;
+    if(n>=hit.v)clearInterval(iv)},52);
+  setTimeout(()=>{
+    newCorridor(roundDepth,x);
+    if(!chamberHit&&roundDepth>=CHAMBER_AT){
+      chamberHit=true;
+      placeRelic(x);
+      $("chamberBox").innerHTML=`<div class="chamber">
+        <span class="ct">The hidden chamber</span>
+        <p>Poly broke through past ${CHAMBER_AT}. ${RELICS[RELIC_PICK].n} is down here in the dark.</p></div>`;
+    }
+    startPacing();
+  },1050);
+  setTimeout(()=>{$("reveal").hidden=true;$("controls").hidden=false;then()},1900);
+}
+
+function accept(hit){
+  found.push(hit);
+  roundDepth+=hit.v;
+  $("gainNum").textContent=roundDepth;
+  $("gainPlus").textContent="+"+hit.v;
+  const g=$("gain"), pl=$("gainPlus");
+  g.classList.remove("pop");void g.offsetWidth;g.classList.add("pop");
+  pl.classList.remove("fly");void pl.offsetWidth;pl.classList.add("fly");
+  if(hit.v>deepest){deepest=hit.v;deepestName=hit.n}
+  $("answer").value="";
+  updateHud();
+  reveal(hit,()=>{
+    renderFacts();
+    if(found.length===avail().length){
+      roundDepth+=10;updateHud();
+      say("You cleared the whole list. +10.","good");
+      rollOut(()=>endRound("bank"));
+      return;
+    }
+    $("tuckBtn").disabled=false;
+    $("tuckBtn").textContent=`Tuck and roll +${roundDepth}`;
+    $("digBtn").textContent="Dig again";
+    say(`${roundDepth} at risk.`,"good");
+    keepFocus();
+  });
+}
+
+function askConfirm(raw,hit){
+  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  $("confirmBox").innerHTML=`<div class="confirm"><p>Did you mean <b>${hit.n}</b>?</p>
+    <div class="acts"><button class="dig" id="yesBtn">Yes, dig it</button>
+    <button id="noBtn">No, let me retype</button></div></div>`;
+  say(`"${raw}" isn't quite on the list — nothing lost yet.`,"");
+  $("yesBtn").focus();
+  $("yesBtn").onclick=()=>{
+    $("confirmBox").innerHTML="";
+    $("digBtn").disabled=false;$("answer").disabled=false;
+    if(found.includes(hit)){say("You already dug that one.","");$("answer").select();return}
+    hadFocus=true;accept(hit);
+  };
+  $("noBtn").onclick=()=>{
+    $("confirmBox").innerHTML="";
+    $("digBtn").disabled=false;$("answer").disabled=false;
+    $("tuckBtn").disabled=found.length===0;
+    say("");$("answer").select();
+  };
+}
+
+function dig(){
+  hadFocus=(document.activeElement===$("answer"));
+  const raw=$("answer").value.trim();
+  if(!raw){say("Type an answer first.","bad");$("answer").focus();return}
+  const key=norm(raw), pool=avail();
+  const hit=pool.find(a=>norm(a.n)===key||(a.alias||[]).some(al=>norm(al)===key));
+  if(hit){
+    if(found.includes(hit)){say("Already dug that one.","");$("answer").select();return}
+    accept(hit);return;
+  }
+  const partial=partialMatches(key,pool);
+  if(partial.length===1){askConfirm(raw,partial[0]);return}
+  if(partial.length>1){
+    const undug=partial.filter(a=>!found.includes(a));
+    if(undug.length===1){askConfirm(raw,undug[0]);return}
+    say(`More than one answer matches "${raw}". Be more specific — nothing lost.`,"");
+    $("answer").select();return;
+  }
+  const near=nearMiss(key,pool);
+  if(near){askConfirm(raw,near);return}
+  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  $("entry").hidden=true;$("digBtn").hidden=true;
+  $("deadend").hidden=false;
+  $("deadend").innerHTML=`<b>${raw}</b> …`;
+  say("");
+  wakeRumble();
+  setTimeout(()=>{
+    $("deadend").innerHTML=`<b>${raw}</b> isn't on the list.`;
+    endRound("bust");
+  },1150);
+}
+
+function tuck(){
+  if(!found.length){say("Dig at least once before you roll.","bad");return}
+  say(`Banked ${roundDepth}.`,"good");
+  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  rollOut(()=>endRound("bank"));
+}
+
+function endRound(kind){
+  $("answer").disabled=true;$("digBtn").disabled=true;$("tuckBtn").disabled=true;
+  $("entry").hidden=true;$("digBtn").hidden=true;
+  stopPacing();
+  const gained=kind==="bank"?roundDepth:0;
+  const left=avail().filter(a=>!found.includes(a)).reduce((n,a)=>n+a.v,0);
+  const top=found.reduce((m,a)=>Math.max(m,a.v),0);
+  banked+=gained;
+  results.push({domain:ROUNDS[idx].domain,digs:found.length,cm:gained,bust:kind==="bust",left,top,chamber:chamberHit});
+  if(kind==="bust"){$("gainNum").textContent="0";rumble(roundDepth)}
+  else{updateHud()}
+  revealFacts();
+  showMissed();
+  $("tuckBtn").disabled=false;
+  $("tuckBtn").textContent=idx===ROUNDS.length-1?"See your day":"Next round";
+  $("tuckBtn").onclick=()=>{
+    idx++;
+    if(idx>=ROUNDS.length)showResults();
+    else loadRound();
+  };
+}
+
+function showMissed(){
+  const rest=avail().filter(a=>!found.includes(a)).sort((x,y)=>y.v-x.v);
+  if(!rest.length)return;
+  const open=isMobile()?"":" open";
+  $("missedBox").innerHTML=`<details class="missed"${open}>
+    <summary>Still down there — ${rest.length} you didn't reach</summary><div class="grid">`+
+    rest.map(a=>`<p>${a.n}<span class="cm">${a.v}</span></p>`).join("")+`</div></details>`;
+}
+
+/* ---------- rumble ---------- */

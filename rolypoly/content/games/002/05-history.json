@@ -1,0 +1,150 @@
+{
+  "domain": "History",
+  "prompt": "Name someone who signed the United States Declaration of Independence.",
+  "scene": "revolution",
+  "answers": [
+    {
+      "name": "John Hancock",
+      "value": 3,
+      "fact": "President of the Congress and the first to sign, in a hand nearly five inches wide."
+    },
+    {
+      "name": "Thomas Jefferson",
+      "value": 4,
+      "fact": "Drafted it in about seventeen days, then sat through Congress cutting roughly a quarter of it."
+    },
+    {
+      "name": "Benjamin Franklin",
+      "value": 5,
+      "fact": "At seventy, the oldest of the fifty-six."
+    },
+    {
+      "name": "John Adams",
+      "value": 6,
+      "fact": "Sat on the committee of five and argued the case for independence on the floor."
+    },
+    {
+      "name": "Samuel Adams",
+      "value": 8,
+      "fact": "A Boston organiser of the resistance, and John's second cousin."
+    },
+    {
+      "name": "Roger Sherman",
+      "value": 12,
+      "fact": "The only person to sign the Continental Association, the Declaration, the Articles of Confederation and the Constitution."
+    },
+    {
+      "name": "Richard Henry Lee",
+      "value": 14,
+      "fact": "Introduced the resolution for independence that the Declaration was written to justify."
+    },
+    {
+      "name": "Benjamin Rush",
+      "value": 14,
+      "fact": "A Philadelphia physician who later coaxed the estranged Adams and Jefferson back into writing to each other."
+    },
+    {
+      "name": "Robert Morris",
+      "value": 15,
+      "fact": "Financed much of the war and died bankrupt."
+    },
+    {
+      "name": "Elbridge Gerry",
+      "value": 16,
+      "fact": "Later a vice president, and the source of the word gerrymander."
+    },
+    {
+      "name": "Charles Carroll",
+      "value": 17,
+      "fact": "The only Catholic signer, and the last of the fifty-six to die, in 1832.",
+      "aliases": [
+        "charles carroll of carrollton"
+      ]
+    },
+    {
+      "name": "Edward Rutledge",
+      "value": 17,
+      "fact": "At twenty-six, the youngest signer."
+    },
+    {
+      "name": "Caesar Rodney",
+      "value": 18,
+      "fact": "Rode overnight from Delaware through a thunderstorm to break his delegation's tie."
+    },
+    {
+      "name": "James Wilson",
+      "value": 18,
+      "fact": "Later helped frame the Constitution and sat on the first Supreme Court."
+    },
+    {
+      "name": "John Witherspoon",
+      "value": 19,
+      "fact": "The only active clergyman to sign, and president of what became Princeton."
+    },
+    {
+      "name": "George Wythe",
+      "value": 19,
+      "fact": "Jefferson's law teacher at William and Mary."
+    },
+    {
+      "name": "Button Gwinnett",
+      "value": 20,
+      "fact": "Killed in a duel within the year, which is why his signature is among the rarest in American collecting."
+    },
+    {
+      "name": "Thomas McKean",
+      "value": 20,
+      "fact": "Signed well after July 1776, and later led both Delaware and Pennsylvania."
+    },
+    {
+      "name": "Stephen Hopkins",
+      "value": 21,
+      "fact": "Had palsy, and is said to have remarked that his hand trembled but his heart did not."
+    },
+    {
+      "name": "George Read",
+      "value": 21,
+      "fact": "The only signer who had voted against independence."
+    },
+    {
+      "name": "Josiah Bartlett",
+      "value": 22,
+      "fact": "A New Hampshire physician, among the first to vote for independence."
+    },
+    {
+      "name": "Philip Livingston",
+      "value": 22,
+      "fact": "A New York merchant who helped found what became Columbia."
+    },
+    {
+      "name": "Francis Hopkinson",
+      "value": 23,
+      "fact": "A New Jersey lawyer who also designed flags and composed songs."
+    },
+    {
+      "name": "Lyman Hall",
+      "value": 24,
+      "fact": "A Connecticut-born physician who sat for Georgia."
+    },
+    {
+      "name": "Oliver Wolcott",
+      "value": 24,
+      "fact": "Helped melt a toppled statue of George III into musket balls."
+    },
+    {
+      "name": "Carter Braxton",
+      "value": 25,
+      "fact": "A Virginia planter who lost most of his fortune to the war."
+    },
+    {
+      "name": "William Ellery",
+      "value": 26,
+      "fact": "Said he watched each man's face as he signed, looking for fear."
+    },
+    {
+      "name": "Abraham Clark",
+      "value": 27,
+      "fact": "A New Jersey surveyor whose two sons were captured and held on a British prison ship."
+    }
+  ]
+}

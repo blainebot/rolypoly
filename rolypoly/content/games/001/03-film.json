@@ -1,0 +1,64 @@
+{
+  "domain": "Film",
+  "prompt": "Name a film released from 1970 through 1979 that won Best Picture.",
+  "answers": [
+    {
+      "name": "The Godfather",
+      "value": 3,
+      "fact": "1972. Brando refused the Best Actor award the same night."
+    },
+    {
+      "name": "Rocky",
+      "value": 4,
+      "fact": "1976. Shot in 28 days for around a million dollars."
+    },
+    {
+      "name": "The Godfather Part II",
+      "value": 5,
+      "fact": "1974. The first sequel ever to win Best Picture.",
+      "aliases": [
+        "godfather 2",
+        "godfather part 2",
+        "godfather ii"
+      ]
+    },
+    {
+      "name": "One Flew Over the Cuckoo's Nest",
+      "value": 6,
+      "fact": "1975. Only the second film to sweep all five top categories.",
+      "aliases": [
+        "cuckoos nest"
+      ]
+    },
+    {
+      "name": "Annie Hall",
+      "value": 8,
+      "fact": "1977. Beat Star Wars, which many expected to win."
+    },
+    {
+      "name": "The Sting",
+      "value": 10,
+      "fact": "1973. Its ragtime score put Scott Joplin back on the charts decades after his death."
+    },
+    {
+      "name": "The Deer Hunter",
+      "value": 11,
+      "fact": "1978. Shot largely in Ohio standing in for Pennsylvania steel country."
+    },
+    {
+      "name": "Patton",
+      "value": 12,
+      "fact": "1970. George C. Scott declined his Best Actor Oscar and went to bed."
+    },
+    {
+      "name": "The French Connection",
+      "value": 13,
+      "fact": "1971. The chase under the elevated train was filmed with no permits."
+    },
+    {
+      "name": "Kramer vs. Kramer",
+      "value": 14,
+      "fact": "1979. Beat Apocalypse Now."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>rolypoly · the daily dig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/*__STYLES__*/
+</style>
+</head>
+<body>
+<div class="world" aria-hidden="true">
+  <div class="strata" id="strata"></div>
+</div>
+<div class="digger" id="digger" aria-hidden="true"><div id="rig"></div></div>
+<div class="crack" id="crack" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+
+<div class="hud intro" id="hud">
+  <div class="mark">rolypoly<span>.gg</span></div>
+  <div class="gameno" id="gameno">001</div>
+  <div class="cell"><span>banked</span><b id="hudBanked">0</b></div>
+  <div class="pips" id="pips"></div>
+  <div class="cell right risk-0" id="riskCell"><span>at risk</span><b id="hudRisk">0</b></div>
+</div>
+
+<div class="panel" id="intro">
+  <div class="cast" id="cast"></div>
+  <h1 class="title">rolypoly</h1>
+  <p class="tagline">the daily dig</p>
+  <div class="den intro" id="denIntro"></div>
+  <p class="how">Five prompts. Dig for answers. Tuck and roll before a wrong answer wakes Rumble, and wipes out the round.</p>
+  <div class="chooser" id="chooser"></div>
+</div>
+
+<div class="panel" id="play" hidden>
+  <div class="label" id="domain">music</div>
+  <h1 class="prompt" id="prompt">…</h1>
+  <div class="denrow">
+    <div class="den field" id="den" aria-hidden="true"></div>
+    <div class="gain" id="gain">
+      <span class="plus" id="gainPlus"></span>
+      <b id="gainNum">0</b>
+      <span class="lbl">this round</span>
+    </div>
+  </div>
+  <div class="facts" id="facts"></div>
+
+  <div id="chamberBox"></div>
+  <div id="missedBox"></div>
+
+  <div id="controls">
+    <div id="entry">
+      <label for="answer" style="position:absolute;left:-9999px">Your answer</label>
+      <input type="text" id="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type an answer">
+    </div>
+    <div class="deadend" id="deadend" hidden></div>
+    <div class="acts">
+      <button class="dig" id="digBtn">Dig</button>
+      <button class="tuck" id="tuckBtn" disabled>Tuck and roll</button>
+    </div>
+  </div>
+
+  <div class="reveal" id="reveal" hidden>
+    <div class="nm" id="revName"></div>
+    <span class="stamp" id="revTier"></span>
+    <span class="cm" id="revCm"></span>
+  </div>
+
+  <div id="confirmBox"></div>
+  <p class="msg" id="msg" role="status" aria-live="polite"></p>
+</div>
+
+<div class="panel" id="results" hidden></div>
+<div id="rumbleBox"></div>
+
+<script>
+/*__SCRIPT__*/
+</script>
+</body>
+</html>
