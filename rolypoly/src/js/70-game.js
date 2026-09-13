@@ -22,8 +22,8 @@ function loadRound(){
   $("answer").value="";$("answer").disabled=false;
   $("entry").hidden=false;$("deadend").hidden=true;
   $("digBtn").hidden=false;$("digBtn").disabled=false;$("digBtn").textContent="Dig";
-  $("tuckBtn").disabled=true;$("tuckBtn").textContent="Tuck and roll";
-  $("tuckBtn").onclick=tuck;
+  $("bankBtn").disabled=true;$("bankBtn").textContent="Bank and roll";
+  $("bankBtn").onclick=bank;
   $("den").classList.remove("gone","tremble");$("den").innerHTML=SLEEPER(false);
   $("gainNum").textContent="0";$("gainPlus").textContent="";
   setShell("sand");
@@ -82,26 +82,27 @@ function accept(hit){
   updateHud();
   reveal(hit,()=>{
     renderFacts();
+    const found_=`${hit.n} — ${tierFor(hit.v).name}, +${hit.v}.`;
     if(found.length===avail().length){
       roundDepth+=10;updateHud();
-      say("You cleared the whole list. +10.","good");
+      say(`${found_} You cleared the whole list. +10.`,"good");
       rollOut(()=>endRound("bank"));
       return;
     }
-    $("tuckBtn").disabled=false;
-    $("tuckBtn").textContent=`Tuck and roll +${roundDepth}`;
+    $("bankBtn").disabled=false;
+    $("bankBtn").textContent=`Bank and roll +${roundDepth}`;
     $("digBtn").textContent="Dig again";
-    say(`${roundDepth} at risk.`,"good");
+    say(`${found_} ${roundDepth} at risk.`,"good");
     keepFocus();
   });
 }
 
 function askConfirm(raw,hit){
-  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   $("confirmBox").innerHTML=`<div class="confirm"><p>Did you mean <b>${hit.n}</b>?</p>
     <div class="acts"><button class="dig" id="yesBtn">Yes, dig it</button>
     <button id="noBtn">No, let me retype</button></div></div>`;
-  say(`"${raw}" isn't quite on the list — nothing lost yet.`,"");
+  say(`"${raw}" isn't quite on the list — did you mean ${hit.n}? Nothing lost yet.`,"");
   $("yesBtn").focus();
   $("yesBtn").onclick=()=>{
     $("confirmBox").innerHTML="";
@@ -112,7 +113,7 @@ function askConfirm(raw,hit){
   $("noBtn").onclick=()=>{
     $("confirmBox").innerHTML="";
     $("digBtn").disabled=false;$("answer").disabled=false;
-    $("tuckBtn").disabled=found.length===0;
+    $("bankBtn").disabled=found.length===0;
     say("");$("answer").select();
   };
 }
@@ -137,11 +138,11 @@ function dig(){
   }
   const near=nearMiss(key,pool);
   if(near){askConfirm(raw,near);return}
-  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   $("deadend").hidden=false;
   $("deadend").innerHTML=`<b>${raw}</b> …`;
-  say("");
+  say(`"${raw}" isn't on the list. Rumble wakes up.`,"bad");
   wakeRumble();
   setTimeout(()=>{
     $("deadend").innerHTML=`<b>${raw}</b> isn't on the list.`;
@@ -149,15 +150,15 @@ function dig(){
   },1150);
 }
 
-function tuck(){
+function bank(){
   if(!found.length){say("Dig at least once before you roll.","bad");return}
   say(`Banked ${roundDepth}.`,"good");
-  $("digBtn").disabled=true;$("tuckBtn").disabled=true;$("answer").disabled=true;
+  $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   rollOut(()=>endRound("bank"));
 }
 
 function endRound(kind){
-  $("answer").disabled=true;$("digBtn").disabled=true;$("tuckBtn").disabled=true;
+  $("answer").disabled=true;$("digBtn").disabled=true;$("bankBtn").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   stopPacing();
   const gained=kind==="bank"?roundDepth:0;
@@ -169,9 +170,9 @@ function endRound(kind){
   else{updateHud()}
   revealFacts();
   showMissed();
-  $("tuckBtn").disabled=false;
-  $("tuckBtn").textContent=idx===ROUNDS.length-1?"See your day":"Next round";
-  $("tuckBtn").onclick=()=>{
+  $("bankBtn").disabled=false;
+  $("bankBtn").textContent=idx===ROUNDS.length-1?"See your day":"Next round";
+  $("bankBtn").onclick=()=>{
     idx++;
     if(idx>=ROUNDS.length)showResults();
     else loadRound();

@@ -13,18 +13,21 @@ function dist(a,b){
 }
 const tolerance=l=>l<=3?1:l<=6?2:l<=12?3:4;
 function partialMatches(key,pool){
-  if(key.length<3)return[];
+  if(key.length<4)return[];
   return pool.filter(a=>[a.n,...(a.alias||[])].some(c0=>{
     const c=norm(c0);
     if(c===key)return true;
-    if(c.split(" ").filter(t=>t.length>=3).includes(key))return true;
+    if(c.split(" ").filter(t=>t.length>=4).includes(key))return true;
     return c.length>key.length&&c.startsWith(key)&&key.length>=4;
   }));
 }
 function nearMiss(key,pool){
+  if(key.length<4)return null;
   let best=null,bd=Infinity;
   for(const a of pool)for(const cand of [a.n,...(a.alias||[])]){
-    const c=norm(cand),d=dist(key,c);
+    const c=norm(cand);
+    if(c.length<4)continue;
+    const d=dist(key,c);
     if(d<=tolerance(Math.max(key.length,c.length))&&d<bd){best=a;bd=d}
   }
   return best;

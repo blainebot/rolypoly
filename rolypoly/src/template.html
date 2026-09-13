@@ -23,7 +23,7 @@
   <div class="mark">rolypoly<span>.gg</span></div>
   <div class="gameno" id="gameno">001</div>
   <div class="cell"><span>banked</span><b id="hudBanked">0</b></div>
-  <div class="pips" id="pips"></div>
+  <div class="pips" id="pips" aria-label="Round progress"></div>
   <div class="cell right risk-0" id="riskCell"><span>at risk</span><b id="hudRisk">0</b></div>
 </div>
 
@@ -32,7 +32,7 @@
   <h1 class="title">rolypoly</h1>
   <p class="tagline">the daily dig</p>
   <div class="den intro" id="denIntro"></div>
-  <p class="how">Five prompts. Dig for answers. Tuck and roll before a wrong answer wakes Rumble, and wipes out the round.</p>
+  <p class="how">Five prompts. Dig for answers. Bank and roll before a wrong answer wakes Rumble, and wipes out the round.</p>
   <div class="chooser" id="chooser"></div>
 </div>
 
@@ -55,12 +55,12 @@
   <div id="controls">
     <div id="entry">
       <label for="answer" style="position:absolute;left:-9999px">Your answer</label>
-      <input type="text" id="answer" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type an answer">
+      <input type="text" id="answer" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Type an answer">
     </div>
     <div class="deadend" id="deadend" hidden></div>
     <div class="acts">
       <button class="dig" id="digBtn">Dig</button>
-      <button class="tuck" id="tuckBtn" disabled>Tuck and roll</button>
+      <button class="bank" id="bankBtn" disabled>Bank and roll</button>
     </div>
   </div>
 

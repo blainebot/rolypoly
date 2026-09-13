@@ -75,11 +75,22 @@ const SCENE={
 <rect class="flagY" x="89" y="26" width="32" height="7"/></g>`},
  Film:{
   bg:"#55514C",
-  prop:`<rect class="clap" x="84" y="60" width="46" height="17"/>
-<rect class="clapx" x="88" y="66" width="8" height="5"/><rect class="clapx" x="102" y="66" width="8" height="5"/>
-<g class="claptop"><rect class="clap" x="84" y="50" width="46" height="9"/>
-<rect class="clapx" x="88" y="51" width="7" height="7"/><rect class="clapx" x="100" y="51" width="7" height="7"/>
-<rect class="clapx" x="112" y="51" width="7" height="7"/></g>`},
+  prop:(()=>{
+    const bx=84,by=50,bw=46,bh=9,n=7,slant=5,unit=(bw+slant)/n;
+    let stripes="";
+    for(let i=0;i<n;i++){
+      const cls=i%2?"clapx":"clap";
+      const xT=bx-slant+i*unit,xTend=xT+unit,xB=xT+slant,xBend=xTend+slant;
+      const cxT=Math.max(bx,Math.min(bx+bw,xT)),cxTend=Math.max(bx,Math.min(bx+bw,xTend));
+      const cxB=Math.max(bx,Math.min(bx+bw,xB)),cxBend=Math.max(bx,Math.min(bx+bw,xBend));
+      if(cxTend>cxT||cxBend>cxB)
+        stripes+=`<polygon class="${cls}" points="${cxT},${by} ${cxTend},${by} ${cxBend},${by+bh} ${cxB},${by+bh}"/>`;
+    }
+    return `<rect class="clap" x="${bx}" y="${by+10}" width="${bw}" height="17"/>
+<rect class="clapx" x="${bx+4}" y="${by+16}" width="22" height="2"/>
+<rect class="clapx" x="${bx+4}" y="${by+21}" width="14" height="2"/>
+<g class="claptop"><rect class="clap" x="${bx}" y="${by}" width="${bw}" height="${bh}"/>${stripes}</g>`;
+  })()},
  Space:{
   bg:"#101A3A",
   eyes:`<rect class="fur" x="22" y="24" width="13" height="13"/><rect class="fur" x="53" y="24" width="13" height="13"/>
@@ -92,13 +103,15 @@ const SCENE={
  pinkfloyd:{
   bg:"#241F47",
   float:(()=>{
-    const pig=`<rect class="pigskin" x="3" y="3" width="19" height="10"/>
-<rect class="pigskin" x="0" y="5" width="4" height="6"/><rect class="pigdk" x="0" y="7" width="2" height="2"/>
-<rect class="pigskin" x="6" y="0" width="5" height="4"/><rect class="pigdk" x="7" y="1" width="2" height="2"/>
-<rect class="pigskin" x="5" y="13" width="3" height="4"/><rect class="pigskin" x="15" y="13" width="3" height="4"/>
-<rect class="pigdk" x="22" y="4" width="3" height="2"/><rect class="pigdk" x="24" y="6" width="2" height="3"/>`;
+    const pig=`<rect class="pigskin" x="8" y="2" width="18" height="11"/>
+<rect class="pigskin" x="5" y="0" width="5" height="4"/><rect class="pigdk" x="6" y="1" width="2" height="2"/>
+<rect class="pigskin" x="0" y="4" width="9" height="9"/>
+<rect class="eye" x="4" y="6" width="2" height="2"/>
+<rect class="pigdk" x="1" y="10" width="1" height="1"/><rect class="pigdk" x="3" y="10" width="1" height="1"/>
+<rect class="pigskin" x="10" y="13" width="4" height="5"/><rect class="pigskin" x="20" y="13" width="4" height="5"/>
+<rect class="pigdk" x="25" y="1" width="3" height="2"/><rect class="pigdk" x="27" y="3" width="2" height="3"/>`;
     const at=(x,y,s,c)=>`<g transform="translate(${x},${y}) scale(${s})"><g class="pig ${c}">${pig}</g></g>`;
-    return at(4,0,2.0,"pg1")+at(106,2,2.0,"pg2")+at(2,58,1.7,"pg3")+at(112,60,1.8,"pg4");
+    return at(4,0,2.0,"pg1")+at(100,2,2.0,"pg2")+at(2,58,1.7,"pg3")+at(105,60,1.8,"pg4");
   })()},
 
  arctic:{

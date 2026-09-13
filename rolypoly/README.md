@@ -1,8 +1,8 @@
 # rolypoly.gg
 
 A daily press-your-luck trivia dig. Five prompts, five unrelated domains. Every
-right answer digs Poly deeper. Dig again to keep going, or tuck and roll to bank
-the round. One wrong answer wakes Rumble and wipes out everything unbanked.
+right answer digs Poly deeper. Dig again to keep going, or bank and roll to lock
+in the round. One wrong answer wakes Rumble and wipes out everything unbanked.
 
 The whole game is one self-contained HTML file with no runtime dependencies.
 

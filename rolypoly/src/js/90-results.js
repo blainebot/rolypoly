@@ -9,9 +9,9 @@ function shareText(){
 function showResults(){
   const t=tierFor(deepest);
   setShell(t.v);
-  const tucks=results.filter(r=>!r.bust).length;
-  const busts=results.length-tucks;
-  const left=results.reduce((n,r)=>n+r.left,0);
+  const banks=results.filter(r=>!r.bust).length;
+  const busts=results.length-banks;
+  const left=results.filter(r=>!r.bust).reduce((n,r)=>n+r.left,0);
   const best=results.reduce((a,b)=>b.cm>a.cm?b:a,results[0]);
   $("play").hidden=true;
   updateHud();
@@ -19,7 +19,7 @@ function showResults(){
   el.innerHTML=`<div class="label">your day</div>
     <p class="final">${banked}</p>
     <ul class="story">
-      <li>${tucks} clean ${tucks===1?"tuck":"tucks"} · ${busts} ${busts===1?"rumble":"rumbles"}</li>
+      <li>${banks} clean ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
       <li>Boldest round: ${best.domain} · ${best.cm}</li>
       ${results.some(r=>r.chamber)?`<li>You reached the hidden chamber.</li>`:""}
@@ -31,7 +31,7 @@ function showResults(){
       <span><b>${CHAMBER}</b>hidden chamber</span>
       <span><b>${RUMBLED}</b>rumbled</span></div>
     <pre class="share">${shareText()}</pre>
-    <div class="acts"><button class="tuck" id="copyBtn">Share result</button>
+    <div class="acts"><button class="bank" id="copyBtn">Share result</button>
     <button id="againBtn">Practice dig</button></div>
     <p class="msg">Practice replays the same prompts and doesn't count toward today.</p>`;
   $("tunnels").innerHTML="";curCorr=null;
@@ -54,7 +54,7 @@ function showResults(){
 function buildIntro(){
   $("cast").innerHTML=`<div>${WALK(me)}</div>`;
   $("denIntro").innerHTML=SLEEPER(false);
-  $("chooser").innerHTML=`<button class="tuck" id="beginBtn">Begin digging</button>`;
+  $("chooser").innerHTML=`<button class="bank" id="beginBtn">Begin digging</button>`;
   $("beginBtn").onclick=()=>{
     $("intro").hidden=true;$("play").hidden=false;
     $("den").innerHTML=SLEEPER(false);

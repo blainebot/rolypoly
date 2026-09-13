@@ -10,6 +10,8 @@
   --foot:#E0663A; --gold:#E0A33A; --orange:#D2762B; --bust:#B93A2B;
   --shell:var(--sand); --shell-dk:var(--sand-dk); --shell-lt:var(--sand-lt);
   --px:22.7;
+  --top:clamp(150px,29vh,290px);
+  --sun-up:116px;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -18,12 +20,13 @@ body{
   background:#2A0E06; color:var(--cream);
   font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
   font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased;
-  padding:clamp(150px,29vh,290px) 16px 40px;
+  padding:var(--top) calc(16px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  transition:padding-top .18s ease-out;
 }
 
 /* ---------- the world ---------- */
 .world{position:fixed;inset:0;z-index:0;overflow:hidden}
-.strata{position:absolute;left:0;right:0;top:calc(29vh - 210px);height:10000px;
+.strata{position:absolute;left:0;right:0;top:calc(var(--top) - 210px);height:10000px;
   transition:transform 1.05s cubic-bezier(.3,.6,.3,1)}
 .layer{position:absolute;left:0;right:0}
 .layer.sky::after{display:none}
@@ -56,7 +59,7 @@ body{
 @keyframes flapB{0%,49%{opacity:0}50%,100%{opacity:1}}
 .gameno{font-family:"Pixelify Sans",monospace;font-size:15px;letter-spacing:1px;
   color:var(--moss-lt);padding-right:12px;border-right:2px solid #4A3C2E;margin-right:2px}
-.sun{position:absolute;z-index:2;right:6%;bottom:calc(clamp(150px,29vh,290px) - 116px);width:96px;height:96px}
+.sun{position:absolute;z-index:2;right:6%;bottom:calc(var(--top) - var(--sun-up));width:96px;height:96px}
 .disc{fill:#F5C63C}.glow{fill:#FFDD70}.glow2{fill:#FFF3BE}
 .ray{fill:#FFD84D}
 .rays,.sparks{transform-box:view-box;transform-origin:40px 40px}
@@ -76,7 +79,7 @@ body{
 .cloud{position:absolute;width:0;height:0}
 .cloud i{position:absolute;display:block;height:11px;background:rgba(255,255,255,.9)}
 .bit.w{width:16px}.bit.t{width:5px;height:14px}
-.digger{position:fixed;left:50%;top:clamp(150px,29vh,290px);transform:translate(-50%,-100%);z-index:2;line-height:0}
+.digger{position:fixed;left:50%;top:var(--top);transform:translate(-50%,-100%);z-index:2;line-height:0}
 .bug{display:inline-block;line-height:0;transform-origin:50% 100%}
 .bug.dig{transform:rotate(-90deg) translateY(26px)}
 .bug svg{width:64px;height:auto}
@@ -134,18 +137,19 @@ body{
 @keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.05)}}
 @keyframes denShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}
   45%{transform:translateX(5px)}70%{transform:translateX(-3px)}}
-.crack{position:fixed;left:50%;top:clamp(150px,29vh,290px);width:3px;height:0;background:var(--ink);z-index:2;
+.crack{position:fixed;left:50%;top:var(--top);width:3px;height:0;background:var(--ink);z-index:2;
   transform-origin:top center;opacity:0}
 .crack.go{animation:crackGrow .45s ease-out forwards}
 
 /* ---------- hud ---------- */
 .hud{position:fixed;top:0;left:0;right:0;z-index:4;display:flex;align-items:center;gap:10px;
-  padding:10px 14px;background:rgba(14,10,7,.86);border-bottom:3px solid var(--edge)}
+  padding:calc(10px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) 10px calc(14px + env(safe-area-inset-left));
+  background:rgba(14,10,7,.97);border-bottom:3px solid var(--edge)}
 .mark span{color:var(--moss-lt)}
 .mark{font-family:"Pixelify Sans",monospace;font-size:23px;letter-spacing:1px;line-height:1;
   color:var(--cream);padding-right:14px;margin-right:2px;border-right:2px solid #4A3C2E}
 .cell{display:flex;flex-direction:column;line-height:1}
-.cell span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B6A794}
+.cell span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B6A794;white-space:nowrap}
 .cell b,.reveal .cm,.final,.chip i,.fact i,.missed .cm,.rumble .lost,.tally td:last-child{
   font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
 .cell b{font-size:26px;margin-top:3px}
@@ -153,7 +157,7 @@ body{
 .risk-0 b{color:var(--cream)}
 .risk-1 b{color:var(--gold)}
 .risk-2 b{color:var(--orange)}
-.risk-3 b{color:var(--bust);animation:pulse .8s ease-in-out infinite}
+.risk-3 b{color:var(--ember-lt);animation:pulseScale .8s ease-in-out infinite}
 .hud.intro .cell,.hud.intro .pips{display:none}
 .hud.intro .mark{border-right:none}
 .pips{display:flex;gap:6px;margin:0 auto}
@@ -196,8 +200,8 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 button:disabled{opacity:.45;cursor:not-allowed}
 .dig{flex:1;background:#4A3625;color:var(--cream)}
 .dig:hover:not(:disabled){background:#5A4230;transform:translateY(1px)}
-.tuck{flex:1;background:var(--moss);color:var(--ink)}
-.tuck:hover:not(:disabled){background:#8FA068}
+.bank{flex:1;background:var(--moss);color:var(--ink)}
+.bank:hover:not(:disabled){background:#8FA068}
 .acts svg{vertical-align:-3px;margin-right:6px}
 .msg{min-height:24px;font-size:14px;margin:12px 0 0;color:#C7B9A4}
 .msg.good{color:var(--moss-lt)}
@@ -248,7 +252,9 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 
 /* rumble */
 .scrim{position:fixed;inset:0;background:rgba(12,8,5,.86);display:flex;align-items:center;
-  justify-content:center;padding:18px;z-index:80}
+  justify-content:center;z-index:80;
+  padding:calc(18px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right))
+    calc(18px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left))}
 .rumble{background:var(--bust);border:4px solid var(--edge);padding:20px;max-width:430px;width:100%;text-align:center}
 .rumble b{display:block;font-family:"Pixelify Sans",monospace;font-size:clamp(44px,13vw,60px);
   line-height:.95;letter-spacing:3px;margin-top:8px}
@@ -338,24 +344,23 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 @keyframes burst{0%{transform:translateY(50px) scale(.6);opacity:0}70%{transform:translateY(-6px) scale(1.05);opacity:1}100%{transform:translateY(0) scale(1)}}
 @keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes flashIn{0%{opacity:0}25%{opacity:.75}100%{opacity:0}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 @keyframes crackGrow{0%{height:0;opacity:1}100%{height:120px;opacity:1}}
 @keyframes shakeW{0%,100%{transform:translate(0,0)}20%{transform:translate(-7px,3px)}
   40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
 .shaking{animation:shakeW .5s}
 
 @media (max-width:640px){
-  body{padding:clamp(140px,32vh,240px) 10px 30px;font-size:16px}
-  .strata{top:calc(32vh - 190px)}
-  .digger{top:27vh}
-  .digger{top:clamp(140px,32vh,240px)}
+  :root{--top:clamp(140px,32vh,240px);--sun-up:90px}
+  body{padding:var(--top) 10px 30px;font-size:16px}
+
   .den.field .densvg{width:82px}
   .gain b{font-size:36px}
   .den.intro .densvg{width:124px}
-  .sun{width:72px;height:72px;right:5%;bottom:calc(clamp(140px,32vh,240px) - 90px)}
+  .sun{width:72px;height:72px;right:5%}
   .bug svg{width:52px}
   .bug.ball svg{width:38px}
-  .crack{top:clamp(140px,32vh,240px)}
+
   .hud{padding:8px 11px}
   .mark{font-size:16px;padding-right:9px}
   .cell b{font-size:19px}
@@ -370,6 +375,25 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
   .gopher svg{width:108px;height:auto}
   .layer b{font-size:11px;left:8px}
 }
+body.kb{--top:76px;--sun-up:40px}
+body.kb .den.field,body.kb .facts,body.kb #missedBox{display:none}
+body.kb .prompt{font-size:18px;margin-bottom:10px}
+body.kb .gain b{font-size:30px}
+body.kb .acts{flex-direction:row}
+body.kb .acts button{width:auto;font-size:14px;padding:10px 8px}
+
+/* short viewports (phones in landscape, small split-screen windows) — same
+   compaction as the on-screen-keyboard case above, so controls stay reachable
+   without scrolling */
+@media (max-height:500px){
+  :root{--top:64px;--sun-up:28px}
+  .den.field,.facts,#missedBox{display:none}
+  .prompt{font-size:18px;margin-bottom:10px}
+  .gain b{font-size:30px}
+  .acts{flex-direction:row}
+  .acts button{width:auto;font-size:14px;padding:10px 8px}
+}
+
 @media (prefers-reduced-motion:reduce){
   .strata{transition:none}
   .bob,.jaw,.armR,.flagwave,.claptop,.orbit,.pupil,.apw,.apb,.nt,.ha,

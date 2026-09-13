@@ -34,7 +34,7 @@ function rumble(lost){
       document.body.classList.remove("shaking");
       roundDepth=0;setShell("sand");moveWorld(0,true);updateHud();
       document.removeEventListener("keydown",esc);
-      $("tuckBtn").focus();
+      $("bankBtn").focus();
     };
     const esc=e=>{if(e.key==="Escape")close()};
     document.addEventListener("keydown",esc);
