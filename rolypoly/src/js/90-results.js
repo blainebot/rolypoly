@@ -1,4 +1,4 @@
-const POSSIBLE=ROUNDS.reduce((n,r)=>n+r.answers.reduce((m,a)=>m+a.v,0)+10,0);
+const POSSIBLE=ROUNDS.reduce((n,r)=>n+r.answers.reduce((m,a)=>m+a.v,0)+10+Math.max(0,r.answers.length-2)*2,0);
 const RUMBLED="\u{1F9AB}";
 const CHAMBER="\u{1F3FA}";
 
@@ -11,18 +11,21 @@ function showResults(){
   setShell(t.v);
   const banks=results.filter(r=>!r.bust).length;
   const busts=results.length-banks;
+  const bustKept=results.filter(r=>r.bust).reduce((n,r)=>n+r.cm,0);
   const left=results.filter(r=>!r.bust).reduce((n,r)=>n+r.left,0);
   const best=results.reduce((a,b)=>b.cm>a.cm?b:a,results[0]);
+  const totalPar=ROUNDS.reduce((s,r)=>s+r.par,0);
   $("play").hidden=true;
   updateHud();
   const el=$("results");el.hidden=false;
   el.innerHTML=`<div class="label">your day</div>
     <p class="final">${banked}</p>
     <ul class="story">
-      <li>${banks} clean ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}</li>
+      <li>${banks} clean ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
       <li>Boldest round: ${best.domain} · ${best.cm}</li>
       ${results.some(r=>r.chamber)?`<li>You reached the hidden chamber.</li>`:""}
+      <li>Par ${totalPar} · you banked ${banked}</li>
       <li>You dug ${banked} of the ${POSSIBLE} buried down there.</li>
       <li>You left ${left} behind in rounds you finished.</li>
     </ul>

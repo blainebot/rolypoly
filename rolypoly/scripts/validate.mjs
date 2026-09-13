@@ -81,6 +81,17 @@ for (const file of files) {
     }
   }
 
+  if (values.length) {
+    const total = values.reduce((s, v) => s + v, 0);
+    const par = [...values].sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
+    if (r.par === undefined)
+      warnings.push(where(`no par set — defaulting to ${par} (sum of three cheapest answers)`));
+    else if (typeof r.par !== "number" || !Number.isInteger(r.par))
+      errors.push(where("par must be a whole number"));
+    else if (r.par > total)
+      errors.push(where(`par ${r.par} exceeds ${total}, the round's total available value`));
+  }
+
   // A round with no cheap answers has no safe opening move.
   if (values.length && Math.min(...values) > 8)
     warnings.push(where(`cheapest answer is ${Math.min(...values)} — no easy way in`));

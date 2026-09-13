@@ -6,6 +6,7 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
 {
   "domain": "Geography",
   "prompt": "Name a country that shares a land border with Germany.",
+  "par": 12,
   "answers": [
     {
       "name": "France",
@@ -24,5 +25,8 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
 - **fact** — one sentence, under 180 characters. Shown after the round ends.
 - **aliases** — optional. Surnames and single distinctive words are matched
   automatically, so only add genuine alternate names.
+- **par** — optional integer, the "you did fine" benchmark shown at the end of
+  the round. When omitted it defaults to the sum of the three cheapest answers.
+  The validator errors if par exceeds the round's total available value.
 
 Run `npm run validate` before committing.

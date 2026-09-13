@@ -13,9 +13,13 @@ const read = (...p) => readFileSync(join(root, ...p), "utf8");
 const gamesDir = join(root, "content", "games");
 const config = JSON.parse(read("content", "config.json"));
 
+const defaultPar = answers =>
+  answers.map(a => a.value).sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
+
 const toEngine = r => ({
   domain: r.domain,
   prompt: r.prompt,
+  par: typeof r.par === "number" ? r.par : defaultPar(r.answers),
   ...(r.scene ? { s: r.scene } : {}),
   answers: r.answers.map(a => ({
     n: a.name,
@@ -63,7 +67,7 @@ const kb = n => (n / 1024).toFixed(1) + "KB";
 console.log(`built dist/index.html  ${kb(html.length)}`);
 for (const [num, g] of Object.entries(games)) {
   const answers = g.reduce((n, r) => n + r.answers.length, 0);
-  const possible = g.reduce((n, r) => n + r.answers.reduce((m, a) => m + a.v, 0) + 10, 0);
+  const possible = g.reduce((n, r) => n + r.answers.reduce((m, a) => m + a.v, 0) + 10 + Math.max(0, r.answers.length - 2) * 2, 0);
   console.log(`  game ${num}${num === active ? " (active)" : "         "}  ${g.length} rounds, ${answers} answers, ${possible} possible`);
 }
 console.log(`  ${modules.length} modules, ${kb(styles.length)} css`);

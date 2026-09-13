@@ -10,7 +10,7 @@ function wakeRumble(){
   setTimeout(()=>{d.classList.remove("tremble");d.classList.add("gone")},760);
 }
 
-function rumble(lost){
+function rumble(lost,kept){
   const scene=ROUNDS[idx].s||ROUNDS[idx].domain;
   const c=$("crack");
   c.classList.remove("go");void c.offsetWidth;c.classList.add("go");
@@ -24,6 +24,7 @@ function rumble(lost){
         <b>RUMBLED!</b>
         <p class="taunt">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</p>
         <div class="lost"><span id="lostNum">${lost}</span><em>gone, and ${me} is back on the surface</em></div>
+        ${kept>0?`<p class="kept">Your first find, ${kept}, is safe.</p>`:""}
         <button id="shakeBtn">Shake it off</button>
       </div></div>`;
     let n=lost;

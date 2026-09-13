@@ -53,6 +53,20 @@ Don't reintroduce these without asking:
 - **Fuzzy matches are confirmed, never auto-accepted.** A typo gets "Did you mean X?"
   so a lucky misspelling can't score an answer the player didn't know.
 
+## Scoring
+
+- **The first find each round is always safe.** A bust banks the value of the
+  first answer you found that round instead of 0 — the harshest possible
+  outcome in a daily game. Everything from the second dig onward carries
+  exactly the risk it always did; only the bust payout changed.
+- **Breadth bonus: +2 per find beyond the second.** Three finds pays +2, five
+  pays +6. Paid only when you bank or clear the board — a bust forfeits the
+  bonus entirely, including on the guaranteed first find. This is a flat bonus
+  keyed to find *count*, not a multiplier on value — the "no multipliers" rule
+  above still holds; a centimetre is still a centimetre.
+- **Par is a per-round benchmark**, not a difficulty gate. It defaults to the
+  sum of the three cheapest answers when a round doesn't set one explicitly.
+
 ## Writing content
 
 One JSON file per round in `content/games/<num>/`; five rounds make a game.
@@ -70,6 +84,11 @@ Values are in centimetres and set both score and Poly's shell colour:
 Two rules the validator enforces or warns on: every round needs at least one answer
 under 8, or there's no safe opening move; and values need real spread, or digging
 again costs nothing to decide.
+
+An optional `par` integer sets the round's benchmark, shown as "Par N · you dug M"
+when the round ends. Leave it unset to default to the sum of the three cheapest
+answers — the validator warns when it's missing and errors if it exceeds the
+round's total available value.
 
 Current values were assigned by feel and should be re-derived from something
 measurable — Wikipedia pageviews bucketed into the four bands is the usual approach.

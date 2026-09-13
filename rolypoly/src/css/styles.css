@@ -112,6 +112,7 @@ body{
   font-variant-numeric:tabular-nums;font-size:44px;line-height:1}
 .gain .lbl{display:block;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;
   color:#B6A794;margin-top:5px}
+.gain .bonus{display:block;font-size:12px;font-weight:700;color:var(--moss-lt);margin-top:3px}
 .gain.pop b{animation:gainPop .42s cubic-bezier(.2,1.5,.4,1)}
 .plus{position:absolute;right:2px;top:-4px;font-family:"Bricolage Grotesque",sans-serif;
   font-weight:700;font-size:22px;color:var(--moss-lt);opacity:0}
@@ -231,6 +232,9 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .missed .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0 18px;margin-top:9px}
 .missed p{margin:0;display:flex;font-size:14px;padding:2px 0;color:#CBBDA8}
 .missed .cm{margin-left:auto;color:var(--cream)}
+#roundSummary{margin:2px 0 0}
+.roundsum{font-size:14px;color:var(--moss-lt);margin:4px 0 0}
+.parline{font-size:14px;color:#C7B9A4;margin:4px 0 0}
 
 /* intro + results */
 .title{font-family:"Pixelify Sans",monospace;font-size:clamp(44px,11vw,76px);line-height:.9;
@@ -238,6 +242,7 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .tagline{font-family:"Pixelify Sans",monospace;font-size:16px;letter-spacing:4px;
   text-transform:uppercase;color:var(--moss-lt);margin:6px 0 14px}
 .how{color:#C7B9A4;margin:0 0 18px}
+.safenote{font-size:13px;color:#C7B9A4;margin:0 0 14px}
 .chooser{display:flex;gap:12px;flex-wrap:wrap}
 .chooser button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px}
 .cast{display:flex;align-items:flex-end;justify-content:center;gap:18px;margin-bottom:6px}
@@ -262,6 +267,7 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .rumble .lost{font-size:38px;line-height:1}
 .rumble .lost em{display:block;font-style:normal;font-family:"Bricolage Grotesque",sans-serif;
   font-size:14px;margin:5px 0 16px}
+.rumble .kept{font-size:16px;font-weight:700;margin:0 0 14px}
 .rumble button{width:100%;background:var(--cream);color:var(--ink);border-color:var(--edge)}
 .gopher{display:flex;gap:4px;justify-content:center;animation:burst .5s cubic-bezier(.2,1.5,.4,1)}
 

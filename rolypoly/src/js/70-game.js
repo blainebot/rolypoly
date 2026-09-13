@@ -1,4 +1,5 @@
 function say(t,cls){$("msg").textContent=t;$("msg").className="msg "+(cls||"")}
+const breadthBonus=()=>Math.max(0,(found.length-2)*2);
 function renderFacts(){
   $("facts").innerHTML=found.length
     ? `<div class="chips">`+found.map((x,i)=>
@@ -17,6 +18,7 @@ function loadRound(){
   $("domain").textContent=r.domain.toLowerCase();
   $("prompt").textContent=r.prompt;
   $("facts").innerHTML="";
+  $("roundSummary").innerHTML="";
   $("missedBox").innerHTML="";
   $("confirmBox").innerHTML="";
   $("answer").value="";$("answer").disabled=false;
@@ -26,6 +28,7 @@ function loadRound(){
   $("bankBtn").onclick=bank;
   $("den").classList.remove("gone","tremble");$("den").innerHTML=SLEEPER(false);
   $("gainNum").textContent="0";$("gainPlus").textContent="";
+  $("bonusNum").hidden=true;$("bonusNum").textContent="";
   setShell("sand");
   rollIn(idx===0);
   updateHud();
@@ -80,6 +83,9 @@ function accept(hit){
   if(hit.v>deepest){deepest=hit.v;deepestName=hit.n}
   $("answer").value="";
   updateHud();
+  const bonus=breadthBonus();
+  $("bonusNum").hidden=bonus<=0;
+  $("bonusNum").textContent=bonus>0?`+${bonus} bonus`:"";
   reveal(hit,()=>{
     renderFacts();
     const found_=`${hit.n} — ${tierFor(hit.v).name}, +${hit.v}.`;
@@ -90,7 +96,7 @@ function accept(hit){
       return;
     }
     $("bankBtn").disabled=false;
-    $("bankBtn").textContent=`Bank and roll +${roundDepth}`;
+    $("bankBtn").textContent=`Bank and roll +${roundDepth+bonus}`;
     $("digBtn").textContent="Dig again";
     say(`${found_} ${roundDepth} at risk.`,"good");
     keepFocus();
@@ -152,7 +158,7 @@ function dig(){
 
 function bank(){
   if(!found.length){say("Dig at least once before you roll.","bad");return}
-  say(`Banked ${roundDepth}.`,"good");
+  say(`Banked ${roundDepth+breadthBonus()}.`,"good");
   $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   rollOut(()=>endRound("bank"));
 }
@@ -161,14 +167,18 @@ function endRound(kind){
   $("answer").disabled=true;$("digBtn").disabled=true;$("bankBtn").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   stopPacing();
-  const gained=kind==="bank"?roundDepth:0;
+  const bonus=breadthBonus();
+  const firstFind=found.length?found[0].v:0;
+  const dug=roundDepth;
+  const gained=kind==="bank"?roundDepth+bonus:firstFind;
   const left=avail().filter(a=>!found.includes(a)).reduce((n,a)=>n+a.v,0);
   const top=found.reduce((m,a)=>Math.max(m,a.v),0);
   banked+=gained;
   results.push({domain:ROUNDS[idx].domain,digs:found.length,cm:gained,bust:kind==="bust",left,top,chamber:chamberHit});
-  if(kind==="bust"){$("gainNum").textContent="0";rumble(roundDepth)}
+  if(kind==="bust"){$("gainNum").textContent="0";rumble(dug-firstFind,firstFind)}
   else{updateHud()}
   revealFacts();
+  showRoundSummary(kind,bonus,dug);
   showMissed();
   $("bankBtn").disabled=false;
   $("bankBtn").textContent=idx===ROUNDS.length-1?"See your day":"Next round";
@@ -177,6 +187,15 @@ function endRound(kind){
     if(idx>=ROUNDS.length)showResults();
     else loadRound();
   };
+}
+
+function showRoundSummary(kind,bonus,dug){
+  const par=ROUNDS[idx].par;
+  const finds=found.length;
+  const roundsum=kind==="bank"
+    ?`<p class="roundsum">${finds} ${finds===1?"find":"finds"} · ${dug} dug · +${bonus} bonus</p>`
+    :"";
+  $("roundSummary").innerHTML=roundsum+`<p class="parline">Par ${par} · you dug ${dug}</p>`;
 }
 
 function showMissed(){
