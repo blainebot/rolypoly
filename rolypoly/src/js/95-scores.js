@@ -1,8 +1,12 @@
-/* ---------- score distribution (optional — degrades to hidden, never fake) ---------- */
+/* ---------- score distribution (optional — degrades to the tier band, never a fake) ---------- */
+// #distBox starts out holding the day-tier band, rendered synchronously in
+// showResults() so it's there from the first paint with no backend needed.
 // This is the one piece of the game that isn't self-contained: it tries a
-// single network call to a hosted API. If that call is slow, fails, or the
-// page has no network at all (opened from disk, offline), the section
-// simply doesn't render — the rest of the results screen is unaffected.
+// single network call to a hosted API, and only once there's enough data
+// (MIN_FOR_CURVE) does it overwrite that box with the histogram instead —
+// same position, same job, better information. If the call is slow, fails,
+// or the page has no network at all (opened from disk, offline), the tier
+// band it's replacing simply stays put.
 // Edit SCORES_API if this ever moves to a different deployment/domain.
 const SCORES_API="https://rolypoly-seven.vercel.app/api/score";
 const SCORES_TIMEOUT_MS=2000;

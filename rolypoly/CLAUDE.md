@@ -70,35 +70,64 @@ Don't reintroduce these without asking:
   above still holds; a centimetre is still a centimetre.
 - **Par is a per-round benchmark**, not a difficulty gate. It defaults to the
   sum of the three cheapest answers when a round doesn't set one explicitly.
+- **The day's banked total is never shown against `POSSIBLE`.** That
+  denominator is the sum of every answer on every list plus every clear and
+  breadth bonus — nobody will ever approach it, and "145 of 1411" reads as a
+  failure no matter how the day actually went. `POSSIBLE` stays in
+  `90-results.js`, unused by anything a player sees, in case a tier threshold
+  ever wants deriving from it. If you're tempted to surface it again, that's
+  the argument you're up against.
+
+## Day tiers
+
+The results-screen headline is a named band, not the raw number — "leaf
+litter" through "hidden chamber," in `DAY_TIERS` in `src/js/00-tiers.js`. That
+table is the *only* place the thresholds are authored: each entry's `max` is
+the sole number that matters, and everything the tier band needs to render —
+a band's lower bound, its share of the band's width — is derived from that
+list in `90-results.js`, not duplicated. Tune the day by editing the five
+`max` values; nothing else needs to change. The open-ended top band (`max:
+Infinity`) borrows the previous band's width for layout, since there's no
+sensible way to draw "infinity" proportionally.
+
+Same shape as the round-level `TIERS`, one entry per row: `max`, `name`, a
+colour key (`v`, reusing moss/sand/rust/ember plus a new `chamber` purple),
+an emoji (reusing the round tier emoji, plus the hidden-chamber `🏺`), and one
+line of copy. The tier name, the emoji, and that copy line all also open the
+share text, right after the game number line.
 
 ## Score distribution
 
-The results screen shows a small pixel histogram — "you scored better than N%
-of today's players" — for the day's banked total. This is the one feature that
-isn't self-contained in the static file:
+`#distBox` on the results screen always starts out holding the day-tier band
+(`dayTierBandSvg()` in `90-results.js`), rendered synchronously — it works
+from day one, needs no backend, and is the permanent fallback. The histogram
+— "you scored better than N% of today's players" — only ever *replaces* it,
+same position, same job, better information, once there's enough data. This
+is the one feature that isn't self-contained in the static file:
 
 - `src/js/95-scores.js` fires one `POST` to `SCORES_API` (hardcoded to the live
   deployment — edit that constant if the domain changes) with a hard 2-second
   `AbortController` timeout. Success or failure, it never delays rendering the
   rest of the results screen, which is built and shown first.
-- **Below 50 recorded scores for that game, the curve doesn't render at all** —
-  only the existing par line shows. Below that count a histogram is more noise
-  than signal, and there's nothing to compare against yet.
+- **Below 50 recorded scores for that game, the curve doesn't render at all**
+  — the tier band stays up. Below that count a histogram is more noise than
+  signal, and there's nothing to compare against yet.
 - Any failure — offline, timeout, malformed response, non-2xx, opened from
-  `file://` — means the histogram section renders nothing. No placeholder, no
-  cached number, no fake curve. Degrade to hidden, never to a fake.
+  `file://` — leaves the tier band exactly where it was. No placeholder, no
+  cached number, no fake curve. Degrade to the tier band, never to a fake.
 - `api/score.js` is a Vercel serverless function backed by Redis (Upstash, via
   the Vercel Marketplace under the project's Storage tab — a one-time setup
   step in the dashboard, not something `npm run check` can verify). It needs
   `KV_REST_API_URL` / `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` /
   `UPSTASH_REDIS_REST_TOKEN`) in the project's environment variables; without
-  them it responds 503 and the client falls back to hidden, per the rule above.
+  them it responds 503 and the client falls back to the tier band, per the
+  rule above.
 - The store holds nothing but a per-game histogram of bucketed score counts —
   no IP, no identity, no per-submission record, no field beyond the count in
   each bucket. A submitted score is validated server-side against that game's
-  actual `content/games/<n>/` answers (same formula as `POSSIBLE` in
-  `90-results.js`) before it's allowed to increment anything, and the `game`
-  parameter is regex-validated to block path traversal into `content/`.
+  actual `content/games/<n>/` answers (same formula as `POSSIBLE` above)
+  before it's allowed to increment anything, and the `game` parameter is
+  regex-validated to block path traversal into `content/`.
 - This is a soft bound, not hardened anti-cheat: someone could still forge a
   request by hand. There's no server-side replay of the scoring engine to
   verify a submitted score was actually played out — that would mean

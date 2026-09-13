@@ -6,6 +6,19 @@ const TIERS=[
 ];
 const tierFor=v=>TIERS.find(t=>v<=t.max);
 
+// Day-score bands for the results screen. The only numbers that matter for
+// tuning live here — max is the sole authored threshold; everything a band
+// needs to render (its lower bound, its share of the tier-band width) is
+// derived from this list, never duplicated elsewhere.
+const DAY_TIERS=[
+  {max:59,      name:"leaf litter",    v:"moss",    e:"\u{1F342}", copy:"Barely broke the surface."},
+  {max:119,     name:"topsoil",        v:"sand",    e:"\u{1FAB1}", copy:"A decent dig."},
+  {max:199,     name:"root line",      v:"rust",    e:"\u{1FAB5}", copy:"Down past the roots. Solid."},
+  {max:299,     name:"bedrock",        v:"ember",   e:"\u{1F48E}", copy:"Deep. Most people don't get here."},
+  {max:Infinity,name:"hidden chamber", v:"chamber", e:"\u{1F3FA}", copy:"Absurd. You dug through the whole board."}
+];
+const dayTierFor=v=>DAY_TIERS.find(t=>v<=t.max);
+
 const LAYERS=[
   {name:"",              from:-520,to:0,  sky:1, bg:"linear-gradient(#3E96D4 0%,#74BCE5 52%,#A6D6EE 94.5%,#79A650 94.5%,#5B8341 100%)"},
   {name:"leaf litter",   from:0,   to:12, bg:"linear-gradient(#7D8A5A,#A98F4E)"},

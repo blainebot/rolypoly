@@ -8,6 +8,7 @@
   --ember:#8E3A22; --ember-dk:#43180C; --ember-lt:#D2775A;
   --soil:#C1934F; --soil-dk:#5E4318; --soil-lt:#EBD3A0;
   --foot:#E0663A; --gold:#E0A33A; --orange:#D2762B; --bust:#B93A2B;
+  --chamber:#7B5EA7; --chamber-dk:#3C2C57; --chamber-lt:#C9A8E8;
   --shell:var(--sand); --shell-dk:var(--sand-dk); --shell-lt:var(--sand-lt);
   --px:22.7;
   --top:clamp(150px,29vh,290px);
@@ -246,12 +247,16 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .chooser{display:flex;gap:12px;flex-wrap:wrap}
 .chooser button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px}
 .cast{display:flex;align-items:flex-end;justify-content:center;gap:18px;margin-bottom:6px}
-.final{font-size:clamp(56px,15vw,84px);line-height:1;margin:6px 0 0}
-.dist{margin-top:10px}
+.daytier{font-family:"Pixelify Sans",monospace;font-size:clamp(24px,6.5vw,36px);
+  line-height:1.15;letter-spacing:1px;margin:10px 0 0}
+.final{font-size:clamp(38px,11vw,58px);line-height:1;margin:2px 0 0}
+.daycopy{color:#C7B9A4;font-size:15px;margin:6px 0 0}
+.dist{margin-top:12px}
 .dist svg{display:block;image-rendering:pixelated}
 .distbar{fill:#4A3C2E}
 .distbar.me{fill:var(--gold)}
 .distline{font-size:14px;color:#C7B9A4;margin:8px 0 0}
+.tierband{display:block;image-rendering:pixelated}
 .story{list-style:none;margin:14px 0 0;padding:0}
 .story li{padding:8px 0;border-bottom:1px solid #4A3C2E;font-size:16px}
 .key{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 12px;font-size:13px;color:#C7B9A4}
