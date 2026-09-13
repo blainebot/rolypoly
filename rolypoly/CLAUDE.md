@@ -28,7 +28,11 @@ so a failure there means a failed deploy.
 
 - **The build output is one self-contained HTML file.** No external assets beyond
   Google Fonts. This is what makes it droppable on any host and testable offline.
-  Don't introduce a step that breaks it.
+  Don't introduce a step that breaks it. The one deliberate exception is the score
+  histogram (`src/js/95-scores.js`), which makes a single best-effort network call
+  behind a hard 2-second timeout — see "Score distribution" below. It never blocks
+  play, never delays the results screen, and fails silently to nothing rendered.
+  It does not make the file itself require a network connection to work.
 - **No dependencies, no framework, no bundler, no TypeScript.** `package.json` has
   an empty dependency list and should stay that way.
 - `src/js/*.js` are numbered because they are **concatenated, not imported**. They
@@ -66,6 +70,40 @@ Don't reintroduce these without asking:
   above still holds; a centimetre is still a centimetre.
 - **Par is a per-round benchmark**, not a difficulty gate. It defaults to the
   sum of the three cheapest answers when a round doesn't set one explicitly.
+
+## Score distribution
+
+The results screen shows a small pixel histogram — "you scored better than N%
+of today's players" — for the day's banked total. This is the one feature that
+isn't self-contained in the static file:
+
+- `src/js/95-scores.js` fires one `POST` to `SCORES_API` (hardcoded to the live
+  deployment — edit that constant if the domain changes) with a hard 2-second
+  `AbortController` timeout. Success or failure, it never delays rendering the
+  rest of the results screen, which is built and shown first.
+- **Below 50 recorded scores for that game, the curve doesn't render at all** —
+  only the existing par line shows. Below that count a histogram is more noise
+  than signal, and there's nothing to compare against yet.
+- Any failure — offline, timeout, malformed response, non-2xx, opened from
+  `file://` — means the histogram section renders nothing. No placeholder, no
+  cached number, no fake curve. Degrade to hidden, never to a fake.
+- `api/score.js` is a Vercel serverless function backed by Redis (Upstash, via
+  the Vercel Marketplace under the project's Storage tab — a one-time setup
+  step in the dashboard, not something `npm run check` can verify). It needs
+  `KV_REST_API_URL` / `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` /
+  `UPSTASH_REDIS_REST_TOKEN`) in the project's environment variables; without
+  them it responds 503 and the client falls back to hidden, per the rule above.
+- The store holds nothing but a per-game histogram of bucketed score counts —
+  no IP, no identity, no per-submission record, no field beyond the count in
+  each bucket. A submitted score is validated server-side against that game's
+  actual `content/games/<n>/` answers (same formula as `POSSIBLE` in
+  `90-results.js`) before it's allowed to increment anything, and the `game`
+  parameter is regex-validated to block path traversal into `content/`.
+- This is a soft bound, not hardened anti-cheat: someone could still forge a
+  request by hand. There's no server-side replay of the scoring engine to
+  verify a submitted score was actually played out — that would mean
+  maintaining scoring logic in two places. Acceptable for an ambient stat with
+  no stakes attached; revisit if that ever changes.
 
 ## Writing content
 

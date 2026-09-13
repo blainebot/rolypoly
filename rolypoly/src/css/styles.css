@@ -247,6 +247,11 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .chooser button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px}
 .cast{display:flex;align-items:flex-end;justify-content:center;gap:18px;margin-bottom:6px}
 .final{font-size:clamp(56px,15vw,84px);line-height:1;margin:6px 0 0}
+.dist{margin-top:10px}
+.dist svg{display:block;image-rendering:pixelated}
+.distbar{fill:#4A3C2E}
+.distbar.me{fill:var(--gold)}
+.distline{font-size:14px;color:#C7B9A4;margin:8px 0 0}
 .story{list-style:none;margin:14px 0 0;padding:0}
 .story li{padding:8px 0;border-bottom:1px solid #4A3C2E;font-size:16px}
 .key{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 12px;font-size:13px;color:#C7B9A4}

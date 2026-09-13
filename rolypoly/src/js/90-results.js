@@ -20,6 +20,7 @@ function showResults(){
   const el=$("results");el.hidden=false;
   el.innerHTML=`<div class="label">your day</div>
     <p class="final">${banked}</p>
+    <div id="distBox"></div>
     <ul class="story">
       <li>${banks} clean ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
@@ -51,6 +52,7 @@ function showResults(){
     idx=0;banked=0;deepest=0;deepestName="—";results.length=0;
     el.hidden=true;$("play").hidden=false;loadRound();
   };
+  renderDistribution(banked);
 }
 
 /* ---------- intro ---------- */

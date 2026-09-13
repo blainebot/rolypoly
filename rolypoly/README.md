@@ -4,7 +4,10 @@ A daily press-your-luck trivia dig. Five prompts, five unrelated domains. Every
 right answer digs Poly deeper. Dig again to keep going, or bank and roll to lock
 in the round. One wrong answer wakes Rumble and wipes out everything unbanked.
 
-The whole game is one self-contained HTML file with no runtime dependencies.
+The whole game is one self-contained HTML file with no runtime dependencies. The
+results screen also shows how your score compares to today's other players; that
+one piece calls out to a small hosted API and fails silently to nothing shown if
+it can't reach it — see "Score comparison" below.
 
 ## Running it
 
@@ -31,7 +34,10 @@ serving from a subfolder is fine.
 **Vercel — one signup, zero configuration, works with a private repo.**
 `vercel.json` already sets the build command and output directory, so importing the
 repo is the whole job. Note the free Hobby plan is for non-commercial use; if the
-game ever earns money it needs a paid plan.
+game ever earns money it needs a paid plan. Vercel is also the only host that runs
+`api/score.js`; the other three still serve the static game fine, they just won't
+have score comparison unless `src/js/95-scores.js`'s `SCORES_API` points at a
+Vercel deployment that does. See "Score comparison" below.
 
 **Cloudflare Pages — one signup, works with a private repo.** It does not read any
 config file, so enter these by hand:
@@ -62,6 +68,8 @@ content/
 scripts/
   build.mjs          inlines everything into dist/index.html
   validate.mjs       checks content before it can ship
+api/
+  score.js           Vercel function backing the optional score comparison
 ```
 
 The `src/js/` files are numbered because they are concatenated, not imported.
@@ -140,6 +148,29 @@ Players' answers are matched in this order, and none of these cost them a round:
    an answer the player didn't know.
 
 Only an answer that fails all three wakes Rumble.
+
+## Score comparison
+
+The results screen shows a small histogram and "you scored better than N% of
+today's players," backed by `api/score.js` — a Vercel function that stores
+nothing but a per-game count of scores bucketed into a histogram, in Redis
+(Upstash, connected once via the project's Storage tab in the Vercel
+dashboard — not something a config file can do for you). Once connected,
+Vercel sets `KV_REST_API_URL` / `KV_REST_API_TOKEN` in the project's
+environment variables automatically; the function also accepts
+`UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` if you wire it up by hand.
+
+Without that store connected, the endpoint responds 503 and the client just
+doesn't show the comparison — same as if it's offline. Nothing about a player
+is stored beyond the bucketed count: no IP, no identity, no per-submission
+record. Below 50 recorded scores for a game the curve stays hidden entirely
+and only the par comparison shows; there's no meaningful curve to draw yet.
+
+This isn't hardened against someone forging a request by hand — submitted
+scores are checked against that game's real maximum, but there's no
+server-side replay of the scoring engine to confirm a score was actually
+earned. Fine for an ambient stat with no stakes; would need real work if that
+ever changes.
 
 ## Known gaps
 
