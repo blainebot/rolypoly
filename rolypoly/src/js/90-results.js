@@ -48,7 +48,7 @@ function dayTierBandSvg(score){
 function shareText(){
   const dt=dayTierFor(banked);
   const marks=results.map(r=>r.bust?RUMBLED:r.chamber?CHAMBER:tierFor(r.top).e).join("");
-  return `rolypoly.gg #${GAMENO} \u{1FAB2}\n${dt.e} ${dt.name}\n${banked}\n${marks}`;
+  return `${SITE_DOMAIN} #${GAMENO} \u{1FAB2}\n${dt.e} ${dt.name}\n${banked}\n${marks}`;
 }
 function showResults(restoring){
   const t=tierFor(deepest);

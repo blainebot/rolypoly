@@ -24,4 +24,10 @@ const DAY=puzzleDay();
 const GAMENO=CONFIG_OVERRIDE||gameForDay(DAY);
 const ROUNDS=GAMES[GAMENO];
 
+// The site's canonical address — bare domain, no protocol, matching how it
+// reads in the share text. This is the only place it's written; the score
+// API URL and the share text both derive from it. Swap this one line when
+// the real domain is live.
+const SITE_DOMAIN="rolypoly-seven.vercel.app";
+
 /* ---------- state ---------- */

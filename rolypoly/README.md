@@ -177,6 +177,13 @@ or device — there's no server-side account) gets a fresh board of its own.
 touching any of this — it doesn't count, and doesn't overwrite the real
 result.
 
+An unfinished game is also saved as you play, so closing the tab (or a
+crash, or a fat-fingered reload) mid-round doesn't lose the day — reopening
+resumes the same round, the same banked total, and what's already been
+found. Only the score and the found-list carry over; the world redraws as a
+clean shaft straight to the right depth rather than replaying every tunnel
+dug to get there.
+
 ## Score comparison
 
 The results screen shows a small histogram and "you scored better than N% of

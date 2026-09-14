@@ -26,4 +26,9 @@ $("answer").addEventListener("focus",()=>{
 });
 
 const storedResult=loadTodayResult();
-if(storedResult)showStoredResults(storedResult);
+if(storedResult){
+  showStoredResults(storedResult);
+}else{
+  const progress=loadInProgress();
+  if(progress)resumeGame(progress);
+}

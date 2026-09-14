@@ -7,8 +7,9 @@
 // same position, same job, better information. If the call is slow, fails,
 // or the page has no network at all (opened from disk, offline), the tier
 // band it's replacing simply stays put.
-// Edit SCORES_API if this ever moves to a different deployment/domain.
-const SCORES_API="https://rolypoly-seven.vercel.app/api/score";
+// Derived from SITE_DOMAIN (src/js/20-random.js) — no separate copy of the
+// address to keep in sync here.
+const SCORES_API=`https://${SITE_DOMAIN}/api/score`;
 const SCORES_TIMEOUT_MS=2000;
 const MIN_FOR_CURVE=50;
 

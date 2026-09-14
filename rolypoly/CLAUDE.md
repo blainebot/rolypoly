@@ -57,6 +57,16 @@ reads: the world's jagged tunnel edges and which relic waits in the hidden
 chamber (both in `src/js/50-world.js`), and — see "Daily rotation and
 persistence" below — which game is live and whether today's already done.
 
+## Site address
+
+`SITE_DOMAIN` in `src/js/20-random.js`, next to `GAMENO`, is the only place
+the site's address is written — a bare domain, no protocol, matching how it
+reads in the share text. The score API URL (`src/js/95-scores.js`) is
+derived from it (`https://${SITE_DOMAIN}/api/score`) rather than carrying
+its own copy. It's currently the Vercel deployment's address, not
+`rolypoly.gg` — that domain isn't registered yet. When it is, this one line
+is the whole change; nothing else should ever hardcode the address again.
+
 ## Daily rotation and persistence
 
 **Which game plays on which day** is `content/schedule.json` — the one
@@ -119,6 +129,52 @@ checking both fields, that stale record could otherwise be shown as today's,
 or silently block a day it doesn't actually belong to. There's no
 mid-session banner or live re-check — a tab left open past midnight keeps
 showing whatever it already loaded until it's reloaded.
+
+**An unfinished game is also saved**, separately, to
+`localStorage["rolypoly:progress"]`: `idx`, `banked`, `roundDepth`, `found`,
+`deepest`, `deepestName`, `chamberHit`, `results`. `saveInProgress()` is
+called after every state change that matters (`accept()`, the clear-board
++10, `endRound()`, `loadRound()`) rather than on a timer, so a reload never
+loses more than whatever happened in the last few milliseconds. It's a
+no-op during practice (`isPractice`), same reasoning as the finished-result
+save.
+
+The one subtlety: `idx` doesn't advance until the player clicks past a
+round's summary screen, but `endRound()` has already pushed that round into
+`results` before that click. In the window between the two, saving the raw
+`idx` would resume back into a round that's already banked — replaying and
+banking it again would double-count it. `saveInProgress()` uses
+`results.length` as the round to resume into, not `idx`, which is exactly
+right in both states: mid-round (`idx===results.length`) it also saves the
+live `roundDepth`/`found`/`chamberHit`; in that just-finished window
+(`idx` behind `results.length`) it resumes into the *next* round fresh
+instead, the safe choice, not a faked one. Once `results.length` reaches
+`ROUNDS.length` the day is over regardless of whether `idx` caught up, so
+`saveInProgress()` clears the in-progress record instead of writing one —
+and `saveTodayResult()` clears it again on the way to writing the finished
+result, so nothing stale is left behind either way a day can end.
+
+On boot, an in-progress record is only consulted if there's no finished
+result for today (finished always wins). `resumeGame()` restores the saved
+state and calls `loadRound(true)` — `loadRound()`'s only behavior change
+when resuming is skipping the reset it normally does at the top
+(`roundDepth`/`found`/`chamberHit`), since those are exactly what was just
+restored. One re-binding step matters here: `found` comes back through
+`JSON.parse` as plain-object copies, not the same object references as
+`ROUNDS[idx].answers` — and `dig()`'s duplicate check
+(`found.includes(hit)`) is reference equality against an object pulled from
+`avail()`. Skip the re-bind and an already-found answer silently stops
+being detected as a duplicate after a resume, and can be dug — and scored —
+a second time. `resumeGame()` re-binds each restored entry to its real
+answer object by name before assigning `found`. This shipped broken once;
+`scripts/smoke.mjs` now digs a pre-resume find again and asserts it's
+rejected, specifically so it can't ship broken twice.
+
+The world isn't replayed tunnel-by-tunnel on resume — that history is live
+pacing/animation state that was never persisted, and reconstructing the
+exact dig-by-dig path isn't worth the complexity for a redraw. `loadRound(true)`
+draws one clean shaft straight down to `roundDepth` instead: correct depth,
+not a faked history.
 
 **Reviewing past answers** — the results screen (freshly finished, restored,
 or practice) has a "Review your answers" `<details>`, one subsection per

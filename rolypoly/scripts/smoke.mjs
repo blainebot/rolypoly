@@ -178,7 +178,7 @@ function createSandbox({ day, active, localStorage }) {
   get idx(){return idx}, get roundDepth(){return roundDepth}, get banked(){return banked},
   get found(){return found}, get deepest(){return deepest}, get chamberHit(){return chamberHit},
   get results(){return results}, get isPractice(){return isPractice},
-  ROUNDS, GAMENO, POSSIBLE, DAY, DAY_TIERS, CHAMBER_AT, RELICS,
+  ROUNDS, GAMENO, POSSIBLE, DAY, DAY_TIERS, CHAMBER_AT, RELICS, SITE_DOMAIN,
 };`;
   vm.runInContext(engineSource + epilogue, context, { filename: "dist/index.html <script>" });
   if (typeof active === "string" && context.GAMENO !== active) {
@@ -318,7 +318,7 @@ await test("a full five-round game: final total and share text", async () => {
   const share = E.shareText();
   const lines = share.split("\n");
   assertEqual(lines.length, 4, "share text line count (game line, tier line, score, emoji row)");
-  assert(lines[0].startsWith(`rolypoly.gg #${E.GAMENO}`), `share text game line: ${JSON.stringify(lines[0])}`);
+  assert(lines[0].startsWith(`${E.SITE_DOMAIN} #${E.GAMENO}`), `share text game line: ${JSON.stringify(lines[0])}`);
   assertEqual(lines[2], String(E.banked), "share text's bare score line");
   assert(!share.includes("of"), 'share text must not show "N of POSSIBLE" — see CLAUDE.md "Scoring"');
   assertEqual([...lines[3]].length, 5, "share text emoji row: one mark per round");
@@ -481,6 +481,80 @@ await test("replay-blocking: practice mode after a finished day never touches st
   assertEqual(store.writes, writesBefore, "a practice playthrough must not write to localStorage at all");
   assertEqual(store.getItem("rolypoly:result"), before, "a practice playthrough must not overwrite the stored real result");
   assertEqual(E.results.length, E.ROUNDS.length, "sanity: the practice replay itself completed all rounds");
+});
+
+await test("in-progress: a mid-round reload resumes the same round, found list, and totals", async () => {
+  const store = makeLocalStorage();
+
+  // Session 1: bank round 0 for real, then dig two answers into round 1
+  // without banking — a genuinely mid-round, unfinished game.
+  const { E: E1, flush: flush1 } = fresh({ localStorage: store });
+  const round0Picks = E1.avail().slice(0, 3);
+  for (const a of round0Picks) await digAnswer(E1, flush1, a.n);
+  E1.bank();
+  await flush1();
+  const round0Total = round0Picks.reduce((s, a) => s + a.v, 0) + Math.max(0, (round0Picks.length - 2) * 2);
+
+  // The narrow window right here — round 0's result is recorded (endRound()
+  // already pushed it and saved), but idx hasn't advanced yet because the
+  // "Next round" button hasn't been clicked — is exactly the case
+  // saveInProgress()'s resumeIdx-from-results.length logic exists for. A
+  // reload here must resume into a *fresh* round 1, never back into round 0
+  // (which would let it be dug and banked a second time). Check it directly
+  // before clicking past it, since once the button's clicked idx and
+  // results.length agree again and this specific bug stops being visible.
+  {
+    const { E: mid } = fresh({ localStorage: store });
+    assertEqual(mid.idx, 1, "a reload between finishing a round and clicking past it must resume into the next round");
+    assertEqual(mid.found.length, 0, "that resume must not carry over the just-finished round's found list");
+    assertEqual(mid.results.length, 1, "that resume must still credit the just-finished round exactly once");
+  }
+
+  E1.$("bankBtn").onclick(); // advance to round 1
+  await flush1();
+  assertEqual(E1.idx, 1, "sanity: advanced into round 1");
+
+  const round1Picks = E1.avail().slice(0, 2);
+  for (const a of round1Picks) await digAnswer(E1, flush1, a.n);
+  const round1Depth = round1Picks.reduce((s, a) => s + a.v, 0);
+  assertEqual(E1.roundDepth, round1Depth, "sanity: round 1's unbanked total before the simulated reload");
+  assert(store.getItem("rolypoly:progress"), "an in-progress game must be saved to localStorage");
+  assertEqual(store.getItem("rolypoly:result"), null, "an unfinished day must not have a finished-result record");
+
+  // Session 2: simulate a reload — a fresh sandbox (new vm context, so no
+  // in-memory state carries over), same underlying store, same day.
+  const { E: E2, flush: flush2 } = fresh({ localStorage: store });
+  assertEqual(E2.idx, 1, "resumed round index");
+  assertEqual(E2.banked, round0Total, "resumed banked total from the completed round");
+  assertEqual(E2.roundDepth, round1Depth, "resumed unbanked total for the round in progress");
+  assertEqual(E2.found.length, round1Picks.length, "resumed found-list length for the round in progress");
+  assertEqual(
+    E2.found.map((a) => a.n).sort().join(","),
+    round1Picks.map((a) => a.n).sort().join(","),
+    "resumed found list matches what was actually dug before the reload"
+  );
+  assertEqual(E2.results.length, 1, "resumed results carry the one completed round, not the in-progress one");
+
+  // Restored found entries come back through JSON as plain-object copies —
+  // dig()'s duplicate check is found.includes(hit), reference equality
+  // against an object pulled fresh from avail(). If resumeGame() doesn't
+  // re-bind each restored entry to the real answer object, that check
+  // silently never matches and an already-found answer can be dug (and
+  // scored) a second time after a reload. This caught a real bug once.
+  await digAnswer(E2, flush2, round1Picks[0].n);
+  assertEqual(E2.found.length, round1Picks.length, "re-typing an already-found answer after a resume must not add a duplicate find");
+  assertEqual(E2.roundDepth, round1Depth, "re-typing an already-found answer after a resume must not add its value again");
+  assertEqual(E2.$("msg").textContent, "Already dug that one.", "re-digging a pre-resume find should say so, the same as any other duplicate");
+
+  // The resumed session must still be genuinely playable, not a dead end.
+  const nextPick = E2.avail().find((a) => !E2.found.some((f) => f.n === a.n));
+  await digAnswer(E2, flush2, nextPick.n);
+  assertEqual(E2.found.length, round1Picks.length + 1, "digging after a resume still works");
+  const round1Finds = [...round1Picks, nextPick];
+  const round1Total = round1Finds.reduce((s, a) => s + a.v, 0) + Math.max(0, (round1Finds.length - 2) * 2);
+  E2.bank();
+  await flush2();
+  assertEqual(E2.banked, round0Total + round1Total, "final banked total after resuming and banking is correct, not corrupted by the reload");
 });
 
 console.log(`\n${ran} scenarios · ${failures.length} failures`);

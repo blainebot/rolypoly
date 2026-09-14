@@ -12,9 +12,15 @@ function revealFacts(){
     found.map(x=>`<div class="fact"><b>${x.n}</b><i>+${x.v}</i><p>${x.f}</p></div>`).join("");
 }
 
-function loadRound(){
+// resuming=true rebuilds the play screen for whatever idx/roundDepth/found
+// were just restored by resumeGame(), instead of resetting them — the only
+// difference from a normal round start. See saveInProgress() for why the
+// world redraw below is one clean shaft to roundDepth, not the real
+// dig-by-dig tunnel history.
+function loadRound(resuming){
   const r=ROUNDS[idx];
-  roundDepth=0;found=[];chamberHit=false;$("chamberBox").innerHTML="";
+  if(!resuming){roundDepth=0;found=[];chamberHit=false}
+  $("chamberBox").innerHTML="";
   $("domain").textContent=r.domain.toLowerCase();
   $("prompt").textContent=r.prompt;
   $("facts").innerHTML="";
@@ -23,17 +29,24 @@ function loadRound(){
   $("confirmBox").innerHTML="";
   $("answer").value="";$("answer").disabled=false;
   $("entry").hidden=false;$("deadend").hidden=true;
-  $("digBtn").hidden=false;$("digBtn").disabled=false;$("digBtn").textContent="Dig";
-  $("bankBtn").disabled=true;$("bankBtn").textContent="Bank and roll";
+  $("digBtn").hidden=false;$("digBtn").disabled=false;
+  $("digBtn").textContent=found.length?"Dig again":"Dig";
+  const bonus=breadthBonus();
+  $("bankBtn").disabled=found.length===0;
+  $("bankBtn").textContent=found.length?`Bank and roll +${roundDepth+bonus}`:"Bank and roll";
   $("bankBtn").onclick=bank;
+  $("bonusNum").hidden=bonus<=0;
+  $("bonusNum").textContent=bonus>0?`+${bonus} bonus`:"";
   $("den").classList.remove("gone","tremble");$("den").innerHTML=SLEEPER(false);
-  $("gainNum").textContent="0";$("gainPlus").textContent="";
-  $("bonusNum").hidden=true;$("bonusNum").textContent="";
-  setShell("sand");
-  rollIn(idx===0);
+  $("gainNum").textContent=roundDepth;$("gainPlus").textContent="";
+  setShell(found.length?tierFor(found[found.length-1].v).v:"sand");
+  renderFacts();
+  rollIn(idx===0||resuming);
+  if(resuming&&roundDepth>0){moveWorld(roundDepth);newDrop(0,0,roundDepth);newCorridor(roundDepth,0)}
   updateHud();
-  say("");
+  say(resuming&&found.length?`Resumed — ${roundDepth} at risk.`:"");
   softFocus();
+  saveInProgress();
 }
 
 function reveal(hit,then){
@@ -86,11 +99,13 @@ function accept(hit){
   const bonus=breadthBonus();
   $("bonusNum").hidden=bonus<=0;
   $("bonusNum").textContent=bonus>0?`+${bonus} bonus`:"";
+  saveInProgress();
   reveal(hit,()=>{
     renderFacts();
     const found_=`${hit.n} — ${tierFor(hit.v).name}, +${hit.v}.`;
     if(found.length===avail().length){
       roundDepth+=10;updateHud();
+      saveInProgress();
       say(`${found_} You cleared the whole list. +10.`,"good");
       rollOut(()=>endRound("bank"));
       return;
@@ -188,6 +203,7 @@ function endRound(kind){
     if(idx>=ROUNDS.length)showResults();
     else loadRound();
   };
+  saveInProgress();
 }
 
 function showRoundSummary(kind,bonus,dug){
