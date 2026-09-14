@@ -40,6 +40,24 @@ so a failure there means a failed deploy.
 - `00-tiers.js` contains the marker `/*__ROUNDS__*/`, which the build replaces with
   compiled content. Don't remove it.
 
+## Puzzle day
+
+`puzzleDay()` in `src/js/20-random.js` is the only place a date gets
+constructed. The puzzle rolls over at **midnight US Eastern**, not UTC —
+`new Date().toISOString()` is UTC and was rolling the day (and everything
+seeded from it) at 8pm Eastern. It uses `Intl.DateTimeFormat` with the
+`America/New_York` time zone rather than any hand-rolled offset, so DST
+transitions are handled by the platform's own timezone database, not
+reimplemented here. `?day=2026-09-20` in the URL overrides it for testing —
+looking at a specific day's puzzle doesn't require changing the system clock.
+
+`DAY`, computed once from `puzzleDay()` at load, is what everything else
+reads. Currently that's the world's jagged tunnel edges and which relic
+waits in the hidden chamber (both in `src/js/50-world.js`) — cosmetic
+seeding, not which game is active; `content/config.json` still picks that by
+hand (see "Known gaps"). If daily rotation is ever wired up, it should read
+`DAY` the same way rather than constructing its own date.
+
 ## Decisions already made
 
 Don't reintroduce these without asking:
