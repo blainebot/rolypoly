@@ -1,4 +1,5 @@
 let idx=0,roundDepth=0,banked=0,found=[],deepest=0,deepestName="—",chamberHit=false;
+let isPractice=false;
 const CHAMBER_AT=95;
 const me="Poly";
 const results=[];

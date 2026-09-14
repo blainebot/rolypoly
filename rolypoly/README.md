@@ -4,10 +4,13 @@ A daily press-your-luck trivia dig. Five prompts, five unrelated domains. Every
 right answer digs Poly deeper. Dig again to keep going, or bank and roll to lock
 in the round. One wrong answer wakes Rumble and wipes out everything unbanked.
 
-The whole game is one self-contained HTML file with no runtime dependencies. The
-results screen also shows how your score compares to today's other players; that
-one piece calls out to a small hosted API and fails silently to nothing shown if
-it can't reach it — see "Score comparison" below.
+The whole game is one self-contained HTML file with no runtime dependencies. Which
+game plays is a date lookup (see "Daily rotation" below), and it's once per day —
+finishing shows that day's results on every return visit, with a way to review
+what you found, until the next one rolls over. The results screen also shows how
+your score compares to today's other players; that one piece calls out to a small
+hosted API and fails silently to nothing shown if it can't reach it — see "Score
+comparison" below.
 
 ## Running it
 
@@ -62,7 +65,8 @@ src/
   css/styles.css     all styling
   js/                engine, concatenated in filename order
 content/
-  config.json        which game is live
+  schedule.json      which game plays on which day
+  config.json        manual game override, for local development
   games/001/*.json   one folder per game, five rounds each
   games/002/*.json
 scripts/
@@ -82,11 +86,14 @@ with the compiled content. Don't remove it.
 
 ## Writing content
 
-See `content/TEMPLATE.md`. Add a game by creating `content/games/<num>/`
-with five round files, then pointing `activeGame` in `content/config.json` at it.
-Every game is bundled into the build; only the active one is played. Run `npm run validate` before committing — it
-catches missing facts, colliding aliases, out-of-range values, and rounds with
-no cheap opening answer.
+See `content/TEMPLATE.md`. Add a game by creating `content/games/<num>/` with
+five round files, then appending its number to `order` in
+`content/schedule.json` so it enters the rotation. Every game is bundled into
+the build regardless; which one plays on a given day is a date lookup against
+the schedule (`content/config.json`'s `activeGame` overrides that for local
+testing — leave it `null` to ship). Run `npm run validate` before committing —
+it catches missing facts, colliding aliases, out-of-range values, and rounds
+with no cheap opening answer.
 
 ## Tier rules
 
@@ -150,6 +157,26 @@ Players' answers are matched in this order, and none of these cost them a round:
 
 Only an answer that fails all three wakes Rumble.
 
+## Daily rotation
+
+`content/schedule.json` sets which game plays on which day: a start date and
+an ordered list of game numbers, cycling one per day and wrapping around
+indefinitely. Append a new game's number to the list to add it to the
+rotation — that's the only edit a new game needs to actually go live.
+`content/config.json`'s `activeGame` overrides the schedule for local
+development (testing one specific game without waiting for its day); it
+should be `null` in production.
+
+The game is playable once per day. Finishing writes the result — score,
+what was found and missed each round, the share text — to that browser's
+`localStorage`, keyed to the day and the game actually played. Returning
+later the same day shows that result again, with a "Review your answers"
+section, rather than a fresh board; a different day (or a different browser
+or device — there's no server-side account) gets a fresh board of its own.
+"Practice dig" from the results screen replays the same prompts without
+touching any of this — it doesn't count, and doesn't overwrite the real
+result.
+
 ## Score comparison
 
 The results screen shows a small histogram and "you scored better than N% of
@@ -175,9 +202,10 @@ ever changes.
 
 ## Known gaps
 
-- No daily rotation or persistence yet. `config.json` picks the game by hand.
-  All games are already bundled, so rotation is a date lookup away.
 - Off-list answers are always wrong. A real version needs either exhaustive
   hand-authored lists or a model judging submissions at play time.
 - No sound.
-- Content is five sample rounds, not a bank.
+- Content is two games (ten rounds), not a bank — the rotation in
+  `content/schedule.json` repeats every two days until more are added.
+- No cross-device sync. A finished day lives in that browser's `localStorage`
+  only.

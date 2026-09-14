@@ -174,7 +174,8 @@ function endRound(kind){
   const left=avail().filter(a=>!found.includes(a)).reduce((n,a)=>n+a.v,0);
   const top=found.reduce((m,a)=>Math.max(m,a.v),0);
   banked+=gained;
-  results.push({domain:ROUNDS[idx].domain,digs:found.length,cm:gained,bust:kind==="bust",left,top,chamber:chamberHit});
+  const foundSnap=found.map(a=>({n:a.n,v:a.v,f:a.f}));
+  results.push({domain:ROUNDS[idx].domain,digs:found.length,cm:gained,bust:kind==="bust",left,top,chamber:chamberHit,found:foundSnap});
   if(kind==="bust"){$("gainNum").textContent="0";rumble(dug-firstFind,firstFind)}
   else{updateHud()}
   revealFacts();

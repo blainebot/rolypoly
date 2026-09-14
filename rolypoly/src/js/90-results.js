@@ -50,7 +50,7 @@ function shareText(){
   const marks=results.map(r=>r.bust?RUMBLED:r.chamber?CHAMBER:tierFor(r.top).e).join("");
   return `rolypoly.gg #${GAMENO} \u{1FAB2}\n${dt.e} ${dt.name}\n${banked}\n${marks}`;
 }
-function showResults(){
+function showResults(restoring){
   const t=tierFor(deepest);
   setShell(t.v);
   const dt=dayTierFor(banked);
@@ -81,6 +81,7 @@ function showResults(){
       <span><b>${CHAMBER}</b>hidden chamber</span>
       <span><b>${RUMBLED}</b>rumbled</span></div>
     <pre class="share">${shareText()}</pre>
+    ${reviewAnswersHtml()}
     <div class="acts"><button class="bank" id="copyBtn">Share result</button>
     <button id="againBtn">Practice dig</button></div>
     <p class="msg">Practice replays the same prompts and doesn't count toward today.</p>`;
@@ -95,10 +96,14 @@ function showResults(){
     catch(e){$("copyBtn").textContent="Select the text above"}
   };
   $("againBtn").onclick=()=>{
+    isPractice=true;
     idx=0;banked=0;deepest=0;deepestName="—";results.length=0;
     el.hidden=true;$("play").hidden=false;loadRound();
   };
-  renderDistribution(banked);
+  if(!restoring&&!isPractice){
+    saveTodayResult();
+    renderDistribution(banked);
+  }
 }
 
 /* ---------- intro ---------- */

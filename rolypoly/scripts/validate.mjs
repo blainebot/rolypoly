@@ -31,9 +31,23 @@ for (const num of readdirSync(gamesDir).sort()) {
 }
 if (!files.length) errors.push("no round files found in content/games/");
 
+const gameFolders = readdirSync(gamesDir);
+
+// config.activeGame is an optional manual override for local development;
+// null/absent means the schedule decides, which is the production default.
 const config = JSON.parse(readFileSync(join(root, "content", "config.json"), "utf8"));
-if (!readdirSync(gamesDir).includes(config.activeGame))
+if (config.activeGame && !gameFolders.includes(config.activeGame))
   errors.push(`config.activeGame is "${config.activeGame}" but that folder does not exist`);
+
+const schedule = JSON.parse(readFileSync(join(root, "content", "schedule.json"), "utf8"));
+if (!/^\d{4}-\d{2}-\d{2}$/.test(schedule.start))
+  errors.push(`content/schedule.json's "start" must be YYYY-MM-DD, got ${JSON.stringify(schedule.start)}`);
+if (!Array.isArray(schedule.order) || !schedule.order.length)
+  errors.push(`content/schedule.json's "order" must be a non-empty array of game numbers`);
+else
+  for (const num of schedule.order)
+    if (!gameFolders.includes(num))
+      errors.push(`content/schedule.json's order references game "${num}", but content/games/${num} does not exist`);
 
 for (const file of files) {
   const where = m => `${file}: ${m}`;

@@ -24,3 +24,6 @@ $("answer").addEventListener("keydown",e=>{if(e.key==="Enter")dig()});
 $("answer").addEventListener("focus",()=>{
   setTimeout(()=>$("answer").scrollIntoView({block:"center",behavior:"smooth"}),320);
 });
+
+const storedResult=loadTodayResult();
+if(storedResult)showStoredResults(storedResult);

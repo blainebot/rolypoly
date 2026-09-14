@@ -17,4 +17,11 @@ function puzzleDay(){
 }
 const DAY=puzzleDay();
 
+// GAMES, SCHEDULE, CONFIG_OVERRIDE and gameForDay() come from the build's
+// content-injection block in 00-tiers.js, earlier in this same concatenated
+// script — they exist by the time this line runs even though they're
+// defined "before" DAY, because DAY is what gameForDay() needs.
+const GAMENO=CONFIG_OVERRIDE||gameForDay(DAY);
+const ROUNDS=GAMES[GAMENO];
+
 /* ---------- state ---------- */

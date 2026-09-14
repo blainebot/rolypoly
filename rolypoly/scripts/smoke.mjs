@@ -73,7 +73,23 @@ function makeElement() {
   return el;
 }
 
-function createSandbox({ day, active }) {
+// A minimal Web Storage stand-in, backed by a plain Map. Callers that want
+// to simulate "close the tab, reopen it" pass the same store into a second
+// createSandbox() call; callers that don't care get an isolated fresh one.
+function makeLocalStorage() {
+  const data = new Map();
+  return {
+    writes: 0, // a deterministic replay can write back an identical value,
+    // so tests that need to know whether a write happened at all (not just
+    // whether the end value changed) should assert on this count.
+    getItem: (k) => (data.has(k) ? data.get(k) : null),
+    setItem(k, v) { data.set(k, String(v)); this.writes++; },
+    removeItem: (k) => { data.delete(k); },
+    clear: () => data.clear(),
+  };
+}
+
+function createSandbox({ day, active, localStorage }) {
   const byId = new Map();
   const getElementById = (id) => {
     if (!byId.has(id)) byId.set(id, makeElement());
@@ -124,6 +140,7 @@ function createSandbox({ day, active }) {
     ...timers,
     navigator: { clipboard: { writeText: async () => {} } },
     location: { search: `?day=${day}` },
+    localStorage: localStorage || makeLocalStorage(),
     document: {
       getElementById,
       activeElement: null,
@@ -156,10 +173,11 @@ function createSandbox({ day, active }) {
   const epilogue = `
 ;globalThis.__TEST__ = {
   dig, bank, loadRound, showResults, askConfirm, endRound,
+  saveTodayResult, loadTodayResult, showStoredResults,
   $, norm, partialMatches, nearMiss, tierFor, dayTierFor, avail, shareText, breadthBonus,
   get idx(){return idx}, get roundDepth(){return roundDepth}, get banked(){return banked},
   get found(){return found}, get deepest(){return deepest}, get chamberHit(){return chamberHit},
-  get results(){return results},
+  get results(){return results}, get isPractice(){return isPractice},
   ROUNDS, GAMENO, POSSIBLE, DAY, DAY_TIERS, CHAMBER_AT, RELICS,
 };`;
   vm.runInContext(engineSource + epilogue, context, { filename: "dist/index.html <script>" });
@@ -189,8 +207,8 @@ function assertEqual(actual, expected, label) {
 
 const TEST_DAY = "2026-01-01"; // fixed so every scenario is deterministic
 
-function fresh() {
-  return createSandbox({ day: TEST_DAY });
+function fresh(opts = {}) {
+  return createSandbox({ day: TEST_DAY, ...opts });
 }
 
 // A small, fully-known answer pool for tests that need controlled content
@@ -382,6 +400,87 @@ await test("hidden chamber fires once roundDepth crosses its threshold", async (
     await digAnswer(E, flush, a.n);
   }
   assert(E.chamberHit, `chamberHit should be true after digging past ${E.CHAMBER_AT} in round ${targetIdx}`);
+});
+
+async function playWholeGame(E, flush) {
+  let expected = 0;
+  for (let r = 0; r < E.ROUNDS.length; r++) {
+    const picks = E.avail().slice(0, Math.min(3, E.avail().length));
+    for (const a of picks) await digAnswer(E, flush, a.n);
+    E.bank();
+    await flush();
+    expected += picks.reduce((s, a) => s + a.v, 0) + Math.max(0, (picks.length - 2) * 2);
+    E.$("bankBtn").onclick();
+    await flush();
+  }
+  return expected;
+}
+
+await test("replay-blocking: a finished day is stored and restored on the next boot", async () => {
+  const store = makeLocalStorage();
+
+  // Session 1: play the real game to completion.
+  const { E: E1, flush: flush1 } = fresh({ localStorage: store });
+  const expected = await playWholeGame(E1, flush1);
+  assertEqual(E1.banked, expected, "sanity: session 1's banked total");
+  assertEqual(E1.isPractice, false, "session 1 must not be flagged as practice");
+  const saved = store.getItem("rolypoly:result");
+  assert(saved, "finishing the real game must save a result to localStorage");
+  assertEqual(JSON.parse(saved).banked, expected, "the stored record's banked total");
+
+  // Session 2: a fresh boot (new sandbox = new vm context, same underlying
+  // store — simulating a page reload) on the same day must present that
+  // day as already complete, not offer a fresh board.
+  const { E: E2 } = fresh({ localStorage: store });
+  assertEqual(E2.banked, expected, "reloading the same day should restore the stored banked total");
+  assertEqual(E2.idx, E2.ROUNDS.length, "reloading a finished day should present it as already complete");
+  assertEqual(E2.results.length, E2.ROUNDS.length, "reloading should restore every round's result");
+  assertEqual(E2.results[0].found.length > 0, true, "restored results should carry the found-answer detail used for review");
+});
+
+await test("replay-blocking: a stale stored record (wrong day or game) is never shown as today's", async () => {
+  // This is the mechanism that protects against the day rolling over
+  // mid-session: whatever gets saved is tagged with the day/game that was
+  // actually played, and a mismatch on either must fall back to a fresh
+  // board rather than showing stale results as if they were today's.
+  const wrongDay = makeLocalStorage();
+  wrongDay.setItem("rolypoly:result", JSON.stringify({
+    day: "2020-01-01", gameNo: "002", banked: 999, deepest: 5, deepestName: "x", results: [],
+  }));
+  const { E: byDay } = fresh({ localStorage: wrongDay });
+  assertEqual(byDay.idx, 0, "a record for a different day must not short-circuit a fresh board");
+  assertEqual(byDay.banked, 0, "a record for a different day must not leak its banked total in");
+
+  const wrongGame = makeLocalStorage();
+  wrongGame.setItem("rolypoly:result", JSON.stringify({
+    day: TEST_DAY, gameNo: "not-a-real-game", banked: 999, deepest: 5, deepestName: "x", results: [],
+  }));
+  const { E: byGame } = fresh({ localStorage: wrongGame });
+  assertEqual(byGame.idx, 0, "a record for a different game (same day) must not short-circuit a fresh board");
+  assertEqual(byGame.banked, 0, "a record for a different game must not leak its banked total in");
+});
+
+await test("replay-blocking: practice mode after a finished day never touches storage", async () => {
+  const store = makeLocalStorage();
+  const { E, flush } = fresh({ localStorage: store });
+  await playWholeGame(E, flush);
+  const before = store.getItem("rolypoly:result");
+  assert(before, "sanity: a real result was saved");
+
+  const writesBefore = store.writes;
+  E.$("againBtn").onclick();
+  assertEqual(E.isPractice, true, "clicking Practice dig must flag the session as practice");
+  // Play a full second game start to finish — showResults() (where saving
+  // happens) is only reached once idx hits the end, so a partial replay
+  // wouldn't actually exercise the isPractice gate this test exists to check.
+  // Assert on write *count*, not just the stored value: a deterministic
+  // replay of the same content can write back an identical value, which a
+  // plain equality check against `before` wouldn't catch as a write at all.
+  await playWholeGame(E, flush);
+
+  assertEqual(store.writes, writesBefore, "a practice playthrough must not write to localStorage at all");
+  assertEqual(store.getItem("rolypoly:result"), before, "a practice playthrough must not overwrite the stored real result");
+  assertEqual(E.results.length, E.ROUNDS.length, "sanity: the practice replay itself completed all rounds");
 });
 
 console.log(`\n${ran} scenarios · ${failures.length} failures`);
