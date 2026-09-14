@@ -17,6 +17,8 @@ jobs:
         run: node scripts/validate.mjs
       - name: Build
         run: node scripts/build.mjs
+      - name: Smoke test
+        run: node scripts/smoke.mjs
       - name: Upload built game
         uses: actions/upload-artifact@v4
         with:

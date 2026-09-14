@@ -12,7 +12,7 @@ it can't reach it — see "Score comparison" below.
 ## Running it
 
 ```bash
-npm run check     # validate content, then build
+npm run check     # validate content, build, then smoke-test the result
 npm run serve     # build and serve dist/ locally
 ```
 
@@ -42,11 +42,11 @@ Vercel deployment that does. See "Score comparison" below.
 **Cloudflare Pages — one signup, works with a private repo.** It does not read any
 config file, so enter these by hand:
 
-| Setting          | Value                                                 |
-|------------------|-------------------------------------------------------|
-| Build command    | `node scripts/validate.mjs && node scripts/build.mjs` |
-| Output directory | `dist`                                                |
-| Framework preset | None                                                  |
+| Setting          | Value                                                                      |
+|------------------|-----------------------------------------------------------------------------|
+| Build command    | `node scripts/validate.mjs && node scripts/build.mjs && node scripts/smoke.mjs` |
+| Output directory | `dist`                                                                     |
+| Framework preset | None                                                                       |
 
 **Netlify — one signup, zero configuration.** `netlify.toml` already specifies the
 build command and publish folder, so importing the repo is the whole job.
@@ -68,6 +68,7 @@ content/
 scripts/
   build.mjs          inlines everything into dist/index.html
   validate.mjs       checks content before it can ship
+  smoke.mjs          plays scripted games against the built engine
 api/
   score.js           Vercel function backing the optional score comparison
 ```

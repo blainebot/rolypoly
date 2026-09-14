@@ -15,14 +15,15 @@ softens it needs a real argument.
 ## Commands
 
 ```bash
-npm run check     # validate content, then build
+npm run check     # validate content, build, then smoke-test the result
 npm run build     # writes dist/index.html
 npm run validate  # content checks only
+npm run smoke     # plays scripted games against the built engine
 npm run serve     # build and serve dist/ locally
 ```
 
-**`npm run check` must pass before any commit.** Vercel runs the same two scripts,
-so a failure there means a failed deploy.
+**`npm run check` must pass before any commit.** Vercel, Netlify, and Cloudflare
+Pages all run the same three scripts, so a failure there means a failed deploy.
 
 ## Hard constraints
 
@@ -57,6 +58,50 @@ waits in the hidden chamber (both in `src/js/50-world.js`) — cosmetic
 seeding, not which game is active; `content/config.json` still picks that by
 hand (see "Known gaps"). If daily rotation is ever wired up, it should read
 `DAY` the same way rather than constructing its own date.
+
+## Smoke test
+
+`scripts/smoke.mjs` is the only test on game *logic* — `validate.mjs` only
+checks content. It reads `dist/index.html`, extracts the one `<script>` (the
+whole engine, concatenated — see "Hard constraints" above), and runs that
+real source inside a hand-rolled `node:vm` context built to look just enough
+like a browser that the engine doesn't notice: a flat id → element cache
+standing in for `document.getElementById` (the engine never traverses real
+DOM structure, only ever looks things up by id, so no HTML parser is
+needed), and fake timers. `setTimeout` really fires — via `setImmediate`, so
+callback order matches call order, which is what every real-delay pair in
+this codebase already relies on — so `reveal()`'s cascading 1050ms/1900ms
+continuations (the chamber check lives in the first one) genuinely run.
+`setInterval` and `requestAnimationFrame` are no-ops that never fire, since
+nothing under test depends on an interval or animation frame actually
+ticking — only on the one-shot timeouts that gate game-state transitions.
+`fetch` always rejects, so the score-comparison call in `95-scores.js`
+resolves to nothing almost instantly, exactly as it would offline — no
+sandbox talks to the network. `calm()` (reduced motion) is deliberately kept
+`false`, not stubbed true, because the calm-branch in `reveal()` skips the
+hidden-chamber check entirely — faking reduced motion would silently disable
+the ability to test the chamber at all.
+
+Every scenario gets its own fresh `vm` context rather than sharing one reset
+between tests — slightly more setup per scenario, far less risk of one
+test's leftover state leaking into the next. Matcher scenarios run against a
+small synthetic answer pool authored in the test file itself, not whatever's
+currently in `content/games/`, so they keep passing regardless of future
+content edits; the scoring scenarios (clean round, bust, clear, full game,
+chamber) deliberately do use the real compiled `ROUNDS`, reading `avail()`
+dynamically rather than hardcoding answer names, so they also survive
+content edits without going stale.
+
+Assertions are checked against the engine's actual resulting state (`banked`,
+`found`, `results`, `shareText()`) — expected values are computed
+independently in the test file from the rules in "Scoring" above, not copied
+from the implementation. If you're tempted to make a failing assertion pass
+by editing the assertion instead of the engine, stop and read why it failed
+first — that's the entire point of this file existing.
+
+`npm run smoke` runs it alone; `npm run check` runs it after the build, and
+so does every deploy target's build command (Vercel, Netlify, Cloudflare,
+GitHub Pages) and the CI workflow.
 
 ## Decisions already made
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/validate.mjs && node scripts/build.mjs",
+  "buildCommand": "node scripts/validate.mjs && node scripts/build.mjs && node scripts/smoke.mjs",
   "outputDirectory": "dist",
   "framework": null,
   "functions": {
