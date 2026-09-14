@@ -203,6 +203,25 @@ function endRound(kind){
     if(idx>=ROUNDS.length)showResults();
     else loadRound();
   };
+  if(kind==="bank"){
+    // #roundSummary/#missedBox have no live region of their own (renderFacts()
+    // fires on every dig, not just round end, so making .facts itself live
+    // would re-announce the whole growing chip list on every single find) —
+    // this folds the same numbers into the one aria-live channel that
+    // already works instead. The bust path leaves #msg as dig() set it
+    // ("isn't on the list. Rumble wakes up.") since the Rumble dialog itself
+    // is the accessible narrative for a bust; this is bank-only.
+    const finds=found.length;
+    const par=ROUNDS[idx].par;
+    const restCount=avail().length-finds;
+    say(`Banked ${gained}. ${finds} ${finds===1?"find":"finds"} · ${dug} dug${bonus>0?` · +${bonus} bonus`:""}. Par ${par}.${restCount?` ${restCount} still down there.`:""}`,"good");
+    // endRound() ends every round with focus wherever it was (often the now-
+    // disabled #answer), which browsers drop to document.body — silence for
+    // a keyboard/screen-reader user, with no cue the round ended or where to
+    // go. The bust path already restores focus on Rumble's close(); this is
+    // the bank-path equivalent.
+    $("bankBtn").focus();
+  }
   saveInProgress();
 }
 

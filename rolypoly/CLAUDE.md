@@ -351,6 +351,83 @@ measurable — Wikipedia pageviews bucketed into the four bands is the usual app
 Be generous about including debatable-but-true answers. A valid answer that isn't on
 the list wipes the round, which is the most enraging thing this game can do.
 
+## Accessibility
+
+An audit walked the game keyboard-only and with a screen reader in mind and
+found a ranked list of gaps; the critical and high ones are fixed, the rest
+are still open. Read the audit notes (not reproduced here) before assuming
+something's covered — plenty isn't yet.
+
+**The Rumble overlay is a real focus trap, not just `aria-modal`.** That
+attribute is a hint to assistive tech; it does nothing to stop a sighted
+keyboard user from tabbing out of it. `endRound()` re-enables `bankBtn`
+("Next round"/"See your day") before `rumble()`'s own 420ms delay even
+builds the dialog, so it's sitting live underneath the scrim the whole time
+the overlay is up — without a trap, Tab from "Shake it off" walked straight
+into it, letting a keyboard user advance the round while RUMBLED! was still
+on screen. `rumble()` now adds a capture-phase `keydown` listener alongside
+the existing Escape handler, wrapping Tab/Shift+Tab within whatever's
+focusable inside `#scrim` at that moment (queried live, not a fixed list, so
+it stays correct if the dialog ever gains more controls). Both listeners are
+added and removed together, in `close()`.
+
+**Nothing moved focus when a round or a day ended.** `bank()` disables the
+input/buttons, `endRound()` re-enables `bankBtn` — but never focused it, so
+the browser dropped focus to `document.body`: silence for a keyboard or
+screen-reader user, no cue anything happened or where to go. Same gap at the
+day's end, when `showResults()` hides `#play` (and whatever had focus inside
+it) and rendered a new screen with nothing focused. Fixed in both places:
+`endRound()` focuses `bankBtn` on a bank outcome (bust is untouched — the
+Rumble dialog already owns focus there, correctly); `showResults()` focuses
+the results screen's heading. That heading — `#dayHeading` — didn't exist
+before either; the results screen had no heading element at all, so a
+screen-reader user navigating by heading found nothing there. It's now an
+`<h1>` (the tier name, e.g. "leaf litter"), `tabindex="-1"` so it's
+programmatically focusable without joining the normal tab order, doubling as
+both the fix for the missing heading and the landing point after the
+screen-transition — one control point, not two unrelated toggles that could
+drift out of sync. Applies whether the screen just finished for real, was
+restored from a stored result, or is a practice run. `.daytier` also carries
+`scroll-margin-top` — the browser's default scroll-into-view on focus was
+landing the heading partially behind the fixed HUD bar otherwise.
+
+**The at-risk escalation (`src/js/60-hud.js`) was colour only.** Four
+levels, cream → gold → orange → pulsing ember, and nothing else changed —
+not even the pulse helped, since risk-3's animation is disabled under
+`prefers-reduced-motion` the same as everything else, leaving that state
+colour-only too for anyone with reduced motion set. Fixed with a short text
+flag stacked under the number (`#riskFlag`: empty at levels 0–1, "rising" at
+2, "high" at 3) — deliberately a second stacked line, not a longer "at risk"
+caption on the same line, because the longer caption overflowed the HUD on
+narrow screens; caught that by testing at mobile width, not by guessing.
+
+**Round-end content had no live region**, so `#roundSummary`
+(finds/dug/bonus/par), `.facts` ("what you dug up"), and `#missedBox`
+("still down there") were never announced — only the terse `say()` messages
+("Banked N.") were, via the one `#msg` region that already works.
+`.facts`/`#roundSummary`/`#missedBox` weren't made `aria-live` directly:
+`renderFacts()` also fires on every single dig mid-round, not just at round
+end, so a live `.facts` would re-announce the whole growing chip list on
+every find — worse, not better. Instead, `endRound()` folds the same numbers
+into one richer message on the existing `#msg` channel for a bank outcome:
+"Banked 14. 3 finds · 12 dug · +2 bonus. Par 12. 12 still down there." Bust
+is intentionally left alone — the Rumble dialog is already the accessible
+narrative for a bust, and duplicating round-summary detail into `#msg` on
+top of that would just be two competing announcements.
+
+Not done in this pass, deliberately scoped out — the audit's moderate/low
+findings (bonus not announced on its own, the hidden-chamber discovery not
+announced, `body.kb` hiding `.facts`/`#missedBox` for anyone with a
+continuously-open on-screen keyboard, the day-tier band's adjacent hues,
+reveal announcements landing ~1.9s behind the visual animation, no
+auto-focus into the answer field on mobile at round start) are still open.
+No new smoke coverage was added for the fixes above either — verified all
+of them by hand in a real browser instead (Tab/Shift+Tab trapped, focus
+landing correctly, the enriched message's exact text), since the smoke
+harness's stub DOM doesn't track `document.activeElement` at all right now;
+teaching it to would be real scope, not a quick addition, if focus behavior
+ever needs regression coverage here.
+
 ## Rumble's costumes
 
 A round may name a `scene`; without one it falls back to the domain. Art lives in

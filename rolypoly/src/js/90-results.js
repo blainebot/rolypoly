@@ -64,7 +64,7 @@ function showResults(restoring){
   updateHud();
   const el=$("results");el.hidden=false;
   el.innerHTML=`<div class="label">your day</div>
-    <p class="daytier" style="color:var(--${dt.v}-lt)">${dt.e} ${dt.name}</p>
+    <h1 class="daytier" id="dayHeading" tabindex="-1" style="color:var(--${dt.v}-lt)">${dt.e} ${dt.name}</h1>
     <p class="final">${banked}</p>
     <p class="daycopy">${dt.copy}</p>
     <div id="distBox">${dayTierBandSvg(banked)}</div>
@@ -100,6 +100,15 @@ function showResults(restoring){
     idx=0;banked=0;deepest=0;deepestName="—";results.length=0;
     el.hidden=true;$("play").hidden=false;loadRound();
   };
+  // Whatever had focus before (a now-hidden #play control, or nothing at
+  // boot) is gone; without this the browser drops focus to document.body —
+  // silence for a keyboard/screen-reader user arriving on a new screen with
+  // no cue it changed. #dayHeading is also the one heading on this screen
+  // (there wasn't one before), so focusing it doubles as an orientation
+  // point: what a screen reader announces is the tier name, not "day
+  // heading" or nothing. Applies whether this is a fresh finish, a restored
+  // result, or a practice run — always the right place to land.
+  $("dayHeading").focus();
   if(!restoring&&!isPractice){
     saveTodayResult();
     renderDistribution(banked);

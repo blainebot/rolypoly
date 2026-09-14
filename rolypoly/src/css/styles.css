@@ -156,10 +156,13 @@ body{
   font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
 .cell b{font-size:26px;margin-top:3px}
 .cell.right{margin-left:auto;text-align:right}
+.cell i{display:block;font-style:normal;font-size:10px;letter-spacing:1px;text-transform:uppercase}
 .risk-0 b{color:var(--cream)}
 .risk-1 b{color:var(--gold)}
 .risk-2 b{color:var(--orange)}
+.risk-2 i{color:var(--orange)}
 .risk-3 b{color:var(--ember-lt);animation:pulseScale .8s ease-in-out infinite}
+.risk-3 i{color:var(--ember-lt)}
 .hud.intro .cell,.hud.intro .pips{display:none}
 .hud.intro .mark{border-right:none}
 .pips{display:flex;gap:6px;margin:0 auto}
@@ -252,7 +255,7 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .chooser button{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px}
 .cast{display:flex;align-items:flex-end;justify-content:center;gap:18px;margin-bottom:6px}
 .daytier{font-family:"Pixelify Sans",monospace;font-size:clamp(24px,6.5vw,36px);
-  line-height:1.15;letter-spacing:1px;margin:10px 0 0}
+  line-height:1.15;letter-spacing:1px;margin:10px 0 0;scroll-margin-top:80px}
 .final{font-size:clamp(38px,11vw,58px);line-height:1;margin:2px 0 0}
 .daycopy{color:#C7B9A4;font-size:15px;margin:6px 0 0}
 .dist{margin-top:12px}

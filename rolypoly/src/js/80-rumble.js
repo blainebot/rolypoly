@@ -35,10 +35,31 @@ function rumble(lost,kept){
       document.body.classList.remove("shaking");
       roundDepth=0;setShell("sand");moveWorld(0,true);updateHud();
       document.removeEventListener("keydown",esc);
+      document.removeEventListener("keydown",trap,true);
       $("bankBtn").focus();
     };
     const esc=e=>{if(e.key==="Escape")close()};
+    // endRound() (called before rumble()'s own 420ms delay) already
+    // re-enables bankBtn for the "Next round"/"See your day" step — it's
+    // sitting live underneath this scrim the whole time. aria-modal alone
+    // doesn't stop Tab from reaching it; without this trap, Tab from
+    // shakeBtn walks straight into that still-visible-under-the-overlay
+    // button, so a keyboard user can advance the round while RUMBLED! is
+    // still on screen. Capture-phase so it runs before any other keydown
+    // handling on the page.
+    const trap=e=>{
+      if(e.key!=="Tab")return;
+      const scrim=$("scrim");
+      if(!scrim)return;
+      const focusable=[...scrim.querySelectorAll("button,[href],input,select,textarea,[tabindex]")]
+        .filter(el=>!el.disabled&&el.tabIndex!==-1&&el.offsetParent!==null);
+      if(!focusable.length)return;
+      const first=focusable[0],last=focusable[focusable.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    };
     document.addEventListener("keydown",esc);
+    document.addEventListener("keydown",trap,true);
     $("shakeBtn").onclick=close;
     $("scrim").onclick=e=>{if(e.target.id==="scrim")close()};
     $("shakeBtn").focus();
