@@ -1,80 +1,120 @@
 {
   "domain": "Science",
-  "prompt": "Name an element whose chemical symbol is a single letter.",
+  "prompt": "Name an element whose chemical symbol is a single letter. The symbol itself counts too.",
   "scene": "labcoat",
   "answers": [
     {
       "name": "Oxygen",
       "value": 3,
-      "fact": "O. Nearly half the mass of the Earth's crust."
+      "fact": "O. Nearly half the mass of the Earth's crust.",
+      "aliases": [
+        "o"
+      ]
     },
     {
       "name": "Carbon",
       "value": 4,
-      "fact": "C. The basis of every known form of life."
+      "fact": "C. The basis of every known form of life.",
+      "aliases": [
+        "c"
+      ]
     },
     {
       "name": "Hydrogen",
       "value": 5,
-      "fact": "H. About ninety percent of all the atoms in the universe."
+      "fact": "H. About ninety percent of all the atoms in the universe.",
+      "aliases": [
+        "h"
+      ]
     },
     {
       "name": "Nitrogen",
       "value": 6,
-      "fact": "N. Seventy-eight percent of the air you are breathing."
+      "fact": "N. Seventy-eight percent of the air you are breathing.",
+      "aliases": [
+        "n"
+      ]
     },
     {
       "name": "Sulfur",
       "value": 8,
       "fact": "S. Known since antiquity as brimstone.",
       "aliases": [
-        "sulphur"
+        "sulphur",
+        "s"
       ]
     },
     {
       "name": "Phosphorus",
       "value": 10,
-      "fact": "P. Isolated from urine in 1669 by an alchemist hunting for gold."
+      "fact": "P. Isolated from urine in 1669 by an alchemist hunting for gold.",
+      "aliases": [
+        "p"
+      ]
     },
     {
       "name": "Fluorine",
       "value": 11,
-      "fact": "F. The most reactive element there is."
+      "fact": "F. The most reactive element there is.",
+      "aliases": [
+        "f"
+      ]
     },
     {
       "name": "Potassium",
       "value": 13,
-      "fact": "K, from the Latin kalium."
+      "fact": "K, from the Latin kalium.",
+      "aliases": [
+        "k"
+      ]
     },
     {
       "name": "Boron",
       "value": 14,
-      "fact": "B. What makes borosilicate glass survive the oven."
+      "fact": "B. What makes borosilicate glass survive the oven.",
+      "aliases": [
+        "b"
+      ]
     },
     {
       "name": "Iodine",
       "value": 15,
-      "fact": "I. Named from the Greek for violet, after the colour of its vapour."
+      "fact": "I. Named from the Greek for violet, after the colour of its vapour.",
+      "aliases": [
+        "i"
+      ]
     },
     {
       "name": "Uranium",
       "value": 17,
-      "fact": "U. Named for the planet Uranus, discovered eight years earlier."
+      "fact": "U. Named for the planet Uranus, discovered eight years earlier.",
+      "aliases": [
+        "u"
+      ]
     },
     {
       "name": "Tungsten",
       "value": 19,
-      "fact": "W, from wolfram. The highest melting point of any metal."
+      "fact": "W, from wolfram. The highest melting point of any metal.",
+      "aliases": [
+        "w"
+      ]
     },
     {
       "name": "Vanadium",
       "value": 21,
-      "fact": "V. Named for Vanadis, a name of the Norse goddess Freyja."
+      "fact": "V. Named for Vanadis, a name of the Norse goddess Freyja.",
+      "aliases": [
+        "v"
+      ]
     },
     {
       "name": "Yttrium",
       "value": 24,
-      "fact": "Y. Named after Ytterby, a Swedish village that gave its name to four elements."
+      "fact": "Y. Named after Ytterby, a Swedish village that gave its name to four elements.",
+      "aliases": [
+        "y"
+      ]
     }
   ]
 }
