@@ -21,7 +21,14 @@ const DAY=puzzleDay();
 // content-injection block in 00-tiers.js, earlier in this same concatenated
 // script — they exist by the time this line runs even though they're
 // defined "before" DAY, because DAY is what gameForDay() needs.
-const GAMENO=CONFIG_OVERRIDE||gameForDay(DAY);
+// `?game=003` in the URL jumps straight to that game, no rebuild required —
+// the quickest way to flip between games while authoring content. Falls
+// back to the config override, then the schedule, same as always.
+function gameOverride(){
+  const g=new URLSearchParams(location.search).get("game");
+  return (g&&GAMES[g])?g:null;
+}
+const GAMENO=gameOverride()||CONFIG_OVERRIDE||gameForDay(DAY);
 const ROUNDS=GAMES[GAMENO];
 
 // The site's canonical address — bare domain, no protocol, matching how it

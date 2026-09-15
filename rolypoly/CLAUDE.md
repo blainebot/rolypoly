@@ -93,6 +93,16 @@ the override the same way it validates round content — a `schedule.json`
 entry naming a game that doesn't exist under `content/games/`, or an
 override naming one, fails the build rather than shipping broken.
 
+For jumping between games while authoring content, `?game=003` in the URL
+(`gameOverride()`, `src/js/20-random.js`) is quicker than editing
+`config.json` and rebuilding — it wins over the config override, silently
+falls through to it (then the schedule) if the number doesn't match a real
+`content/games/` folder, and needs no rebuild since it's read at load time.
+It's a testing convenience, not a player-facing feature: nothing links to
+it, and a finished result under an overridden game is still keyed to that
+`(day, game)` pair (see below), so it can never masquerade as the real
+scheduled day's result.
+
 Both the schedule data and `gameForDay()` are injected into `00-tiers.js`
 via the same `/*__ROUNDS__*/` marker as `GAMES` always was, but the actual
 `GAMENO`/`ROUNDS` assignment lives in `src/js/20-random.js`, right after
