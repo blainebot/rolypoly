@@ -253,6 +253,45 @@ Don't reintroduce these without asking:
 - **Fuzzy matches are confirmed, never auto-accepted.** A typo gets "Did you mean X?"
   so a lucky misspelling can't score an answer the player didn't know.
 
+## Answer matching
+
+`src/js/10-matching.js` — `dig()` in `70-game.js` tries an exact `norm()` match first
+(instant credit), then `partialMatches()`, then `nearMiss()` (edit-distance typo
+tolerance); either of the latter two routes to "Did you mean X?", never to an
+automatic accept, and a pool with no answer close enough to anything wakes Rumble.
+
+Real bug that shaped `partialMatches()`: typing "mint" for "Thin Mints" busted the
+round instead of offering the confirm. Two general causes, not just that one word —
+
+- It only ever compared a guess against a whole token (`c.split(" ").includes(key)`)
+  or the whole candidate string's own prefix, never a guess as the **prefix of a
+  single token**. "mint" is a real prefix of the token "mints", but "Thin Mints"
+  doesn't itself start with "mint" — the old whole-string check missed it.
+- `norm()` strips hyphens without inserting a space, so "Do-si-dos" becomes
+  "dosidos" while someone typing the spaces they see, "do si dos", stays
+  "do si dos" — different strings that never met.
+
+`reaches(key, word)` in `10-matching.js` is the fix: a guess reaches a word if it's
+the same text, a plural of it in either direction (`destem()` strips one trailing
+"s" — not a real stemmer, just the suffix that actually shows up in content), or a
+genuine 4+ character prefix. `partialMatches()` calls it against the whole
+candidate, each individual token, and a space-stripped ("flattened") form of both —
+the flattened form matters whenever a hyphen sits mid-name rather than at the start
+("Extra-Terrestrial" is one token by itself; "extra terrestrial" only reaches it
+flattened). `nearMiss()` got the same flattened comparison for the same reason.
+None of this touches what counts as *ambiguous* — a guess matching more than one
+answer still falls through to "be more specific," never a guessed confirm.
+
+This was under-tested by construction, not by accident: the old code happened to
+already handle plenty of adjacent cases by coincidence (a single-word plural like
+"Samoas" already matched "samoa" via the old whole-string-prefix check; small
+space/hyphen slips like "do si dos" already survived via `nearMiss()`'s plain edit
+distance, since a lone space is just one cheap edit). "mint" was the one case none
+of that coincidental coverage reached. `scripts/smoke.mjs`'s matcher tests use a
+synthetic girl-scout-cookie pool for exactly this bug, plus two answers outside that
+theme (`Kakapos`, `Ostriches`) to confirm the fix is the general prefix/plural path,
+not something cookie-specific.
+
 ## Scoring
 
 - **The first find each round is always safe.** A bust banks the value of the

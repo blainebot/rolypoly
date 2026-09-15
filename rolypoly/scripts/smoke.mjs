@@ -226,14 +226,40 @@ function syntheticPool() {
     { n: "Animals", v: 7, f: "fact" },
   ];
 }
-function loadSynthetic(E) {
+function loadSynthetic(E, pool = syntheticPool()) {
   E.ROUNDS[0].domain = "Test";
   E.ROUNDS[0].prompt = "Test prompt.";
   E.ROUNDS[0].par = 10;
-  E.ROUNDS[0].answers = syntheticPool();
+  E.ROUNDS[0].answers = pool;
   E.$("chooser").innerHTML = ""; // buildIntro() already ran; loadRound() is the real entry point
   E.$("play").hidden = false;
   E.loadRound();
+}
+
+// A second synthetic pool, modelled on the real girl-scout-cookie round
+// that exposed a matcher bug: "mint" busted instead of offering "Did you
+// mean Thin Mints?" Two general causes, not just that one word —
+// partialMatches() only ever compared a guess against a whole token, never
+// a prefix of one, and norm() strips hyphens without inserting a space, so
+// a hyphenated name ("Do-si-dos" -> "dosidos") and the same name typed with
+// spaces ("do si dos") normalised to different strings and never met.
+// Kakapos/Ostriches sit outside the cookie theme on purpose, to confirm the
+// fix is general — plural-token prefix matching, not something cookie- or
+// hyphen-specific.
+function cookiePool() {
+  return [
+    { n: "Thin Mints", v: 3, f: "fact" },
+    { n: "Samoas", v: 4, f: "fact", alias: ["caramel delites"] },
+    { n: "Tagalongs", v: 6, f: "fact", alias: ["peanut butter patties"] },
+    { n: "Trefoils", v: 8, f: "fact" },
+    { n: "Do-si-dos", v: 9, f: "fact", alias: ["peanut butter sandwich"] },
+    { n: "Lemon-Ups", v: 13, f: "fact" },
+    { n: "Toffee-tastic", v: 16, f: "fact" },
+    { n: "Caramel Chocolate Chip", v: 19, f: "fact" },
+    { n: "Exploremores", v: 21, f: "fact" },
+    { n: "Kakapos", v: 5, f: "fact" },
+    { n: "Ostriches", v: 5, f: "fact" },
+  ];
 }
 
 async function digAnswer(E, flush, name) {
@@ -378,6 +404,52 @@ await test("matcher: a genuinely wrong answer matches nothing and busts", async 
   assertEqual(E.results.length, 1, "a wrong answer with no prior finds should end the round");
   assertEqual(E.results[0].bust, true, "a wrong answer with nothing on the board must bust");
 });
+
+// A fragment ("mint"), a plural mismatch in either direction ("samoa" into
+// "Samoas"), or a hyphenated name typed with spaces instead ("do si dos"
+// into "Do-si-dos") — every one of these must reach the confirm prompt and
+// be creditable there, never bust and never auto-credit. Real bug: "mint"
+// busted the round instead of offering "Did you mean Thin Mints?"
+for (const w of ["mint", "mints", "samoa", "tagalong", "trefoil", "do si dos", "dosido", "lemon up", "toffee", "explore", "kakapo", "ostrich"]) {
+  await test(`matcher: "${w}" is a fragment/plural/hyphen mismatch — confirm offered, no bust`, async () => {
+    const { E, flush } = fresh();
+    loadSynthetic(E, cookiePool());
+    await digAnswer(E, flush, w);
+    assertEqual(E.found.length, 0, `"${w}" must not auto-credit before confirmation`);
+    assertEqual(E.results.length, 0, `"${w}" must not bust the round`);
+    assert(typeof E.$("yesBtn").onclick === "function", `"${w}" should offer a "Did you mean X?" confirm`);
+    await confirmYes(E, flush);
+    assertEqual(E.found.length, 1, `"${w}" should credit its answer once confirmed`);
+  });
+}
+
+// A word genuinely shared by more than one answer must still fall through
+// to "be more specific" — the fragment/plural/hyphen fix above must not
+// collapse real ambiguity into a guessed confirm.
+for (const w of ["caramel", "peanut butter"]) {
+  await test(`matcher: "${w}" matches more than one cookie — be more specific, nothing lost`, async () => {
+    const { E, flush } = fresh();
+    loadSynthetic(E, cookiePool());
+    await digAnswer(E, flush, w);
+    assertEqual(E.found.length, 0, `"${w}" must not credit any answer`);
+    assertEqual(E.results.length, 0, `"${w}" must not bust the round`);
+    assert(E.$("confirmBox").innerHTML === "", `"${w}" is ambiguous and must not open a confirm dialog`);
+  });
+}
+
+// And a guess that genuinely isn't on the list must still bust — the fix
+// widens what counts as a fragment/plural/hyphen match, not what counts as
+// a match at all.
+for (const w of ["oreo", "snickerdoodle", "girl scout", "zzzz"]) {
+  await test(`matcher: "${w}" is a genuine dead end — still busts`, async () => {
+    const { E, flush } = fresh();
+    loadSynthetic(E, cookiePool());
+    await digAnswer(E, flush, w);
+    assertEqual(E.found.length, 0, `"${w}" should not match anything`);
+    assertEqual(E.results.length, 1, `"${w}" should end the round`);
+    assertEqual(E.results[0].bust, true, `"${w}" should bust`);
+  });
+}
 
 await test("hidden chamber fires once roundDepth crosses its threshold", async () => {
   const { E, flush } = fresh();
