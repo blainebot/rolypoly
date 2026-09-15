@@ -1,0 +1,110 @@
+{
+  "domain": "Sport",
+  "prompt": "Name a school in the Big Ten conference.",
+  "scene": "bigten",
+  "answers": [
+    {
+      "name": "Ohio State",
+      "value": 3,
+      "fact": "The Horseshoe seats over 100,000, among the largest stadiums in the country.",
+      "aliases": [
+        "osu"
+      ]
+    },
+    {
+      "name": "Michigan",
+      "value": 4,
+      "fact": "The Big House is the largest stadium in the United States."
+    },
+    {
+      "name": "Penn State",
+      "value": 5,
+      "fact": "Joined in 1990, the first expansion beyond the original midwestern core."
+    },
+    {
+      "name": "Wisconsin",
+      "value": 6,
+      "fact": "Camp Randall Stadium sits on the site of a Civil War training camp."
+    },
+    {
+      "name": "Michigan State",
+      "value": 8,
+      "fact": "Plays Michigan each year for the Paul Bunyan Trophy.",
+      "aliases": [
+        "msu"
+      ]
+    },
+    {
+      "name": "Iowa",
+      "value": 9,
+      "fact": "The visitors' locker room at Kinnick Stadium is painted entirely pink."
+    },
+    {
+      "name": "Nebraska",
+      "value": 10,
+      "fact": "Joined in 2011 after more than a century in the Big Eight and Big 12."
+    },
+    {
+      "name": "Indiana",
+      "value": 11,
+      "fact": "Long better known for basketball, with five national titles."
+    },
+    {
+      "name": "Purdue",
+      "value": 12,
+      "fact": "Nicknamed the Cradle of Quarterbacks."
+    },
+    {
+      "name": "Minnesota",
+      "value": 13,
+      "fact": "Plays Wisconsin for Paul Bunyan's Axe, the most-played rivalry in major college football."
+    },
+    {
+      "name": "Illinois",
+      "value": 14,
+      "fact": "A charter member. The conference was founded in Chicago in 1896."
+    },
+    {
+      "name": "Northwestern",
+      "value": 15,
+      "fact": "The only private university in the conference."
+    },
+    {
+      "name": "Maryland",
+      "value": 17,
+      "fact": "Joined in 2014, leaving the ACC after six decades."
+    },
+    {
+      "name": "Rutgers",
+      "value": 18,
+      "fact": "Played in the first college football game, against Princeton in 1869."
+    },
+    {
+      "name": "USC",
+      "value": 19,
+      "fact": "Joined in 2024 from the Pac-12.",
+      "aliases": [
+        "southern california",
+        "university of southern california"
+      ]
+    },
+    {
+      "name": "UCLA",
+      "value": 20,
+      "fact": "Joined in 2024, and plays its home games at the Rose Bowl rather than on campus."
+    },
+    {
+      "name": "Oregon",
+      "value": 21,
+      "fact": "Joined in 2024. Its uniform combinations run into the hundreds."
+    },
+    {
+      "name": "Washington",
+      "value": 23,
+      "fact": "Joined in 2024, and is both the westernmost and northernmost member.",
+      "aliases": [
+        "udub"
+      ]
+    }
+  ]
+}

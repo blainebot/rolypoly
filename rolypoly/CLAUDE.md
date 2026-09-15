@@ -73,7 +73,7 @@ is the whole change; nothing else should ever hardcode the address again.
 obvious place to edit this, and the only place a rotation is authored:
 
 ```json
-{ "start": "2026-09-14", "order": ["002", "001"] }
+{ "start": "2026-09-14", "order": ["002", "001", "003"] }
 ```
 
 Games cycle through `order` one per day starting from `start`, wrapping
@@ -448,9 +448,9 @@ behind it, as the German flag does.
   hand-authored lists or a model judging submissions at play time. This decision
   shapes how much content authoring costs, and hasn't been made.
 - **No sound.**
-- Content is two games, so `content/schedule.json`'s rotation repeats every two
-  days. The hidden chamber at 95 is only reachable on the largest rounds, so
-  reaching it is partly luck of the draw.
+- Content is three games, so `content/schedule.json`'s rotation repeats every
+  three days. The hidden chamber at 95 is only reachable on the largest
+  rounds, so reaching it is partly luck of the draw.
 - The results screen is the least designed surface in the game, and it's the one
   people screenshot.
 - **No cross-device sync.** A finished day lives in that browser's `localStorage`

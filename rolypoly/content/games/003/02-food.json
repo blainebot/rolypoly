@@ -1,0 +1,81 @@
+{
+  "domain": "Food",
+  "prompt": "Name an official Girl Scout cookie variety.",
+  "scene": "girlscout",
+  "answers": [
+    {
+      "name": "Thin Mints",
+      "value": 3,
+      "fact": "The best seller by a wide margin — roughly a quarter of every box sold."
+    },
+    {
+      "name": "Samoas",
+      "value": 4,
+      "fact": "One cookie, two names: Caramel deLites from the other licensed baker.",
+      "aliases": [
+        "caramel delites"
+      ]
+    },
+    {
+      "name": "Tagalongs",
+      "value": 6,
+      "fact": "Sold as Peanut Butter Patties by the other baker.",
+      "aliases": [
+        "peanut butter patties"
+      ]
+    },
+    {
+      "name": "Trefoils",
+      "value": 8,
+      "fact": "Shaped like the Girl Scout emblem, and closest to the original 1917 recipe.",
+      "aliases": [
+        "shortbread"
+      ]
+    },
+    {
+      "name": "Do-si-dos",
+      "value": 9,
+      "fact": "Oatmeal sandwich cookies, sold elsewhere as Peanut Butter Sandwich.",
+      "aliases": [
+        "peanut butter sandwich",
+        "dosidos"
+      ]
+    },
+    {
+      "name": "Lemon-Ups",
+      "value": 13,
+      "fact": "Each cookie is stamped with a different motivational phrase.",
+      "aliases": [
+        "lemon ups"
+      ]
+    },
+    {
+      "name": "Adventurefuls",
+      "value": 14,
+      "fact": "Introduced in 2022: a brownie cookie with caramel and sea salt."
+    },
+    {
+      "name": "Toffee-tastic",
+      "value": 16,
+      "fact": "Gluten free, and made by only one of the two bakers.",
+      "aliases": [
+        "toffee tastic"
+      ]
+    },
+    {
+      "name": "Lemonades",
+      "value": 17,
+      "fact": "The other baker's lemon cookie, iced on one side."
+    },
+    {
+      "name": "Caramel Chocolate Chip",
+      "value": 19,
+      "fact": "Gluten free, chewy, and not sold in every council."
+    },
+    {
+      "name": "Exploremores",
+      "value": 21,
+      "fact": "New for 2026, a rocky-road-inspired sandwich cookie."
+    }
+  ]
+}

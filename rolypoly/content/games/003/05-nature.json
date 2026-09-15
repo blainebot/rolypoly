@@ -1,0 +1,83 @@
+{
+  "domain": "Nature",
+  "prompt": "Name a bird that cannot fly.",
+  "scene": "penguins",
+  "answers": [
+    {
+      "name": "Ostrich",
+      "value": 3,
+      "fact": "The largest living bird, and fast enough to outrun a horse."
+    },
+    {
+      "name": "Penguin",
+      "value": 4,
+      "fact": "Wings became flippers. Some species swim at over twenty miles an hour."
+    },
+    {
+      "name": "Emu",
+      "value": 6,
+      "fact": "Australia's largest bird, and the winner of the 1932 Emu War."
+    },
+    {
+      "name": "Kiwi",
+      "value": 8,
+      "fact": "Nocturnal, with nostrils at the tip of its beak rather than the base."
+    },
+    {
+      "name": "Cassowary",
+      "value": 10,
+      "fact": "Often called the most dangerous bird alive, with a dagger-like inner claw."
+    },
+    {
+      "name": "Dodo",
+      "value": 11,
+      "fact": "Extinct by the late 1600s, and a close relative of the pigeon."
+    },
+    {
+      "name": "Rhea",
+      "value": 13,
+      "fact": "South America's answer to the ostrich. The males raise the chicks alone."
+    },
+    {
+      "name": "Kakapo",
+      "value": 16,
+      "fact": "A flightless parrot from New Zealand. Fewer than three hundred are alive."
+    },
+    {
+      "name": "Moa",
+      "value": 18,
+      "fact": "Nine species once lived in New Zealand. The tallest stood twelve feet."
+    },
+    {
+      "name": "Steamer duck",
+      "value": 20,
+      "fact": "South American ducks that thrash across the water. Notoriously aggressive.",
+      "aliases": [
+        "steamer ducks"
+      ]
+    },
+    {
+      "name": "Takahe",
+      "value": 21,
+      "fact": "Declared extinct in 1898, then rediscovered in 1948 in a remote valley."
+    },
+    {
+      "name": "Weka",
+      "value": 23,
+      "fact": "A New Zealand rail with a reputation for stealing anything shiny."
+    },
+    {
+      "name": "Kagu",
+      "value": 25,
+      "fact": "A ghost-grey bird found only in the forests of New Caledonia."
+    },
+    {
+      "name": "Flightless cormorant",
+      "value": 27,
+      "fact": "Found on two Galapagos islands and nowhere else on Earth.",
+      "aliases": [
+        "galapagos cormorant"
+      ]
+    }
+  ]
+}

@@ -168,7 +168,88 @@ const SCENE={
   prop:`<rect class="stem" x="60" y="46" width="3" height="6"/><rect class="leafy" x="63" y="46" width="9" height="4"/>
 <g class="apw"><rect class="apple" x="52" y="52" width="22" height="18"/><rect class="apple" x="56" y="70" width="14" height="4"/></g>
 <g class="apb"><rect class="apple" x="60" y="52" width="14" height="18"/><rect class="apple" x="52" y="52" width="8" height="5"/>
-<rect class="apple" x="52" y="65" width="8" height="5"/><rect class="apple" x="60" y="70" width="10" height="4"/></g>`}
+<rect class="apple" x="52" y="65" width="8" height="5"/><rect class="apple" x="60" y="70" width="10" height="4"/></g>`},
+
+ bigten:{
+  bg:"#1E4A2A",
+  hat:`<rect class="helm" x="14" y="6" width="56" height="8"/>
+<rect class="helm" x="8" y="14" width="68" height="10"/>
+<rect class="helm" x="4" y="24" width="76" height="9"/>
+<rect class="helmstripe" x="38" y="6" width="8" height="27"/>
+<rect class="helmdk" x="4" y="33" width="76" height="4"/>
+<rect class="mask" x="18" y="46" width="50" height="4"/>
+<rect class="mask" x="20" y="56" width="46" height="4"/>
+<rect class="mask" x="14" y="36" width="5" height="22"/><rect class="mask" x="67" y="36" width="5" height="22"/>`,
+  prop:`<rect class="pads" x="2" y="66" width="26" height="16"/>
+<rect class="pads" x="60" y="66" width="26" height="16"/>
+<rect class="jersey" x="12" y="78" width="64" height="22"/>
+<rect class="num" x="24" y="82" width="6" height="16"/>
+<rect class="num" x="42" y="82" width="16" height="4"/><rect class="num" x="42" y="94" width="16" height="4"/>
+<rect class="num" x="42" y="86" width="4" height="8"/><rect class="num" x="54" y="86" width="4" height="8"/>`},
+
+ girlscout:{
+  bg:"#4A3A28",
+  hat:`<rect class="beret" x="16" y="6" width="52" height="8"/>
+<rect class="beret" x="10" y="14" width="64" height="9"/>
+<rect class="beretdk" x="10" y="23" width="64" height="4"/>
+<rect class="beret" x="58" y="2" width="9" height="6"/>`,
+  prop:`<polygon class="sash" points="14,66 32,66 76,100 54,100"/>
+<rect class="badgeA" x="26" y="74" width="8" height="8"/>
+<rect class="badgeB" x="38" y="82" width="8" height="8"/>
+<rect class="badgeC" x="50" y="90" width="8" height="8"/>
+<rect class="badgeD" x="20" y="68" width="6" height="6"/>`},
+
+ labcoat:{
+  bg:"#14383C",
+  hat:`<rect class="gogrim" x="12" y="8" width="66" height="7"/>
+<rect class="goggle" x="18" y="12" width="20" height="12"/>
+<rect class="goggle" x="50" y="12" width="20" height="12"/>
+<rect class="gogrim" x="38" y="14" width="12" height="6"/>
+<rect class="gogrim" x="12" y="15" width="8" height="10"/><rect class="gogrim" x="68" y="15" width="8" height="10"/>`,
+  prop:`<rect class="lab" x="10" y="72" width="26" height="28"/>
+<rect class="lab" x="52" y="72" width="26" height="28"/>
+<rect class="labdk" x="34" y="72" width="8" height="28"/><rect class="labdk" x="46" y="72" width="8" height="28"/>
+<rect class="flaskrim" x="92" y="24" width="24" height="5"/>
+<rect class="flask" x="98" y="29" width="12" height="14"/>
+<rect class="flask" x="94" y="43" width="20" height="6"/>
+<rect class="flask" x="90" y="49" width="28" height="20"/>
+<rect class="brew" x="90" y="57" width="28" height="12"/>
+<rect class="brewlt" x="94" y="57" width="8" height="4"/>`,
+  float:`<g class="bub1"><rect x="98" y="46" width="5" height="5" fill="#B6F0A6"/></g>
+<g class="bub2"><rect x="108" y="46" width="4" height="4" fill="#B6F0A6"/></g>
+<g class="bub3"><rect x="102" y="46" width="4" height="4" fill="#B6F0A6"/></g>`},
+
+ monopoly:{
+  bg:"#3E5A47",
+  hat:`<rect class="tophat" x="20" y="0" width="48" height="26"/>
+<rect class="hatband" x="20" y="20" width="48" height="6"/>
+<rect class="tophat" x="6" y="26" width="76" height="8"/>
+<rect class="hatlt" x="24" y="2" width="6" height="18"/>`,
+  eyes:`<rect class="eye" x="24" y="28" width="9" height="5"/>
+<rect class="mono" x="50" y="22" width="22" height="20"/>
+<rect class="monoglass" x="54" y="26" width="14" height="12"/>
+<rect class="eye" x="57" y="30" width="8" height="5"/>
+<rect class="chain" x="72" y="40" width="3" height="18"/>
+<rect class="chain" x="74" y="56" width="10" height="3"/>`},
+
+ penguins:{
+  bg:"#2A5A72",
+  eyes:`<rect class="fur" x="22" y="24" width="13" height="13"/><rect class="fur" x="53" y="24" width="13" height="13"/>
+<g class="lookLR"><rect class="eye" x="26" y="28" width="7" height="7"/><rect class="eye" x="57" y="28" width="7" height="7"/></g>`,
+  float:(()=>{
+    const p=`<rect class="pengdk" x="10" y="0" width="12" height="6"/>
+<rect class="pengdk" x="8" y="6" width="16" height="6"/><rect class="pengdk" x="6" y="12" width="20" height="6"/>
+<rect class="pengdk" x="4" y="18" width="24" height="12"/><rect class="pengdk" x="6" y="30" width="20" height="6"/>
+<rect class="pengdk" x="8" y="36" width="16" height="6"/>
+<rect class="pengwh" x="10" y="16" width="12" height="24"/>
+<rect class="pengwh" x="10" y="4" width="4" height="4"/><rect class="pengwh" x="18" y="4" width="4" height="4"/>
+<rect class="eye" x="11" y="5" width="2" height="2"/><rect class="eye" x="19" y="5" width="2" height="2"/>
+<rect class="pengbk" x="14" y="8" width="5" height="4"/>
+<rect class="pengdk" x="0" y="18" width="5" height="16"/><rect class="pengdk" x="27" y="18" width="5" height="16"/>
+<rect class="pengbk" x="7" y="42" width="8" height="4"/><rect class="pengbk" x="18" y="42" width="8" height="4"/>`;
+    return `<g transform="translate(4,54) scale(1.25)">${p}</g>`
+         + `<g transform="translate(116,52) scale(1.35)">${p}</g>`;
+  })()}
 };
 const HA=`<text class="ha ha1" x="128" y="52">ha</text><text class="ha ha2" x="138" y="38">ha</text><text class="ha ha3" x="130" y="72">ha</text>`;
 

@@ -1,0 +1,157 @@
+{
+  "domain": "Games",
+  "prompt": "Name a property on a standard US Monopoly board.",
+  "scene": "monopoly",
+  "answers": [
+    {
+      "name": "Boardwalk",
+      "value": 3,
+      "fact": "The most expensive square, and named for the one in Atlantic City."
+    },
+    {
+      "name": "Park Place",
+      "value": 4,
+      "fact": "Its Atlantic City namesake still exists, running down to the beach."
+    },
+    {
+      "name": "Mediterranean Avenue",
+      "value": 6,
+      "fact": "The cheapest property on the board."
+    },
+    {
+      "name": "Baltic Avenue",
+      "value": 7,
+      "fact": "Shares the cheapest colour group with Mediterranean."
+    },
+    {
+      "name": "Reading Railroad",
+      "value": 8,
+      "fact": "Pronounced like redding. A real line running out of Philadelphia."
+    },
+    {
+      "name": "Marvin Gardens",
+      "value": 9,
+      "fact": "A misspelling that stuck — the real place is Marven Gardens."
+    },
+    {
+      "name": "Electric Company",
+      "value": 10,
+      "fact": "One of two utilities, where rent depends on your dice roll."
+    },
+    {
+      "name": "Water Works",
+      "value": 11,
+      "fact": "The other utility, and the least profitable square on the board."
+    },
+    {
+      "name": "Illinois Avenue",
+      "value": 12,
+      "fact": "Statistically the most landed-on property in the game."
+    },
+    {
+      "name": "Pennsylvania Railroad",
+      "value": 13,
+      "fact": "One of four railroads, each paying more as you collect the set."
+    },
+    {
+      "name": "Oriental Avenue",
+      "value": 13,
+      "fact": "The first of the light blue group after the first railroad."
+    },
+    {
+      "name": "B&O Railroad",
+      "value": 14,
+      "fact": "The Baltimore and Ohio, the oldest common carrier railroad in the country.",
+      "aliases": [
+        "b and o railroad",
+        "bo railroad"
+      ]
+    },
+    {
+      "name": "Pennsylvania Avenue",
+      "value": 15,
+      "fact": "Part of the green group, and the priciest set before the dark blues."
+    },
+    {
+      "name": "Short Line",
+      "value": 15,
+      "fact": "A railroad in the game, though the real Shore Fast Line was a streetcar."
+    },
+    {
+      "name": "New York Avenue",
+      "value": 16,
+      "fact": "Completes the orange set, the most landed-on group after leaving jail."
+    },
+    {
+      "name": "St. Charles Place",
+      "value": 16,
+      "fact": "Demolished in 1978 to make way for a casino.",
+      "aliases": [
+        "saint charles place"
+      ]
+    },
+    {
+      "name": "Connecticut Avenue",
+      "value": 17,
+      "fact": "The last of the light blues."
+    },
+    {
+      "name": "Atlantic Avenue",
+      "value": 18,
+      "fact": "One of the yellows, and a real Atlantic City street."
+    },
+    {
+      "name": "St. James Place",
+      "value": 18,
+      "fact": "An orange property, and once the site of a famous nightclub.",
+      "aliases": [
+        "saint james place"
+      ]
+    },
+    {
+      "name": "Pacific Avenue",
+      "value": 19,
+      "fact": "The first green property after Free Parking."
+    },
+    {
+      "name": "Tennessee Avenue",
+      "value": 20,
+      "fact": "The middle orange, and one of the shrewdest buys in the game."
+    },
+    {
+      "name": "Virginia Avenue",
+      "value": 20,
+      "fact": "The last of the pink group."
+    },
+    {
+      "name": "North Carolina Avenue",
+      "value": 21,
+      "fact": "The middle green property."
+    },
+    {
+      "name": "Kentucky Avenue",
+      "value": 22,
+      "fact": "The first red property after Free Parking."
+    },
+    {
+      "name": "Indiana Avenue",
+      "value": 23,
+      "fact": "The middle red, easy to forget and easy to land on."
+    },
+    {
+      "name": "Vermont Avenue",
+      "value": 23,
+      "fact": "The middle light blue."
+    },
+    {
+      "name": "Ventnor Avenue",
+      "value": 25,
+      "fact": "The second yellow, named for a town next to Atlantic City."
+    },
+    {
+      "name": "States Avenue",
+      "value": 26,
+      "fact": "The middle pink, and the property most players cannot name."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "domain": "Science",
+  "prompt": "Name an element whose chemical symbol is a single letter.",
+  "scene": "labcoat",
+  "answers": [
+    {
+      "name": "Oxygen",
+      "value": 3,
+      "fact": "O. Nearly half the mass of the Earth's crust."
+    },
+    {
+      "name": "Carbon",
+      "value": 4,
+      "fact": "C. The basis of every known form of life."
+    },
+    {
+      "name": "Hydrogen",
+      "value": 5,
+      "fact": "H. About ninety percent of all the atoms in the universe."
+    },
+    {
+      "name": "Nitrogen",
+      "value": 6,
+      "fact": "N. Seventy-eight percent of the air you are breathing."
+    },
+    {
+      "name": "Sulfur",
+      "value": 8,
+      "fact": "S. Known since antiquity as brimstone.",
+      "aliases": [
+        "sulphur"
+      ]
+    },
+    {
+      "name": "Phosphorus",
+      "value": 10,
+      "fact": "P. Isolated from urine in 1669 by an alchemist hunting for gold."
+    },
+    {
+      "name": "Fluorine",
+      "value": 11,
+      "fact": "F. The most reactive element there is."
+    },
+    {
+      "name": "Potassium",
+      "value": 13,
+      "fact": "K, from the Latin kalium."
+    },
+    {
+      "name": "Boron",
+      "value": 14,
+      "fact": "B. What makes borosilicate glass survive the oven."
+    },
+    {
+      "name": "Iodine",
+      "value": 15,
+      "fact": "I. Named from the Greek for violet, after the colour of its vapour."
+    },
+    {
+      "name": "Uranium",
+      "value": 17,
+      "fact": "U. Named for the planet Uranus, discovered eight years earlier."
+    },
+    {
+      "name": "Tungsten",
+      "value": 19,
+      "fact": "W, from wolfram. The highest melting point of any metal."
+    },
+    {
+      "name": "Vanadium",
+      "value": 21,
+      "fact": "V. Named for Vanadis, a name of the Norse goddess Freyja."
+    },
+    {
+      "name": "Yttrium",
+      "value": 24,
+      "fact": "Y. Named after Ytterby, a Swedish village that gave its name to four elements."
+    }
+  ]
+}
