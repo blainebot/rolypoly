@@ -18,18 +18,36 @@ function rumble(lost,kept){
   document.body.classList.add("shaking");
   $("flash").classList.remove("on");void $("flash").offsetWidth;$("flash").classList.add("on");
   setTimeout(()=>{
+    // Lead with what survived, not what went — a bare "lost" number reads
+    // as a score, and a large 0 sitting above "your first find is safe"
+    // reads as a contradiction. Three shapes, by what actually happened:
+    // nothing found before the bust (no safe find to report at all, so no
+    // banner); the bust landed on the very next dig with nothing else
+    // gained (lost===0 — the headline is what got banked, never 0); or
+    // digging continued and some of it was lost (the headline is the loss,
+    // with the safe amount folded into the smaller line below it instead
+    // of restated as its own big number).
+    const banner=kept===0?""
+      :lost===0?`<p class="kept">Your first find is safe.</p>
+        <div class="lost"><span id="bigNum">${kept}</span><em>banked</em></div>`
+      :`<div class="lost"><span id="bigNum">${lost}</span><em>lost</em></div>
+        <p class="kept">Your first find, ${kept}, is safe.</p>`;
     $("rumbleBox").innerHTML=`<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-label="Rumble">
       <div class="rumble" style="background:${(SCENE[scene]||{}).bg||"var(--bust)"}">
         <div class="gopher">${GOPHER(scene)}</div>
         <b>RUMBLED!</b>
         <p class="taunt">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</p>
-        <div class="lost"><span id="lostNum">${lost}</span><em>gone, and ${me} is back on the surface</em></div>
-        ${kept>0?`<p class="kept">Your first find, ${kept}, is safe.</p>`:""}
+        ${banner}
         <button id="shakeBtn">Shake it off</button>
       </div></div>`;
-    let n=lost;
-    const iv=setInterval(()=>{n=Math.max(0,n-Math.ceil(lost/14));$("lostNum").textContent=n;
-      if(n===0)clearInterval(iv)},50);
+    // Only animate a drain when there's something to drain — the banked
+    // case shows what was kept, not what was lost, so there's nothing to
+    // count down.
+    if(lost>0){
+      let n=lost;
+      const iv=setInterval(()=>{n=Math.max(0,n-Math.ceil(lost/14));$("bigNum").textContent=n;
+        if(n===0)clearInterval(iv)},50);
+    }
     const close=()=>{
       $("rumbleBox").innerHTML="";
       document.body.classList.remove("shaking");

@@ -538,6 +538,34 @@ harness's stub DOM doesn't track `document.activeElement` at all right now;
 teaching it to would be real scope, not a quick addition, if focus behavior
 ever needs regression coverage here.
 
+## Rumble's overlay: lead with what survived
+
+`rumble(lost, kept)` in `80-rumble.js` used to headline the *lost* amount
+unconditionally — a bare number with no label beyond "gone, and Poly is back on the
+surface" below it. Read as a score, not a loss, and when nothing was lost (the bust
+landed on the very next dig after the first find, before anything else was gained)
+it showed a large, unlabeled **0** directly above "Your first find, 15, is safe" —
+a contradiction, not a bust summary.
+
+Three shapes now, chosen by what actually happened, never a fourth reachable state:
+
+- **Nothing found before the bust** (`kept===0` — the first dig itself busted): no
+  banner at all. There's no safe find to report and nothing to headline.
+- **The bust landed on the very next dig, nothing else gained** (`lost===0`): "Your
+  first find is safe." then the *kept* amount as the large number, labelled
+  "banked". The headline is never 0 — there's always something real to lead with
+  here, since `kept>0` in this branch by construction.
+- **Digging continued and some of it was lost** (`lost>0`): the *lost* amount as the
+  large number, labelled "lost", then "Your first find, `kept`, is safe." below —
+  the kept amount only needs restating here, since it isn't the headline.
+
+The drain animation (counting the headline number down, `#bigNum`) only runs in the
+third shape — `if(lost>0)` — since the second shape's headline is what was *kept*,
+not lost, and animating a value that was never at risk of draining would misrepresent
+it. Ending the drain at a resting 0 is fine there (unlike the old bug): the player
+just watched a real positive number visibly count down to it, so it reads as "this
+finished draining," not as an unexplained static score.
+
 ## Rumble's costumes
 
 A round may name a `scene`; without one it falls back to the domain. Art lives in
@@ -551,6 +579,22 @@ disappear — both shipped broken before being caught. Rumble's fur is #B0824F, 
 scene with black props needs a mid-tone background, roughly 0.06–0.13 luminance.
 Aim for 1.8:1 minimum on every prop. When a clash is unavoidable, put a cream plate
 behind it, as the German flag does.
+
+**The face trap.** `hat` renders *last* inside `figure` — after `eyes`, the nose, and
+the jaw/teeth group (`GOPHER()` in `40-sprites.js`) — so anything in `hat` that
+reaches down far enough paints over them. Default eyes sit at y=28–33 (x=24–33 and
+55–64 in the 160×120 viewBox); the nose stripe is y=40–47; teeth are y=50–68. Shipped
+broken twice from this exact mistake: `bigten`'s helmet and facemask were one solid
+block from y=6 to y=60, blotting out the whole face (fixed by pulling the dome up to
+stop at y=25, and turning the facemask into three thin bars with real gaps low across
+the muzzle, starting after the nose at y=47 — see the comment on that scene for the
+detail); `monopoly`'s top-hat brim independently reached to y=34, blotting out the
+default left eye and the monocle's own top edge, even though the monocle itself
+(`eyes`) was fine. Check both bounds whenever a scene's `hat` or `prop` sits near the
+head: **hat art must stay above y≈26**, clear of the eye row, and any facemask-style
+art must stay low (y≥47) with real gaps, not a solid span down to the teeth. `eyes`
+itself is exempt from the first rule (it's drawn *at* y=28+ by design), but must never
+be covered by something in `hat` that reaches that far down.
 
 ## Known gaps
 

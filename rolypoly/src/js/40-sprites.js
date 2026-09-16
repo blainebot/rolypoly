@@ -172,14 +172,21 @@ const SCENE={
 
  bigten:{
   bg:"#1E4A2A",
-  hat:`<rect class="helm" x="14" y="6" width="56" height="8"/>
-<rect class="helm" x="8" y="14" width="68" height="10"/>
-<rect class="helm" x="4" y="24" width="76" height="9"/>
-<rect class="helmstripe" x="38" y="6" width="8" height="27"/>
-<rect class="helmdk" x="4" y="33" width="76" height="4"/>
-<rect class="mask" x="18" y="46" width="50" height="4"/>
-<rect class="mask" x="20" y="56" width="46" height="4"/>
-<rect class="mask" x="14" y="36" width="5" height="22"/><rect class="mask" x="67" y="36" width="5" height="22"/>`,
+  // The dome sits on the crown and stops above the eye row (default eyes
+  // start at y=28) — nothing here reaches past y=28. The facemask is two
+  // thin side rails plus three thin horizontal bars low across the muzzle
+  // (starting at y=47, after the nose stripe at y=40-47 ends), with real
+  // gaps between them so the incisors and teeth read through — a solid
+  // cage here was the original bug: eyes, nose and teeth all painted over.
+  hat:`<rect class="helm" x="16" y="4" width="52" height="6"/>
+<rect class="helm" x="10" y="10" width="64" height="8"/>
+<rect class="helm" x="6" y="18" width="72" height="7"/>
+<rect class="helmstripe" x="38" y="4" width="8" height="21"/>
+<rect class="helmdk" x="6" y="25" width="72" height="3"/>
+<rect class="mask" x="14" y="28" width="3" height="36"/><rect class="mask" x="69" y="28" width="3" height="36"/>
+<rect class="mask" x="17" y="47" width="52" height="3"/>
+<rect class="mask" x="17" y="54" width="52" height="3"/>
+<rect class="mask" x="17" y="61" width="52" height="3"/>`,
   prop:`<rect class="pads" x="2" y="66" width="26" height="16"/>
 <rect class="pads" x="60" y="66" width="26" height="16"/>
 <rect class="jersey" x="12" y="78" width="64" height="22"/>
@@ -221,10 +228,14 @@ const SCENE={
 
  monopoly:{
   bg:"#3E5A47",
-  hat:`<rect class="tophat" x="20" y="0" width="48" height="26"/>
-<rect class="hatband" x="20" y="20" width="48" height="6"/>
-<rect class="tophat" x="6" y="26" width="76" height="8"/>
-<rect class="hatlt" x="24" y="2" width="6" height="18"/>`,
+  // hat paints over eyes (see GOPHER()'s render order) — the brim used to
+  // reach y=34 and blot out the default left eye (y=28) along with the
+  // monocle's own top edge (y=22). Shrunk and pulled up so the brim stops
+  // at y=22, clear of both.
+  hat:`<rect class="tophat" x="20" y="0" width="48" height="16"/>
+<rect class="hatband" x="20" y="12" width="48" height="6"/>
+<rect class="tophat" x="6" y="17" width="76" height="5"/>
+<rect class="hatlt" x="24" y="2" width="6" height="12"/>`,
   eyes:`<rect class="eye" x="24" y="28" width="9" height="5"/>
 <rect class="mono" x="50" y="22" width="22" height="20"/>
 <rect class="monoglass" x="54" y="26" width="14" height="12"/>
