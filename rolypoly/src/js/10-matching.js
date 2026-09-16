@@ -1,13 +1,30 @@
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
   .replace(/[^a-z0-9 ]/g,"").replace(/^(the|a|an) /,"").replace(/\s+/g," ").trim();
-// A guess shorter than this is too likely to be a real prefix of something
-// unrelated for a fuzzy match to mean anything \u2014 every path below requires
-// it, same threshold as before.
+const flatten=s=>s.replace(/ /g,"");
+// A guess or candidate word shorter than this is too likely to be a real
+// prefix of something unrelated for a fuzzy match to mean anything.
 const MIN_FUZZY=4;
-// Not a real stemmer \u2014 the one suffix that actually shows up in round
-// content ("mint"/"mints", "samoa"/"samoas"). Guards the short side so it
-// doesn't nibble words that are already at the floor ("this"->"thi").
-const destem=s=>s.length>MIN_FUZZY&&s.endsWith("s")?s.slice(0,-1):s;
+// Filler words never carry a match on their own, whatever a future content
+// round's answers look like — not just a side effect of MIN_FUZZY (every one
+// of these happens to be shorter than that anyway, but this is the rule
+// itself, stated once, not an accident of an unrelated threshold).
+const STOPWORDS=new Set(["the","a","an","of","and"]);
+// Simple plural stemming — not a real stemmer, just every trailing-s/es/ies
+// reading that might be the singular, offered as separate candidates rather
+// than picked by a rule that has to guess right: stripping "es" turns
+// "boxes" into "box" correctly but "lines" into "lin", and swapping "ies"
+// for "y" turns "berries" into "berry" correctly but "Annies" (the plural
+// of a name ending in -ie, not -y) into "anny" — so try all three and let
+// matchScore's exact/prefix check find whichever one is real. Guards the
+// short side so it doesn't nibble words already at the floor ("this"->"thi").
+function stems(s){
+  if(s.length<=MIN_FUZZY)return[s];
+  const out=new Set([s]);
+  if(s.endsWith("s"))out.add(s.slice(0,-1));
+  if(s.endsWith("es"))out.add(s.slice(0,-2));
+  if(s.endsWith("ies"))out.add(s.slice(0,-3)+"y");
+  return[...out];
+}
 function dist(a,b){
   const m=a.length,n=b.length,d=[];
   for(let i=0;i<=m;i++)d[i]=[i];
@@ -20,50 +37,87 @@ function dist(a,b){
   return d[m][n];
 }
 const tolerance=l=>l<=3?1:l<=6?2:l<=12?3:4;
-// Does `key` reach `word` \u2014 the same text, a plural of it either direction,
-// or a genuine prefix (4+ chars, gated on `key`'s own length so a 2-char
-// flattened-space fragment can't prefix-match everything)? Called once per
-// whole candidate and once per token, so "mint" finds the token "mints" in
-// "Thin Mints", and "peanut butter" (flattened) finds the whole alias
-// "peanut butter patties" without needing "peanut" and "butter" to each be
-// their own hit.
-function reaches(key,word){
-  if(word.length<MIN_FUZZY)return false;
-  if(word===key)return true;
-  const dk=destem(key),dw=destem(word);
-  if(dw===dk)return true;
-  if(key.length<MIN_FUZZY)return false;
-  if(word.length>key.length&&word.startsWith(key))return true;
-  return dw.length>dk.length&&dw.startsWith(dk);
+// Every transformed view of a piece of text the matcher is willing to
+// compare: normalised, its plural stem, and both of those again with
+// spaces removed too (so "Do-si-dos" and "do si dos" converge — norm()
+// drops punctuation but never inserts a space for it). One list a guess
+// and a whole candidate string are both reduced to, rather than a
+// different rule per case.
+function views(s){
+  const n=norm(s),f=flatten(n);
+  const all=new Set([n,f]);
+  for(const v of[n,f])for(const st of stems(v))all.add(st);
+  return[...all].filter(v=>v.length>=MIN_FUZZY&&!STOPWORDS.has(v));
 }
-function partialMatches(key,pool){
-  if(key.length<MIN_FUZZY)return[];
-  // A space-stripped form alongside the normal one, so a hyphenated name
-  // ("Do-si-dos", which norm() reduces to "dosidos" since it only strips
-  // punctuation, never inserts a space for it) still matches someone typing
-  // it with spaces instead ("do si dos"), and the reverse.
-  const flat=key.replace(/ /g,"");
-  return pool.filter(a=>[a.n,...(a.alias||[])].some(c0=>{
-    const full=norm(c0),flatFull=full.replace(/ /g,"");
-    if(reaches(key,full)||reaches(flat,flatFull))return true;
-    // Both forms against each token individually too — flat matters here
-    // whenever a hyphen sits mid-name rather than at the start ("Extra-
-    // Terrestrial" is one token by itself once norm() drops the hyphen; a
-    // guess of "extra terrestrial" only reaches it flattened).
-    return full.split(" ").some(t=>reaches(key,t)||reaches(flat,t));
-  }));
+// A candidate's individual tokens (each and its stem) — what lets a guess
+// reach one distinctive word inside a multi-word name or alias, the piece
+// `views()` alone can't see since it only ever looks at whole strings.
+// Tokens only ever contribute an exact or prefix hit (see matchScore) —
+// never a typo-distance one. A short common word like "park" or "avenue"
+// is one edit away from plenty of other short common words; the old
+// near-miss tolerance was only ever checked against a *whole* candidate
+// name, long enough that a coincidental collision is rare, and token-level
+// matching needs the same restraint or half a Monopoly board starts
+// answering to "york".
+function tokenViews(s){
+  const out=new Set();
+  for(const t of norm(s).split(" ")){
+    if(t.length<MIN_FUZZY||STOPWORDS.has(t))continue;
+    out.add(t);
+    for(const st of stems(t))out.add(st);
+  }
+  return [...out];
 }
-function nearMiss(key,pool){
-  if(key.length<MIN_FUZZY)return null;
-  const flat=key.replace(/ /g,"");
-  let best=null,bd=Infinity;
-  for(const a of pool)for(const cand of [a.n,...(a.alias||[])]){
-    const c=norm(cand),cf=c.replace(/ /g,"");
-    if(c.length<MIN_FUZZY)continue;
-    const d=Math.min(dist(key,c),flat.length>=MIN_FUZZY?dist(flat,cf):Infinity);
-    if(d<=tolerance(Math.max(key.length,c.length))&&d<bd){best=a;bd=d}
+// The one scoring function every match decision runs through: how well
+// does `guess` reach `candidateText`? 0 is as good as typing it outright —
+// an exact match through some transformation, a whole token, or a clean
+// 4+ character prefix of one. Otherwise it's a genuine edit-distance typo
+// against the *whole* candidate (never a single token — see tokenViews),
+// scored as that distance divided by tolerance() at the pairing's own
+// length: the same length-scaled allowance as before, just normalised so
+// one fixed threshold (CONFIRM_THRESHOLD below) works at every length
+// instead of a second, separately-tuned check. Infinity means nothing
+// gets them within reach at all.
+function matchScore(guess,candidateText){
+  const gViews=views(guess);
+  if(!gViews.length)return Infinity;
+  const tokens=tokenViews(candidateText);
+  const whole=views(candidateText);
+  let best=Infinity;
+  for(const g of gViews){
+    for(const c of tokens)
+      if(g===c||(c.length>g.length&&c.startsWith(g)))return 0;
+    for(const c of whole){
+      if(g===c||(c.length>g.length&&c.startsWith(g)))return 0;
+      const d=dist(g,c)/tolerance(Math.max(g.length,c.length));
+      if(d<best)best=d;
+    }
   }
   return best;
+}
+const CONFIRM_THRESHOLD=1;
+// Every answer `key` reaches well enough to offer a confirm on, scored
+// against each one's name and every alias (the better of the two decides
+// that answer's place in the list — trying both is how an alias like
+// "caramel delites" gets found by "caramel" without the canonical name
+// "Samoas" needing to). dig() turns the length of this list into an
+// outcome exactly as it always has: one match confirms it, more than one
+// asks to be more specific, none wakes Rumble.
+//
+// A clean (score 0) match — an exact hit, a whole token, a real prefix —
+// is strong enough evidence on its own that a merely-within-tolerance
+// typo-distance coincidence elsewhere in the pool shouldn't dilute it into
+// false ambiguity (a long name sharing a common word with several others,
+// "Pacific Avenue" next to "Atlantic Avenue" and "Baltic Avenue", has
+// exactly this shape). Near-miss ties only get to compete with each other
+// when nothing in the pool clears the bar cleanly.
+function fuzzyMatches(key,pool){
+  if(key.length<MIN_FUZZY||STOPWORDS.has(key))return[];
+  const scored=pool.map(a=>({a,s:Math.min(matchScore(key,a.n),
+    ...(a.alias||[]).map(al=>matchScore(key,al)))})).filter(({s})=>s<=CONFIRM_THRESHOLD);
+  if(!scored.length)return[];
+  const best=Math.min(...scored.map(x=>x.s));
+  return(best===0?scored.filter(x=>x.s===0):scored).map(x=>x.a);
 }
 
 /* ---------- seeded daily randomness ---------- */

@@ -149,16 +149,14 @@ function dig(){
     if(found.includes(hit)){say("Already dug that one.","");$("answer").select();return}
     accept(hit);return;
   }
-  const partial=partialMatches(key,pool);
-  if(partial.length===1){askConfirm(raw,partial[0]);return}
-  if(partial.length>1){
-    const undug=partial.filter(a=>!found.includes(a));
+  const matches=fuzzyMatches(key,pool);
+  if(matches.length===1){askConfirm(raw,matches[0]);return}
+  if(matches.length>1){
+    const undug=matches.filter(a=>!found.includes(a));
     if(undug.length===1){askConfirm(raw,undug[0]);return}
     say(`More than one answer matches "${raw}". Be more specific — nothing lost.`,"");
     $("answer").select();return;
   }
-  const near=nearMiss(key,pool);
-  if(near){askConfirm(raw,near);return}
   $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   $("deadend").hidden=false;

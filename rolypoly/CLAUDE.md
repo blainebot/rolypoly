@@ -255,42 +255,65 @@ Don't reintroduce these without asking:
 
 ## Answer matching
 
-`src/js/10-matching.js` — `dig()` in `70-game.js` tries an exact `norm()` match first
-(instant credit), then `partialMatches()`, then `nearMiss()` (edit-distance typo
-tolerance); either of the latter two routes to "Did you mean X?", never to an
-automatic accept, and a pool with no answer close enough to anything wakes Rumble.
+`src/js/10-matching.js`. `dig()` in `70-game.js` tries an exact `norm()` match first
+(instant credit, no confirm — typing the real name or alias verbatim should never
+feel like it's being second-guessed), then calls `fuzzyMatches()`: one match routes
+to "Did you mean X?", never an automatic accept; several fall through to "be more
+specific, nothing lost"; none wakes Rumble.
 
-Real bug that shaped `partialMatches()`: typing "mint" for "Thin Mints" busted the
-round instead of offering the confirm. Two general causes, not just that one word —
+`fuzzyMatches()` used to be two separately-tuned functions, `partialMatches()`
+(whole-token and whole-string-prefix matching) and `nearMiss()` (edit-distance typo
+tolerance) — a fork that kept growing new special cases as gaps turned up in play
+("mint" busting instead of reaching "Thin Mints" was one). It's now one scoring
+function, `matchScore(guess, candidateText)`, called once per candidate: every
+transformation the matcher understands — exact match, leading article stripped,
+punctuation and spaces removed so hyphenated and spaced spellings converge, simple
+plural stemming, a whole token, a 4+ character token prefix — feeds into one number
+(0 = as good as typing it outright; a positive ratio for a genuine edit-distance
+typo, scaled to `tolerance()` at that pairing's own length, same formula as before;
+`Infinity` for nothing close). `CONFIRM_THRESHOLD` (1) is the one cutoff that
+decides confirm versus no-match, replacing what used to be two independently-tuned
+gates. `STOPWORDS` (the, a, an, of, and) is an explicit rule, not a side effect of
+the length floor every one of them happens to sit under — future content shouldn't
+be able to reintroduce a filler-word match by changing an unrelated threshold.
 
-- It only ever compared a guess against a whole token (`c.split(" ").includes(key)`)
-  or the whole candidate string's own prefix, never a guess as the **prefix of a
-  single token**. "mint" is a real prefix of the token "mints", but "Thin Mints"
-  doesn't itself start with "mint" — the old whole-string check missed it.
-- `norm()` strips hyphens without inserting a space, so "Do-si-dos" becomes
-  "dosidos" while someone typing the spaces they see, "do si dos", stays
-  "do si dos" — different strings that never met.
+Two subtleties the rewrite had to get right to actually preserve behavior, not just
+resemble it:
 
-`reaches(key, word)` in `10-matching.js` is the fix: a guess reaches a word if it's
-the same text, a plural of it in either direction (`destem()` strips one trailing
-"s" — not a real stemmer, just the suffix that actually shows up in content), or a
-genuine 4+ character prefix. `partialMatches()` calls it against the whole
-candidate, each individual token, and a space-stripped ("flattened") form of both —
-the flattened form matters whenever a hyphen sits mid-name rather than at the start
-("Extra-Terrestrial" is one token by itself; "extra terrestrial" only reaches it
-flattened). `nearMiss()` got the same flattened comparison for the same reason.
-None of this touches what counts as *ambiguous* — a guess matching more than one
-answer still falls through to "be more specific," never a guessed confirm.
+- **Typo-distance tolerance only ever applies to a whole candidate string, never to
+  a single token on its own.** `tolerance()` is generous enough (up to a flat 4-edit
+  allowance past length 12) that checking it per-token creates real collisions
+  between short, common words that recur across a round — "york" landing 2 edits
+  from both "park" and "work" nearly turned every New York Avenue guess ambiguous
+  on a Monopoly board where "Park Place" and "Water Works" are also answers. A
+  prefix or exact match still works per-token (that's the whole point — it's how
+  "mint" reaches "Thin Mints"); only the *fuzzy* edit-distance fallback is
+  whole-string-only, exactly where the old `nearMiss()` also drew that line.
+- **A clean (score 0) match isn't diluted by a weaker one elsewhere in the pool.**
+  Collecting every candidate under threshold independently turned "Pacific Avenue"
+  ambiguous against "Atlantic Avenue" and "Baltic Avenue" — all three cleared
+  `CONFIRM_THRESHOLD` once one of them matched exactly, since a shared 6-character
+  suffix ("avenue") is common enough that a handful of edits closes the rest of the
+  gap on a 12+ character name. `fuzzyMatches()` only lets near-miss ties compete
+  with each other when *nothing* in the pool scores a clean 0 — a real structural
+  match (exact, token, prefix) always wins outright over a merely-within-tolerance
+  coincidence, the same discipline the old two-function split had by construction
+  (the single best near-miss silently beat a same-quality runner-up) but that this
+  rewrite had to state on purpose instead of getting for free.
 
-This was under-tested by construction, not by accident: the old code happened to
-already handle plenty of adjacent cases by coincidence (a single-word plural like
-"Samoas" already matched "samoa" via the old whole-string-prefix check; small
-space/hyphen slips like "do si dos" already survived via `nearMiss()`'s plain edit
-distance, since a lone space is just one cheap edit). "mint" was the one case none
-of that coincidental coverage reached. `scripts/smoke.mjs`'s matcher tests use a
-synthetic girl-scout-cookie pool for exactly this bug, plus two answers outside that
-theme (`Kakapos`, `Ostriches`) to confirm the fix is the general prefix/plural path,
-not something cookie-specific.
+Both were caught the same way: comparing every derived guess (full name, each 4+
+token, singular/plural forms, hyphen-as-space, flattened) against every real answer
+in all three games, old matcher vs. new, and reading every disagreement rather than
+trusting that "the tests still pass" meant the rewrite was faithful. Simple
+trailing-s/es/ies stemming got the same treatment — offered as separate candidate
+stems rather than picked by a single rule ("lines" only correctly reaches "line" by
+trying the plain strip-s reading alongside the strip-es one, which alone would give
+"lin"), since a rule that has to guess which suffix pattern applies will guess wrong
+often enough to matter. `scripts/smoke.mjs`'s matcher tests use a synthetic
+girl-scout-cookie pool (plus two answers outside that theme, `Kakapos` and
+`Ostriches`, to confirm the fix generalizes) for the original "mint" bug, and the
+existing Pink-Floyd-themed pool's `park`/`Hyde Park`/`Jurassic Park` ambiguity case
+still covers the two-tier confirm-vs-specific contract on the new implementation.
 
 ## Scoring
 

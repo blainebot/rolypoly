@@ -174,7 +174,7 @@ function createSandbox({ day, active, localStorage }) {
 ;globalThis.__TEST__ = {
   dig, bank, loadRound, showResults, askConfirm, endRound,
   saveTodayResult, loadTodayResult, showStoredResults,
-  $, norm, partialMatches, nearMiss, tierFor, dayTierFor, avail, shareText, breadthBonus,
+  $, norm, matchScore, fuzzyMatches, tierFor, dayTierFor, avail, shareText, breadthBonus,
   get idx(){return idx}, get roundDepth(){return roundDepth}, get banked(){return banked},
   get found(){return found}, get deepest(){return deepest}, get chamberHit(){return chamberHit},
   get results(){return results}, get isPractice(){return isPractice},
