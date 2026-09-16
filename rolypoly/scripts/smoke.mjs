@@ -305,6 +305,42 @@ await test("bust: first find is salvaged, the second find is lost entirely", asy
   assertEqual(E.results[0].cm, first.v, "results[0].cm (the salvaged amount)");
 });
 
+// The Rumble panel always headlines what was kept, never what was lost —
+// three shapes, by what actually happened, each asserted against the
+// panel's actual rendered HTML rather than just the engine's internal
+// found/banked state, since this is a copy bug as much as a logic one.
+await test("rumble panel: busted on the first dig — 0 is the honest headline, no kept/loss line at all", async () => {
+  const { E, flush } = fresh();
+  await digAnswer(E, flush, "zzz-not-a-real-answer-11111");
+  const html = E.$("rumbleBox").innerHTML;
+  assert(html.includes('id="bankedNum">0<'), `expected a banked headline of 0, got: ${html}`);
+  assert(!html.includes('class="kept"'), `nothing was found or lost, so there should be no secondary line: ${html}`);
+});
+
+await test("rumble panel: busted with exactly one find — that find headlines, no loss is ever mentioned", async () => {
+  const { E, flush } = fresh();
+  const first = E.avail()[0];
+  await digAnswer(E, flush, first.n);
+  await digAnswer(E, flush, "zzz-not-a-real-answer-22222");
+  const html = E.$("rumbleBox").innerHTML;
+  assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), got: ${html}`);
+  assert(html.includes("Your first find is safe."), `expected the no-loss sentence: ${html}`);
+  assert(!html.includes("lost"), `a single-find bust must never mention a loss: ${html}`);
+});
+
+await test("rumble panel: busted with several finds — kept is still the large headline, lost is the small line", async () => {
+  const { E, flush } = fresh();
+  const picks = E.avail().slice(0, 3);
+  for (const a of picks) await digAnswer(E, flush, a.n);
+  await digAnswer(E, flush, "zzz-not-a-real-answer-33333");
+  const first = picks[0];
+  const lostAmount = picks.slice(1).reduce((s, a) => s + a.v, 0);
+  assert(lostAmount >= 0, "sanity: the lost figure (round total minus the first find) must never be negative");
+  const html = E.$("rumbleBox").innerHTML;
+  assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), not the lost total: ${html}`);
+  assert(html.includes(`${lostAmount} lost beyond that`), `expected the lost figure ${lostAmount} in the small line: ${html}`);
+});
+
 await test("clearing a whole round pays the +10 clear bonus and the breadth bonus", async () => {
   const { E, flush } = fresh();
   const all = E.avail();

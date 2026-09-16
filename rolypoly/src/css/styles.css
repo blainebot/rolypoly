@@ -152,7 +152,7 @@ body{
   color:var(--cream);padding-right:14px;margin-right:2px;border-right:2px solid #4A3C2E}
 .cell{display:flex;flex-direction:column;line-height:1}
 .cell span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B6A794;white-space:nowrap}
-.cell b,.reveal .cm,.final,.chip i,.fact i,.missed .cm,.rumble .lost,.tally td:last-child{
+.cell b,.reveal .cm,.final,.chip i,.fact i,.missed .cm,.rumble .banked,.tally td:last-child{
   font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0}
 .cell b{font-size:26px;margin-top:3px}
 .cell.right{margin-left:auto;text-align:right}
@@ -281,8 +281,8 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .rumble b{display:block;font-family:"Pixelify Sans",monospace;font-size:clamp(44px,13vw,60px);
   line-height:.95;letter-spacing:3px;margin-top:8px}
 .rumble .taunt{font-size:16px;margin:8px 0 12px}
-.rumble .lost{font-size:38px;line-height:1}
-.rumble .lost em{display:block;font-style:normal;font-family:"Bricolage Grotesque",sans-serif;
+.rumble .banked{font-size:38px;line-height:1}
+.rumble .banked em{display:block;font-style:normal;font-family:"Bricolage Grotesque",sans-serif;
   font-size:14px;margin:5px 0 16px}
 .rumble .kept{font-size:16px;font-weight:700;margin:0 0 14px}
 .rumble button{width:100%;background:var(--cream);color:var(--ink);border-color:var(--edge)}

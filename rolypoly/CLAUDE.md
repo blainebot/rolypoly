@@ -538,33 +538,41 @@ harness's stub DOM doesn't track `document.activeElement` at all right now;
 teaching it to would be real scope, not a quick addition, if focus behavior
 ever needs regression coverage here.
 
-## Rumble's overlay: lead with what survived
+## Rumble's overlay: the banked number is always the headline
 
-`rumble(lost, kept)` in `80-rumble.js` used to headline the *lost* amount
-unconditionally — a bare number with no label beyond "gone, and Poly is back on the
-surface" below it. Read as a score, not a loss, and when nothing was lost (the bust
-landed on the very next dig after the first find, before anything else was gained)
-it showed a large, unlabeled **0** directly above "Your first find, 15, is safe" —
-a contradiction, not a bust summary.
+`rumble(lost, kept)` in `80-rumble.js` headlines `kept`, never `lost` — in every
+reachable state, not just some of them. An earlier version of this panel headlined
+whichever number was more dramatic (the loss, when there was one), which reads as a
+score rather than a bust summary, and put a bare, unlabeled **0** directly above
+"Your first find, 15, is safe" on the one path where nothing was lost — a flat
+contradiction. The fix isn't "pick the right number sometimes," it's dropping the
+lost-as-headline idea entirely: `kept` is always what a player actually walks away
+with, so it's always what's large, always labelled "banked" (`.banked em`), including
+at 0 — that's the one case where 0 genuinely is the honest headline, since it's also
+the only case where nothing was lost either.
 
-Three shapes now, chosen by what actually happened, never a fourth reachable state:
+Three shapes, chosen by what actually happened, share that one headline:
 
-- **Nothing found before the bust** (`kept===0` — the first dig itself busted): no
-  banner at all. There's no safe find to report and nothing to headline.
-- **The bust landed on the very next dig, nothing else gained** (`lost===0`): "Your
-  first find is safe." then the *kept* amount as the large number, labelled
-  "banked". The headline is never 0 — there's always something real to lead with
-  here, since `kept>0` in this branch by construction.
-- **Digging continued and some of it was lost** (`lost>0`): the *lost* amount as the
-  large number, labelled "lost", then "Your first find, `kept`, is safe." below —
-  the kept amount only needs restating here, since it isn't the headline.
+- **Nothing found before the bust** (`kept===0`): no secondary line — there's no
+  find to reference — just `0` / "banked".
+- **Busted with exactly one find** (`lost===0`, so `kept` is that find's value):
+  "Your first find is safe." above the headline. Never mentions a loss, because
+  there wasn't one — the second dig is what busted, before anything more was found.
+- **Busted with several finds** (`lost>0`): "Your first find is safe — `lost` lost
+  beyond that." above the same headline shape. The loss is real here, so it gets a
+  sentence, but never the large number — that's still `kept`.
 
-The drain animation (counting the headline number down, `#bigNum`) only runs in the
-third shape — `if(lost>0)` — since the second shape's headline is what was *kept*,
-not lost, and animating a value that was never at risk of draining would misrepresent
-it. Ending the drain at a resting 0 is fine there (unlike the old bug): the player
-just watched a real positive number visibly count down to it, so it reads as "this
-finished draining," not as an unexplained static score.
+`lost` itself is `dug - firstFind` (`endRound()` in `70-game.js`), where `dug` is
+`roundDepth` captured before the bust resets it and `firstFind` is the value of
+whichever answer was found first. Since `roundDepth` only ever increases as answers
+are accepted, `dug` is always `firstFind` plus the sum of everything found
+afterward — `lost` can never be negative, and `kept===0` and `lost===0` are only
+ever both true together (no finds means nothing accumulated, either to keep or lose).
+
+The daily "Review your answers" list (`reviewAnswersHtml()` in `85-daily.js`) gets
+the same treatment: a busted round reads "Domain — rumbled" alone when nothing was
+kept, or "Domain — rumbled · kept N" when it was — the per-round echo of the same
+"lead with what was kept" rule, not a second, differently-tuned copy of it.
 
 ## Rumble's costumes
 

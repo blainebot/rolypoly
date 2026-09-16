@@ -128,7 +128,7 @@ function reviewAnswersHtml(){
       ?`<div class="grid">`+missed.map(a=>`<p>${a.n}<span class="cm">${a.v}</span></p>`).join("")+`</div>`
       :"";
     return `<div class="reviewRound">
-      <div class="dugup">${r.domain}${res.bust?" — rumbled":""}</div>
+      <div class="dugup">${r.domain}${res.bust?(res.cm>0?` — rumbled · kept ${res.cm}`:" — rumbled"):""}</div>
       ${foundHtml}
       ${missed.length?`<div class="dugup">Still down there</div>${missedHtml}`:""}
     </div>`;
