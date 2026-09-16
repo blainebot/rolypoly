@@ -49,16 +49,21 @@ function views(s){
   for(const v of[n,f])for(const st of stems(v))all.add(st);
   return[...all].filter(v=>v.length>=MIN_FUZZY&&!STOPWORDS.has(v));
 }
+// Below this length, a token only ever contributes an exact or prefix hit
+// (see matchScore) — never a typo-distance one. A short common word like
+// "park" or "avenue" is one edit away from plenty of other short common
+// words ("york" landing 2 edits from both "park" and "work" nearly broke
+// a whole Monopoly board); the old near-miss tolerance was only ever
+// checked against a *whole* candidate name, long enough that a
+// coincidental collision was rare. A long, distinctive word doesn't have
+// that problem — "pennsyvania" (missing the second l) is 3 edits from
+// "avenue" but only 1 from "pennsylvania", nowhere near ambiguous — so
+// tokens at or past this length get the same typo tolerance a whole
+// candidate string always has.
+const MIN_TOKEN_TYPO=8;
 // A candidate's individual tokens (each and its stem) — what lets a guess
 // reach one distinctive word inside a multi-word name or alias, the piece
 // `views()` alone can't see since it only ever looks at whole strings.
-// Tokens only ever contribute an exact or prefix hit (see matchScore) —
-// never a typo-distance one. A short common word like "park" or "avenue"
-// is one edit away from plenty of other short common words; the old
-// near-miss tolerance was only ever checked against a *whole* candidate
-// name, long enough that a coincidental collision is rare, and token-level
-// matching needs the same restraint or half a Monopoly board starts
-// answering to "york".
 function tokenViews(s){
   const out=new Set();
   for(const t of norm(s).split(" ")){
@@ -71,13 +76,15 @@ function tokenViews(s){
 // The one scoring function every match decision runs through: how well
 // does `guess` reach `candidateText`? 0 is as good as typing it outright —
 // an exact match through some transformation, a whole token, or a clean
-// 4+ character prefix of one. Otherwise it's a genuine edit-distance typo
-// against the *whole* candidate (never a single token — see tokenViews),
+// 4+ character prefix of one. Otherwise it's a genuine edit-distance typo,
 // scored as that distance divided by tolerance() at the pairing's own
-// length: the same length-scaled allowance as before, just normalised so
+// length — the same length-scaled allowance as before, just normalised so
 // one fixed threshold (CONFIRM_THRESHOLD below) works at every length
-// instead of a second, separately-tuned check. Infinity means nothing
-// gets them within reach at all.
+// instead of a second, separately-tuned check. That typo check runs against
+// the *whole* candidate always, and against an individual token once it's
+// long enough (MIN_TOKEN_TYPO) to rule out a coincidental collision with
+// some other short word in the same pool. Infinity means nothing gets them
+// within reach at all.
 function matchScore(guess,candidateText){
   const gViews=views(guess);
   if(!gViews.length)return Infinity;
@@ -85,8 +92,13 @@ function matchScore(guess,candidateText){
   const whole=views(candidateText);
   let best=Infinity;
   for(const g of gViews){
-    for(const c of tokens)
+    for(const c of tokens){
       if(g===c||(c.length>g.length&&c.startsWith(g)))return 0;
+      if(c.length>=MIN_TOKEN_TYPO){
+        const d=dist(g,c)/tolerance(Math.max(g.length,c.length));
+        if(d<best)best=d;
+      }
+    }
     for(const c of whole){
       if(g===c||(c.length>g.length&&c.startsWith(g)))return 0;
       const d=dist(g,c)/tolerance(Math.max(g.length,c.length));

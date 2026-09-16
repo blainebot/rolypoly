@@ -280,15 +280,30 @@ be able to reintroduce a filler-word match by changing an unrelated threshold.
 Two subtleties the rewrite had to get right to actually preserve behavior, not just
 resemble it:
 
-- **Typo-distance tolerance only ever applies to a whole candidate string, never to
-  a single token on its own.** `tolerance()` is generous enough (up to a flat 4-edit
-  allowance past length 12) that checking it per-token creates real collisions
+- **Typo-distance tolerance only ever applies to a whole candidate string, or to a
+  single token once it's long enough (`MIN_TOKEN_TYPO`, 8 characters).**
+  `tolerance()` is generous enough (up to a flat 4-edit allowance past length 12)
+  that checking it against every token unconditionally creates real collisions
   between short, common words that recur across a round — "york" landing 2 edits
   from both "park" and "work" nearly turned every New York Avenue guess ambiguous
   on a Monopoly board where "Park Place" and "Water Works" are also answers. A
-  prefix or exact match still works per-token (that's the whole point — it's how
-  "mint" reaches "Thin Mints"); only the *fuzzy* edit-distance fallback is
-  whole-string-only, exactly where the old `nearMiss()` also drew that line.
+  prefix or exact match still works per-token at any length (that's the whole
+  point — it's how "mint" reaches "Thin Mints"); it was the *fuzzy* edit-distance
+  fallback that had to stay whole-string-only at first, exactly where the old
+  `nearMiss()` also drew that line — until a real bug report showed the cost of
+  that restriction: "pennsyvania" (missing the second l) for "Pennsylvania
+  Avenue" busted instead of confirming, because "pennsyvania" isn't remotely
+  close to the *whole* string "pennsylvania avenue" (the un-typo'd "avenue" alone
+  costs 7 edits), only to the one word inside it that was actually typo'd.
+  `MIN_TOKEN_TYPO` reopens per-token fuzzy matching, but only past a length where
+  a coincidental collision stops being plausible — 8 characters keeps "york" (4),
+  "park" (4), "work" (4), and "avenue" (6) all exact/prefix-only, while letting
+  "pennsylvania" (12) forgive a real typo. Checked the same way as the two bugs
+  below: every 8+ character token in every answer or alias across all three
+  games, with one character dropped and with each adjacent pair swapped —
+  every one still resolves to the right answer alone or safely joins a genuine
+  ambiguity (a word close to two *different* long words, which still correctly
+  falls through to "be more specific"), never a bust and never the wrong credit.
 - **A clean (score 0) match isn't diluted by a weaker one elsewhere in the pool.**
   Collecting every candidate under threshold independently turned "Pacific Avenue"
   ambiguous against "Atlantic Avenue" and "Baltic Avenue" — all three cleared

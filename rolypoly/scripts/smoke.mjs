@@ -263,6 +263,26 @@ function cookiePool() {
   ];
 }
 
+// A third synthetic pool, modelled on the real bug report: "pennsyvania"
+// (missing the second l) for "Pennsylvania Avenue" busted instead of
+// offering a confirm. Typo tolerance only ever checked a guess against the
+// *whole* candidate string, and "pennsyvania" isn't close enough to the
+// whole "pennsylvania avenue" — a one-letter typo in just one word of a
+// multi-word answer had no path to a confirm at all. Park Place and Water
+// Works sit in the same pool to confirm the fix (per-token typo tolerance
+// once a token's long enough, MIN_TOKEN_TYPO in 10-matching.js) didn't
+// reopen the "york" one-edit-from-both-"park"-and-"work" false-ambiguity
+// bug that whole-string-only tolerance was built to prevent in the first
+// place — short tokens still get no typo tolerance, only exact/prefix.
+function statePropertyPool() {
+  return [
+    { n: "Pennsylvania Avenue", v: 4, f: "fact" },
+    { n: "Park Place", v: 4, f: "fact" },
+    { n: "Water Works", v: 11, f: "fact" },
+    { n: "New York Avenue", v: 6, f: "fact" },
+  ];
+}
+
 async function digAnswer(E, flush, name) {
   E.$("answer").value = name;
   E.dig();
@@ -487,6 +507,36 @@ for (const w of ["oreo", "snickerdoodle", "girl scout", "zzzz"]) {
     assertEqual(E.results[0].bust, true, `"${w}" should bust`);
   });
 }
+
+await test('matcher: "pennsyvania" — a typo inside one word of a multi-word answer — offers a confirm, then credits', async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, statePropertyPool());
+  await digAnswer(E, flush, "pennsyvania");
+  assertEqual(E.found.length, 0, "a fuzzy match must not auto-credit before confirmation");
+  assert(E.$("confirmBox").innerHTML.includes("Pennsylvania Avenue"), "confirm box should name Pennsylvania Avenue");
+  await confirmYes(E, flush);
+  assertEqual(E.found.length, 1, "finds after confirming");
+  assertEqual(E.found[0].n, "Pennsylvania Avenue", "matched answer");
+});
+
+await test('matcher: per-token typo tolerance on long words does not reopen short-word collisions ("york" still only reaches New York Avenue)', async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, statePropertyPool());
+  await digAnswer(E, flush, "york");
+  assertEqual(E.found.length, 0, "a partial match must not auto-credit before confirmation");
+  const html = E.$("confirmBox").innerHTML;
+  assert(html.includes("New York Avenue"), "should offer New York Avenue");
+  assert(!html.includes("Park Place") && !html.includes("Water Works"), `"york" must not ambiguously reach short unrelated words: ${html}`);
+});
+
+await test('matcher: a typo in a short word still busts — typo tolerance never applies below MIN_TOKEN_TYPO', async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, statePropertyPool());
+  await digAnswer(E, flush, "watr"); // "water" is 5 characters, short of the token-typo floor
+  assertEqual(E.found.length, 0, "should not match anything");
+  assertEqual(E.results.length, 1, "should end the round");
+  assertEqual(E.results[0].bust, true, "a short-word typo below the floor should still bust");
+});
 
 await test("extras: correct but outside the scoring fifteen — no score, no bust, no reveal", async () => {
   const { E, flush } = fresh();
