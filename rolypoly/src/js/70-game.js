@@ -157,6 +157,18 @@ function dig(){
     say(`More than one answer matches "${raw}". Be more specific — nothing lost.`,"");
     $("answer").select();return;
   }
+  // Extras: correct, but outside the scoring fifteen. Checked last, after
+  // the real scoring list has had every chance to claim the guess, and
+  // before Rumble would otherwise wake up for an answer that's genuinely
+  // right. No confirm step — unlike a scoring guess, accepting or
+  // rejecting the suggestion changes nothing either way, so there's
+  // nothing worth interrupting play to ask about.
+  const extras=ROUNDS[idx].extras;
+  if(extras&&(extras.some(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
+    ||fuzzyMatches(key,extras).length)){
+    say(`"${raw}" is right, but not one of today's fifteen — nothing lost.`,"");
+    $("answer").select();return;
+  }
   $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   $("deadend").hidden=false;

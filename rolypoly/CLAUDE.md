@@ -423,6 +423,44 @@ measurable — Wikipedia pageviews bucketed into the four bands is the usual app
 Be generous about including debatable-but-true answers. A valid answer that isn't on
 the list wipes the round, which is the most enraging thing this game can do.
 
+**The scoring pool is capped at 15 answers** (`MAX_SCORING` in `validate.mjs`,
+warned past, not errored — a round can still ship over it deliberately, but the
+warning is there for a reason: more than fifteen answers, and the "at least one
+answer under 8 / real spread / two or three deep cuts" shape from above gets
+hard to hold onto, and the round drags). A round with a genuinely longer set of
+correct answers doesn't have to cut any of them, though — it has two ways to stay
+honest instead of naively truncating a list and busting a player for knowing an
+answer that got cut:
+
+- **Narrow the prompt.** The preferred fix, when there's an honest way to do it —
+  "a Steven Spielberg film" narrowed to "a Spielberg film from the 2000s or
+  later" is still a fair, specific question, just a smaller one. A narrowed round
+  stays a clean, single scoring list; nothing moves to extras except what the
+  narrower prompt genuinely excludes.
+- **`extras`**, a round's optional second list (see `content/TEMPLATE.md`) —
+  answers that are correct but outside the scoring fifteen. The fallback for a
+  set people know in full, where narrowing the prompt would either still leave
+  too many answers or make the question feel arbitrary. An extra needs only a
+  `name` and optional `aliases` — no value, no fact, since it never scores.
+  Submitting one says so ("Right, but not one of today's fifteen") and the round
+  continues exactly as if nothing had been typed: no score, no bust, no entry in
+  the reveal or in any count. `dig()` in `70-game.js` checks extras last, after
+  the real scoring list has had every chance to claim the guess (exact, then
+  `fuzzyMatches()`) and right before Rumble would otherwise wake up — an extra
+  is deliberately not offered a confirm step the way a scoring guess is, since
+  accepting or declining the suggestion changes nothing either way.
+  `validate.mjs` errors if an extra's name or alias collides with a scoring
+  answer (or another extra) in the same round — a collision would make the
+  scoring answer win the match first, leaving the extras entry dead,
+  unreachable content.
+
+When trimming down to the scoring fifteen, keep the round's *shape*, not just
+cut the tail: at least three answers under 8 so there's always a safe opening
+move, a spread through the middle, and two or three genuine deep cuts so
+there's a reason to keep digging once the easy ones are gone. Demoting only the
+obscure answers to extras removes the round's ceiling and flattens the whole
+curve — the demoted set should look like a real, if shorter, round on its own.
+
 ## Accessibility
 
 An audit walked the game keyboard-only and with a screen reader in mind and

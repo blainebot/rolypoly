@@ -76,21 +76,6 @@
       "fact": "Weeps through his own story. His name comes from mock turtle soup, which is made with veal."
     },
     {
-      "name": "White Knight",
-      "value": 18,
-      "fact": "Falls off his horse at every opportunity, and is widely read as Carroll's portrait of himself."
-    },
-    {
-      "name": "Gryphon",
-      "value": 19,
-      "fact": "Escorts Alice to the Mock Turtle and dismisses the Queen's executions as pure fancy."
-    },
-    {
-      "name": "Duchess",
-      "value": 20,
-      "fact": "Nurses a baby that turns into a pig, and finds a heavy-handed moral in absolutely everything."
-    },
-    {
       "name": "Jabberwock",
       "value": 22,
       "fact": "Appears only inside the poem Alice reads in mirror writing, and is slain with a vorpal sword."
@@ -103,5 +88,10 @@
         "bill"
       ]
     }
+  ],
+  "extras": [
+    { "name": "White Knight" },
+    { "name": "Gryphon" },
+    { "name": "Duchess" }
   ]
 }

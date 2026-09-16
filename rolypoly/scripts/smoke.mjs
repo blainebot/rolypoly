@@ -226,11 +226,12 @@ function syntheticPool() {
     { n: "Animals", v: 7, f: "fact" },
   ];
 }
-function loadSynthetic(E, pool = syntheticPool()) {
+function loadSynthetic(E, pool = syntheticPool(), extras) {
   E.ROUNDS[0].domain = "Test";
   E.ROUNDS[0].prompt = "Test prompt.";
   E.ROUNDS[0].par = 10;
   E.ROUNDS[0].answers = pool;
+  if (extras) E.ROUNDS[0].extras = extras;
   E.$("chooser").innerHTML = ""; // buildIntro() already ran; loadRound() is the real entry point
   E.$("play").hidden = false;
   E.loadRound();
@@ -450,6 +451,43 @@ for (const w of ["oreo", "snickerdoodle", "girl scout", "zzzz"]) {
     assertEqual(E.results[0].bust, true, `"${w}" should bust`);
   });
 }
+
+await test("extras: correct but outside the scoring fifteen — no score, no bust, no reveal", async () => {
+  const { E, flush } = fresh();
+  const extras = [{ n: "Adventurefuls", alias: ["adventurefuls cookie"] }];
+  loadSynthetic(E, cookiePool(), extras);
+
+  // Exact name.
+  await digAnswer(E, flush, "Adventurefuls");
+  assertEqual(E.found.length, 0, "an extra must not score");
+  assertEqual(E.results.length, 0, "an extra must not end the round");
+  assertEqual(E.roundDepth, 0, "an extra must not add to the unbanked total");
+  assert(E.$("msg").textContent.includes("not one of today's fifteen"), `unexpected message: ${E.$("msg").textContent}`);
+  assert(!E.$("digBtn").disabled, "digging an extra must not lock out further play");
+
+  // Alias.
+  await digAnswer(E, flush, "adventurefuls cookie");
+  assertEqual(E.found.length, 0, "an extra's alias must not score either");
+  assertEqual(E.results.length, 0, "an extra's alias must not end the round");
+
+  // A fragment/plural of an extra — same fuzzy reach the scoring list gets,
+  // routed straight to the same outcome (no confirm step; see 70-game.js).
+  await digAnswer(E, flush, "adventureful");
+  assertEqual(E.found.length, 0, "a fuzzy match to an extra must not score");
+  assertEqual(E.results.length, 0, "a fuzzy match to an extra must not bust");
+
+  // Finish the round for real, then confirm the extra never appears
+  // anywhere a real answer would: not in the reveal, not in "still down
+  // there," not in avail() at all.
+  assert(!E.avail().some((a) => a.n === "Adventurefuls"), "an extra must never be part of the scoring pool avail() draws from");
+  const picks = E.avail().slice(0, 2);
+  for (const a of picks) await digAnswer(E, flush, a.n);
+  assert(!E.$("facts").innerHTML.includes("Adventurefuls"), "an extra must never appear in the reveal");
+  E.bank();
+  await flush();
+  assertEqual(E.results[0].bust, false, "sanity: the round banked normally after the extra digs");
+  assert(!E.$("missedBox").innerHTML.includes("Adventurefuls"), "an extra must never appear in \"still down there\"");
+});
 
 await test("hidden chamber fires once roundDepth crosses its threshold", async () => {
   const { E, flush } = fresh();

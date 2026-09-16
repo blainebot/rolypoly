@@ -11,7 +11,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const gamesDir = join(root, "content", "games");
 
 const MIN_ANSWERS = 6;
-const MAX_ANSWERS = 30;
+const MAX_SCORING = 15;
 const MIN_VALUE = 1;
 const MAX_VALUE = 60;
 const MAX_FACT = 180;
@@ -66,7 +66,7 @@ for (const file of files) {
 
   const n = r.answers.length;
   if (n < MIN_ANSWERS) errors.push(where(`only ${n} answers (minimum ${MIN_ANSWERS})`));
-  if (n > MAX_ANSWERS) warnings.push(where(`${n} answers — long lists are hard to author well`));
+  if (n > MAX_SCORING) warnings.push(where(`${n} scoring answers — cap is ${MAX_SCORING}; move the rest to extras`));
 
   const seen = new Map();   // normalised string -> which answer claimed it
   const values = [];
@@ -92,6 +92,29 @@ for (const file of files) {
       if (seen.has(k) && seen.get(k) !== label)
         errors.push(where(`"${s}" is claimed by both ${seen.get(k)} and ${label}`));
       seen.set(k, label);
+    }
+  }
+
+  // Extras: correct but outside the scoring pool. No value, no fact — they
+  // never score and never bust, so nothing about them feeds the value/par
+  // checks below. They still have to not secretly BE a scoring answer,
+  // which is the one way an extra could actually hurt a player: claim it
+  // in dig()'s exact/fuzzy scoring check first and it'd score or confirm
+  // like normal, making the "extras" entry dead, unreachable content.
+  if (r.extras !== undefined) {
+    if (!Array.isArray(r.extras)) errors.push(where("extras is not an array"));
+    else for (const x of r.extras) {
+      const label = x.name || "(unnamed extra)";
+      const tag = `extra: ${label}`;
+      if (!x.name) errors.push(where("an extra has no name"));
+      for (const s of [x.name, ...(x.aliases || [])]) {
+        if (!s) continue;
+        const k = norm(s);
+        if (!k) { errors.push(where(`extra ${label}: "${s}" normalises to nothing`)); continue; }
+        if (seen.has(k) && seen.get(k) !== tag)
+          errors.push(where(`extra "${s}" (${label}) collides with "${seen.get(k)}"`));
+        seen.set(k, tag);
+      }
     }
   }
 

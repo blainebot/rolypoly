@@ -26,7 +26,15 @@ const toEngine = r => ({
     v: a.value,
     f: a.fact,
     ...(a.aliases && a.aliases.length ? { alias: a.aliases } : {})
-  }))
+  })),
+  // Correct but outside the scoring fifteen — no value, no fact, never in
+  // avail()'s pool, so they can't score, bust, or show up in the reveal.
+  ...(r.extras && r.extras.length ? {
+    extras: r.extras.map(x => ({
+      n: x.name,
+      ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
+    }))
+  } : {})
 });
 
 const games = {};

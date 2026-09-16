@@ -66,26 +66,6 @@
       "fact": "Slow to brown when cut, which made it a salad standard."
     },
     {
-      "name": "Macoun",
-      "value": 16,
-      "fact": "A short-season New England favourite that bruises too easily to ship far."
-    },
-    {
-      "name": "Winesap",
-      "value": 18,
-      "fact": "A 19th-century American cider apple."
-    },
-    {
-      "name": "Northern Spy",
-      "value": 20,
-      "fact": "Takes over a decade to bear fruit. Prized for pie."
-    },
-    {
-      "name": "Gravenstein",
-      "value": 22,
-      "fact": "Grown in Sonoma County since the Russian colony at Fort Ross."
-    },
-    {
       "name": "Arkansas Black",
       "value": 24,
       "fact": "Nearly purple-black, and almost inedible until it has sat for two months."
@@ -100,5 +80,11 @@
       "value": 30,
       "fact": "Said to have been Thomas Jefferson's favourite."
     }
+  ],
+  "extras": [
+    { "name": "Macoun" },
+    { "name": "Winesap" },
+    { "name": "Northern Spy" },
+    { "name": "Gravenstein" }
   ]
 }

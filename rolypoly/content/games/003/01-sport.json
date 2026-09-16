@@ -50,21 +50,6 @@
       "fact": "Long better known for basketball, with five national titles."
     },
     {
-      "name": "Purdue",
-      "value": 12,
-      "fact": "Nicknamed the Cradle of Quarterbacks."
-    },
-    {
-      "name": "Minnesota",
-      "value": 13,
-      "fact": "Plays Wisconsin for Paul Bunyan's Axe, the most-played rivalry in major college football."
-    },
-    {
-      "name": "Illinois",
-      "value": 14,
-      "fact": "A charter member. The conference was founded in Chicago in 1896."
-    },
-    {
       "name": "Northwestern",
       "value": 15,
       "fact": "The only private university in the conference."
@@ -106,5 +91,10 @@
         "udub"
       ]
     }
+  ],
+  "extras": [
+    { "name": "Purdue" },
+    { "name": "Minnesota" },
+    { "name": "Illinois" }
   ]
 }
