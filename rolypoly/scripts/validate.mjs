@@ -66,7 +66,7 @@ for (const file of files) {
 
   const n = r.answers.length;
   if (n < MIN_ANSWERS) errors.push(where(`only ${n} answers (minimum ${MIN_ANSWERS})`));
-  if (n > MAX_SCORING) warnings.push(where(`${n} scoring answers — cap is ${MAX_SCORING}; move the rest to extras`));
+  if (n > MAX_SCORING) warnings.push(where(`${n} scoring answers — past ${MAX_SCORING}, the "safe opener / spread / a couple of deep cuts" shape gets hard to hold onto and the round drags; a correct answer should still score no matter how long the list gets, so this is a nudge to check the round's shape, not a cue to cut anything`));
 
   const seen = new Map();   // normalised string -> which answer claimed it
   const values = [];

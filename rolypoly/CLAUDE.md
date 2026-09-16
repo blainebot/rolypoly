@@ -423,43 +423,51 @@ measurable — Wikipedia pageviews bucketed into the four bands is the usual app
 Be generous about including debatable-but-true answers. A valid answer that isn't on
 the list wipes the round, which is the most enraging thing this game can do.
 
-**The scoring pool is capped at 15 answers** (`MAX_SCORING` in `validate.mjs`,
-warned past, not errored — a round can still ship over it deliberately, but the
-warning is there for a reason: more than fifteen answers, and the "at least one
-answer under 8 / real spread / two or three deep cuts" shape from above gets
-hard to hold onto, and the round drags). A round with a genuinely longer set of
-correct answers doesn't have to cut any of them, though — it has two ways to stay
-honest instead of naively truncating a list and busting a player for knowing an
-answer that got cut:
+**A correct answer always scores, no matter how long the round's list gets.**
+`validate.mjs` warns past 15 scoring answers (`MAX_SCORING`) because the "at least
+one answer under 8 / real spread / two or three deep cuts" shape from above gets
+hard to hold onto in a very long list and the round can drag — but it's a nudge to
+look at the round's shape, never a cue to cut a correct answer just to get under the
+number. This shipped the other way once: four rounds (History, Sport, Literature,
+Food) had their longer tail moved into non-scoring `extras` purely to hit 15, which
+meant a player who knew, say, Minnesota was a Big Ten school got "right, but not one
+of today's fifteen" instead of points — correct, and unrewarded. Don't reintroduce
+that. A round is allowed to be long.
 
-- **Narrow the prompt.** The preferred fix, when there's an honest way to do it —
-  "a Steven Spielberg film" narrowed to "a Spielberg film from the 2000s or
-  later" is still a fair, specific question, just a smaller one. A narrowed round
-  stays a clean, single scoring list; nothing moves to extras except what the
-  narrower prompt genuinely excludes.
-- **`extras`**, a round's optional second list (see `content/TEMPLATE.md`) —
-  answers that are correct but outside the scoring fifteen. The fallback for a
-  set people know in full, where narrowing the prompt would either still leave
-  too many answers or make the question feel arbitrary. An extra needs only a
-  `name` and optional `aliases` — no value, no fact, since it never scores.
-  Submitting one says so ("Right, but not one of today's fifteen") and the round
-  continues exactly as if nothing had been typed: no score, no bust, no entry in
-  the reveal or in any count. `dig()` in `70-game.js` checks extras last, after
-  the real scoring list has had every chance to claim the guess (exact, then
-  `fuzzyMatches()`) and right before Rumble would otherwise wake up — an extra
-  is deliberately not offered a confirm step the way a scoring guess is, since
-  accepting or declining the suggestion changes nothing either way.
-  `validate.mjs` errors if an extra's name or alias collides with a scoring
-  answer (or another extra) in the same round — a collision would make the
-  scoring answer win the match first, leaving the extras entry dead,
-  unreachable content.
+`extras` (a round's optional second list, see `content/TEMPLATE.md`) still exists
+for the one case where "correct but doesn't score" is actually honest: **the round's
+prompt was deliberately narrowed**, and the extra is correct for the *broader*
+question but not the one actually being asked. Two rounds do this — Film asks for a
+Spielberg feature from the 2000s or later (extras: everything earlier); Games asks
+for a Monopoly property named after a US state (extras: every other property). In
+both, narrowing kept the round a fair, specific question at a manageable size
+without needing extras to enforce a cap — nothing moved to extras except what the
+narrower prompt itself genuinely excludes, and the round would work exactly the same
+with `extras` deleted, just with more guesses busting on a technicality the narrower
+prompt is there to avoid. That's the test for whether `extras` is the right tool: if
+removing it would mean silently denying credit for something that's actually still a
+correct answer to the round's real prompt, it's the wrong tool — narrow the prompt,
+or just let the round run long, and Sport/History/Literature/Food will keep doing
+exactly the latter until they're re-narrowed.
 
-When trimming down to the scoring fifteen, keep the round's *shape*, not just
-cut the tail: at least three answers under 8 so there's always a safe opening
-move, a spread through the middle, and two or three genuine deep cuts so
-there's a reason to keep digging once the easy ones are gone. Demoting only the
-obscure answers to extras removes the round's ceiling and flattens the whole
-curve — the demoted set should look like a real, if shorter, round on its own.
+An extra needs only a `name` and optional `aliases` — no value, no fact, since it
+never scores. Submitting one says so ("Right, but not one of today's fifteen") and
+the round continues exactly as if nothing had been typed: no score, no bust, no
+entry in the reveal or in any count. `dig()` in `70-game.js` checks extras last,
+after the real scoring list has had every chance to claim the guess (exact, then
+`fuzzyMatches()`) and right before Rumble would otherwise wake up — an extra is
+deliberately not offered a confirm step the way a scoring guess is, since accepting
+or declining the suggestion changes nothing either way. `validate.mjs` errors if an
+extra's name or alias collides with a scoring answer (or another extra) in the same
+round — a collision would make the scoring answer win the match first, leaving the
+extras entry dead, unreachable content.
+
+If a round's scoring list ever does get trimmed for real (an honest editorial call,
+not a mechanical cap), keep the round's *shape*, not just the tail cut off: at least
+three answers under 8 so there's always a safe opening move, a spread through the
+middle, and two or three genuine deep cuts so there's a reason to keep digging once
+the easy ones are gone. Cutting only the obscure answers removes the round's ceiling
+and flattens the whole curve.
 
 ## Accessibility
 
