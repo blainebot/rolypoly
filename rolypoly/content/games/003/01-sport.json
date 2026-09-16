@@ -106,5 +106,25 @@
         "udub"
       ]
     }
+  ],
+  "distractors": [
+    { "name": "Buckeyes", "note": "That's Ohio State's mascot, not the school." },
+    { "name": "Wolverines", "note": "That's Michigan's mascot, not the school." },
+    { "name": "Nittany Lions", "note": "That's Penn State's mascot, not the school.", "aliases": ["nittany lion"] },
+    { "name": "Badgers", "note": "That's Wisconsin's mascot, not the school." },
+    { "name": "Spartans", "note": "That's Michigan State's mascot, not the school." },
+    { "name": "Hawkeyes", "note": "That's Iowa's mascot, not the school." },
+    { "name": "Cornhuskers", "note": "That's Nebraska's mascot, not the school.", "aliases": ["huskers"] },
+    { "name": "Hoosiers", "note": "That's Indiana's mascot, not the school." },
+    { "name": "Boilermakers", "note": "That's Purdue's mascot, not the school." },
+    { "name": "Golden Gophers", "note": "That's Minnesota's mascot, not the school.", "aliases": ["gophers"] },
+    { "name": "Fighting Illini", "note": "That's Illinois's mascot, not the school.", "aliases": ["illini"] },
+    { "name": "Wildcats", "note": "That's Northwestern's mascot, not the school." },
+    { "name": "Terrapins", "note": "That's Maryland's mascot, not the school.", "aliases": ["terps"] },
+    { "name": "Scarlet Knights", "note": "That's Rutgers's mascot, not the school." },
+    { "name": "Trojans", "note": "That's USC's mascot, not the school." },
+    { "name": "Bruins", "note": "That's UCLA's mascot, not the school." },
+    { "name": "Ducks", "note": "That's Oregon's mascot, not the school." },
+    { "name": "Huskies", "note": "That's Washington's mascot, not the school." }
   ]
 }

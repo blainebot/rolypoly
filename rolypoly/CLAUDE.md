@@ -484,6 +484,31 @@ middle, and two or three genuine deep cuts so there's a reason to keep digging o
 the easy ones are gone. Cutting only the obscure answers removes the round's ceiling
 and flattens the whole curve.
 
+**`distractors`** is the third list a round can carry, for a different problem than
+`extras` solves: a guess that's never correct, but predictable enough to deserve an
+explanation instead of a bare bust. Real bug report: a player entered "Buckeyes" for
+"name a school in the Big Ten conference" and got dinged with no indication of what
+went wrong. A mascot isn't a school under any reading of that prompt — unlike an
+extra, there's no honest sense in which the guess is "right" — but it's an
+understandable miss (the player likely does know the answer, just named the wrong
+kind of thing), and busting the round teaches nothing. `dig()` checks `distractors`
+right after `extras` and right before Rumble wakes up, using the same exact-or-fuzzy
+reach as everything else (so "Buckeye" singular, or a typo, still gets caught): no
+score, no bust, no confirm step — same reasoning as extras, accepting or declining
+the "hint" changes nothing, so there's nothing worth interrupting play to ask about.
+
+Each distractor carries its own `note` rather than a templated message, since the
+wrong category isn't always the same shape — a round could just as easily need this
+for a brand name instead of a variety, or a nickname instead of a person. `note` is
+plain prose, shown as `"${raw}" isn't it — ${note} Nothing lost, try again.`; the
+content author writes what the guess actually *is* ("That's Ohio State's mascot, not
+the school.") and the engine supplies the rest. Same collision rule as extras, same
+reason: `validate.mjs` errors if a distractor's name or alias collides with a scoring
+answer, an extra, or another distractor in the same round.
+
+Content authored so far: `content/games/003/01-sport.json`'s eighteen Big Ten
+mascots, one per school.
+
 ## Accessibility
 
 An audit walked the game keyboard-only and with a screen reader in mind and

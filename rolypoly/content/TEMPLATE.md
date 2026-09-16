@@ -17,6 +17,9 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
   ],
   "extras": [
     { "name": "Liechtenstein" }
+  ],
+  "distractors": [
+    { "name": "Germany", "note": "That's the country in the prompt, not one of its neighbours." }
   ]
 }
 ```
@@ -39,6 +42,14 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
   An extra can't share a name or alias with a scoring answer in the same round
   (or with another extra) — the validator errors on that, since it would just
   make the scoring answer win the match and the extras entry dead.
+- **distractors** — optional. Guesses that are never correct, but predictable
+  enough to explain instead of just busting — a round asking for the school
+  will keep getting the mascot, a round asking for a variety will keep getting
+  the brand it's sold under. Each needs a **name** and a **note**: one sentence
+  in your own voice saying what the guess actually is, shown as "'Buckeyes'
+  isn't it — *note*. Nothing lost, try again." Like an extra, it never scores
+  and never busts, and can't share a name or alias with a scoring answer, an
+  extra, or another distractor in the same round.
 
 Prefer narrowing the prompt over demoting answers into extras when a round runs
 long — a tighter prompt keeps the round honest about what it's actually asking;

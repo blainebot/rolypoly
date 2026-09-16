@@ -34,6 +34,16 @@ const toEngine = r => ({
       n: x.name,
       ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
     }))
+  } : {}),
+  // Wrong-category guesses worth naming instead of busting — never
+  // correct, so no value or fact either; `note` is the author's own
+  // explanation of what the guess actually is.
+  ...(r.distractors && r.distractors.length ? {
+    distractors: r.distractors.map(x => ({
+      n: x.name,
+      note: x.note,
+      ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
+    }))
   } : {})
 });
 

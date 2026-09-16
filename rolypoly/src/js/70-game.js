@@ -169,6 +169,25 @@ function dig(){
     say(`"${raw}" is right, but not one of today's fifteen — nothing lost.`,"");
     $("answer").select();return;
   }
+  // Distractors: a predictable *wrong-category* guess — Ohio State's
+  // mascot isn't Ohio State — worth naming instead of just busting, since
+  // it's an understandable miss (the player often does know the answer,
+  // just named the wrong kind of thing). Checked after extras (a genuinely
+  // correct answer always wins first) and right before Rumble would
+  // otherwise wake up. No confirm step, same reasoning as extras: this
+  // guess was never going to be credited, so there's nothing to ask about.
+  // `note` is author-written prose, not templated — a round's distractors
+  // don't have to be mascots; whatever the wrong category is, the round's
+  // content explains it in its own words.
+  const distractors=ROUNDS[idx].distractors;
+  if(distractors){
+    const hit=distractors.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
+      ||fuzzyMatches(key,distractors)[0];
+    if(hit){
+      say(`"${raw}" isn't it — ${hit.note} Nothing lost, try again.`,"");
+      $("answer").select();return;
+    }
+  }
   $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
   $("entry").hidden=true;$("digBtn").hidden=true;
   $("deadend").hidden=false;

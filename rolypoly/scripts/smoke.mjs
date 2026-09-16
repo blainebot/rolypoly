@@ -226,12 +226,13 @@ function syntheticPool() {
     { n: "Animals", v: 7, f: "fact" },
   ];
 }
-function loadSynthetic(E, pool = syntheticPool(), extras) {
+function loadSynthetic(E, pool = syntheticPool(), extras, distractors) {
   E.ROUNDS[0].domain = "Test";
   E.ROUNDS[0].prompt = "Test prompt.";
   E.ROUNDS[0].par = 10;
   E.ROUNDS[0].answers = pool;
   if (extras) E.ROUNDS[0].extras = extras;
+  if (distractors) E.ROUNDS[0].distractors = distractors;
   E.$("chooser").innerHTML = ""; // buildIntro() already ran; loadRound() is the real entry point
   E.$("play").hidden = false;
   E.loadRound();
@@ -573,6 +574,42 @@ await test("extras: correct but outside the scoring fifteen — no score, no bus
   await flush();
   assertEqual(E.results[0].bust, false, "sanity: the round banked normally after the extra digs");
   assert(!E.$("missedBox").innerHTML.includes("Adventurefuls"), "an extra must never appear in \"still down there\"");
+});
+
+// Distractors: a predictable wrong-category guess ("Buckeyes" for a round
+// asking to name the school, not the mascot) named for what it actually
+// is instead of a bare bust — real bug report, a player entered a mascot
+// and got dinged with no explanation.
+await test("distractors: a wrong-category guess is explained, not scored, not busted", async () => {
+  const { E, flush } = fresh();
+  const distractors = [{ n: "Buckeyes", note: "That's Ohio State's mascot, not the school." }];
+  loadSynthetic(E, syntheticPool(), undefined, distractors);
+
+  // Exact name.
+  await digAnswer(E, flush, "Buckeyes");
+  assertEqual(E.found.length, 0, "a distractor must not score");
+  assertEqual(E.results.length, 0, "a distractor must not end the round");
+  assertEqual(E.roundDepth, 0, "a distractor must not add to the unbanked total");
+  assert(E.$("msg").textContent.includes("That's Ohio State's mascot, not the school."), `unexpected message: ${E.$("msg").textContent}`);
+  assert(!E.$("digBtn").disabled, "digging a distractor must not lock out further play");
+
+  // A fuzzy match (plural stemming already covers "Buckeye" singular) —
+  // same fuzzy reach the scoring list and extras get, routed straight to
+  // the same outcome, no confirm step.
+  await digAnswer(E, flush, "Buckeye");
+  assertEqual(E.found.length, 0, "a fuzzy match to a distractor must not score");
+  assertEqual(E.results.length, 0, "a fuzzy match to a distractor must not bust");
+
+  // A real scoring answer still works normally alongside the distractors list.
+  const first = E.avail()[0];
+  await digAnswer(E, flush, first.n);
+  assertEqual(E.found.length, 1, "a genuine scoring answer must still credit normally");
+  assertEqual(E.found[0].n, first.n, "matched the real answer, not a distractor");
+
+  // And a guess that's neither a scoring answer nor a distractor still busts.
+  await digAnswer(E, flush, "zzz-not-a-real-answer-44444");
+  assertEqual(E.results.length, 1, "a genuine dead end must still end the round");
+  assertEqual(E.results[0].bust, true, "a genuine dead end must still bust");
 });
 
 await test("hidden chamber fires once roundDepth crosses its threshold", async () => {

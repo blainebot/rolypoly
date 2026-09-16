@@ -118,6 +118,29 @@ for (const file of files) {
     }
   }
 
+  // Distractors: never correct, so — like extras — no value or fact, and
+  // the same collision rule applies for the same reason (a distractor
+  // sharing text with a scoring answer would just be dead content, always
+  // beaten to the match by the real answer). Each also needs a `note`,
+  // since a distractor with nothing to say is just a worse bust message.
+  if (r.distractors !== undefined) {
+    if (!Array.isArray(r.distractors)) errors.push(where("distractors is not an array"));
+    else for (const x of r.distractors) {
+      const label = x.name || "(unnamed distractor)";
+      const tag = `distractor: ${label}`;
+      if (!x.name) errors.push(where("a distractor has no name"));
+      if (!x.note) errors.push(where(`distractor ${label}: missing note`));
+      for (const s of [x.name, ...(x.aliases || [])]) {
+        if (!s) continue;
+        const k = norm(s);
+        if (!k) { errors.push(where(`distractor ${label}: "${s}" normalises to nothing`)); continue; }
+        if (seen.has(k) && seen.get(k) !== tag)
+          errors.push(where(`distractor "${s}" (${label}) collides with "${seen.get(k)}"`));
+        seen.set(k, tag);
+      }
+    }
+  }
+
   if (values.length) {
     const total = values.reduce((s, v) => s + v, 0);
     const par = [...values].sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
