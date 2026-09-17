@@ -80,11 +80,18 @@ body{
 .cloud{position:absolute;width:0;height:0}
 .cloud i{position:absolute;display:block;height:11px;background:rgba(255,255,255,.9)}
 .bit.w{width:16px}.bit.t{width:5px;height:14px}
+.tooth{position:absolute;width:18px}
+.tooth.ceil{top:0}
+.tooth.floor{bottom:0}
+.fleck{position:absolute;width:4px;height:4px;opacity:.85;box-shadow:0 0 3px rgba(252,239,199,.3)}
+.fleck.t{width:3px;height:8px}
 .digger{position:fixed;left:50%;top:var(--top);transform:translate(-50%,-100%);z-index:2;line-height:0}
 .bug{display:inline-block;line-height:0;transform-origin:50% 100%}
 .bug.dig{transform:rotate(-90deg) translateY(26px)}
 .bug svg{width:64px;height:auto}
-.bug.ball svg{width:46px;height:auto}
+.bug.ball svg,.bug.float svg{width:46px;height:auto}
+.bug.float{animation:chamberDrift 4.2s ease-in-out infinite}
+@keyframes chamberDrift{0%,100%{transform:translate(0,0) rotate(-5deg)}50%{transform:translate(7px,-11px) rotate(6deg)}}
 #rig{display:inline-block;line-height:0}
 .tunsvg{position:absolute;left:50%;top:0;width:3400px;margin-left:-1700px;height:10000px;
   pointer-events:none;shape-rendering:crispEdges}
@@ -402,7 +409,7 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
   .den.intro .densvg{width:124px}
   .sun{width:72px;height:72px;right:5%}
   .bug svg{width:52px}
-  .bug.ball svg{width:38px}
+  .bug.ball svg,.bug.float svg{width:38px}
 
   .hud{padding:8px 11px}
   .mark{font-size:16px;padding-right:9px}
@@ -442,7 +449,7 @@ body.kb .acts button{width:auto;font-size:14px;padding:10px 8px}
   .bob,.jaw,.armR,.flagwave,.claptop,.orbit,.pupil,.apw,.apb,.nt,.ha,
   .gopher,.reveal,.shaking,.flash.on,.crack.go,.risk-3 b,
   .legA,.legB,.rolling #rig,.rollingin #rig,.parade #rig,.ray,.rays,.sparks,.glow2,.chip.fresh,.clouds,.zz,.sleephead,.bird,.wingA,.wingB,
-  .den.field.tremble,.gain.pop b,.plus.fly,.glance,.relic,.chamber,
+  .den.field.tremble,.gain.pop b,.plus.fly,.glance,.relic,.chamber,.bug.float,
   .pig,.flake,.bubble,.axe,.lookLR,.bub1,.bub2,.bub3{animation:none}
   .flake{opacity:1}
   .strata{transition:none}

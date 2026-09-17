@@ -684,6 +684,93 @@ art must stay low (y≥47) with real gaps, not a solid span down to the teeth. `
 itself is exempt from the first rule (it's drawn *at* y=28+ by design), but must never
 be covered by something in `hat` that reaches that far down.
 
+## The hidden chamber is a void, not another band
+
+Every layer above it (leaf litter through bedrock) is solid ground with a
+corridor cut through it — `corridorPath()`/`dropPath()` in `50-world.js`
+carving a jagged shaft into a colour band. The hidden chamber used to be
+drawn the exact same way: one more gradient band, tunnelled through like the
+rest, just named as if it were a discovery. It wasn't earning the name — the
+fix leans on the one contrast that actually sells "you broke into something":
+solid ground above, open space below, with nothing carved through the
+open part because there's nothing there left to carve.
+
+**`CHAMBER_FLOOR_AT`** (`00-tiers.js`, 170) is the chamber's floor — declared
+there, ahead of `CHAMBER_AT` (95, `30-state.js`) in concat order, because
+`LAYERS`' hidden-chamber entry needs it immediately below. `moveWorld()`
+(`50-world.js`) reuses this same constant as its camera cap instead of
+duplicating the number, so the visible floor and the point the camera stops
+scrolling can't drift apart. (`CHAMBER_AT`/`95` itself is still duplicated
+between `LAYERS` and `30-state.js` — pre-existing, not fixed here.)
+
+**No tunnel is ever drawn at or past `CHAMBER_AT`.** `digTo(x,from,to)` caps
+every drop at the ceiling (`Math.min(to,CHAMBER_AT)`) and does nothing at all
+once `from>=CHAMBER_AT` — there's nothing to carve when she's already inside
+the open space. `settleAt(depth,x)` is the corresponding decision for what
+happens once a dig actually lands: a normal corridor and pacing above the
+ceiling, or `startFloat()` (below) once she's past it, never both. Both are
+shared between `reveal()`'s live breakthrough and `loadRound()`'s resume
+path (reloading mid-round already past the ceiling) — one rule, not two
+copies that could disagree about where the tunnel stops.
+
+**The void itself is `buildWorld()`'s per-layer content for the "hidden
+chamber" entry**, not a `#tunnels` element, so it survives every round's
+`$("tunnels").innerHTML=""` reset instead of needing to be redrawn:
+
+- Background is a near-black gradient close to the tunnel's own carve colour
+  (`#180F08`) on purpose — the room reads as "already hollow," the same dark
+  as everywhere else something's been dug out, just filling the whole space
+  instead of a shaft through it.
+- A jagged rock edge hangs from the ceiling and rises from the floor
+  (`.tooth`), coloured from bedrock's own gradient stops so the break reads
+  as bedrock giving way, not a new material appearing from nowhere.
+- A *few* pale flecks (`.fleck`) — minerals or old bone, not a dense
+  scatter — because nobody's been here. Deliberately sparser than the
+  density formula every other layer's bits use; "a few" was the ask, not
+  "as many as the old formula would give a 75cm-tall band."
+
+**`placeRelic()` and the new `placeLightShaft()`** are still per-round,
+dynamic, drawn into `#tunnels` at the actual moment of discovery — same
+reasoning as before, just repositioned. The relic used to sit
+`worldY(CHAMBER_AT)-11`: just below the ceiling, floating, the exact bug
+reported. It now sits `worldY(CHAMBER_FLOOR_AT)-24`: on the floor. The light
+shaft is one angled SVG wedge, narrow at the ceiling and widening as it
+leans toward the floor, filled with a gradient that front-loads brightness
+into roughly the first 10-15% of its height — a slow, shallow fade across
+the *full* ceiling-to-floor distance was tried first and read as a flat tan
+wash with no visible "light" to it, since almost everything on screen at
+once sits well past where a gentle gradient has already faded out.
+`mix-blend-mode` was tried too and does nothing useful here: it only adds
+brightness against a base that already has some, and the base is
+near-black. Brighter stops, a narrower beam, was the fix that actually
+worked.
+
+**`showChamberDiscovery(x)`** (`50-world.js`) wraps the light shaft, the
+relic, and the existing `#chamberBox` panel HTML (unchanged) into one call,
+used by both `reveal()`'s breakthrough and `loadRound()`'s resume path — the
+same real bug class as `digTo`/`settleAt` above: two copies of "what the
+chamber looks like on discovery" drift apart the moment one of them changes
+and the other doesn't.
+
+**Poly floats instead of walking once she's past the ceiling.** `startFloat()`
+is deliberately not a real fall or a tracked float path — there's no
+corridor to clip against inside the void, so there's no per-frame interval
+either, just the curled ball sprite (`renderBug("float")`) with a CSS
+`chamberDrift` bob-and-sway loop. Cheaper than real physics, and there's no
+walking surface for the side-to-side pacing loop to make sense on out there
+anyway. In the reduced-motion kill-list alongside `.relic`/`.chamber`.
+
+**Fixed in the same pass, required for any of the above to survive a
+reload:** `chamberHit` was only ever persisted to `localStorage` by whatever
+dig happened *after* the crossing one — `accept()`'s own `saveInProgress()`
+call runs before `reveal()`'s 1050ms breakthrough timeout sets `chamberHit`,
+and nothing re-saved it once that timeout fired. Cross the threshold as the
+last dig of a session (a very plausible way to stop playing) and a reload
+would resume with `chamberHit` still `false`: no relic, no float, a
+corridor redrawn straight through the void — the exact bug this whole pass
+was fixing, reappearing on resume. `reveal()` now calls `saveInProgress()`
+again right after setting `chamberHit=true`.
+
 ## Known gaps
 
 - **Off-list answers are always wrong.** A real version needs either exhaustive

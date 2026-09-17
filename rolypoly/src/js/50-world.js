@@ -3,18 +3,44 @@ function buildWorld(){
   let html="";
   for(const L of LAYERS){
     const top=210+(L.sky?L.from:depthPx(L.from)), h=L.sky?-L.from:(depthPx(L.to)-depthPx(L.from));
+    const isChamber=L.name==="hidden chamber";
     let bits="";
-    if(L.name){
+    if(L.name&&!isChamber){
       const kinds=L.name==="leaf litter"?["#C9D692","#B5651F"]
         :L.name==="topsoil"?["#DBC096","#6E4A28"]
-        :L.name==="root line"?["#8A6E3C","#A8DCED"]
-        :L.name==="bedrock"?["#8E7BA6","#D8B0E6"]:["#E0A33A","#F7EFD9"];
+        :L.name==="root line"?["#8A6E3C","#A8DCED"]:["#8E7BA6","#D8B0E6"];
       const n=Math.floor(h/46);
       for(let i=0;i<n;i++){
         const x=6+seed()*88, y=8+seed()*(h-20), c=kinds[i%2];
         const cls=seed()<.3?"bit t":seed()<.5?"bit w":"bit";
         bits+=`<div class="${cls}" style="left:${x}%;top:${y}px;background:${c};opacity:.55"></div>`;
       }
+    }
+    // The chamber gets its own treatment instead of the generic fleck density
+    // above: a jagged rock edge hanging from the ceiling and rising from the
+    // floor (bedrock's own colours, so the break reads as bedrock giving way,
+    // not a new material appearing from nowhere), and a *few* pale flecks —
+    // minerals or old bone, not a dense scatter — because nobody's been here.
+    let chamberArt="";
+    if(isChamber){
+      const rock=["#8E3A22","#6A2413"];
+      let teeth="";
+      for(let i=0;i<22;i++){
+        const x=(i/22)*100+seed()*2.5, th=Math.round(10+seed()*30);
+        teeth+=`<div class="tooth ceil" style="left:${x}%;height:${th}px;background:${rock[i%2]}"></div>`;
+      }
+      for(let i=0;i<18;i++){
+        const x=(i/18)*100+seed()*3, th=Math.round(8+seed()*22);
+        teeth+=`<div class="tooth floor" style="left:${x}%;height:${th}px;background:${rock[i%2]}"></div>`;
+      }
+      let flecks="";
+      for(let i=0;i<14;i++){
+        const x=4+seed()*92, y=70+seed()*(h-140);
+        const c=seed()<.5?"#D9C9A8":"#B7AFA0";
+        const cls=seed()<.35?"fleck t":"fleck";
+        flecks+=`<div class="${cls}" style="left:${x}%;top:${y}px;background:${c}"></div>`;
+      }
+      chamberArt=teeth+flecks;
     }
     const TREE=(w,x)=>`<div class="tree" style="left:${x}%;width:${w}px">
       <svg viewBox="0 0 60 104" aria-hidden="true">
@@ -109,7 +135,7 @@ function buildWorld(){
       }
     }
     html+=`<div class="layer${L.sky?" sky":""}" style="top:${top}px;height:${h}px;background:${L.bg}">
-      ${L.name?`<b>${L.name}</b>`:""}${bits}${flora}</div>`;
+      ${L.name?`<b>${L.name}</b>`:""}${bits}${chamberArt}${flora}</div>`;
   }
   $("strata").innerHTML=html+`<svg class="tunsvg" width="3400" height="10000"><g id="tunnels" fill="#180F08"></g></svg>`;
 }
@@ -203,12 +229,58 @@ function clipCorridor(x){
   curCorr.dataset.min=mn;curCorr.dataset.max=mx;
   curCorr.setAttribute("d",corridorPath(curCm,mn,mx));
 }
+// The chamber has no tunnel through it — she's in open space, not a shaft —
+// so any drawing that would carve past its ceiling has to stop right there
+// instead. Shared by reveal() (a dig crossing the threshold) and loadRound()'s
+// resume path (reloading already past it), so the rule lives in one place.
+function digTo(x,from,to){
+  if(from>=CHAMBER_AT)return;
+  newDrop(x,from,Math.min(to,CHAMBER_AT));
+}
+function settleAt(depth,x){
+  if(depth>=CHAMBER_AT){startFloat();return}
+  newCorridor(depth,x);
+  startPacing();
+}
 const RELIC_PICK=Math.floor(mulberry32(seedFrom(DAY+"#relic"))()*RELICS.length);
 function placeRelic(x){
   const g=svgEl("g");
-  g.setAttribute("transform",`translate(${CX+x+74},${worldY(CHAMBER_AT)-11})`);
+  g.setAttribute("transform",`translate(${CX+x+40},${worldY(CHAMBER_FLOOR_AT)-24})`);
   g.innerHTML=RELIC(RELIC_PICK);
   $("tunnels").appendChild(g);
+}
+// One pale angled wedge from the breakthrough point — sells the void as a
+// place light is falling *into*, not just a dark band. Drawn before the
+// relic (see showChamberDiscovery) so the relic sits visibly in front of it.
+function placeLightShaft(x){
+  const g=svgEl("g");
+  const topY=worldY(CHAMBER_AT), botY=worldY(CHAMBER_FLOOR_AT);
+  const cx=CX+x, lean=45, topHalf=9, botHalf=55;
+  // A slow, shallow fade over the void's full height reads as flat brown
+  // wash, not light — nearly all of the visible shape sits past where a
+  // gentler gradient would already have faded close to the background.
+  // Front-loading the brightness into the first ~10-15% (near-white, high
+  // opacity) with a narrower beam gives it a distinct bright core instead.
+  g.innerHTML=`<defs><linearGradient id="lightGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#FFFBEF" stop-opacity=".9"/>
+    <stop offset="12%" stop-color="#FFEFC2" stop-opacity=".55"/>
+    <stop offset="40%" stop-color="#FCEFC7" stop-opacity=".2"/>
+    <stop offset="100%" stop-color="#FCEFC7" stop-opacity="0"/>
+  </linearGradient></defs>
+  <polygon class="lightshaft" points="${cx-topHalf},${topY} ${cx+topHalf},${topY} ${cx+botHalf+lean},${botY} ${cx-botHalf+lean},${botY}" fill="url(#lightGrad)"/>`;
+  $("tunnels").appendChild(g);
+}
+// The one moment the chamber's discovered each round — same breakthrough x
+// as whatever dig crossed CHAMBER_AT (or, on a resumed reload, the fixed x a
+// resume always redraws the world at). Factored out so reveal()'s live
+// breakthrough and loadRound()'s resume-already-past-it path show the exact
+// same relic, shaft, and panel instead of two copies drifting apart.
+function showChamberDiscovery(x){
+  placeLightShaft(x);
+  placeRelic(x);
+  $("chamberBox").innerHTML=`<div class="chamber">
+    <span class="ct">The hidden chamber</span>
+    <p>Poly broke through past ${CHAMBER_AT}. ${RELICS[RELIC_PICK].n} is down here in the dark.</p></div>`;
 }
 
 function newDrop(x,y0,y1){
@@ -225,8 +297,9 @@ function newDrop(x,y0,y1){
 
 function renderBug(mode){
   const rig=$("rig");
-  const sprite=(mode==="ball"||mode==="curl")?BALL(me):WALK(me);
-  const cls=(mode==="ball"||mode==="curl")?"bug ball":(mode==="dig"?"bug dig":"bug");
+  const curled=mode==="ball"||mode==="curl"||mode==="float";
+  const sprite=curled?BALL(me):WALK(me);
+  const cls=mode==="float"?"bug float":curled?"bug ball":(mode==="dig"?"bug dig":"bug");
   rig.innerHTML=`<div class="${cls}">${sprite}</div>`;
   rig.style.transform=`translateX(${Math.round(paceX)}px) scaleX(${mode==="pace"&&paceDir>0?-1:1})`;
 }
@@ -246,6 +319,16 @@ function startPacing(){
   },1000/30);
 }
 function stopPacing(){if(pacer){clearInterval(pacer);pacer=null}}
+// No corridor to clip inside the chamber, so no interval either — a CSS
+// animation on the curled sprite (see .bug.float) is the whole of "drift":
+// cheaper than a real fall or a tracked float path, and there's no walking
+// surface for pacing's side-to-side loop to make sense on anyway.
+function startFloat(){
+  stopPacing();
+  paceX=0;paceDir=1;
+  $("rig").style.transform="translateX(0)";
+  renderBug("float");
+}
 
 function rollOut(then){
   const d=$("digger");
@@ -267,7 +350,7 @@ function rollIn(first){
   setTimeout(()=>{d.classList.remove("rollingin");moveWorld(0);startPacing()},2200);
 }
 function moveWorld(cm,curled){
-  const d=Math.min(cm,280);
+  const d=Math.min(cm,CHAMBER_FLOOR_AT);
   $("strata").style.transform=`translateY(${Math.round(-depthPx(d))}px)`;
   if(curled!==undefined)renderBug(curled?"curl":"pace");
 }

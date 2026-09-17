@@ -654,6 +654,41 @@ await test("hidden chamber fires once roundDepth crosses its threshold", async (
   assert(E.chamberHit, `chamberHit should be true after digging past ${E.CHAMBER_AT} in round ${targetIdx}`);
 });
 
+// Real bug found while rebuilding the chamber's visuals: accept()'s own
+// saveInProgress() call runs *before* reveal()'s breakthrough timeout sets
+// chamberHit, and nothing re-saved it once that timeout fired — so stopping
+// right on the crossing dig (a very plausible place to stop) persisted
+// chamberHit still false. A reload from there would have resumed with no
+// relic, no float, and a corridor redrawn straight through the void: the
+// exact bug the chamber rework was fixing, reappearing on resume.
+await test("hidden chamber: chamberHit survives a reload taken immediately after the crossing dig", async () => {
+  const store = makeLocalStorage();
+  const { E, flush } = fresh({ localStorage: store });
+  const targetIdx = E.ROUNDS.findIndex((r) => r.answers.reduce((s, a) => s + a.v, 0) > E.CHAMBER_AT);
+  assert(targetIdx >= 0, `no round in the active game has enough total value to cross CHAMBER_AT (${E.CHAMBER_AT}) — the test can't exercise this without content that clears it`);
+
+  for (let r = 0; r < targetIdx; r++) {
+    const a = E.avail()[0];
+    await digAnswer(E, flush, a.n);
+    E.bank();
+    await flush();
+    E.$("bankBtn").onclick();
+    await flush();
+  }
+  for (const a of E.avail()) {
+    if (E.chamberHit) break;
+    await digAnswer(E, flush, a.n);
+  }
+  assert(E.chamberHit, "sanity: reached the chamber before simulating a reload");
+  const depthAtCrossing = E.roundDepth;
+
+  // No further dig, no bank — reload right here, the same way the earlier
+  // mid-round-reload test simulates one: a fresh sandbox on the same store.
+  const { E: resumed } = fresh({ localStorage: store });
+  assertEqual(resumed.chamberHit, true, "chamberHit must survive a reload taken immediately after the crossing dig, not just after a later one");
+  assertEqual(resumed.roundDepth, depthAtCrossing, "sanity: the resumed depth matches where the crossing dig left off");
+});
+
 async function playWholeGame(E, flush) {
   let expected = 0;
   for (let r = 0; r < E.ROUNDS.length; r++) {

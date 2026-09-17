@@ -19,13 +19,25 @@ const DAY_TIERS=[
 ];
 const dayTierFor=v=>DAY_TIERS.find(t=>v<=t.max);
 
+// The chamber's floor — 75cm below CHAMBER_AT (30-state.js, its ceiling).
+// Declared here, ahead of CHAMBER_AT in concat order, because LAYERS needs it
+// immediately below; moveWorld() (50-world.js) reuses this same constant as
+// its camera cap rather than duplicating the number, unlike CHAMBER_AT/`95`
+// below, which — pre-existing — is duplicated between LAYERS and 30-state.js.
+const CHAMBER_FLOOR_AT=170;
 const LAYERS=[
   {name:"",              from:-520,to:0,  sky:1, bg:"linear-gradient(#3E96D4 0%,#74BCE5 52%,#A6D6EE 94.5%,#79A650 94.5%,#5B8341 100%)"},
   {name:"leaf litter",   from:0,   to:12, bg:"linear-gradient(#7D8A5A,#A98F4E)"},
   {name:"topsoil",       from:12,  to:32, bg:"linear-gradient(#C1934F,#BC7F3C)"},
   {name:"root line",     from:32,  to:58, bg:"linear-gradient(#B4692F,#A04E1D)"},
   {name:"bedrock",       from:58,  to:95, bg:"linear-gradient(#8E3A22,#6A2413)"},
-  {name:"hidden chamber",from:95,  to:280,bg:"linear-gradient(#4A1A0D,#1A0602)"}
+  // Not another gradient band with a tunnel cut through it — this one's an
+  // open void. The background is near the tunnel's own carve colour (#180F08)
+  // on purpose: the whole room reads as "already hollow," so buildWorld()'s
+  // ceiling/floor rock and flecks (below) are the only extra art it needs;
+  // nothing here gets a corridor drawn through it (see digTo/settleAt in
+  // 50-world.js).
+  {name:"hidden chamber",from:95,  to:CHAMBER_FLOOR_AT,bg:"linear-gradient(#170F0B 0%,#070403 100%)"}
 ];
 
 /*__ROUNDS__*/

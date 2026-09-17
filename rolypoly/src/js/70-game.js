@@ -42,7 +42,12 @@ function loadRound(resuming){
   setShell(found.length?tierFor(found[found.length-1].v).v:"sand");
   renderFacts();
   rollIn(idx===0||resuming);
-  if(resuming&&roundDepth>0){moveWorld(roundDepth);newDrop(0,0,roundDepth);newCorridor(roundDepth,0)}
+  if(resuming&&roundDepth>0){
+    moveWorld(roundDepth);
+    digTo(0,0,roundDepth);
+    settleAt(roundDepth,0);
+    if(chamberHit)showChamberDiscovery(0);
+  }
   updateHud();
   say(resuming&&found.length?`Resumed — ${roundDepth} at risk.`:"");
   softFocus();
@@ -55,14 +60,14 @@ function reveal(hit,then){
   setShell(t.v);
   stopPacing();
   renderBug("dig");
-  newDrop(x,from,roundDepth);
+  digTo(x,from,roundDepth);
   $("controls").hidden=true;
   $("reveal").hidden=false;
   $("revName").textContent=hit.n;
   $("revTier").textContent=t.name;
   $("revTier").className="stamp t-"+t.v;
   moveWorld(roundDepth);
-  if(calm()){newCorridor(roundDepth,x);startPacing();
+  if(calm()){settleAt(roundDepth,x);
     $("revCm").textContent="+"+hit.v;
     setTimeout(()=>{$("reveal").hidden=true;$("controls").hidden=false;then()},400);
     return;
@@ -72,15 +77,17 @@ function reveal(hit,then){
   const iv=setInterval(()=>{n=Math.min(hit.v,n+step);$("revCm").textContent="+"+n;
     if(n>=hit.v)clearInterval(iv)},52);
   setTimeout(()=>{
-    newCorridor(roundDepth,x);
+    settleAt(roundDepth,x);
     if(!chamberHit&&roundDepth>=CHAMBER_AT){
       chamberHit=true;
-      placeRelic(x);
-      $("chamberBox").innerHTML=`<div class="chamber">
-        <span class="ct">The hidden chamber</span>
-        <p>Poly broke through past ${CHAMBER_AT}. ${RELICS[RELIC_PICK].n} is down here in the dark.</p></div>`;
+      showChamberDiscovery(x);
+      // accept()'s own saveInProgress() already ran before this timeout, so
+      // it saved chamberHit at its old value — without this, a reload right
+      // after breaking through (before any later dig re-saves) would resume
+      // with chamberHit still false: no relic, no float, a corridor redrawn
+      // straight through the void.
+      saveInProgress();
     }
-    startPacing();
   },1050);
   setTimeout(()=>{$("reveal").hidden=true;$("controls").hidden=false;then()},1900);
 }
