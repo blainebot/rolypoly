@@ -369,6 +369,14 @@ an emoji (reusing the round tier emoji, plus the hidden-chamber `🏺`), and one
 line of copy. The tier name, the emoji, and that copy line all also open the
 share text, right after the game number line.
 
+The band carries one number of its own: `dayTierBandSvg()` prints the point
+where the open-ended top band begins (e.g. "300+") right-aligned under the
+band. This is not `POSSIBLE` — it's just where the visible scale tops out, a
+design threshold rather than a claim about achievable or typical scores, so
+it doesn't carry the "reads as failure" problem `POSSIBLE` does. Derived from
+`DAY_TIERS` the same way the band's widths are — never a second authored
+number.
+
 ## Score distribution
 
 `#distBox` on the results screen always starts out holding the day-tier band

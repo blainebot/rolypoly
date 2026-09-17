@@ -41,8 +41,12 @@ function dayTierBandSvg(score){
   }).join("");
   const mx=dayTierMarkerX(score,widths);
   const marker=`<polygon points="${mx-5},0 ${mx+5},0 ${mx},${markerH}" fill="var(--cream)"/>`;
+  // The open-ended top band has no true max, so the honest "top of the
+  // scale" is where it begins: one past the last finite band's threshold.
+  const scaleTop=DAY_TIERS[DAY_TIERS.length-2].max+1;
   return `<div class="dist"><svg class="tierband" aria-hidden="true" viewBox="0 0 ${total} ${markerH+H}"
-    width="100%" height="${(markerH+H)*2.4}">${rects}${marker}</svg></div>`;
+    width="100%" height="${(markerH+H)*2.4}">${rects}${marker}</svg>
+    <p class="tierscale">${scaleTop}+</p></div>`;
 }
 
 function shareText(){

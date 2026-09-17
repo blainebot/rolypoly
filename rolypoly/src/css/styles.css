@@ -264,6 +264,7 @@ details.missed summary{cursor:pointer;font-size:15px;font-weight:500}
 .distbar.me{fill:var(--gold)}
 .distline{font-size:14px;color:#C7B9A4;margin:8px 0 0}
 .tierband{display:block;image-rendering:pixelated}
+.tierscale{font-size:13px;color:#C7B9A4;margin:4px 0 0;text-align:right}
 .story{list-style:none;margin:14px 0 0;padding:0}
 .story li{padding:8px 0;border-bottom:1px solid #4A3C2E;font-size:16px}
 .key{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 12px;font-size:13px;color:#C7B9A4}
