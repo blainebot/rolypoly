@@ -42,6 +42,7 @@ const toEngine = r => ({
     distractors: r.distractors.map(x => ({
       n: x.name,
       note: x.note,
+      ...(x.bust ? { bust: true } : {}),
       ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
     }))
   } : {})

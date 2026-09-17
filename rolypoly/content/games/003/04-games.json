@@ -54,24 +54,24 @@
       "fact": "The middle light blue."
     }
   ],
-  "extras": [
-    { "name": "Boardwalk" },
-    { "name": "Park Place" },
-    { "name": "Mediterranean Avenue" },
-    { "name": "Baltic Avenue" },
-    { "name": "Reading Railroad" },
-    { "name": "Marvin Gardens" },
-    { "name": "Electric Company" },
-    { "name": "Water Works" },
-    { "name": "Pennsylvania Railroad" },
-    { "name": "Oriental Avenue" },
-    { "name": "B&O Railroad", "aliases": ["b and o railroad", "bo railroad"] },
-    { "name": "Short Line" },
-    { "name": "St. Charles Place", "aliases": ["saint charles place"] },
-    { "name": "Atlantic Avenue" },
-    { "name": "St. James Place", "aliases": ["saint james place"] },
-    { "name": "Pacific Avenue" },
-    { "name": "Ventnor Avenue" },
-    { "name": "States Avenue" }
+  "distractors": [
+    { "name": "Boardwalk", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Park Place", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Mediterranean Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Baltic Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Reading Railroad", "note": "Named for the Reading Company's rail line, not a state.", "bust": true },
+    { "name": "Marvin Gardens", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Electric Company", "note": "A utility, not a state-named property.", "bust": true },
+    { "name": "Water Works", "note": "A utility, not a state-named property.", "bust": true },
+    { "name": "Pennsylvania Railroad", "note": "Named for the historic rail line, not the state directly — Pennsylvania Avenue is the one that counts.", "bust": true },
+    { "name": "Oriental Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "B&O Railroad", "aliases": ["b and o railroad", "bo railroad"], "note": "Named for the Baltimore and Ohio Railroad, not a state.", "bust": true },
+    { "name": "Short Line", "note": "A railroad, not a state-named property.", "bust": true },
+    { "name": "St. Charles Place", "aliases": ["saint charles place"], "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Atlantic Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "St. James Place", "aliases": ["saint james place"], "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Pacific Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "Ventnor Avenue", "note": "A real property on the board, but not named after a state.", "bust": true },
+    { "name": "States Avenue", "note": "Named \"States,\" not any one state.", "bust": true }
   ]
 }

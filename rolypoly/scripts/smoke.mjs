@@ -612,6 +612,25 @@ await test("distractors: a wrong-category guess is explained, not scored, not bu
   assertEqual(E.results[0].bust, true, "a genuine dead end must still bust");
 });
 
+// Real bug report: a "Name a Spielberg film from the 2000s or later" round
+// had pre-2000s classics filed as extras — "right, but not one of today's
+// fifteen" — when they're not right at all for THIS prompt, just wrong on
+// the year. `bust: true` is the fix: same dead-end/Rumble consequence as any
+// other wrong answer, with the note as the reason instead of a bare
+// "isn't on the list."
+await test("distractors: bust:true busts like a genuine dead end, with the note as the reason", async () => {
+  const { E, flush } = fresh();
+  const distractors = [{ n: "Schindler's List", note: "That's Spielberg, but from 1993 — before the 2000s.", bust: true }];
+  loadSynthetic(E, syntheticPool(), undefined, distractors);
+
+  await digAnswer(E, flush, "Schindler's List");
+  assertEqual(E.found.length, 0, "a busting distractor must not score");
+  assertEqual(E.results.length, 1, "a busting distractor must end the round");
+  assertEqual(E.results[0].bust, true, "a busting distractor must count as a bust");
+  assert(E.$("deadend").innerHTML.includes("That's Spielberg, but from 1993 — before the 2000s."),
+    `expected the note in the dead-end card, got: ${E.$("deadend").innerHTML}`);
+});
+
 await test("hidden chamber fires once roundDepth crosses its threshold", async () => {
   const { E, flush } = fresh();
   const targetIdx = E.ROUNDS.findIndex((r) => r.answers.reduce((s, a) => s + a.v, 0) > E.CHAMBER_AT);

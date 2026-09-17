@@ -19,7 +19,8 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
     { "name": "Liechtenstein" }
   ],
   "distractors": [
-    { "name": "Germany", "note": "That's the country in the prompt, not one of its neighbours." }
+    { "name": "Germany", "note": "That's the country in the prompt, not one of its neighbours." },
+    { "name": "Austria", "note": "Borders Germany, but not one of the four this round counts.", "bust": true }
   ]
 }
 ```
@@ -47,9 +48,16 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
   will keep getting the mascot, a round asking for a variety will keep getting
   the brand it's sold under. Each needs a **name** and a **note**: one sentence
   in your own voice saying what the guess actually is, shown as "'Buckeyes'
-  isn't it — *note*. Nothing lost, try again." Like an extra, it never scores
-  and never busts, and can't share a name or alias with a scoring answer, an
-  extra, or another distractor in the same round.
+  isn't it — *note*. Nothing lost, try again." Like an extra, it never scores,
+  can't share a name or alias with a scoring answer, an extra, or another
+  distractor in the same round — and by default never busts either, since the
+  usual case is a category mix-up the player can shrug off and retry.
+  Set **bust: true** when the guess is wrong on the prompt's own merits
+  instead — a real film Spielberg directed, just not "in the 2000s or later";
+  a real Monopoly property, just not one named after a state. That's not a
+  category mix-up to forgive, so it plays out as a normal bust (Rumble wakes,
+  the round ends), just with the note as the reason instead of a bare "isn't
+  on the list."
 
 Prefer narrowing the prompt over demoting answers into extras when a round runs
 long — a tighter prompt keeps the round honest about what it's actually asking;

@@ -130,6 +130,8 @@ for (const file of files) {
       const tag = `distractor: ${label}`;
       if (!x.name) errors.push(where("a distractor has no name"));
       if (!x.note) errors.push(where(`distractor ${label}: missing note`));
+      if (x.bust !== undefined && typeof x.bust !== "boolean")
+        errors.push(where(`distractor ${label}: "bust" must be true or false`));
       for (const s of [x.name, ...(x.aliases || [])]) {
         if (!s) continue;
         const k = norm(s);

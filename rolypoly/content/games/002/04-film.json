@@ -69,6 +69,11 @@
       "fact": "The Coen brothers rewrote the script."
     },
     {
+      "name": "The Post",
+      "value": 13,
+      "fact": "Written, shot, and released within about nine months, rushed out to qualify for that year's awards season."
+    },
+    {
       "name": "Munich",
       "value": 15,
       "fact": "Written by Tony Kushner, who went on to write Lincoln and West Side Story for him."
@@ -90,24 +95,23 @@
       ]
     }
   ],
-  "extras": [
-    { "name": "Jaws" },
-    { "name": "E.T. the Extra-Terrestrial", "aliases": ["et", "e t"] },
-    { "name": "Jurassic Park" },
-    { "name": "Schindler's List" },
-    { "name": "Raiders of the Lost Ark", "aliases": ["raiders"] },
-    { "name": "Saving Private Ryan" },
-    { "name": "Close Encounters of the Third Kind", "aliases": ["close encounters"] },
-    { "name": "Indiana Jones and the Last Crusade", "aliases": ["last crusade"] },
-    { "name": "Indiana Jones and the Temple of Doom", "aliases": ["temple of doom"] },
-    { "name": "Hook" },
-    { "name": "The Lost World: Jurassic Park", "aliases": ["lost world"] },
-    { "name": "The Color Purple" },
-    { "name": "Empire of the Sun" },
-    { "name": "Amistad" },
-    { "name": "1941" },
-    { "name": "Always" },
-    { "name": "Duel" },
-    { "name": "The Post" }
+  "distractors": [
+    { "name": "Jaws", "note": "That's Spielberg, but from 1975 — before the 2000s.", "bust": true },
+    { "name": "E.T. the Extra-Terrestrial", "aliases": ["et", "e t"], "note": "That's Spielberg, but from 1982 — before the 2000s.", "bust": true },
+    { "name": "Jurassic Park", "note": "That's Spielberg, but from 1993 — before the 2000s.", "bust": true },
+    { "name": "Schindler's List", "note": "That's Spielberg, but from 1993 — before the 2000s.", "bust": true },
+    { "name": "Raiders of the Lost Ark", "aliases": ["raiders"], "note": "That's Spielberg, but from 1981 — before the 2000s.", "bust": true },
+    { "name": "Saving Private Ryan", "note": "That's Spielberg, but from 1998 — before the 2000s.", "bust": true },
+    { "name": "Close Encounters of the Third Kind", "aliases": ["close encounters"], "note": "That's Spielberg, but from 1977 — before the 2000s.", "bust": true },
+    { "name": "Indiana Jones and the Last Crusade", "aliases": ["last crusade"], "note": "That's Spielberg, but from 1989 — before the 2000s.", "bust": true },
+    { "name": "Indiana Jones and the Temple of Doom", "aliases": ["temple of doom"], "note": "That's Spielberg, but from 1984 — before the 2000s.", "bust": true },
+    { "name": "Hook", "note": "That's Spielberg, but from 1991 — before the 2000s.", "bust": true },
+    { "name": "The Lost World: Jurassic Park", "aliases": ["lost world"], "note": "That's Spielberg, but from 1997 — before the 2000s.", "bust": true },
+    { "name": "The Color Purple", "note": "That's Spielberg, but from 1985 — before the 2000s.", "bust": true },
+    { "name": "Empire of the Sun", "note": "That's Spielberg, but from 1987 — before the 2000s.", "bust": true },
+    { "name": "Amistad", "note": "That's Spielberg, but from 1997 — before the 2000s.", "bust": true },
+    { "name": "1941", "note": "That's Spielberg, but from 1979 — before the 2000s.", "bust": true },
+    { "name": "Always", "note": "That's Spielberg, but from 1989 — before the 2000s.", "bust": true },
+    { "name": "Duel", "note": "That's Spielberg, but from 1971 — before the 2000s.", "bust": true }
   ]
 }

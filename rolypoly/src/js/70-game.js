@@ -139,6 +139,23 @@ function askConfirm(raw,hit){
   };
 }
 
+// Shared by a genuine dead end and a distractor marked `bust: true` — same
+// visual beat (dead-end card, Rumble wakes, round ends) either way. `raw` is
+// the player's own text, `why` is the sentence to show after it: nothing for
+// a plain dead end, a distractor's `note` when there's something to explain.
+function bustWith(raw,why){
+  $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
+  $("entry").hidden=true;$("digBtn").hidden=true;
+  $("deadend").hidden=false;
+  $("deadend").innerHTML=`<b>${raw}</b> …`;
+  say(`"${raw}"${why?` isn't it — ${why}`:" isn't on the list."} Rumble wakes up.`,"bad");
+  wakeRumble();
+  setTimeout(()=>{
+    $("deadend").innerHTML=`<b>${raw}</b>${why?` isn't it — ${why}`:" isn't on the list."}`;
+    endRound("bust");
+  },1150);
+}
+
 function dig(){
   hadFocus=(document.activeElement===$("answer"));
   const raw=$("answer").value.trim();
@@ -169,35 +186,32 @@ function dig(){
     say(`"${raw}" is right, but not one of today's fifteen — nothing lost.`,"");
     $("answer").select();return;
   }
-  // Distractors: a predictable *wrong-category* guess — Ohio State's
-  // mascot isn't Ohio State — worth naming instead of just busting, since
-  // it's an understandable miss (the player often does know the answer,
-  // just named the wrong kind of thing). Checked after extras (a genuinely
-  // correct answer always wins first) and right before Rumble would
-  // otherwise wake up. No confirm step, same reasoning as extras: this
-  // guess was never going to be credited, so there's nothing to ask about.
-  // `note` is author-written prose, not templated — a round's distractors
-  // don't have to be mascots; whatever the wrong category is, the round's
-  // content explains it in its own words.
+  // Distractors: a predictable wrong guess worth naming instead of a bare
+  // bust message — the player often does know something, just not quite
+  // the right thing. Checked after extras (a genuinely correct answer
+  // always wins first). No confirm step: this guess was never going to be
+  // credited either way, so there's nothing to ask about. `note` is
+  // author-written prose, not templated.
+  //
+  // Most distractors are a *wrong-category* guess (Ohio State's mascot
+  // isn't Ohio State) — forgiven, same as an extra: nothing lost, try
+  // again. But a distractor can opt into `bust: true` for a guess that's
+  // wrong on the actual merits of the prompt, not just misfiled (Schindler's
+  // List directed by Spielberg, sure, but not "in the 2000s or later" —
+  // that's a real wrong answer, not a category mix-up, and deserves the
+  // same consequence a bust always has, just with the reason spelled out
+  // instead of a bare "isn't on the list").
   const distractors=ROUNDS[idx].distractors;
   if(distractors){
     const hit=distractors.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
       ||fuzzyMatches(key,distractors)[0];
     if(hit){
+      if(hit.bust){bustWith(raw,hit.note);return}
       say(`"${raw}" isn't it — ${hit.note} Nothing lost, try again.`,"");
       $("answer").select();return;
     }
   }
-  $("digBtn").disabled=true;$("bankBtn").disabled=true;$("answer").disabled=true;
-  $("entry").hidden=true;$("digBtn").hidden=true;
-  $("deadend").hidden=false;
-  $("deadend").innerHTML=`<b>${raw}</b> …`;
-  say(`"${raw}" isn't on the list. Rumble wakes up.`,"bad");
-  wakeRumble();
-  setTimeout(()=>{
-    $("deadend").innerHTML=`<b>${raw}</b> isn't on the list.`;
-    endRound("bust");
-  },1150);
+  bustWith(raw);
 }
 
 function bank(){

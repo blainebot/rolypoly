@@ -457,21 +457,16 @@ meant a player who knew, say, Minnesota was a Big Ten school got "right, but not
 of today's fifteen" instead of points — correct, and unrewarded. Don't reintroduce
 that. A round is allowed to be long.
 
-`extras` (a round's optional second list, see `content/TEMPLATE.md`) still exists
-for the one case where "correct but doesn't score" is actually honest: **the round's
-prompt was deliberately narrowed**, and the extra is correct for the *broader*
-question but not the one actually being asked. Two rounds do this — Film asks for a
-Spielberg feature from the 2000s or later (extras: everything earlier); Games asks
-for a Monopoly property named after a US state (extras: every other property). In
-both, narrowing kept the round a fair, specific question at a manageable size
-without needing extras to enforce a cap — nothing moved to extras except what the
-narrower prompt itself genuinely excludes, and the round would work exactly the same
-with `extras` deleted, just with more guesses busting on a technicality the narrower
-prompt is there to avoid. That's the test for whether `extras` is the right tool: if
-removing it would mean silently denying credit for something that's actually still a
-correct answer to the round's real prompt, it's the wrong tool — narrow the prompt,
-or just let the round run long, and Sport/History/Literature/Food will keep doing
-exactly the latter until they're re-narrowed.
+`extras` (a round's optional second list, see `content/TEMPLATE.md`) exists for the
+one case where "correct but doesn't score" is actually honest: something that's
+still a genuinely correct answer to the round's real prompt, just past the scoring
+cutoff. No round currently uses it that way — Sport/History/Literature/Food just run
+long instead (see above), and Film/Games (below) turned out not to be `extras`
+cases at all. If a future round narrows its prompt on purpose, `extras` is the right
+tool only for whatever the *broader* question would still accept and the narrower
+one does too; anything the narrower prompt actually excludes is a wrong answer, not
+an extra — see the `distractors` / `bust: true` case right below for what that one
+actually needs.
 
 An extra needs only a `name` and optional `aliases` — no value, no fact, since it
 never scores. Submitting one says so ("Right, but not one of today's fifteen") and
@@ -514,8 +509,37 @@ the school.") and the engine supplies the rest. Same collision rule as extras, s
 reason: `validate.mjs` errors if a distractor's name or alias collides with a scoring
 answer, an extra, or another distractor in the same round.
 
+**A distractor can opt into `bust: true`** for the other kind of predictable wrong
+guess: not a category mix-up to forgive, but wrong on the actual merits of a
+narrowed prompt. Real bug report: Film's prompt is "a feature film Steven Spielberg
+directed in the 2000s or later," and a player entered Schindler's List (1993) — a
+real Spielberg film, so it *felt* right, but not what this specific prompt asks for.
+That round had it filed as an `extras` entry, which told the player "right, but not
+one of today's fifteen — nothing lost." That's false: Schindler's List isn't right
+for this prompt at all, it's just wrong in an understandable way (correct director,
+wrong decade), and it deserves the actual consequence a wrong answer has, not a free
+pass — just with the reason spelled out instead of a bare "isn't on the list."
+`dig()` in `70-game.js` checks a `distractors` hit's `bust` flag: `false` (or
+omitted) is the Big Ten mascot behavior above, and `true` routes into the exact same
+dead-end/Rumble-wakes/round-ends path a genuine dead end takes (`bustWith()`, shared
+by both), just with the note as the shown reason. `validate.mjs` requires `bust`,
+when present, to be a boolean.
+
+Both rounds that narrow their prompt on an excluding criterion use this: Film's
+seventeen pre-2000s Spielberg features (`content/games/002/04-film.json`, each
+noting its actual release year) and Games' eighteen non-state-named Monopoly
+properties (`content/games/003/04-games.json`, each noting what it's actually named
+for — a railroad, a utility, or just a board property that isn't a state).
+Auditing Film's old `extras` list for this fix also turned up a second, unrelated
+bug: The Post (2017) was sitting in `extras` as if it were a pre-2000s classic, when
+it's actually a correct, in-era answer that had been silently denied credit — moved
+into `answers` instead. Worth re-auditing any future `extras` list against its
+round's actual prompt criteria before trusting it; this is exactly how that one went
+unnoticed.
+
 Content authored so far: `content/games/003/01-sport.json`'s eighteen Big Ten
-mascots, one per school.
+mascots, one per school (non-busting); the Film and Games era/category distractors
+above (busting).
 
 ## Accessibility
 
