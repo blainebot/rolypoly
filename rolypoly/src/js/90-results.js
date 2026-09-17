@@ -69,7 +69,7 @@ function showResults(restoring){
     <p class="daycopy">${dt.copy}</p>
     <div id="distBox">${dayTierBandSvg(banked)}</div>
     <ul class="story">
-      <li>${banks} clean ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
+      <li>${banks} ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
       <li>Boldest round: ${best.domain} · ${best.cm}</li>
       ${results.some(r=>r.chamber)?`<li>You reached the hidden chamber.</li>`:""}
