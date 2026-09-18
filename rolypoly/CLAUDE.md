@@ -562,11 +562,12 @@ dead-end/Rumble-wakes/round-ends path a genuine dead end takes (`bustWith()`, sh
 by both), just with the note as the shown reason. `validate.mjs` requires `bust`,
 when present, to be a boolean.
 
-Both rounds that narrow their prompt on an excluding criterion use this: Film's
+Rounds that narrow their prompt on an excluding criterion use this: Film's
 seventeen pre-2000s Spielberg features (`content/games/002/04-film.json`, each
-noting its actual release year) and Games' eighteen non-state-named Monopoly
+noting its actual release year), Games' eighteen non-state-named Monopoly
 properties (`content/games/003/04-games.json`, each noting what it's actually named
-for — a railroad, a utility, or just a board property that isn't a state).
+for — a railroad, a utility, or just a board property that isn't a state), and
+Language's nine Greek letters past the fifteenth (`content/games/004/01-language.json`).
 Auditing Film's old `extras` list for this fix also turned up a second, unrelated
 bug: The Post (2017) was sitting in `extras` as if it were a pre-2000s classic, when
 it's actually a correct, in-era answer that had been silently denied credit — moved
@@ -574,12 +575,31 @@ into `answers` instead. Worth re-auditing any future `extras` list against its
 round's actual prompt criteria before trusting it; this is exactly how that one went
 unnoticed.
 
+Language shipped broken the same way as Film once did, and much more recently —
+worth naming because of how it happened, not just that it did. Its prompt reads
+"a letter of the Greek alphabet" (broad), scoring only the first fifteen, with the
+rest filed as `extras`. A player answered "Pi" — a real Greek letter, so `extras`
+called it right and let them keep going — and reported it as a bug: Pi isn't one of
+the first fifteen, so it should have busted. They were correct. `extras` is honest
+only when the *broader* question the extra answers is the same question the round
+is actually asking; here the round was actually asking for one of the first
+fifteen specifically, same shape as Film's "in the 2000s or later" — the broad
+prompt was the bug, not a feature of the round. Fixed by narrowing the prompt to
+match ("one of the first fifteen letters") and moving the other nine to
+`distractors` with `bust: true`. The lesson isn't really about Greek letters: any
+round that scores a subset of a larger correct-answer pool needs to ask, for each
+excluded item, "is this wrong for what I'm actually asking, or just past an
+arbitrary cutoff on a question it still answers correctly?" — the first is
+`distractors`/`bust: true`, the second is `extras`, and getting them backwards
+reads as a bug to a real player, not a design choice, every time.
+
 Content authored so far: `content/games/003/01-sport.json`'s eighteen Big Ten
-mascots, one per school (non-busting); the Film and Games era/category distractors
-above (busting); `content/games/001/04-space.json`'s five dwarf planets
-(non-busting) — the most likely single guess in that round, Pluto, gets a note
-that actually engages with why it feels right instead of a generic "wrong
-category" line, plus a nod to New Mexico's legislature still calling it one.
+mascots, one per school (non-busting); the Film, Games, and Language
+era/rank/category distractors above (busting); `content/games/001/04-space.json`'s
+five dwarf planets (non-busting) — the most likely single guess in that round,
+Pluto, gets a note that actually engages with why it feels right instead of a
+generic "wrong category" line, plus a nod to New Mexico's legislature still
+calling it one.
 
 ## Round order
 

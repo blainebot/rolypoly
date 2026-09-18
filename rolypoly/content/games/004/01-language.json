@@ -1,10 +1,10 @@
 {
   "domain": "Language",
-  "prompt": "Name a letter of the Greek alphabet.",
+  "prompt": "Name one of the first fifteen letters of the Greek alphabet.",
   "scene": "toga",
   "difficulty": 1,
   "closed": true,
-  "note": "Scoring answers are the first fifteen letters in sequence (Alpha through Omicron), not the fifteen most-recognisable — see content/games/004/01-language.json's history if that ever needs revisiting. Extras are the remaining nine (Pi through Omega), so all twenty-four letters are accounted for either way.",
+  "note": "Prompt is deliberately narrowed to the first fifteen letters in sequence (Alpha through Omicron), not just 'a Greek letter' with the fifteen most-recognisable scoring — that first version let a real letter like Pi feel right but never bust, when it's genuinely wrong for what's actually being asked. The remaining nine (Pi through Omega) are distractors with bust:true, not extras, for exactly that reason. All twenty-four letters are still accounted for either way.",
   "answers": [
     {
       "name": "Alpha",
@@ -82,42 +82,51 @@
       "fact": "Fourteenth letter, and among the hardest to pronounce in English."
     }
   ],
-  "extras": [
+  "distractors": [
     {
       "name": "Pi",
-      "fact": "Sixteenth letter. Chosen for the circle constant in 1706, from the Greek for perimeter."
+      "note": "That's the 16th letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Rho",
-      "fact": "Seventeenth letter, used for density in physics."
+      "note": "That's the 17th letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Sigma",
-      "fact": "Eighteenth letter. The capital means sum in mathematics; the lowercase means standard deviation."
+      "note": "That's the 18th letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Tau",
-      "fact": "Nineteenth letter, and a rival to pi among mathematicians."
+      "note": "That's the 19th letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Upsilon",
-      "fact": "Twentieth letter, and the ancestor of both U and Y in the Latin alphabet."
+      "note": "That's the 20th letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Phi",
-      "fact": "Twenty-first letter. Used for the golden ratio, roughly 1.618."
+      "note": "That's the 21st letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Chi",
-      "fact": "Twenty-second letter, the X in Xmas."
+      "note": "That's the 22nd letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Psi",
-      "fact": "Twenty-third letter, and the symbol for psychology."
+      "note": "That's the 23rd letter - real, but this round only counts the first fifteen.",
+      "bust": true
     },
     {
       "name": "Omega",
-      "fact": "The last letter, which is why the end of anything is the omega."
+      "note": "That's the last letter - real, but this round only counts the first fifteen.",
+      "bust": true
     }
   ]
 }
