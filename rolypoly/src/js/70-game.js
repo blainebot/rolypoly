@@ -186,12 +186,19 @@ function dig(){
   // before Rumble would otherwise wake up for an answer that's genuinely
   // right. No confirm step — unlike a scoring guess, accepting or
   // rejecting the suggestion changes nothing either way, so there's
-  // nothing worth interrupting play to ask about.
+  // nothing worth interrupting play to ask about. An extra can carry its
+  // own optional `f` (fact) — same idea as a distractor's `note`, shown
+  // in place of the generic close when present, so "right, but not
+  // scored" doesn't have to be the only thing an extra ever says.
   const extras=ROUNDS[idx].extras;
-  if(extras&&(extras.some(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
-    ||fuzzyMatches(key,extras).length)){
-    say(`"${raw}" is right, but not one of today's fifteen — nothing lost.`,"");
-    $("answer").select();return;
+  if(extras){
+    const hit=extras.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
+      ||fuzzyMatches(key,extras)[0];
+    if(hit){
+      const tail=hit.f?` ${hit.f} Nothing lost.`:" nothing lost.";
+      say(`"${raw}" is right, but not one of today's fifteen —${tail}`,"");
+      $("answer").select();return;
+    }
   }
   // Distractors: a predictable wrong guess worth naming instead of a bare
   // bust message — the player often does know something, just not quite

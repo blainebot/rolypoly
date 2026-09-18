@@ -1,0 +1,97 @@
+{
+  "domain": "TV",
+  "prompt": "Name a member of the original 1975 cast of Saturday Night Live.",
+  "scene": "liveny",
+  "difficulty": 4,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Chevy Chase",
+      "value": 3,
+      "fact": "Anchored the first Weekend Update, and left after a single season.",
+      "aliases": [
+        "chase"
+      ]
+    },
+    {
+      "name": "John Belushi",
+      "value": 3,
+      "fact": "Auditioned by mocking the whole idea of the show, and was hired anyway.",
+      "aliases": [
+        "belushi"
+      ]
+    },
+    {
+      "name": "Dan Aykroyd",
+      "value": 4,
+      "fact": "The only Canadian in the cast, and the youngest at 23.",
+      "aliases": [
+        "aykroyd"
+      ]
+    },
+    {
+      "name": "Gilda Radner",
+      "value": 6,
+      "fact": "The first performer Lorne Michaels hired.",
+      "aliases": [
+        "radner"
+      ]
+    },
+    {
+      "name": "Jane Curtin",
+      "value": 8,
+      "fact": "Took over Weekend Update after Chase left, the first woman to anchor it.",
+      "aliases": [
+        "curtin"
+      ]
+    },
+    {
+      "name": "Laraine Newman",
+      "value": 11,
+      "fact": "A founding member of the Groundlings before she joined, at 23.",
+      "aliases": [
+        "laraine"
+      ]
+    },
+    {
+      "name": "Garrett Morris",
+      "value": 13,
+      "fact": "The only Black cast member, and a trained opera singer.",
+      "aliases": [
+        "morris"
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "name": "Bill Murray",
+      "fact": "The most common wrong answer - he joined in season two, replacing Chevy Chase.",
+      "aliases": [
+        "murray"
+      ]
+    },
+    {
+      "name": "George Coe",
+      "fact": "Credited on the first episode only, which is why he is usually left off the list."
+    },
+    {
+      "name": "Michael O'Donoghue",
+      "fact": "A writer who appeared in the very first sketch, but was not billed as cast.",
+      "aliases": [
+        "odonoghue"
+      ]
+    },
+    {
+      "name": "Lorne Michaels",
+      "fact": "Created and produced the show. Never one of the cast."
+    },
+    {
+      "name": "Al Franken",
+      "fact": "A writer in the first season, and a performer only later."
+    },
+    {
+      "name": "Eddie Murphy",
+      "fact": "Joined in 1980, five years after the original cast."
+    }
+  ]
+}

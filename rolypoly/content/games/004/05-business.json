@@ -1,0 +1,134 @@
+{
+  "domain": "Business",
+  "prompt": "Name a company that has been worth more than a trillion dollars.",
+  "scene": "tycoon",
+  "difficulty": 5,
+  "closed": false,
+  "note": "Membership grows. Verified against reporting as of May 2026: 14 current members plus PetroChina historically. Review quarterly - new entrants must be added or they will bust players.",
+  "answers": [
+    {
+      "name": "Apple",
+      "value": 3,
+      "fact": "First US company to reach a trillion, in August 2018, then first to two and to three."
+    },
+    {
+      "name": "Microsoft",
+      "value": 4,
+      "fact": "Crossed in 2019 on the back of enterprise cloud."
+    },
+    {
+      "name": "Nvidia",
+      "value": 4,
+      "fact": "Crossed in 2023, then became the first company ever worth five trillion."
+    },
+    {
+      "name": "Amazon",
+      "value": 5,
+      "fact": "Briefly crossed in 2018, fell back, and returned for good later."
+    },
+    {
+      "name": "Alphabet",
+      "value": 6,
+      "fact": "Crossed in 2020. The holding company Google built around itself in 2015.",
+      "aliases": [
+        "google"
+      ]
+    },
+    {
+      "name": "Tesla",
+      "value": 7,
+      "fact": "Crossed in October 2021, the first carmaker ever to manage it."
+    },
+    {
+      "name": "Meta",
+      "value": 8,
+      "fact": "Crossed in 2021, while it was still called Facebook.",
+      "aliases": [
+        "facebook"
+      ]
+    },
+    {
+      "name": "Saudi Aramco",
+      "value": 11,
+      "fact": "Crossed at its 2019 listing, the largest IPO in history.",
+      "aliases": [
+        "aramco"
+      ]
+    },
+    {
+      "name": "Berkshire Hathaway",
+      "value": 12,
+      "fact": "Crossed in August 2024, the first US company outside tech to do it.",
+      "aliases": [
+        "berkshire"
+      ]
+    },
+    {
+      "name": "Samsung",
+      "value": 14,
+      "fact": "The Korean electronics group, and a recent arrival to the trillion club."
+    },
+    {
+      "name": "TSMC",
+      "value": 15,
+      "fact": "Makes the most advanced chips on Earth, for Nvidia and Apple alike.",
+      "aliases": [
+        "taiwan semiconductor"
+      ]
+    },
+    {
+      "name": "Broadcom",
+      "value": 17,
+      "fact": "Crossed in December 2024 after its AI revenue more than tripled."
+    },
+    {
+      "name": "Micron",
+      "value": 20,
+      "fact": "A memory chip maker carried over the line by AI demand."
+    },
+    {
+      "name": "SK Hynix",
+      "value": 22,
+      "fact": "The Korean memory maker whose stock rose roughly tenfold in a year.",
+      "aliases": [
+        "hynix"
+      ]
+    },
+    {
+      "name": "PetroChina",
+      "value": 26,
+      "fact": "Touched a trillion on its Shanghai debut in 2007 - the first company ever to do it."
+    }
+  ],
+  "extras": [
+    {
+      "name": "OpenAI",
+      "fact": "Privately valued near a trillion, but never publicly traded at that level."
+    },
+    {
+      "name": "Eli Lilly",
+      "fact": "Came close on weight-loss drugs, but has not crossed a trillion.",
+      "aliases": [
+        "lilly"
+      ]
+    },
+    {
+      "name": "Walmart",
+      "fact": "The largest company by revenue, but not by market value."
+    },
+    {
+      "name": "Exxon Mobil",
+      "fact": "Once the most valuable company in the world, long before a trillion was reachable.",
+      "aliases": [
+        "exxon"
+      ]
+    },
+    {
+      "name": "JPMorgan Chase",
+      "fact": "The most valuable bank in the world, and still short of a trillion.",
+      "aliases": [
+        "jpmorgan"
+      ]
+    }
+  ]
+}

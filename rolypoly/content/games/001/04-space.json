@@ -2,7 +2,8 @@
   "domain": "Space",
   "prompt": "Name a planet in the solar system.",
   "difficulty": 1,
-  "designNotes": "Authority: IAU 2006 General Assembly Resolution B5, which defines 'planet' and reclassified Pluto as a dwarf planet the same year — still the current definition. Eight planets is a closed set under it: unlike the old 'name a moon of Saturn' round this replaced (274 confirmed moons and rising, so any fixed answer list was wrong by construction — a tester hit it with Telesto), no future discovery can add a ninth planet to this list without the IAU redefining the term again. Safe to treat as fixed and complete.",
+  "closed": true,
+  "note": "Authority: IAU 2006 General Assembly Resolution B5, which defines 'planet' and reclassified Pluto as a dwarf planet the same year — still the current definition. Eight planets is a closed set under it: unlike the old 'name a moon of Saturn' round this replaced (274 confirmed moons and rising, so any fixed answer list was wrong by construction — a tester hit it with Telesto), no future discovery can add a ninth planet to this list without the IAU redefining the term again. Safe to treat as fixed and complete.",
   "answers": [
     {
       "name": "Earth",

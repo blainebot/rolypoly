@@ -9,6 +9,7 @@ see **difficulty** below for what does.
   "domain": "Geography",
   "prompt": "Name a country that shares a land border with Germany.",
   "difficulty": 2,
+  "closed": true,
   "par": 12,
   "answers": [
     {
@@ -19,7 +20,7 @@ see **difficulty** below for what does.
     }
   ],
   "extras": [
-    { "name": "Liechtenstein" }
+    { "name": "Liechtenstein", "fact": "Also on Germany's doorstep, just not one of the four that share a border." }
   ],
   "distractors": [
     { "name": "Germany", "note": "That's the country in the prompt, not one of its neighbours." },
@@ -37,10 +38,20 @@ see **difficulty** below for what does.
   single letter). `scripts/build.mjs` sorts each game's five rounds by this
   number, easiest to hardest, before the round is compiled — see "Ordering a
   game's rounds" below.
-- **designNotes** — optional, a string. Author-facing only: never shown to
-  players, never read by the engine (`build.mjs` drops it before compiling).
-  For citing the authority behind a closed-set topic (see "Choosing a topic"
-  below), or leaving any other rationale worth keeping attached to the file
+- **closed** — optional, a boolean. Whether the topic's answer count is fixed
+  by a real authority (see "Choosing a topic" below) or can keep growing no
+  matter how thorough the list gets. Type-checked when present, but not
+  required — most rounds written before this field existed don't have it.
+  Set **closed: false** for the rare case where a genuinely closed topic
+  wasn't available and the round shipped anyway on an open one: the validator
+  then warns *every* run, not just once, showing `note` (below) as the
+  reminder of what mitigates it — a one-time warning would go stale exactly
+  the way an actually-open answer list does.
+- **note** — optional, a string. Author-facing only: never shown to players,
+  never read by the engine (`build.mjs` drops it before compiling). Expected
+  alongside `closed: false`, explaining the mitigation (a review cadence, a
+  source that gets checked); also fine for citing the authority behind a
+  closed topic, or any other rationale worth keeping attached to the file
   it's about instead of scattered in a commit message or this doc.
 - **name** — the canonical answer. If a term is a brand and another is the real
   thing, the real thing is the name and the brand is an alias. (Cripps Pink is
@@ -54,10 +65,13 @@ see **difficulty** below for what does.
   The validator errors if par exceeds the round's total available value.
 - **extras** — optional. Answers that are correct but sit outside the scoring
   fifteen — the cap on `answers` (the validator warns past 15). Each needs a
-  **name** and, optionally, **aliases** — no value, no fact. Submitting one says
-  so ("Right, but not one of today's fifteen") and the round carries on: it
-  never scores, never busts, and never shows up in the reveal or in any count.
-  An extra can't share a name or alias with a scoring answer in the same round
+  **name** and, optionally, **aliases** and a **fact** — no value, since it
+  never scores. Submitting one says so ("Right, but not one of today's
+  fifteen") and the round carries on: it never scores, never busts, and never
+  shows up in the reveal or in any count. When `fact` is set, it's shown right
+  in that line instead of the bare "nothing lost" — the same role a
+  distractor's `note` plays, just for a guess that's actually correct. An
+  extra can't share a name or alias with a scoring answer in the same round
   (or with another extra) — the validator errors on that, since it would just
   make the scoring answer win the match and the extras entry dead.
 - **distractors** — optional. Guesses that are never correct, but predictable
@@ -91,9 +105,12 @@ IAU's 2006 definition (the same resolution that reclassified Pluto), and
 closed: no future discovery can add a ninth without the IAU redefining the
 term. Before starting a new round, check whether a governing body, a fixed
 historical event, or a finite official count actually closes the set. If it
-can't, the round needs a different topic, not a longer list — cite the
-authority in `designNotes` once you've found one, so the next person editing
-the file knows the set is safe to treat as complete.
+can't, the round needs a different topic, not a longer list. Mark
+**closed: true** once you've confirmed it, and cite the authority in `note`
+so the next person editing the file knows the set is safe to treat as
+complete. If a genuinely closed topic just isn't available, **closed: false**
+plus a `note` on the mitigation is the honest fallback — see the field
+descriptions above for what the validator does with it.
 
 Prefer narrowing the prompt over demoting answers into extras when a round runs
 long — a tighter prompt keeps the round honest about what it's actually asking;

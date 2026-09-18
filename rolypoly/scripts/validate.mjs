@@ -73,8 +73,19 @@ for (const { num, f, file } of files) {
   if (!r.domain) errors.push(where("missing domain"));
   if (!r.prompt) errors.push(where("missing prompt"));
   if (r.prompt && !/[.?]$/.test(r.prompt)) warnings.push(where("prompt has no end punctuation"));
-  if (r.designNotes !== undefined && typeof r.designNotes !== "string")
-    errors.push(where("designNotes must be a string"));
+  if (r.note !== undefined && typeof r.note !== "string")
+    errors.push(where("note must be a string"));
+
+  // Closed set or not (see "Choosing a topic" in content/TEMPLATE.md) —
+  // optional so the fourteen rounds written before this existed don't all
+  // need retrofitting, but type-checked when present, and `closed: false`
+  // gets a warning on *every* validate run, not just when first written.
+  // That persistence is the point: a one-time note would age exactly the
+  // way the old moons round did — quietly, until a player hit the gap.
+  if (r.closed !== undefined && typeof r.closed !== "boolean")
+    errors.push(where('"closed" must be true or false'));
+  else if (r.closed === false)
+    warnings.push(where(`open set — review before it goes stale${r.note ? `: ${r.note}` : " (no note explaining the mitigation)"}`));
 
   // Judged on recall — how hard it is to produce ANY answer at all — never
   // on how deep the round goes. Those are different: a round can be an easy
@@ -133,6 +144,7 @@ for (const { num, f, file } of files) {
       const label = x.name || "(unnamed extra)";
       const tag = `extra: ${label}`;
       if (!x.name) errors.push(where("an extra has no name"));
+      if (x.fact !== undefined && typeof x.fact !== "string") errors.push(where(`extra ${label}: fact must be a string`));
       for (const s of [x.name, ...(x.aliases || [])]) {
         if (!s) continue;
         const k = norm(s);

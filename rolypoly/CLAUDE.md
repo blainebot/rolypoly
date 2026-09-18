@@ -440,10 +440,16 @@ event, or finite official count actually closes the topic's answer set —
 finite historical document); "moons of a planet," "islands in a chain," or
 anything gated by ongoing discovery or measurement doesn't, no matter how
 exhaustively it's researched. If it can't close, the fix is a different
-topic, not a longer list. `designNotes` (optional, `content/TEMPLATE.md`) is
-where the authority gets cited once found, author-facing only — never shown
-to players, dropped by `build.mjs` before compiling — so the citation lives
-with the file it justifies instead of aging out of a commit message.
+topic, not a longer list. `closed` (optional boolean, `content/TEMPLATE.md`)
+records the verdict once made, and `note` is where the authority gets cited
+— author-facing only, never shown to players, dropped by `build.mjs` before
+compiling — so the citation lives with the file it justifies instead of
+aging out of a commit message. `closed: false` is the honest escape hatch
+for a topic that genuinely can't close (see game 004's business round,
+"Companies worth a trillion dollars," below) — `validate.mjs` warns on it
+every single run, surfacing `note`'s mitigation each time rather than once,
+since a one-time note goes stale exactly the way the moons round's answer
+list did.
 
 Values are in centimetres and set both score and Poly's shell colour:
 
@@ -491,17 +497,20 @@ one does too; anything the narrower prompt actually excludes is a wrong answer, 
 an extra — see the `distractors` / `bust: true` case right below for what that one
 actually needs.
 
-An extra needs only a `name` and optional `aliases` — no value, no fact, since it
-never scores. Submitting one says so ("Right, but not one of today's fifteen") and
-the round continues exactly as if nothing had been typed: no score, no bust, no
-entry in the reveal or in any count. `dig()` in `70-game.js` checks extras last,
-after the real scoring list has had every chance to claim the guess (exact, then
-`fuzzyMatches()`) and right before Rumble would otherwise wake up — an extra is
-deliberately not offered a confirm step the way a scoring guess is, since accepting
-or declining the suggestion changes nothing either way. `validate.mjs` errors if an
-extra's name or alias collides with a scoring answer (or another extra) in the same
-round — a collision would make the scoring answer win the match first, leaving the
-extras entry dead, unreachable content.
+An extra needs only a `name` — no value, since it never scores — plus optional
+`aliases` and an optional `fact`. Submitting one without a `fact` says so ("Right,
+but not one of today's fifteen — nothing lost"); with one, the fact takes the
+generic close's place ("Right, but not one of today's fifteen — *fact*. Nothing
+lost."), the same role a distractor's `note` plays for a guess that's actually
+correct. Either way the round continues exactly as if nothing had been typed: no
+score, no bust, no entry in the reveal or in any count. `dig()` in `70-game.js`
+checks extras last, after the real scoring list has had every chance to claim the
+guess (exact, then `fuzzyMatches()`) and right before Rumble would otherwise wake
+up — an extra is deliberately not offered a confirm step the way a scoring guess
+is, since accepting or declining the suggestion changes nothing either way.
+`validate.mjs` errors if an extra's name or alias collides with a scoring answer
+(or another extra) in the same round — a collision would make the scoring answer
+win the match first, leaving the extras entry dead, unreachable content.
 
 If a round's scoring list ever does get trimmed for real (an honest editorial call,
 not a mechanical cap), keep the round's *shape*, not just the tail cut off: at least
@@ -870,9 +879,11 @@ again right after setting `chamberHit=true`.
   hand-authored lists or a model judging submissions at play time. This decision
   shapes how much content authoring costs, and hasn't been made.
 - **No sound.**
-- Content is three games, so `content/schedule.json`'s rotation repeats every
-  three days. The hidden chamber at 95 is only reachable on the largest
-  rounds, so reaching it is partly luck of the draw.
+- Content is four games, so `content/schedule.json`'s rotation repeats every
+  four days. The hidden chamber at 95 is only reachable on the largest
+  rounds, so reaching it is partly luck of the draw — and not every round
+  can reach it at all (Geography and the planets round in 001, and 004's
+  seven-answer TV round, all top out below 95 even fully cleared).
 - The results screen is the least designed surface in the game, and it's the one
   people screenshot.
 - **No cross-device sync.** A finished day lives in that browser's `localStorage`

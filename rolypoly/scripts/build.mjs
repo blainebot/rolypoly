@@ -28,11 +28,15 @@ const toEngine = r => ({
     f: a.fact,
     ...(a.aliases && a.aliases.length ? { alias: a.aliases } : {})
   })),
-  // Correct but outside the scoring fifteen — no value, no fact, never in
-  // avail()'s pool, so they can't score, bust, or show up in the reveal.
+  // Correct but outside the scoring fifteen — no value, never in avail()'s
+  // pool, so it can't score or bust or show up in the reveal. `fact` is
+  // optional: shown in place of the generic "not one of today's fifteen"
+  // close when present (dig()'s extras check, 70-game.js), same role a
+  // distractor's `note` plays.
   ...(r.extras && r.extras.length ? {
     extras: r.extras.map(x => ({
       n: x.name,
+      ...(x.fact ? { f: x.fact } : {}),
       ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
     }))
   } : {}),

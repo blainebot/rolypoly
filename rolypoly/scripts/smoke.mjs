@@ -576,6 +576,24 @@ await test("extras: correct but outside the scoring fifteen — no score, no bus
   assert(!E.$("missedBox").innerHTML.includes("Adventurefuls"), "an extra must never appear in \"still down there\"");
 });
 
+// Real content (game 004's Greek-alphabet round) writes a `fact` on several
+// extras — Kappa is genuinely correct, just outside the scoring fifteen,
+// and the flat "not one of today's fifteen" close was wasting all of that
+// authored trivia. An extra's `fact` now takes the generic close's place,
+// the same role a distractor's `note` plays.
+await test("extras: a fact, when set, replaces the generic close instead of adding to it silently", async () => {
+  const { E, flush } = fresh();
+  const extras = [{ n: "Kappa", f: "Tenth letter, and also a sarcasm emote on Twitch." }];
+  loadSynthetic(E, syntheticPool(), extras);
+
+  await digAnswer(E, flush, "Kappa");
+  assertEqual(E.found.length, 0, "an extra with a fact must still not score");
+  assertEqual(E.results.length, 0, "an extra with a fact must still not bust");
+  const msg = E.$("msg").textContent;
+  assert(msg.includes("not one of today's fifteen"), `expected the generic framing to stay, got: ${msg}`);
+  assert(msg.includes("Tenth letter, and also a sarcasm emote on Twitch."), `expected the fact in the message, got: ${msg}`);
+});
+
 // Distractors: a predictable wrong-category guess ("Buckeyes" for a round
 // asking to name the school, not the mascot) named for what it actually
 // is instead of a bare bust — real bug report, a player entered a mascot

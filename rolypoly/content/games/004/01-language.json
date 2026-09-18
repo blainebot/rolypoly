@@ -1,0 +1,122 @@
+{
+  "domain": "Language",
+  "prompt": "Name a letter of the Greek alphabet.",
+  "scene": "toga",
+  "difficulty": 1,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Alpha",
+      "value": 3,
+      "fact": "First letter, and the source of the word alphabet - alpha plus beta."
+    },
+    {
+      "name": "Beta",
+      "value": 3,
+      "fact": "Second letter. Gave its name to software that is not finished yet."
+    },
+    {
+      "name": "Omega",
+      "value": 4,
+      "fact": "The last letter, which is why the end of anything is the omega."
+    },
+    {
+      "name": "Delta",
+      "value": 5,
+      "fact": "Its triangular capital gave river deltas their name."
+    },
+    {
+      "name": "Gamma",
+      "value": 6,
+      "fact": "Lends its name to the most energetic light in the spectrum."
+    },
+    {
+      "name": "Pi",
+      "value": 6,
+      "fact": "Chosen for the circle constant in 1706, from the Greek for perimeter."
+    },
+    {
+      "name": "Sigma",
+      "value": 8,
+      "fact": "The capital means sum in mathematics; the lowercase means standard deviation."
+    },
+    {
+      "name": "Theta",
+      "value": 9,
+      "fact": "Once marked a death sentence on Athenian ballots, for thanatos."
+    },
+    {
+      "name": "Lambda",
+      "value": 10,
+      "fact": "The Spartan shield emblem, for Lacedaemon."
+    },
+    {
+      "name": "Epsilon",
+      "value": 12,
+      "fact": "Means simply e - the short e, as opposed to eta."
+    },
+    {
+      "name": "Omicron",
+      "value": 13,
+      "fact": "Little o. Known to most people only since 2021."
+    },
+    {
+      "name": "Phi",
+      "value": 14,
+      "fact": "Used for the golden ratio, roughly 1.618."
+    },
+    {
+      "name": "Zeta",
+      "value": 17,
+      "fact": "Sixth letter, and the name of a famous unsolved problem in mathematics."
+    },
+    {
+      "name": "Xi",
+      "value": 20,
+      "fact": "Fourteenth letter, and among the hardest to pronounce in English."
+    },
+    {
+      "name": "Upsilon",
+      "value": 23,
+      "fact": "The ancestor of both U and Y in the Latin alphabet."
+    }
+  ],
+  "extras": [
+    {
+      "name": "Eta",
+      "fact": "Seventh letter, and the shape the capital lent to the Latin H."
+    },
+    {
+      "name": "Iota",
+      "fact": "Ninth letter, and the smallest - hence not one iota."
+    },
+    {
+      "name": "Kappa",
+      "fact": "Tenth letter, and also a sarcasm emote on Twitch, based on a photo of a former site employee."
+    },
+    {
+      "name": "Mu",
+      "fact": "Twelfth letter, and the prefix micro-."
+    },
+    {
+      "name": "Nu",
+      "fact": "Thirteenth letter, and the symbol physicists use for frequency in E = hν."
+    },
+    {
+      "name": "Rho",
+      "fact": "Seventeenth letter, used for density in physics."
+    },
+    {
+      "name": "Tau",
+      "fact": "Nineteenth letter, and a rival to pi among mathematicians."
+    },
+    {
+      "name": "Chi",
+      "fact": "Twenty-second letter, the X in Xmas."
+    },
+    {
+      "name": "Psi",
+      "fact": "Twenty-third letter, and the symbol for psychology."
+    }
+  ]
+}

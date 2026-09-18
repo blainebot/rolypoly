@@ -1,0 +1,99 @@
+{
+  "domain": "Myth",
+  "prompt": "Name one of the twelve Olympian gods of Greek myth.",
+  "scene": "laurel",
+  "difficulty": 3,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Zeus",
+      "value": 3,
+      "fact": "King of the gods, and the only one who threw the thunderbolt."
+    },
+    {
+      "name": "Poseidon",
+      "value": 4,
+      "fact": "Drew the sea when the three brothers divided the world by lot."
+    },
+    {
+      "name": "Apollo",
+      "value": 5,
+      "fact": "Music, prophecy and plague, and the only major god the Romans did not rename."
+    },
+    {
+      "name": "Athena",
+      "value": 6,
+      "fact": "Born fully armoured from Zeus's head. Athens is named for her."
+    },
+    {
+      "name": "Aphrodite",
+      "value": 7,
+      "fact": "Born from sea foam, and married off to Hephaestus against her will."
+    },
+    {
+      "name": "Ares",
+      "value": 8,
+      "fact": "God of war, and the least liked of the twelve by the Greeks themselves."
+    },
+    {
+      "name": "Hermes",
+      "value": 9,
+      "fact": "Messenger, trickster, and the god who walked the dead to the underworld."
+    },
+    {
+      "name": "Artemis",
+      "value": 10,
+      "fact": "Apollo's twin. Goddess of the hunt, sworn never to marry."
+    },
+    {
+      "name": "Hera",
+      "value": 11,
+      "fact": "Queen of the gods, and occupied in most myths with punishing Zeus's affairs."
+    },
+    {
+      "name": "Hephaestus",
+      "value": 14,
+      "fact": "The smith god, thrown from Olympus as an infant and lamed by the fall."
+    },
+    {
+      "name": "Demeter",
+      "value": 16,
+      "fact": "Goddess of the harvest, whose grief for Persephone made winter."
+    },
+    {
+      "name": "Dionysus",
+      "value": 18,
+      "fact": "Wine and theatre. The last to join, and the only one with a mortal mother."
+    }
+  ],
+  "extras": [
+    {
+      "name": "Hestia",
+      "fact": "The disputed twelfth. Some lists have her in place of Dionysus - she gave up her seat."
+    },
+    {
+      "name": "Hades",
+      "fact": "Ruled the underworld, and so was never counted among the Olympians."
+    },
+    {
+      "name": "Persephone",
+      "fact": "Queen of the underworld rather than an Olympian."
+    },
+    {
+      "name": "Eros",
+      "fact": "A god of love, but not one of the twelve."
+    },
+    {
+      "name": "Pan",
+      "fact": "A rustic god of the wild, never an Olympian."
+    },
+    {
+      "name": "Helios",
+      "fact": "The sun, and a Titan rather than an Olympian."
+    },
+    {
+      "name": "Asclepius",
+      "fact": "God of medicine, and a son of Apollo rather than one of the twelve."
+    }
+  ]
+}

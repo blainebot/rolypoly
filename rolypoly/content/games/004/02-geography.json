@@ -1,0 +1,93 @@
+{
+  "domain": "Geography",
+  "prompt": "Name one of the ten largest US states by area.",
+  "scene": "surveyor",
+  "difficulty": 2,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Alaska",
+      "value": 3,
+      "fact": "Larger than Texas, California and Montana put together."
+    },
+    {
+      "name": "Texas",
+      "value": 3,
+      "fact": "The largest of the contiguous states, and its own republic from 1836 to 1845."
+    },
+    {
+      "name": "California",
+      "value": 5,
+      "fact": "Third largest, and bigger than Germany."
+    },
+    {
+      "name": "Montana",
+      "value": 7,
+      "fact": "Fourth largest, with about seven people per square mile."
+    },
+    {
+      "name": "Arizona",
+      "value": 9,
+      "fact": "Sixth largest. The Grand Canyon alone covers nearly 2,000 square miles."
+    },
+    {
+      "name": "Nevada",
+      "value": 10,
+      "fact": "Seventh largest, and the federal government owns roughly 80% of it."
+    },
+    {
+      "name": "New Mexico",
+      "value": 11,
+      "fact": "Fifth largest, and the site of the first nuclear test in 1945."
+    },
+    {
+      "name": "Colorado",
+      "value": 13,
+      "fact": "Eighth largest, and the only state whose borders are all straight lines."
+    },
+    {
+      "name": "Oregon",
+      "value": 15,
+      "fact": "Ninth largest, and home to the deepest lake in the country."
+    },
+    {
+      "name": "Wyoming",
+      "value": 18,
+      "fact": "Tenth largest by area and last by population - under 600,000 people."
+    }
+  ],
+  "extras": [
+    {
+      "name": "Michigan",
+      "fact": "Eleventh by area, just outside the ten - but the largest state entirely east of the Mississippi."
+    },
+    {
+      "name": "Minnesota",
+      "fact": "Twelfth by area - close, but not in the ten."
+    },
+    {
+      "name": "Utah",
+      "fact": "Thirteenth by area."
+    },
+    {
+      "name": "Idaho",
+      "fact": "Fourteenth by area."
+    },
+    {
+      "name": "Kansas",
+      "fact": "Fifteenth by area."
+    },
+    {
+      "name": "Florida",
+      "fact": "Third by population, but only 22nd by area."
+    },
+    {
+      "name": "New York",
+      "fact": "Fourth by population, 27th by area."
+    },
+    {
+      "name": "Pennsylvania",
+      "fact": "Fifth by population, 33rd by area."
+    }
+  ]
+}
