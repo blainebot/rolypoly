@@ -35,20 +35,28 @@ ${bow(20,0)}
 <rect class="spk" x="22" y="22" width="6" height="6"/><rect class="spk" x="37" y="30" width="6" height="6"/>
 <rect class="eye" x="6" y="38" width="8" height="8"/></svg>`}
 
+// Never named to the player (see "The hidden chamber" in CLAUDE.md) — the
+// comment on each entry is just so an author editing this list can tell
+// what they're looking at.
 const RELICS=[
- {n:"a brass streetcar token", g:`<rect x="4" y="0" width="14" height="4" fill="#C9954A"/>
+ // a brass streetcar token
+ {g:`<rect x="4" y="0" width="14" height="4" fill="#C9954A"/>
 <rect x="0" y="4" width="22" height="14" fill="#C9954A"/><rect x="4" y="18" width="14" height="4" fill="#C9954A"/>
 <rect x="7" y="7" width="8" height="8" fill="#7A5828"/><rect x="4" y="4" width="5" height="4" fill="#E8C07A"/>`},
- {n:"a chipped blue marble", g:`<rect x="5" y="0" width="12" height="4" fill="#3E7BC4"/>
+ // a chipped blue marble
+ {g:`<rect x="5" y="0" width="12" height="4" fill="#3E7BC4"/>
 <rect x="1" y="4" width="20" height="14" fill="#3E7BC4"/><rect x="5" y="18" width="12" height="4" fill="#3E7BC4"/>
 <rect x="5" y="5" width="7" height="6" fill="#9CD0F5"/><rect x="13" y="12" width="6" height="5" fill="#22508C"/>`},
- {n:"a flint arrowhead", g:`<rect x="9" y="0" width="4" height="5" fill="#B7AFA0"/>
+ // a flint arrowhead
+ {g:`<rect x="9" y="0" width="4" height="5" fill="#B7AFA0"/>
 <rect x="7" y="5" width="8" height="5" fill="#B7AFA0"/><rect x="4" y="10" width="14" height="5" fill="#B7AFA0"/>
 <rect x="1" y="15" width="20" height="5" fill="#8E877A"/><rect x="8" y="6" width="4" height="8" fill="#D8D2C6"/>`},
- {n:"a bent tin soldier", g:`<rect x="7" y="0" width="8" height="5" fill="#C0392B"/>
+ // a bent tin soldier
+ {g:`<rect x="7" y="0" width="8" height="5" fill="#C0392B"/>
 <rect x="5" y="5" width="12" height="9" fill="#2E5B8A"/><rect x="5" y="14" width="4" height="8" fill="#2E5B8A"/>
 <rect x="13" y="14" width="4" height="8" fill="#2E5B8A"/><rect x="8" y="7" width="6" height="4" fill="#E8C07A"/>`},
- {n:"a rusted skeleton key", g:`<rect x="0" y="6" width="6" height="10" fill="#A97B3C"/>
+ // a rusted skeleton key
+ {g:`<rect x="0" y="6" width="6" height="10" fill="#A97B3C"/>
 <rect x="2" y="9" width="2" height="4" fill="#3A2A12"/><rect x="6" y="9" width="14" height="4" fill="#A97B3C"/>
 <rect x="16" y="13" width="4" height="5" fill="#A97B3C"/><rect x="10" y="13" width="3" height="4" fill="#A97B3C"/>`}
 ];

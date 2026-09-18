@@ -280,7 +280,7 @@ function showChamberDiscovery(x){
   placeRelic(x);
   $("chamberBox").innerHTML=`<div class="chamber">
     <span class="ct">The hidden chamber</span>
-    <p>Poly broke through past ${CHAMBER_AT}. ${RELICS[RELIC_PICK].n} is down here in the dark.</p></div>`;
+    <p>The dirt gives way to open dark — nobody's ever been this deep.</p></div>`;
 }
 
 function newDrop(x,y0,y1){

@@ -746,11 +746,26 @@ near-black. Brighter stops, a narrower beam, was the fix that actually
 worked.
 
 **`showChamberDiscovery(x)`** (`50-world.js`) wraps the light shaft, the
-relic, and the existing `#chamberBox` panel HTML (unchanged) into one call,
-used by both `reveal()`'s breakthrough and `loadRound()`'s resume path — the
-same real bug class as `digTo`/`settleAt` above: two copies of "what the
-chamber looks like on discovery" drift apart the moment one of them changes
-and the other doesn't.
+relic, and the `#chamberBox` panel into one call, used by both `reveal()`'s
+breakthrough and `loadRound()`'s resume path — the same real bug class as
+`digTo`/`settleAt` above: two copies of "what the chamber looks like on
+discovery" drift apart the moment one of them changes and the other doesn't.
+
+**The panel copy doesn't name the relic or the threshold.** It used to read
+"Poly broke through past 95. A chipped blue marble is down here in the
+dark." — both halves were wrong. `95` is a bare number the player has no
+reason to recognise (and every other number in the game carries units or a
+label; this one didn't). And naming the relic promised more than the game
+delivers: it doesn't score, isn't in the share text, can't be collected —
+so calling it out by name reads like a feature that's half-built, not a
+flourish. The relic stays fully visible in the world (`placeRelic()`,
+unchanged) — only the narration of it is gone. `RELICS` entries dropped
+their `n` field for the same reason: once nothing reads it, keeping it
+around implies something still does. Each entry keeps a `//` comment naming
+what it draws, for whoever's editing the list next, not for the player.
+Current copy: "The dirt gives way to open dark — nobody's ever been this
+deep." — the fact of breaking through is the news; nothing else needs
+saying.
 
 **Poly floats instead of walking once she's past the ceiling.** `startFloat()`
 is deliberately not a real fall or a tracked float path — there's no
