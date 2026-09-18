@@ -444,12 +444,17 @@ topic, not a longer list. `closed` (optional boolean, `content/TEMPLATE.md`)
 records the verdict once made, and `note` is where the authority gets cited
 — author-facing only, never shown to players, dropped by `build.mjs` before
 compiling — so the citation lives with the file it justifies instead of
-aging out of a commit message. `closed: false` is the honest escape hatch
-for a topic that genuinely can't close (see game 004's business round,
-"Companies worth a trillion dollars," below) — `validate.mjs` warns on it
-every single run, surfacing `note`'s mitigation each time rather than once,
-since a one-time note goes stale exactly the way the moons round's answer
-list did.
+aging out of a commit message. `closed: false` is the honest escape hatch for
+a topic that genuinely can't close at all — `validate.mjs` warns on it every
+single run, surfacing `note`'s mitigation each time rather than once, since a
+one-time note goes stale exactly the way the moons round's answer list did.
+No round currently uses it: game 004's business round ("Companies that had
+crossed a trillion dollars in value by May 2026") looked like this case at
+first — a live "worth more than a trillion dollars *right now*" genuinely
+can't close, new companies cross that line — but dating the prompt to a
+fixed cutoff converts it into a historical fact instead, the same trick that
+makes "Declaration signers" or "the 1975 SNL cast" closed despite once
+having been live, ongoing situations themselves.
 
 Values are in centimetres and set both score and Poly's shell colour:
 

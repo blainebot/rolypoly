@@ -4,6 +4,7 @@
   "scene": "toga",
   "difficulty": 1,
   "closed": true,
+  "note": "Scoring answers are the first fifteen letters in sequence (Alpha through Omicron), not the fifteen most-recognisable — see content/games/004/01-language.json's history if that ever needs revisiting. Extras are the remaining nine (Pi through Omega), so all twenty-four letters are accounted for either way.",
   "answers": [
     {
       "name": "Alpha",
@@ -16,99 +17,95 @@
       "fact": "Second letter. Gave its name to software that is not finished yet."
     },
     {
-      "name": "Omega",
+      "name": "Gamma",
       "value": 4,
-      "fact": "The last letter, which is why the end of anything is the omega."
+      "fact": "Third letter. Lends its name to the most energetic light in the spectrum."
     },
     {
       "name": "Delta",
       "value": 5,
-      "fact": "Its triangular capital gave river deltas their name."
-    },
-    {
-      "name": "Gamma",
-      "value": 6,
-      "fact": "Lends its name to the most energetic light in the spectrum."
-    },
-    {
-      "name": "Pi",
-      "value": 6,
-      "fact": "Chosen for the circle constant in 1706, from the Greek for perimeter."
-    },
-    {
-      "name": "Sigma",
-      "value": 8,
-      "fact": "The capital means sum in mathematics; the lowercase means standard deviation."
+      "fact": "Fourth letter. Its triangular capital gave river deltas their name."
     },
     {
       "name": "Theta",
-      "value": 9,
-      "fact": "Once marked a death sentence on Athenian ballots, for thanatos."
-    },
-    {
-      "name": "Lambda",
-      "value": 10,
-      "fact": "The Spartan shield emblem, for Lacedaemon."
-    },
-    {
-      "name": "Epsilon",
-      "value": 12,
-      "fact": "Means simply e - the short e, as opposed to eta."
+      "value": 6,
+      "fact": "Eighth letter. Once marked a death sentence on Athenian ballots, for thanatos."
     },
     {
       "name": "Omicron",
-      "value": 13,
-      "fact": "Little o. Known to most people only since 2021."
+      "value": 7,
+      "fact": "Fifteenth letter, meaning little o. Known to most people only since 2021."
     },
     {
-      "name": "Phi",
-      "value": 14,
-      "fact": "Used for the golden ratio, roughly 1.618."
+      "name": "Epsilon",
+      "value": 8,
+      "fact": "Fifth letter. Means simply e - the short e, as opposed to eta."
     },
     {
       "name": "Zeta",
-      "value": 17,
+      "value": 9,
       "fact": "Sixth letter, and the name of a famous unsolved problem in mathematics."
     },
     {
-      "name": "Xi",
-      "value": 20,
-      "fact": "Fourteenth letter, and among the hardest to pronounce in English."
-    },
-    {
-      "name": "Upsilon",
-      "value": 23,
-      "fact": "The ancestor of both U and Y in the Latin alphabet."
-    }
-  ],
-  "extras": [
-    {
-      "name": "Eta",
-      "fact": "Seventh letter, and the shape the capital lent to the Latin H."
-    },
-    {
-      "name": "Iota",
-      "fact": "Ninth letter, and the smallest - hence not one iota."
-    },
-    {
       "name": "Kappa",
+      "value": 10,
       "fact": "Tenth letter, and also a sarcasm emote on Twitch, based on a photo of a former site employee."
     },
     {
+      "name": "Lambda",
+      "value": 11,
+      "fact": "Eleventh letter. The Spartan shield emblem, for Lacedaemon."
+    },
+    {
+      "name": "Iota",
+      "value": 12,
+      "fact": "Ninth letter, and the smallest - hence not one iota."
+    },
+    {
+      "name": "Eta",
+      "value": 14,
+      "fact": "Seventh letter, and the shape the capital lent to the Latin H."
+    },
+    {
       "name": "Mu",
+      "value": 16,
       "fact": "Twelfth letter, and the prefix micro-."
     },
     {
       "name": "Nu",
+      "value": 19,
       "fact": "Thirteenth letter, and the symbol physicists use for frequency in E = hν."
+    },
+    {
+      "name": "Xi",
+      "value": 23,
+      "fact": "Fourteenth letter, and among the hardest to pronounce in English."
+    }
+  ],
+  "extras": [
+    {
+      "name": "Pi",
+      "fact": "Sixteenth letter. Chosen for the circle constant in 1706, from the Greek for perimeter."
     },
     {
       "name": "Rho",
       "fact": "Seventeenth letter, used for density in physics."
     },
     {
+      "name": "Sigma",
+      "fact": "Eighteenth letter. The capital means sum in mathematics; the lowercase means standard deviation."
+    },
+    {
       "name": "Tau",
       "fact": "Nineteenth letter, and a rival to pi among mathematicians."
+    },
+    {
+      "name": "Upsilon",
+      "fact": "Twentieth letter, and the ancestor of both U and Y in the Latin alphabet."
+    },
+    {
+      "name": "Phi",
+      "fact": "Twenty-first letter. Used for the golden ratio, roughly 1.618."
     },
     {
       "name": "Chi",
@@ -117,6 +114,10 @@
     {
       "name": "Psi",
       "fact": "Twenty-third letter, and the symbol for psychology."
+    },
+    {
+      "name": "Omega",
+      "fact": "The last letter, which is why the end of anything is the omega."
     }
   ]
 }

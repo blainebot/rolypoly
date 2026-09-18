@@ -1,10 +1,10 @@
 {
   "domain": "Business",
-  "prompt": "Name a company that has been worth more than a trillion dollars.",
+  "prompt": "Name a company that had crossed a trillion dollars in value by May 2026.",
   "scene": "tycoon",
   "difficulty": 5,
-  "closed": false,
-  "note": "Membership grows. Verified against reporting as of May 2026: 14 current members plus PetroChina historically. Review quarterly - new entrants must be added or they will bust players.",
+  "closed": true,
+  "note": "Dated on purpose: 'by May 2026' turns a live, ever-growing question into a fixed historical one, the same way a Wikipedia snapshot stays accurate forever once dated, even as the live page keeps changing. Verified against reporting as of that date: 14 current members plus PetroChina historically. A later refresh (moving the cutoff forward to catch Broadcom's successors) is a deliberate edit - new date, re-verify the list - not a live-tracking obligation the round is silently failing at between reviews.",
   "answers": [
     {
       "name": "Apple",
