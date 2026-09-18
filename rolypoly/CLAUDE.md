@@ -422,6 +422,29 @@ Every game gets bundled at build time; `content/schedule.json` picks which one
 is live on which day (see "Daily rotation and persistence"). See
 `content/TEMPLATE.md`.
 
+**A round's topic has to be a closed set — the answer count fixed by a real
+authority, not one that can keep growing.** Shipped broken once, the
+motivating case for the rule rather than a hypothetical: `001/04-space.json`
+was "Name a moon of Saturn," fifteen hand-picked answers, and Saturn has 274
+confirmed moons and rising — that's ongoing discovery, not a fixed body of
+fact, so *every* fixed list for that topic was wrong by construction, not by
+gap-filling. A tester correctly answered "Telesto" and busted anyway; no
+amount of adding more moons to the list would have fixed it, because the true
+count doesn't stay still. Replaced with "Name a planet in the solar system" —
+eight, fixed by the IAU's 2006 General Assembly Resolution B5 (the same one
+that reclassified Pluto to a dwarf planet), and genuinely closed: no future
+discovery adds a ninth without the IAU redefining the term itself. Before
+writing a new round, check whether some governing body, fixed historical
+event, or finite official count actually closes the topic's answer set —
+"Big Ten schools" and "Declaration signers" do (a conference's own roster, a
+finite historical document); "moons of a planet," "islands in a chain," or
+anything gated by ongoing discovery or measurement doesn't, no matter how
+exhaustively it's researched. If it can't close, the fix is a different
+topic, not a longer list. `designNotes` (optional, `content/TEMPLATE.md`) is
+where the authority gets cited once found, author-facing only — never shown
+to players, dropped by `build.mjs` before compiling — so the citation lives
+with the file it justifies instead of aging out of a commit message.
+
 Values are in centimetres and set both score and Poly's shell colour:
 
 | Tier        | Value | The kind of answer it is                              |
@@ -539,7 +562,10 @@ unnoticed.
 
 Content authored so far: `content/games/003/01-sport.json`'s eighteen Big Ten
 mascots, one per school (non-busting); the Film and Games era/category distractors
-above (busting).
+above (busting); `content/games/001/04-space.json`'s five dwarf planets
+(non-busting) — the most likely single guess in that round, Pluto, gets a note
+that actually engages with why it feels right instead of a generic "wrong
+category" line, plus a nod to New Mexico's legislature still calling it one.
 
 ## Round order
 

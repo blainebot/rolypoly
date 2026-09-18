@@ -73,6 +73,8 @@ for (const { num, f, file } of files) {
   if (!r.domain) errors.push(where("missing domain"));
   if (!r.prompt) errors.push(where("missing prompt"));
   if (r.prompt && !/[.?]$/.test(r.prompt)) warnings.push(where("prompt has no end punctuation"));
+  if (r.designNotes !== undefined && typeof r.designNotes !== "string")
+    errors.push(where("designNotes must be a string"));
 
   // Judged on recall — how hard it is to produce ANY answer at all — never
   // on how deep the round goes. Those are different: a round can be an easy

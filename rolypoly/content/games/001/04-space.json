@@ -1,82 +1,70 @@
 {
   "domain": "Space",
-  "prompt": "Name a moon of Saturn.",
-  "difficulty": 3,
+  "prompt": "Name a planet in the solar system.",
+  "difficulty": 1,
+  "designNotes": "Authority: IAU 2006 General Assembly Resolution B5, which defines 'planet' and reclassified Pluto as a dwarf planet the same year — still the current definition. Eight planets is a closed set under it: unlike the old 'name a moon of Saturn' round this replaced (274 confirmed moons and rising, so any fixed answer list was wrong by construction — a tester hit it with Telesto), no future discovery can add a ninth planet to this list without the IAU redefining the term again. Safe to treat as fixed and complete.",
   "answers": [
     {
-      "name": "Titan",
+      "name": "Earth",
       "value": 3,
-      "fact": "Bigger than Mercury, with rain and rivers made of methane."
+      "fact": "The only planet not named for a Greek or Roman god — the name comes from Old English and Germanic words that just mean 'the ground.'"
     },
     {
-      "name": "Enceladus",
+      "name": "Mars",
+      "value": 3,
+      "fact": "Home to Olympus Mons: roughly three times Everest's height, and wide enough to blanket the state of Arizona."
+    },
+    {
+      "name": "Jupiter",
+      "value": 4,
+      "fact": "So massive the solar system's centre of mass sits just outside the Sun's own surface, not at its core."
+    },
+    {
+      "name": "Saturn",
+      "value": 4,
+      "fact": "Its rings are almost entirely ice — some chunks the size of a grain of sand, others the size of a house."
+    },
+    {
+      "name": "Venus",
       "value": 6,
-      "fact": "Sprays water from cracks at its south pole, feeding one of Saturn's rings."
+      "fact": "Rotates backwards, and so slowly that a single day there outlasts its entire year."
     },
     {
-      "name": "Mimas",
+      "name": "Mercury",
+      "value": 8,
+      "fact": "Closest to the Sun, but not the hottest planet — Venus's thick atmosphere traps far more heat."
+    },
+    {
+      "name": "Uranus",
       "value": 10,
-      "fact": "Its enormous Herschel crater makes it look uncannily like the Death Star."
+      "fact": "Tipped so far onto its side that it essentially rolls around the Sun, likely from an ancient collision."
     },
     {
-      "name": "Rhea",
+      "name": "Neptune",
       "value": 12,
-      "fact": "Saturn's second-largest moon, and mostly ice."
+      "fact": "Found by mathematics before anyone saw it — its position was predicted from wobbles in Uranus's orbit."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Pluto",
+      "note": "Pluto was a planet until 2006, when the IAU reclassified it as a dwarf planet — New Mexico's state legislature has resolved that it's still a planet, at least within the state."
     },
     {
-      "name": "Iapetus",
-      "value": 13,
-      "fact": "One hemisphere is nearly black, the other bright white."
+      "name": "Ceres",
+      "note": "The largest object in the asteroid belt — briefly considered a planet in the 1800s, now classified as a dwarf planet like Pluto."
     },
     {
-      "name": "Dione",
-      "value": 14,
-      "fact": "Streaked with bright ice cliffs that Voyager mistook for wisps of cloud."
+      "name": "Eris",
+      "note": "A dwarf planet out past Neptune, discovered in 2005 — the debate over its status is what pushed astronomers to define 'planet' at all."
     },
     {
-      "name": "Tethys",
-      "value": 15,
-      "fact": "Carved by Ithaca Chasma, a canyon running most of the way around it."
+      "name": "Makemake",
+      "note": "A dwarf planet in the Kuiper Belt, named for a creator deity in Rapa Nui (Easter Island) mythology."
     },
     {
-      "name": "Hyperion",
-      "value": 18,
-      "fact": "Shaped like a sponge and tumbling chaotically — its rotation can't be predicted."
-    },
-    {
-      "name": "Phoebe",
-      "value": 19,
-      "fact": "Orbits backwards; probably a captured object from the outer solar system."
-    },
-    {
-      "name": "Prometheus",
-      "value": 22,
-      "fact": "Steals material from the F ring as it passes."
-    },
-    {
-      "name": "Pandora",
-      "value": 23,
-      "fact": "Shepherds the other edge of the same ring."
-    },
-    {
-      "name": "Janus",
-      "value": 25,
-      "fact": "Swaps orbits with Epimetheus every four years."
-    },
-    {
-      "name": "Epimetheus",
-      "value": 26,
-      "fact": "The other half of that swap — they never actually collide."
-    },
-    {
-      "name": "Pan",
-      "value": 28,
-      "fact": "Sits inside the Encke Gap and is shaped like a ravioli."
-    },
-    {
-      "name": "Daphnis",
-      "value": 32,
-      "fact": "Raises standing waves in the ring edges as it passes."
+      "name": "Haumea",
+      "note": "An egg-shaped dwarf planet that spins so fast, a full day there takes under four hours."
     }
   ]
 }

@@ -37,6 +37,11 @@ see **difficulty** below for what does.
   single letter). `scripts/build.mjs` sorts each game's five rounds by this
   number, easiest to hardest, before the round is compiled — see "Ordering a
   game's rounds" below.
+- **designNotes** — optional, a string. Author-facing only: never shown to
+  players, never read by the engine (`build.mjs` drops it before compiling).
+  For citing the authority behind a closed-set topic (see "Choosing a topic"
+  below), or leaving any other rationale worth keeping attached to the file
+  it's about instead of scattered in a commit message or this doc.
 - **name** — the canonical answer. If a term is a brand and another is the real
   thing, the real thing is the name and the brand is an alias. (Cripps Pink is
   the variety; Pink Lady is the trademark.)
@@ -70,6 +75,25 @@ see **difficulty** below for what does.
   category mix-up to forgive, so it plays out as a normal bust (Rumble wakes,
   the round ends), just with the note as the reason instead of a bare "isn't
   on the list."
+
+## Choosing a topic: closed sets only
+
+Only build a round around a topic where a real authority fixes the answer
+count — not one that can keep growing no matter how thorough the list gets.
+Real incident: "Name a moon of Saturn" shipped with 15 hand-picked answers,
+but Saturn has 274 confirmed moons and rising (ongoing discovery, not a fixed
+body of fact) — any list was wrong by construction, not by oversight. A
+tester correctly answered "Telesto" and busted anyway. No amount of adding
+more answers would have fixed that round; the topic itself was open-ended.
+
+Replaced with "Name a planet in the solar system" — eight, fixed by the
+IAU's 2006 definition (the same resolution that reclassified Pluto), and
+closed: no future discovery can add a ninth without the IAU redefining the
+term. Before starting a new round, check whether a governing body, a fixed
+historical event, or a finite official count actually closes the set. If it
+can't, the round needs a different topic, not a longer list — cite the
+authority in `designNotes` once you've found one, so the next person editing
+the file knows the set is safe to treat as complete.
 
 Prefer narrowing the prompt over demoting answers into extras when a round runs
 long — a tighter prompt keeps the round honest about what it's actually asking;
