@@ -1,6 +1,7 @@
 {
   "domain": "Food",
   "prompt": "Name a variety of apple.",
+  "difficulty": 1,
   "answers": [
     {
       "name": "Gala",

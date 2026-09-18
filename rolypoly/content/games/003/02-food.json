@@ -1,6 +1,7 @@
 {
   "domain": "Food",
   "prompt": "Name an official Girl Scout cookie variety.",
+  "difficulty": 1,
   "scene": "girlscout",
   "answers": [
     {

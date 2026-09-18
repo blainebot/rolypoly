@@ -1,6 +1,7 @@
 {
   "domain": "Music",
   "prompt": "Name someone who played on a Beatles recording but was not a Beatle.",
+  "difficulty": 4,
   "answers": [
     {
       "name": "Billy Preston",

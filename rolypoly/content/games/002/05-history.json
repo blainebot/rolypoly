@@ -1,6 +1,7 @@
 {
   "domain": "History",
   "prompt": "Name someone who signed the United States Declaration of Independence.",
+  "difficulty": 4,
   "scene": "revolution",
   "answers": [
     {

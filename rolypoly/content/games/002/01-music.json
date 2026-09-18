@@ -1,6 +1,7 @@
 {
   "domain": "Music",
   "prompt": "Name a Pink Floyd studio album.",
+  "difficulty": 3,
   "scene": "pinkfloyd",
   "answers": [
     {

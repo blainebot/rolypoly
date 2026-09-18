@@ -6,6 +6,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { orderRounds } from "./order-rounds.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const gamesDir = join(root, "content", "games");
@@ -22,14 +23,24 @@ const norm = s =>
     .replace(/[^a-z0-9 ]/g, "").replace(/^(the|a|an) /, "")
     .replace(/\s+/g, " ").trim();
 
+const MIN_DIFFICULTY = 1;
+const MAX_DIFFICULTY = 5;
+const OPENER_MAX = 2; // never open a game above this — see content/TEMPLATE.md
+
 const errors = [];
 const warnings = [];
 const files = [];
 for (const num of readdirSync(gamesDir).sort()) {
   for (const f of readdirSync(join(gamesDir, num)).filter(f => f.endsWith(".json")).sort())
-    files.push(join(num, f));
+    files.push({ num, f, file: join(num, f) });
 }
 if (!files.length) errors.push("no round files found in content/games/");
+
+// Rounds with a valid difficulty, grouped by game, so the "never open above
+// 2" rule can be checked against the order the build will actually produce
+// (orderRounds(), shared with build.mjs) — not filename order, which no
+// longer means anything past being its tiebreak.
+const byGame = new Map();
 
 const gameFolders = readdirSync(gamesDir);
 
@@ -49,7 +60,7 @@ else
     if (!gameFolders.includes(num))
       errors.push(`content/schedule.json's order references game "${num}", but content/games/${num} does not exist`);
 
-for (const file of files) {
+for (const { num, f, file } of files) {
   const where = m => `${file}: ${m}`;
   let r;
   try {
@@ -62,6 +73,19 @@ for (const file of files) {
   if (!r.domain) errors.push(where("missing domain"));
   if (!r.prompt) errors.push(where("missing prompt"));
   if (r.prompt && !/[.?]$/.test(r.prompt)) warnings.push(where("prompt has no end punctuation"));
+
+  // Judged on recall — how hard it is to produce ANY answer at all — never
+  // on how deep the round goes. Those are different: a round can be an easy
+  // opener and still run long once you're in it. See content/TEMPLATE.md.
+  const hasDifficulty = typeof r.difficulty === "number" && Number.isInteger(r.difficulty)
+    && r.difficulty >= MIN_DIFFICULTY && r.difficulty <= MAX_DIFFICULTY;
+  if (!hasDifficulty)
+    errors.push(where(`difficulty must be a whole number ${MIN_DIFFICULTY}-${MAX_DIFFICULTY} (got ${JSON.stringify(r.difficulty)}) — 1 means most people produce an answer immediately, 5 means many people will stall at a blank box`));
+  else {
+    if (!byGame.has(num)) byGame.set(num, []);
+    byGame.get(num).push({ r, f });
+  }
+
   if (!Array.isArray(r.answers)) { errors.push(where("answers is not an array")); continue; }
 
   const n = r.answers.length;
@@ -165,6 +189,17 @@ for (const file of files) {
   const dupes = values.filter((v, i) => values.indexOf(v) !== i);
   if (new Set(dupes).size > Math.ceil(n / 3))
     warnings.push(where("many answers share the same value — consider spreading them"));
+}
+
+// The first round sets whether someone keeps playing — warn if the round
+// orderRounds() would actually open the game with is harder than that's
+// worth risking. Checked against the real sort, not filename order.
+for (const [num, entries] of byGame) {
+  const ordered = orderRounds(entries.map(e => e.r));
+  const openerIdx = entries.findIndex(e => e.r === ordered[0]);
+  const opener = entries[openerIdx];
+  if (opener.r.difficulty > OPENER_MAX)
+    warnings.push(`${num}/${opener.f}: opens the game after sorting (difficulty ${opener.r.difficulty}) — first round of a game should be ${MIN_DIFFICULTY}-${OPENER_MAX}`);
 }
 
 for (const w of warnings) console.log("warn  " + w);

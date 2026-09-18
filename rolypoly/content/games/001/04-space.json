@@ -1,6 +1,7 @@
 {
   "domain": "Space",
   "prompt": "Name a moon of Saturn.",
+  "difficulty": 3,
   "answers": [
     {
       "name": "Titan",

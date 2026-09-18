@@ -1,6 +1,7 @@
 {
   "domain": "Literature",
   "prompt": "Name a character from Alice's Adventures in Wonderland or Through the Looking-Glass.",
+  "difficulty": 2,
   "scene": "wonderland",
   "answers": [
     {

@@ -541,6 +541,58 @@ Content authored so far: `content/games/003/01-sport.json`'s eighteen Big Ten
 mascots, one per school (non-busting); the Film and Games era/category distractors
 above (busting).
 
+## Round order
+
+Filename order used to *be* the play order — five files, sorted alphabetically,
+dug in whatever sequence they happened to sort in, arbitrary. Rounds now carry a
+required **`difficulty`** (1-5, see `content/TEMPLATE.md`), and
+`scripts/order-rounds.mjs`'s `orderRounds()` sorts each game's five rounds by it,
+easiest to hardest, before `build.mjs` compiles them — so the day actually builds
+instead of opening on whatever round happened to be `01-*.json`. Filename order
+survives only as the tiebreak between two rounds sharing a difficulty.
+`validate.mjs` imports the same function `build.mjs` does, rather than
+re-implementing the sort, so its "first round of a game" warning (below) checks
+the order that will actually ship, not a second guess at it.
+
+**Difficulty is judged on recall, not depth — the distinction someone will
+flatten by accident later.** "How hard is it to produce *any* answer at all"
+(difficulty) and "how hard is it to keep a round going once you're in it"
+(depth: answer count, value spread, how far the tail runs) are independent.
+Food's Girl Scout cookies is difficulty 1 — nearly everyone's opening move is
+instant — and still an eleven-answer round with real depth once you're
+digging. Games' Monopoly-properties-named-after-a-state is difficulty 3 even
+though the round itself is short (ten answers): most players' instant
+Monopoly recall is Boardwalk, Park Place, the railroads — none of which are
+state names — so the *opening* move stalls even though the round doesn't run
+long once you're past it. Rate the blank box, not the round's shape; a round
+earns a late slot by being a hard open, never by being a long one.
+
+**Two rules beyond the plain sort, both enforced (one by the sort, one by the
+validator):**
+
+- **Never open a game on a 4 or 5.** The first round sets whether someone keeps
+  playing. `validate.mjs` runs `orderRounds()` per game and warns if the round
+  that comes out first is above 2 — checked against the real sort, so a content
+  edit that reshuffles the opener gets caught even if no individual round file
+  looks wrong on its own.
+- **Never run two same-difficulty rounds back to back if it can be avoided.**
+  This is a real constraint on the sort itself, not just a validator warning,
+  because a plain ascending sort can *force* an adjacent repeat: difficulties
+  `{1, 2, 2, 3, 4}` put the two 2's next to each other in any non-decreasing
+  arrangement — there's no way to keep them apart and stay strictly ascending.
+  `orderRounds()` resolves this by pulling the next differently-valued round
+  forward to break the run: `1, 2, 3, 2, 4`, not `1, 2, 2, 3, 4`. That's a
+  deliberate, small deviation from strict ascending order, not a bug — the
+  no-repeat rule wins over strict monotonicity when the two conflict, and in
+  practice it still reads as "the day builds," just with the hardest round
+  landing at the end rather than mid-pack. If a game's remaining rounds are all
+  the *same* difficulty once a run starts, the repeat is left in place —
+  genuinely unavoidable, not something to force a worse rearrangement to dodge.
+
+`validate.mjs` also errors on a missing or out-of-range `difficulty` — 1 to 5,
+a whole number — the same way it errors on a missing `domain` or `prompt`; a
+round can't be ordered at all without one.
+
 ## Accessibility
 
 An audit walked the game keyboard-only and with a screen reader in mind and

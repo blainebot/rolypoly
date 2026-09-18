@@ -1,6 +1,7 @@
 {
   "domain": "Film",
   "prompt": "Name a feature film Steven Spielberg directed in the 2000s or later.",
+  "difficulty": 2,
   "answers": [
     {
       "name": "Indiana Jones and the Kingdom of the Crystal Skull",

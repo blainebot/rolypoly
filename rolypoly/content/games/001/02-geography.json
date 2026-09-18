@@ -1,6 +1,7 @@
 {
   "domain": "Geography",
   "prompt": "Name a country that shares a land border with Germany.",
+  "difficulty": 2,
   "answers": [
     {
       "name": "France",

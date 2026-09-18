@@ -1,11 +1,14 @@
 # Writing a round
 
-One JSON file per round, inside `games/<number>/`. Five rounds make a game. Filenames sort, so prefix with a number.
+One JSON file per round, inside `games/<number>/`. Five rounds make a game. Filenames
+still need a numeric prefix to sort, but that prefix no longer decides play order —
+see **difficulty** below for what does.
 
 ```json
 {
   "domain": "Geography",
   "prompt": "Name a country that shares a land border with Germany.",
+  "difficulty": 2,
   "par": 12,
   "answers": [
     {
@@ -25,6 +28,15 @@ One JSON file per round, inside `games/<number>/`. Five rounds make a game. File
 }
 ```
 
+- **difficulty** — required, a whole number 1 to 5. Judged on **recall: how hard
+  it is to produce *any* answer at all**, not on how deep the round goes or how
+  hard it is to keep digging once you've started — those are a different
+  question, and a round can be easy to open and still run long. 1 means most
+  people produce an answer immediately (Girl Scout cookies, apple varieties); 5
+  means many people will stall at a blank box (an element whose symbol is a
+  single letter). `scripts/build.mjs` sorts each game's five rounds by this
+  number, easiest to hardest, before the round is compiled — see "Ordering a
+  game's rounds" below.
 - **name** — the canonical answer. If a term is a brand and another is the real
   thing, the real thing is the name and the brand is an alias. (Cripps Pink is
   the variety; Pink Lady is the trademark.)
@@ -67,5 +79,37 @@ in the scoring fifteen, keep the round's shape, not just its size: at least
 three answers under 8 (a safe opening move), a spread through the middle, and
 two or three genuine deep cuts (a reason to keep digging). Cutting only the
 obscure ones removes the round's ceiling.
+
+## Ordering a game's rounds
+
+Five rounds, sorted easiest to hardest by `difficulty` (`scripts/order-rounds.mjs`,
+shared by `build.mjs` and `validate.mjs`), so the day builds instead of running in
+whatever order the files happen to sort in. Filename order is only the tiebreak
+between two rounds that share a difficulty.
+
+Two rules on top of the plain sort:
+
+- **Never open a game on a 4 or 5.** The first round sets whether someone keeps
+  playing. `validate.mjs` warns if the round that would actually open the game
+  (after sorting) is above 2.
+- **Never run two rounds of the same difficulty back to back, if it can be
+  avoided.** A plain ascending sort can force this when a difficulty repeats —
+  five rounds with difficulties `{1, 2, 2, 3, 4}` put the two 2's next to each
+  other in any non-decreasing order. When that happens, `orderRounds()` pulls
+  the next differently-valued round forward to break the run, accepting a
+  small, local dip out of strict ascending order rather than ship two
+  same-difficulty rounds back to back. `{1, 2, 2, 3, 4}` becomes
+  `1, 2, 3, 2, 4` — not `1, 2, 2, 3, 4`.
+
+**Difficulty is about recall, not depth — the distinction most likely to get
+flattened later.** They're independent axes. "How hard is it to think of a
+single answer at all" (recall/difficulty) is not "how hard is it to keep the
+round going once you're in it" (depth — answer count, value spread, how deep
+the tail runs). A round can be trivial to open and still run long: Food's Girl
+Scout cookies (difficulty 1) has eleven answers. A round can also be a hard
+open that, once you're past the first answer, isn't especially deep. Rate
+difficulty on the opening move alone — could most people type *something* into
+the box without stalling — and let a hard-to-open round land late in the day
+even if it wouldn't objectively be the longest round to play out.
 
 Run `npm run validate` before committing.

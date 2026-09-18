@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { orderRounds } from "./order-rounds.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (...p) => readFileSync(join(root, ...p), "utf8");
@@ -51,7 +52,12 @@ const toEngine = r => ({
 const games = {};
 for (const num of readdirSync(gamesDir).sort()) {
   const files = readdirSync(join(gamesDir, num)).filter(f => f.endsWith(".json")).sort();
-  games[num] = files.map(f => toEngine(JSON.parse(readFileSync(join(gamesDir, num, f), "utf8"))));
+  const rounds = files.map(f => JSON.parse(readFileSync(join(gamesDir, num, f), "utf8")));
+  // orderRounds() picks the day's actual round order (easiest to hardest,
+  // see content/TEMPLATE.md) — filename order no longer means anything past
+  // being its tiebreak, so it's applied here, before toEngine(), not relied
+  // on from readdirSync's sort above.
+  games[num] = orderRounds(rounds).map(toEngine);
 }
 
 // --- schedule: which game plays on which day ---

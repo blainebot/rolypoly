@@ -1,6 +1,7 @@
 {
   "domain": "Games",
   "prompt": "Name a Monopoly property named after a US state.",
+  "difficulty": 3,
   "scene": "monopoly",
   "answers": [
     {

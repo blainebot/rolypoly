@@ -1,6 +1,7 @@
 {
   "domain": "Nature",
   "prompt": "Name a bird that cannot fly.",
+  "difficulty": 2,
   "scene": "penguins",
   "answers": [
     {

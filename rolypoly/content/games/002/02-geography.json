@@ -1,6 +1,7 @@
 {
   "domain": "Geography",
   "prompt": "Name a country with territory inside the Arctic Circle.",
+  "difficulty": 1,
   "scene": "arctic",
   "answers": [
     {

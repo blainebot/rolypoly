@@ -1,6 +1,7 @@
 {
   "domain": "Sport",
   "prompt": "Name a school in the Big Ten conference.",
+  "difficulty": 2,
   "scene": "bigten",
   "answers": [
     {

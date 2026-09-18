@@ -1,6 +1,7 @@
 {
   "domain": "Science",
   "prompt": "Name an element whose chemical symbol is a single letter. The symbol itself counts too.",
+  "difficulty": 4,
   "scene": "labcoat",
   "answers": [
     {
