@@ -345,7 +345,7 @@ await test("rumble panel: busted with exactly one find — that find headlines, 
   await digAnswer(E, flush, "zzz-not-a-real-answer-22222");
   const html = E.$("rumbleBox").innerHTML;
   assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), got: ${html}`);
-  assert(html.includes("Your first find is safe."), `expected the no-loss sentence: ${html}`);
+  assert(html.includes("Rumble couldn't touch your first find."), `expected the no-loss sentence: ${html}`);
   assert(!html.includes("lost"), `a single-find bust must never mention a loss: ${html}`);
 });
 
@@ -359,7 +359,7 @@ await test("rumble panel: busted with several finds — kept is still the large 
   assert(lostAmount >= 0, "sanity: the lost figure (round total minus the first find) must never be negative");
   const html = E.$("rumbleBox").innerHTML;
   assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), not the lost total: ${html}`);
-  assert(html.includes(`${lostAmount} lost beyond that`), `expected the lost figure ${lostAmount} in the small line: ${html}`);
+  assert(html.includes(`Rumble stole ${lostAmount}`), `expected the lost figure ${lostAmount} named as stolen in the small line: ${html}`);
 });
 
 await test("clearing a whole round pays the +10 clear bonus and the breadth bonus", async () => {

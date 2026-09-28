@@ -26,9 +26,15 @@ function rumble(lost,kept){
     // A loss only gets a line at all when one actually happened, and even
     // then it's the small supporting fact, not competing with the banked
     // total for the same spot.
+    //
+    // Neither secondary line says "safe" anymore — that read as reassurance,
+    // like nothing bad had happened, when a bust is exactly a bad thing
+    // happening. Both now name Rumble as the one doing something (failing to
+    // take the guaranteed find, or succeeding at taking the rest), not a
+    // passive state the find happens to be in.
     const keptLine=kept===0?""
-      :lost===0?`<p class="kept">Your first find is safe.</p>`
-      :`<p class="kept">Your first find is safe — ${lost} lost beyond that.</p>`;
+      :lost===0?`<p class="kept">Rumble couldn't touch your first find.</p>`
+      :`<p class="kept">Rumble stole ${lost} — your first find is still yours.</p>`;
     $("rumbleBox").innerHTML=`<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-label="Rumble">
       <div class="rumble" style="background:${(SCENE[scene]||{}).bg||"var(--bust)"}">
         <div class="gopher">${GOPHER(scene)}</div>

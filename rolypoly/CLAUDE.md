@@ -764,11 +764,20 @@ Three shapes, chosen by what actually happened, share that one headline:
 - **Nothing found before the bust** (`kept===0`): no secondary line — there's no
   find to reference — just `0` / "banked".
 - **Busted with exactly one find** (`lost===0`, so `kept` is that find's value):
-  "Your first find is safe." above the headline. Never mentions a loss, because
-  there wasn't one — the second dig is what busted, before anything more was found.
-- **Busted with several finds** (`lost>0`): "Your first find is safe — `lost` lost
-  beyond that." above the same headline shape. The loss is real here, so it gets a
-  sentence, but never the large number — that's still `kept`.
+  "Rumble couldn't touch your first find." above the headline. Never mentions a
+  loss, because there wasn't one — the second dig is what busted, before anything
+  more was found.
+- **Busted with several finds** (`lost>0`): "Rumble stole `lost` — your first find
+  is still yours." above the same headline shape. The loss is real here, so it
+  gets a sentence, but never the large number — that's still `kept`.
+
+Both secondary lines used to read "Your first find is safe" (with or without the
+loss clause) — real feedback: "safe" is reassurance, like nothing bad had
+happened, when waking Rumble always means something bad happened, even on the one
+guaranteed-safe find. Rewritten so Rumble is the subject of both sentences —
+failing to take the one find the rules protect, or succeeding at taking
+everything else — instead of the find just passively *being* in a safe state.
+Same math, same headline rule, just no longer describing a bust as good news.
 
 `lost` itself is `dug - firstFind` (`endRound()` in `70-game.js`), where `dug` is
 `roundDepth` captured before the bust resets it and `firstFind` is the value of
