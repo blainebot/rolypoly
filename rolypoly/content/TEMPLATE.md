@@ -63,17 +63,31 @@ see **difficulty** below for what does.
 - **par** — optional integer, the "you did fine" benchmark shown at the end of
   the round. When omitted it defaults to the sum of the three cheapest answers.
   The validator errors if par exceeds the round's total available value.
-- **extras** — optional. Answers that are correct but sit outside the scoring
-  fifteen — the cap on `answers` (the validator warns past 15). Each needs a
-  **name** and, optionally, **aliases** and a **fact** — no value, since it
-  never scores. Submitting one says so ("Right, but not one of today's
-  fifteen") and the round carries on: it never scores, never busts, and never
-  shows up in the reveal or in any count. When `fact` is set, it's shown right
-  in that line instead of the bare "nothing lost" — the same role a
-  distractor's `note` plays, just for a guess that's actually correct. An
-  extra can't share a name or alias with a scoring answer in the same round
-  (or with another extra) — the validator errors on that, since it would just
-  make the scoring answer win the match and the extras entry dead.
+- **extras** — optional, and rarely the tool you want (see below before using
+  it). Answers that are correct but sit outside the scoring fifteen — the cap
+  on `answers` (the validator warns past 15). Each needs a **name** and,
+  optionally, **aliases** and a **fact** — no value, since it never scores.
+  Submitting one says so ("Right, but not one of today's fifteen") and the
+  round carries on: it never scores, never busts, and never shows up in the
+  reveal or in any count. When `fact` is set, it's shown right in that line
+  instead of the bare "nothing lost" — the same role a distractor's `note`
+  plays, just for a guess that's actually correct. An extra can't share a
+  name or alias with a scoring answer in the same round (or with another
+  extra) — the validator errors on that, since it would just make the
+  scoring answer win the match and the extras entry dead.
+
+  **Before reaching for `extras`, assume you actually want `distractors`
+  instead.** Every round in this codebase that's tried `extras` for a
+  narrowed prompt (Spielberg films, Monopoly properties, and four of game
+  004's rounds — Greek letters, US states by area, the Olympians, the
+  original SNL cast) turned out to be a `distractors` case on inspection: the
+  excluded answers were wrong for the round's real, narrower question, not
+  just past an arbitrary cutoff on the same one. One of those shipped and a
+  real player got a free pass on a wrong answer before it was caught. The
+  test: is the excluded item still correct for exactly what this round is
+  asking, just cut for length (`extras`) — or is it wrong given some filter
+  the prompt applies, even if it "feels" right (`distractors` / `bust: true`)?
+  If you're not sure, it's `distractors`.
 - **distractors** — optional. Guesses that are never correct, but predictable
   enough to explain instead of just busting — a round asking for the school
   will keep getting the mascot, a round asking for a variety will keep getting

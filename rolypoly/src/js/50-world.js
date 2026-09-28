@@ -3,7 +3,7 @@ function buildWorld(){
   let html="";
   for(const L of LAYERS){
     const top=210+(L.sky?L.from:depthPx(L.from)), h=L.sky?-L.from:(depthPx(L.to)-depthPx(L.from));
-    const isChamber=L.name==="hidden chamber";
+    const isChamber=L.name==="mantle";
     let bits="";
     if(L.name&&!isChamber){
       const kinds=L.name==="leaf litter"?["#C9D692","#B5651F"]
@@ -279,7 +279,7 @@ function showChamberDiscovery(x){
   placeLightShaft(x);
   placeRelic(x);
   $("chamberBox").innerHTML=`<div class="chamber">
-    <span class="ct">The hidden chamber</span>
+    <span class="ct">Breakthrough</span>
     <p>The dirt gives way to open dark — nobody's ever been this deep.</p></div>`;
 }
 

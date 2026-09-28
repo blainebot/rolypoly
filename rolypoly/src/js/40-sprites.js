@@ -35,7 +35,7 @@ ${bow(20,0)}
 <rect class="spk" x="22" y="22" width="6" height="6"/><rect class="spk" x="37" y="30" width="6" height="6"/>
 <rect class="eye" x="6" y="38" width="8" height="8"/></svg>`}
 
-// Never named to the player (see "The hidden chamber" in CLAUDE.md) — the
+// Never named to the player (see "The mantle" in CLAUDE.md) — the
 // comment on each entry is just so an author editing this list can tell
 // what they're looking at.
 const RELICS=[

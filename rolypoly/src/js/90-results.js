@@ -3,7 +3,7 @@
 // nobody will ever approach.
 const POSSIBLE=ROUNDS.reduce((n,r)=>n+r.answers.reduce((m,a)=>m+a.v,0)+10+Math.max(0,r.answers.length-2)*2,0);
 const RUMBLED="\u{1F9AB}";
-const CHAMBER="\u{1F3FA}";
+const BREAKTHROUGH="\u{1F30B}";
 
 // Each band's rendered share of the tier-band width, derived from DAY_TIERS'
 // thresholds — the open-ended top band borrows the previous band's width
@@ -51,7 +51,7 @@ function dayTierBandSvg(score){
 
 function shareText(){
   const dt=dayTierFor(banked);
-  const marks=results.map(r=>r.bust?RUMBLED:r.chamber?CHAMBER:tierFor(r.top).e).join("");
+  const marks=results.map(r=>r.bust?RUMBLED:r.chamber?BREAKTHROUGH:tierFor(r.top).e).join("");
   return `${SITE_DOMAIN} #${GAMENO} \u{1FAB2}\n${dt.e} ${dt.name}\n${banked}\n${marks}`;
 }
 function showResults(restoring){
@@ -76,13 +76,13 @@ function showResults(restoring){
       <li>${banks} ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
       <li>Boldest round: ${best.domain} · ${best.cm}</li>
-      ${results.some(r=>r.chamber)?`<li>You reached the hidden chamber.</li>`:""}
+      ${results.some(r=>r.chamber)?`<li>You broke all the way through in at least one round.</li>`:""}
       <li>Par ${totalPar} · you banked ${banked}</li>
       <li>You left ${left} behind in rounds you finished.</li>
     </ul>
     <div class="key">${TIERS.map(t=>
       `<span><b>${t.e}</b>${t.name} · ${t.lo}${t.max>900?"+":"\u2013"+t.max}</span>`).join("")}
-      <span><b>${CHAMBER}</b>hidden chamber</span>
+      <span><b>${BREAKTHROUGH}</b>broke through</span>
       <span><b>${RUMBLED}</b>rumbled</span></div>
     <pre class="share">${shareText()}</pre>
     ${reviewAnswersHtml()}

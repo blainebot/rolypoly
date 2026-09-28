@@ -4,6 +4,7 @@
   "scene": "liveny",
   "difficulty": 4,
   "closed": true,
+  "note": "Same fix as the other rounds in this game: these were filed as extras, implying they're still correct for 'the original 1975 cast' - none of them were, which the Bill Murray fact already half-admitted ('the most common wrong answer'). Moved to distractors with bust:true.",
   "answers": [
     {
       "name": "Chevy Chase",
@@ -62,36 +63,42 @@
       ]
     }
   ],
-  "extras": [
+  "distractors": [
     {
       "name": "Bill Murray",
-      "fact": "The most common wrong answer - he joined in season two, replacing Chevy Chase.",
+      "note": "The most common wrong answer - he joined in season two, replacing Chevy Chase.",
       "aliases": [
         "murray"
-      ]
+      ],
+      "bust": true
     },
     {
       "name": "George Coe",
-      "fact": "Credited on the first episode only, which is why he is usually left off the list."
+      "note": "Credited on the first episode only, which is why he's usually left off the list.",
+      "bust": true
     },
     {
       "name": "Michael O'Donoghue",
-      "fact": "A writer who appeared in the very first sketch, but was not billed as cast.",
+      "note": "A writer who appeared in the very first sketch, but wasn't billed as cast.",
       "aliases": [
         "odonoghue"
-      ]
+      ],
+      "bust": true
     },
     {
       "name": "Lorne Michaels",
-      "fact": "Created and produced the show. Never one of the cast."
+      "note": "Created and produced the show, but was never one of the cast.",
+      "bust": true
     },
     {
       "name": "Al Franken",
-      "fact": "A writer in the first season, and a performer only later."
+      "note": "A writer in the first season, and a performer only later.",
+      "bust": true
     },
     {
       "name": "Eddie Murphy",
-      "fact": "Joined in 1980, five years after the original cast."
+      "note": "Joined in 1980, five years after the original cast.",
+      "bust": true
     }
   ]
 }

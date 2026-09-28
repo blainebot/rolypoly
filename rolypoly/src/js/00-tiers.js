@@ -15,7 +15,7 @@ const DAY_TIERS=[
   {max:119,     name:"topsoil",        v:"sand",    e:"\u{1FAB1}", copy:"A decent dig."},
   {max:199,     name:"root line",      v:"rust",    e:"\u{1FAB5}", copy:"Down past the roots. Solid."},
   {max:299,     name:"bedrock",        v:"ember",   e:"\u{1F48E}", copy:"Deep. Most people don't get here."},
-  {max:Infinity,name:"hidden chamber", v:"chamber", e:"\u{1F3FA}", copy:"Absurd. You dug through the whole board."}
+  {max:Infinity,name:"mantle",         v:"mantle",  e:"\u{1F30B}", copy:"Absurd. You dug through the whole board."}
 ];
 const dayTierFor=v=>DAY_TIERS.find(t=>v<=t.max);
 
@@ -37,7 +37,7 @@ const LAYERS=[
   // ceiling/floor rock and flecks (below) are the only extra art it needs;
   // nothing here gets a corridor drawn through it (see digTo/settleAt in
   // 50-world.js).
-  {name:"hidden chamber",from:95,  to:CHAMBER_FLOOR_AT,bg:"linear-gradient(#170F0B 0%,#070403 100%)"}
+  {name:"mantle",         from:95,  to:CHAMBER_FLOOR_AT,bg:"linear-gradient(#170F0B 0%,#070403 100%)"}
 ];
 
 /*__ROUNDS__*/

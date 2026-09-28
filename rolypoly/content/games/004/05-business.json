@@ -4,7 +4,7 @@
   "scene": "tycoon",
   "difficulty": 5,
   "closed": true,
-  "note": "Dated on purpose: 'by May 2026' turns a live, ever-growing question into a fixed historical one, the same way a Wikipedia snapshot stays accurate forever once dated, even as the live page keeps changing. Verified against reporting as of that date: 14 current members plus PetroChina historically. A later refresh (moving the cutoff forward to catch Broadcom's successors) is a deliberate edit - new date, re-verify the list - not a live-tracking obligation the round is silently failing at between reviews.",
+  "note": "Dated on purpose: 'by May 2026' turns a live, ever-growing question into a fixed historical one, the same way a Wikipedia snapshot stays accurate forever once dated, even as the live page keeps changing. Verified against reporting as of that date: 14 current members plus PetroChina historically. A later refresh (moving the cutoff forward to catch Broadcom's successors) is a deliberate edit - new date, re-verify the list - not a live-tracking obligation the round is silently failing at between reviews. Also fixed: the near-misses below were filed as extras, implying they're still correct - none of them have crossed a trillion, so they're distractors with bust:true instead, same fix as the other four rounds in this game.",
   "answers": [
     {
       "name": "Apple",
@@ -100,35 +100,40 @@
       "fact": "Touched a trillion on its Shanghai debut in 2007 - the first company ever to do it."
     }
   ],
-  "extras": [
+  "distractors": [
     {
       "name": "OpenAI",
-      "fact": "Privately valued near a trillion, but never publicly traded at that level."
+      "note": "Privately valued near a trillion, but never publicly traded at that level.",
+      "bust": true
     },
     {
       "name": "Eli Lilly",
-      "fact": "Came close on weight-loss drugs, but has not crossed a trillion.",
+      "note": "Came close on weight-loss drugs, but hasn't crossed a trillion.",
       "aliases": [
         "lilly"
-      ]
+      ],
+      "bust": true
     },
     {
       "name": "Walmart",
-      "fact": "The largest company by revenue, but not by market value."
+      "note": "The largest company by revenue, but not by market value.",
+      "bust": true
     },
     {
       "name": "Exxon Mobil",
-      "fact": "Once the most valuable company in the world, long before a trillion was reachable.",
+      "note": "Once the most valuable company in the world, long before a trillion was reachable.",
       "aliases": [
         "exxon"
-      ]
+      ],
+      "bust": true
     },
     {
       "name": "JPMorgan Chase",
-      "fact": "The most valuable bank in the world, and still short of a trillion.",
+      "note": "The most valuable bank in the world, and still short of a trillion.",
       "aliases": [
         "jpmorgan"
-      ]
+      ],
+      "bust": true
     }
   ]
 }

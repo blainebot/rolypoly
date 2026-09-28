@@ -354,7 +354,7 @@ still covers the two-tier confirm-vs-specific contract on the new implementation
 ## Day tiers
 
 The results-screen headline is a named band, not the raw number — "leaf
-litter" through "hidden chamber," in `DAY_TIERS` in `src/js/00-tiers.js`. That
+litter" through "mantle," in `DAY_TIERS` in `src/js/00-tiers.js`. That
 table is the *only* place the thresholds are authored: each entry's `max` is
 the sole number that matters, and everything the tier band needs to render —
 a band's lower bound, its share of the band's width — is derived from that
@@ -364,10 +364,17 @@ Infinity`) borrows the previous band's width for layout, since there's no
 sensible way to draw "infinity" proportionally.
 
 Same shape as the round-level `TIERS`, one entry per row: `max`, `name`, a
-colour key (`v`, reusing moss/sand/rust/ember plus a new `chamber` purple),
-an emoji (reusing the round tier emoji, plus the hidden-chamber `🏺`), and one
+colour key (`v`, reusing moss/sand/rust/ember plus a new `mantle` purple), an
+emoji (reusing the round tier emoji, plus the top band's own `🌋`), and one
 line of copy. The tier name, the emoji, and that copy line all also open the
-share text, right after the game number line.
+share text, right after the game number line. The top band used to be named
+and iconed "hidden chamber" 🏺 — dropped for reading as a discovery/treasure
+promise the game doesn't deliver on (nothing about reaching it unlocks
+anything), the same complaint that led to the mid-round breakthrough moment
+below losing its own "hidden chamber" framing. "Mantle" keeps the geological
+motif the other four names already commit to (leaf litter, topsoil, root
+line, bedrock — real soil-to-rock strata in order) instead of breaking it
+for a naming idea the other four never used.
 
 The band carries one number of its own: `dayTierBandSvg()` prints the point
 where the open-ended top band begins (e.g. "300+") right-aligned under the
@@ -494,13 +501,22 @@ that. A round is allowed to be long.
 `extras` (a round's optional second list, see `content/TEMPLATE.md`) exists for the
 one case where "correct but doesn't score" is actually honest: something that's
 still a genuinely correct answer to the round's real prompt, just past the scoring
-cutoff. No round currently uses it that way — Sport/History/Literature/Food just run
-long instead (see above), and Film/Games (below) turned out not to be `extras`
-cases at all. If a future round narrows its prompt on purpose, `extras` is the right
-tool only for whatever the *broader* question would still accept and the narrower
-one does too; anything the narrower prompt actually excludes is a wrong answer, not
-an extra — see the `distractors` / `bust: true` case right below for what that one
-actually needs.
+cutoff. **No round currently uses it — zero, as of this writing, not by
+coincidence.** Sport/History/Literature/Food just run long instead of trimming (see
+above). Every other attempt to use `extras` in this codebase (Film's pre-2000s
+Spielberg films, Games' non-state Monopoly properties, and all four of game 004's
+narrowed rounds — Language's letters past the fifteenth, Geography's states past
+the tenth, Myth's non-Olympians, TV's non-cast, Business's under-a-trillion
+companies) turned out, on inspection, to actually be `distractors` cases: the
+excluded items were wrong for the round's real, narrower question, not merely past
+an arbitrary cutoff on the same question. Four of those five shipped broken before
+being caught — Language's got caught by a real player answering "Pi." If a future
+round narrows its prompt on purpose, `extras` is the right tool only for whatever
+the *broader* question would still accept and the narrower one does too; anything
+the narrower prompt actually excludes is a wrong answer, not an extra. Given that
+every real case so far has turned out to be a `distractors` case, **the working
+assumption for any new round should be that it needs `distractors`, not `extras`**
+— treat reaching for `extras` as the thing to double-check, not the default.
 
 An extra needs only a `name` — no value, since it never scores — plus optional
 `aliases` and an optional `fact`. Submitting one without a `fact` says so ("Right,
@@ -796,20 +812,24 @@ art must stay low (y≥47) with real gaps, not a solid span down to the teeth. `
 itself is exempt from the first rule (it's drawn *at* y=28+ by design), but must never
 be covered by something in `hat` that reaches that far down.
 
-## The hidden chamber is a void, not another band
+## The mantle is a void, not another band
 
 Every layer above it (leaf litter through bedrock) is solid ground with a
 corridor cut through it — `corridorPath()`/`dropPath()` in `50-world.js`
-carving a jagged shaft into a colour band. The hidden chamber used to be
+carving a jagged shaft into a colour band. This bottom layer used to be
 drawn the exact same way: one more gradient band, tunnelled through like the
-rest, just named as if it were a discovery. It wasn't earning the name — the
-fix leans on the one contrast that actually sells "you broke into something":
-solid ground above, open space below, with nothing carved through the
-open part because there's nothing there left to carve.
+rest, just named ("hidden chamber," at the time — see "Day tiers" and the
+panel-copy note below for why that name is gone) as if it were a discovery.
+It wasn't earning the name — the fix leans on the one contrast that actually
+sells "you broke into something": solid ground above, open space below,
+with nothing carved through the open part because there's nothing there
+left to carve. Internally this is still all named `chamber`/`CHAMBER_AT`/
+etc. throughout `50-world.js` and `70-game.js` — that's pure code, invisible
+to a player, and left alone; only the text a player actually sees changed.
 
-**`CHAMBER_FLOOR_AT`** (`00-tiers.js`, 170) is the chamber's floor — declared
+**`CHAMBER_FLOOR_AT`** (`00-tiers.js`, 170) is the mantle's floor — declared
 there, ahead of `CHAMBER_AT` (95, `30-state.js`) in concat order, because
-`LAYERS`' hidden-chamber entry needs it immediately below. `moveWorld()`
+`LAYERS`' mantle entry needs it immediately below. `moveWorld()`
 (`50-world.js`) reuses this same constant as its camera cap instead of
 duplicating the number, so the visible floor and the point the camera stops
 scrolling can't drift apart. (`CHAMBER_AT`/`95` itself is still duplicated
@@ -825,8 +845,8 @@ shared between `reveal()`'s live breakthrough and `loadRound()`'s resume
 path (reloading mid-round already past the ceiling) — one rule, not two
 copies that could disagree about where the tunnel stops.
 
-**The void itself is `buildWorld()`'s per-layer content for the "hidden
-chamber" entry**, not a `#tunnels` element, so it survives every round's
+**The void itself is `buildWorld()`'s per-layer content for the "mantle"
+entry**, not a `#tunnels` element, so it survives every round's
 `$("tunnels").innerHTML=""` reset instead of needing to be redrawn:
 
 - Background is a near-black gradient close to the tunnel's own carve colour
@@ -863,21 +883,26 @@ breakthrough and `loadRound()`'s resume path — the same real bug class as
 `digTo`/`settleAt` above: two copies of "what the chamber looks like on
 discovery" drift apart the moment one of them changes and the other doesn't.
 
-**The panel copy doesn't name the relic or the threshold.** It used to read
-"Poly broke through past 95. A chipped blue marble is down here in the
-dark." — both halves were wrong. `95` is a bare number the player has no
-reason to recognise (and every other number in the game carries units or a
-label; this one didn't). And naming the relic promised more than the game
-delivers: it doesn't score, isn't in the share text, can't be collected —
-so calling it out by name reads like a feature that's half-built, not a
-flourish. The relic stays fully visible in the world (`placeRelic()`,
+**The panel copy doesn't name the relic or the threshold — and no longer
+names the room either.** It used to read "Poly broke through past 95. A
+chipped blue marble is down here in the dark." under a "The hidden chamber"
+header — three separate overpromises at once. `95` is a bare number the
+player has no reason to recognise (and every other number in the game
+carries units or a label; this one didn't). Naming the relic promised more
+than the game delivers: it doesn't score, isn't in the share text, can't be
+collected — so calling it out by name read like a feature that's
+half-built, not a flourish. And "hidden chamber" itself read as a discovery
+with some payoff waiting inside, when reaching it unlocks nothing beyond
+the visual moment — a treasure-room framing the game was never going to
+deliver on. The relic stays fully visible in the world (`placeRelic()`,
 unchanged) — only the narration of it is gone. `RELICS` entries dropped
 their `n` field for the same reason: once nothing reads it, keeping it
 around implies something still does. Each entry keeps a `//` comment naming
-what it draws, for whoever's editing the list next, not for the player.
-Current copy: "The dirt gives way to open dark — nobody's ever been this
-deep." — the fact of breaking through is the news; nothing else needs
-saying.
+what it draws, for whoever's editing the list next, not for the player. The
+header is now "Breakthrough" — what's actually happening, no promise
+attached to it. Current body copy: "The dirt gives way to open dark —
+nobody's ever been this deep." — the fact of breaking through is the news;
+nothing else needs saying.
 
 **Poly floats instead of walking once she's past the ceiling.** `startFloat()`
 is deliberately not a real fall or a tracked float path — there's no
@@ -905,7 +930,7 @@ again right after setting `chamberHit=true`.
   shapes how much content authoring costs, and hasn't been made.
 - **No sound.**
 - Content is four games, so `content/schedule.json`'s rotation repeats every
-  four days. The hidden chamber at 95 is only reachable on the largest
+  four days. The mantle at 95 is only reachable on the largest
   rounds, so reaching it is partly luck of the draw — and not every round
   can reach it at all (Geography and the planets round in 001, and 004's
   seven-answer TV round, all top out below 95 even fully cleared).

@@ -4,6 +4,7 @@
   "scene": "surveyor",
   "difficulty": 2,
   "closed": true,
+  "note": "Same fix as Language's Greek letters: these were filed as extras (implying they're still correct for the round's actual question), when 11th-33rd by area are simply wrong for 'ten largest by area' — moved to distractors with bust:true.",
   "answers": [
     {
       "name": "Alaska",
@@ -56,38 +57,46 @@
       "fact": "Tenth largest by area and last by population - under 600,000 people."
     }
   ],
-  "extras": [
+  "distractors": [
     {
       "name": "Michigan",
-      "fact": "Eleventh by area, just outside the ten - but the largest state entirely east of the Mississippi."
+      "note": "That's the 11th largest by area - just outside the ten, though it's the largest state entirely east of the Mississippi.",
+      "bust": true
     },
     {
       "name": "Minnesota",
-      "fact": "Twelfth by area - close, but not in the ten."
+      "note": "That's the 12th largest by area - close, but not in the ten.",
+      "bust": true
     },
     {
       "name": "Utah",
-      "fact": "Thirteenth by area."
+      "note": "That's the 13th largest by area.",
+      "bust": true
     },
     {
       "name": "Idaho",
-      "fact": "Fourteenth by area."
+      "note": "That's the 14th largest by area.",
+      "bust": true
     },
     {
       "name": "Kansas",
-      "fact": "Fifteenth by area."
+      "note": "That's the 15th largest by area.",
+      "bust": true
     },
     {
       "name": "Florida",
-      "fact": "Third by population, but only 22nd by area."
+      "note": "That's a top-3 state by population, but only 22nd by area - this round counts area, not people.",
+      "bust": true
     },
     {
       "name": "New York",
-      "fact": "Fourth by population, 27th by area."
+      "note": "That's a top-5 state by population, but only 27th by area - this round counts area, not people.",
+      "bust": true
     },
     {
       "name": "Pennsylvania",
-      "fact": "Fifth by population, 33rd by area."
+      "note": "That's a top-5 state by population, but only 33rd by area - this round counts area, not people.",
+      "bust": true
     }
   ]
 }

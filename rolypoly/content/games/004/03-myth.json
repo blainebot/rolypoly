@@ -4,6 +4,7 @@
   "scene": "laurel",
   "difficulty": 3,
   "closed": true,
+  "note": "Same fix as Language and Geography: these were filed as extras, implying they're still correct for 'one of the twelve' - none of them are, including Hestia (a real, disputed alternate twelfth in some traditions, but not this round's twelve). Moved to distractors with bust:true.",
   "answers": [
     {
       "name": "Zeus",
@@ -66,34 +67,41 @@
       "fact": "Wine and theatre. The last to join, and the only one with a mortal mother."
     }
   ],
-  "extras": [
+  "distractors": [
     {
       "name": "Hestia",
-      "fact": "The disputed twelfth. Some lists have her in place of Dionysus - she gave up her seat."
+      "note": "The disputed twelfth - some lists have her in place of Dionysus, since she gave up her seat, but not this round's twelve.",
+      "bust": true
     },
     {
       "name": "Hades",
-      "fact": "Ruled the underworld, and so was never counted among the Olympians."
+      "note": "Ruled the underworld, and so was never counted among the Olympians.",
+      "bust": true
     },
     {
       "name": "Persephone",
-      "fact": "Queen of the underworld rather than an Olympian."
+      "note": "Queen of the underworld rather than an Olympian.",
+      "bust": true
     },
     {
       "name": "Eros",
-      "fact": "A god of love, but not one of the twelve."
+      "note": "A god of love, but not one of the twelve.",
+      "bust": true
     },
     {
       "name": "Pan",
-      "fact": "A rustic god of the wild, never an Olympian."
+      "note": "A rustic god of the wild, never an Olympian.",
+      "bust": true
     },
     {
       "name": "Helios",
-      "fact": "The sun, and a Titan rather than an Olympian."
+      "note": "The sun, and a Titan rather than an Olympian.",
+      "bust": true
     },
     {
       "name": "Asclepius",
-      "fact": "God of medicine, and a son of Apollo rather than one of the twelve."
+      "note": "God of medicine, and a son of Apollo rather than one of the twelve.",
+      "bust": true
     }
   ]
 }

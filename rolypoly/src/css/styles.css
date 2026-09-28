@@ -8,7 +8,7 @@
   --ember:#8E3A22; --ember-dk:#43180C; --ember-lt:#D2775A;
   --soil:#C1934F; --soil-dk:#5E4318; --soil-lt:#EBD3A0;
   --foot:#E0663A; --gold:#E0A33A; --orange:#D2762B; --bust:#B93A2B;
-  --chamber:#7B5EA7; --chamber-dk:#3C2C57; --chamber-lt:#C9A8E8;
+  --mantle:#7B5EA7; --mantle-dk:#3C2C57; --mantle-lt:#C9A8E8;
   --shell:var(--sand); --shell-dk:var(--sand-dk); --shell-lt:var(--sand-lt);
   --px:22.7;
   --top:clamp(150px,29vh,290px);
