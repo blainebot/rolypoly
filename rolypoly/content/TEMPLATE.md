@@ -58,6 +58,13 @@ see **difficulty** below for what does.
   the variety; Pink Lady is the trademark.)
 - **value** — centimetres, 1 to 60. See the tier table in the README.
 - **fact** — one sentence, under 180 characters. Shown after the round ends.
+- **tag** — optional, a short string shown in parens right after the name,
+  everywhere the name appears — chips, the reveal, "still down there," and
+  the daily review. For when the prompt is asking about some short attribute
+  of the answer that's easy to lose track of (a chemical symbol, say) —
+  `fact` only ever shows once an answer's already found, so it can't help a
+  player reviewing what they missed. Compare "Vanadium" (unhelpful for a
+  round asking for symbols) to "Vanadium (V)" once tagged.
 - **aliases** — optional. Surnames and single distinctive words are matched
   automatically, so only add genuine alternate names.
 - **par** — optional integer, the "you did fine" benchmark shown at the end of

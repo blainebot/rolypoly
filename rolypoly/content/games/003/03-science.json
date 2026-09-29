@@ -7,6 +7,7 @@
     {
       "name": "Oxygen",
       "value": 3,
+      "tag": "O",
       "fact": "O. Nearly half the mass of the Earth's crust.",
       "aliases": [
         "o"
@@ -15,6 +16,7 @@
     {
       "name": "Carbon",
       "value": 4,
+      "tag": "C",
       "fact": "C. The basis of every known form of life.",
       "aliases": [
         "c"
@@ -23,6 +25,7 @@
     {
       "name": "Hydrogen",
       "value": 5,
+      "tag": "H",
       "fact": "H. About ninety percent of all the atoms in the universe.",
       "aliases": [
         "h"
@@ -31,6 +34,7 @@
     {
       "name": "Nitrogen",
       "value": 6,
+      "tag": "N",
       "fact": "N. Seventy-eight percent of the air you are breathing.",
       "aliases": [
         "n"
@@ -39,6 +43,7 @@
     {
       "name": "Sulfur",
       "value": 8,
+      "tag": "S",
       "fact": "S. Known since antiquity as brimstone.",
       "aliases": [
         "sulphur",
@@ -48,6 +53,7 @@
     {
       "name": "Phosphorus",
       "value": 10,
+      "tag": "P",
       "fact": "P. Isolated from urine in 1669 by an alchemist hunting for gold.",
       "aliases": [
         "p"
@@ -56,6 +62,7 @@
     {
       "name": "Fluorine",
       "value": 11,
+      "tag": "F",
       "fact": "F. The most reactive element there is.",
       "aliases": [
         "f"
@@ -64,6 +71,7 @@
     {
       "name": "Potassium",
       "value": 13,
+      "tag": "K",
       "fact": "K, from the Latin kalium.",
       "aliases": [
         "k"
@@ -72,6 +80,7 @@
     {
       "name": "Boron",
       "value": 14,
+      "tag": "B",
       "fact": "B. What makes borosilicate glass survive the oven.",
       "aliases": [
         "b"
@@ -80,6 +89,7 @@
     {
       "name": "Iodine",
       "value": 15,
+      "tag": "I",
       "fact": "I. Named from the Greek for violet, after the colour of its vapour.",
       "aliases": [
         "i"
@@ -88,6 +98,7 @@
     {
       "name": "Uranium",
       "value": 17,
+      "tag": "U",
       "fact": "U. Named for the planet Uranus, discovered eight years earlier.",
       "aliases": [
         "u"
@@ -96,6 +107,7 @@
     {
       "name": "Tungsten",
       "value": 19,
+      "tag": "W",
       "fact": "W, from wolfram. The highest melting point of any metal.",
       "aliases": [
         "w"
@@ -104,6 +116,7 @@
     {
       "name": "Vanadium",
       "value": 21,
+      "tag": "V",
       "fact": "V. Named for Vanadis, a name of the Norse goddess Freyja.",
       "aliases": [
         "v"
@@ -112,6 +125,7 @@
     {
       "name": "Yttrium",
       "value": 24,
+      "tag": "Y",
       "fact": "Y. Named after Ytterby, a Swedish village that gave its name to four elements.",
       "aliases": [
         "y"

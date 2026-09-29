@@ -26,6 +26,7 @@ const toEngine = r => ({
     n: a.name,
     v: a.value,
     f: a.fact,
+    ...(a.tag ? { tag: a.tag } : {}),
     ...(a.aliases && a.aliases.length ? { alias: a.aliases } : {})
   })),
   // Correct but outside the scoring fifteen — no value, never in avail()'s

@@ -60,7 +60,6 @@ function showResults(restoring){
   const dt=dayTierFor(banked);
   const banks=results.filter(r=>!r.bust).length;
   const busts=results.length-banks;
-  const bustKept=results.filter(r=>r.bust).reduce((n,r)=>n+r.cm,0);
   const left=results.filter(r=>!r.bust).reduce((n,r)=>n+r.left,0);
   const best=results.reduce((a,b)=>b.cm>a.cm?b:a,results[0]);
   const totalPar=ROUNDS.reduce((s,r)=>s+r.par,0);
@@ -73,7 +72,7 @@ function showResults(restoring){
     <p class="daycopy">${dt.copy}</p>
     <div id="distBox">${dayTierBandSvg(banked)}</div>
     <ul class="story">
-      <li>${banks} ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}${bustKept>0?` · kept ${bustKept}`:""}</li>
+      <li>${banks} ${banks===1?"bank":"banks"} · ${busts} ${busts===1?"rumble":"rumbles"}</li>
       <li>Deepest find: ${deepestName} · ${deepest}, ${t.name}</li>
       <li>Boldest round: ${best.domain} · ${best.cm}</li>
       ${results.some(r=>r.chamber)?`<li>You broke all the way through in at least one round.</li>`:""}

@@ -1,15 +1,22 @@
 function say(t,cls){$("msg").textContent=t;$("msg").className="msg "+(cls||"")}
 const breadthBonus=()=>Math.max(0,(found.length-2)*2);
+// An answer's optional `tag` (e.g. a chemical symbol) shown right after its
+// name wherever the name appears — chips, the reveal, "still down there,"
+// and the daily review. For a round whose whole prompt is about some short
+// attribute of the answer, showing that attribute next to the name (not
+// buried in the fact, which only ever shows once the answer's already
+// found) keeps a reviewer from having to hold it in their head.
+const withTag=x=>x.tag?`${x.n} (${x.tag})`:x.n;
 function renderFacts(){
   $("facts").innerHTML=found.length
     ? `<div class="chips">`+found.map((x,i)=>
-        `<span class="chip${i===found.length-1?" fresh":""}">${x.n}<i>+${x.v}</i></span>`).join("")+`</div>`
+        `<span class="chip${i===found.length-1?" fresh":""}">${withTag(x)}<i>+${x.v}</i></span>`).join("")+`</div>`
     : "";
 }
 function revealFacts(){
   if(!found.length){$("facts").innerHTML="";return}
   $("facts").innerHTML=`<div class="dugup">What you dug up</div>`+
-    found.map(x=>`<div class="fact"><b>${x.n}</b><i>+${x.v}</i><p>${x.f}</p></div>`).join("");
+    found.map(x=>`<div class="fact"><b>${withTag(x)}</b><i>+${x.v}</i><p>${x.f}</p></div>`).join("");
 }
 
 // resuming=true rebuilds the play screen for whatever idx/roundDepth/found
@@ -63,7 +70,7 @@ function reveal(hit,then){
   digTo(x,from,roundDepth);
   $("controls").hidden=true;
   $("reveal").hidden=false;
-  $("revName").textContent=hit.n;
+  $("revName").textContent=withTag(hit);
   $("revTier").textContent=t.name;
   $("revTier").className="stamp t-"+t.v;
   moveWorld(roundDepth);
@@ -240,15 +247,14 @@ function endRound(kind){
   $("entry").hidden=true;$("digBtn").hidden=true;
   stopPacing();
   const bonus=breadthBonus();
-  const firstFind=found.length?found[0].v:0;
   const dug=roundDepth;
-  const gained=kind==="bank"?roundDepth+bonus:firstFind;
+  const gained=kind==="bank"?roundDepth+bonus:0;
   const left=avail().filter(a=>!found.includes(a)).reduce((n,a)=>n+a.v,0);
   const top=found.reduce((m,a)=>Math.max(m,a.v),0);
   banked+=gained;
-  const foundSnap=found.map(a=>({n:a.n,v:a.v,f:a.f}));
+  const foundSnap=found.map(a=>({n:a.n,v:a.v,f:a.f,...(a.tag?{tag:a.tag}:{})}));
   results.push({domain:ROUNDS[idx].domain,digs:found.length,cm:gained,bust:kind==="bust",left,top,chamber:chamberHit,found:foundSnap});
-  if(kind==="bust"){$("gainNum").textContent="0";rumble(dug-firstFind,firstFind)}
+  if(kind==="bust"){$("gainNum").textContent="0";rumble(dug)}
   else{updateHud()}
   revealFacts();
   showRoundSummary(kind,bonus,dug);
@@ -297,7 +303,7 @@ function showMissed(){
   const open=isMobile()?"":" open";
   $("missedBox").innerHTML=`<details class="missed"${open}>
     <summary>Still down there — ${rest.length} you didn't reach</summary><div class="grid">`+
-    rest.map(a=>`<p>${a.n}<span class="cm">${a.v}</span></p>`).join("")+`</div></details>`;
+    rest.map(a=>`<p>${withTag(a)}<span class="cm">${a.v}</span></p>`).join("")+`</div></details>`;
 }
 
 /* ---------- rumble ---------- */

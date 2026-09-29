@@ -313,53 +313,33 @@ await test("clean round: dig three, bank, banked total includes breadth bonus", 
   assertEqual(E.results[0].cm, sum + expectedBonus, "results[0].cm");
 });
 
-await test("bust: first find is salvaged, the second find is lost entirely", async () => {
+// The first-find safety net (a bust salvaged whatever was found first) was
+// removed on purpose: it made the opening dig of every round a free move,
+// the opposite of what a press-your-luck game is for. A bust now loses the
+// whole unbanked round, no exceptions — these two tests are what's left of
+// the three-shape kept/lost coverage this replaced.
+await test("bust: loses the whole unbanked round, including the first find", async () => {
   const { E, flush } = fresh();
   const [first, second] = E.avail();
   await digAnswer(E, flush, first.n);
   await digAnswer(E, flush, second.n);
   assertEqual(E.found.length, 2, "finds before busting");
   await digAnswer(E, flush, "zzz-not-a-real-answer-12345");
-  assertEqual(E.banked, first.v, "banked after a bust must equal only the first find's value");
-  assert(E.banked !== first.v + second.v, "the second find's value must not have survived the bust");
+  assertEqual(E.banked, 0, "a bust must bank nothing at all, not even the first find");
   assertEqual(E.results[0].bust, true, "results[0].bust");
-  assertEqual(E.results[0].cm, first.v, "results[0].cm (the salvaged amount)");
+  assertEqual(E.results[0].cm, 0, "results[0].cm — nothing survives a bust");
 });
 
-// The Rumble panel always headlines what was kept, never what was lost —
-// three shapes, by what actually happened, each asserted against the
-// panel's actual rendered HTML rather than just the engine's internal
-// found/banked state, since this is a copy bug as much as a logic one.
-await test("rumble panel: busted on the first dig — 0 is the honest headline, no kept/loss line at all", async () => {
+await test("rumble panel: shows the taunt and the full amount lost, no banked headline", async () => {
   const { E, flush } = fresh();
-  await digAnswer(E, flush, "zzz-not-a-real-answer-11111");
-  const html = E.$("rumbleBox").innerHTML;
-  assert(html.includes('id="bankedNum">0<'), `expected a banked headline of 0, got: ${html}`);
-  assert(!html.includes('class="kept"'), `nothing was found or lost, so there should be no secondary line: ${html}`);
-});
-
-await test("rumble panel: busted with exactly one find — that find headlines, no loss is ever mentioned", async () => {
-  const { E, flush } = fresh();
-  const first = E.avail()[0];
-  await digAnswer(E, flush, first.n);
-  await digAnswer(E, flush, "zzz-not-a-real-answer-22222");
-  const html = E.$("rumbleBox").innerHTML;
-  assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), got: ${html}`);
-  assert(html.includes("Rumble couldn't touch your first find."), `expected the no-loss sentence: ${html}`);
-  assert(!html.includes("lost"), `a single-find bust must never mention a loss: ${html}`);
-});
-
-await test("rumble panel: busted with several finds — kept is still the large headline, lost is the small line", async () => {
-  const { E, flush } = fresh();
-  const picks = E.avail().slice(0, 3);
+  const picks = E.avail().slice(0, 2);
   for (const a of picks) await digAnswer(E, flush, a.n);
-  await digAnswer(E, flush, "zzz-not-a-real-answer-33333");
-  const first = picks[0];
-  const lostAmount = picks.slice(1).reduce((s, a) => s + a.v, 0);
-  assert(lostAmount >= 0, "sanity: the lost figure (round total minus the first find) must never be negative");
+  await digAnswer(E, flush, "zzz-not-a-real-answer-99999");
+  const lostAmount = picks.reduce((s, a) => s + a.v, 0);
   const html = E.$("rumbleBox").innerHTML;
-  assert(html.includes(`id="bankedNum">${first.v}<`), `expected the banked headline to be the first find's value (${first.v}), not the lost total: ${html}`);
-  assert(html.includes(`Rumble stole ${lostAmount}`), `expected the lost figure ${lostAmount} named as stolen in the small line: ${html}`);
+  assert(html.includes(`id="lostNum">${lostAmount}<`), `expected the full amount lost (${lostAmount}), got: ${html}`);
+  assert(!html.includes("bankedNum"), `there's no partial save anymore, so no banked headline should render: ${html}`);
+  assert(!html.includes('class="kept"'), `the kept-vs-lost branching is gone — there is one outcome now: ${html}`);
 });
 
 await test("clearing a whole round pays the +10 clear bonus and the breadth bonus", async () => {
@@ -382,9 +362,8 @@ await test("a full five-round game: final total and share text", async () => {
     for (const a of picks) await digAnswer(E, flush, a.n);
     if (r === E.ROUNDS.length - 1) {
       // bust the last round deliberately, so the game exercises both paths
-      // before results — first find still banks, the rest is forfeit.
+      // before results — nothing unbanked survives a bust, not even a find.
       await digAnswer(E, flush, "zzz-not-a-real-answer-99999");
-      expected += picks[0].v;
       busts.push(r);
     } else {
       E.bank();

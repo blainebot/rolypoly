@@ -10,7 +10,7 @@ function wakeRumble(){
   setTimeout(()=>{d.classList.remove("tremble");d.classList.add("gone")},760);
 }
 
-function rumble(lost,kept){
+function rumble(lost){
   const scene=ROUNDS[idx].s||ROUNDS[idx].domain;
   const c=$("crack");
   c.classList.remove("go");void c.offsetWidth;c.classList.add("go");
@@ -18,30 +18,18 @@ function rumble(lost,kept){
   document.body.classList.add("shaking");
   $("flash").classList.remove("on");void $("flash").offsetWidth;$("flash").classList.add("on");
   setTimeout(()=>{
-    // The headline is always what survived, never what went — kept/banked
-    // is the number that matters to a player deciding whether the risk was
-    // worth it, and it's the one number that's always honest to show large,
-    // including at 0 (the only case where 0 *is* the honest headline: the
-    // very first dig busted, so there was never anything to lose either).
-    // A loss only gets a line at all when one actually happened, and even
-    // then it's the small supporting fact, not competing with the banked
-    // total for the same spot.
-    //
-    // Neither secondary line says "safe" anymore — that read as reassurance,
-    // like nothing bad had happened, when a bust is exactly a bad thing
-    // happening. Both now name Rumble as the one doing something (failing to
-    // take the guaranteed find, or succeeding at taking the rest), not a
-    // passive state the find happens to be in.
-    const keptLine=kept===0?""
-      :lost===0?`<p class="kept">Rumble couldn't touch your first find.</p>`
-      :`<p class="kept">Rumble stole ${lost} — your first find is still yours.</p>`;
+    // One outcome now: a bust loses the whole unbanked round, no exceptions,
+    // so the panel has exactly one number to show, not a headline chosen
+    // from a set of shapes. See CLAUDE.md's "Rumble's overlay" for why this
+    // used to be more complicated (a guaranteed-safe first find) and isn't
+    // anymore — that feature made the opening dig of every round free,
+    // which was never the point of a press-your-luck game.
     $("rumbleBox").innerHTML=`<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-label="Rumble">
       <div class="rumble" style="background:${(SCENE[scene]||{}).bg||"var(--bust)"}">
         <div class="gopher">${GOPHER(scene)}</div>
         <b>RUMBLED!</b>
         <p class="taunt">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</p>
-        ${keptLine}
-        <div class="banked"><span id="bankedNum">${kept}</span><em>banked</em></div>
+        <div class="lost"><span id="lostNum">${lost}</span><em>lost</em></div>
         <button id="shakeBtn">Shake it off</button>
       </div></div>`;
     const close=()=>{

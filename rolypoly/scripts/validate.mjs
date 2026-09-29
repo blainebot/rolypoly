@@ -121,6 +121,8 @@ for (const { num, f, file } of files) {
     if (!a.fact) errors.push(where(`${label}: missing fact`));
     else if (a.fact.length > MAX_FACT)
       warnings.push(where(`${label}: fact is ${a.fact.length} chars (aim under ${MAX_FACT})`));
+    if (a.tag !== undefined && typeof a.tag !== "string")
+      errors.push(where(`${label}: tag must be a string`));
 
     for (const s of [a.name, ...(a.aliases || [])]) {
       if (!s) continue;

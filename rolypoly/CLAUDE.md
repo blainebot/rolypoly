@@ -191,8 +191,8 @@ or practice) has a "Review your answers" `<details>`, one subsection per
 round: what was found (name, value, the fact — the same markup `revealFacts()`
 already uses mid-round) and, derived from the round's real `content/games/`
 answers rather than also stored, what wasn't. A round's found answers are
-kept even when it busted — only the first find scores, but reviewing what
-you actually dug up is a different question than what it paid.
+kept even when it busted — a bust pays nothing, but reviewing what you
+actually dug up is a different question than what it paid.
 
 `scripts/smoke.mjs` is the only test on game *logic* — `validate.mjs` only
 checks content. It reads `dist/index.html`, extracts the one `<script>` (the
@@ -332,15 +332,19 @@ still covers the two-tier confirm-vs-specific contract on the new implementation
 
 ## Scoring
 
-- **The first find each round is always safe.** A bust banks the value of the
-  first answer you found that round instead of 0 — the harshest possible
-  outcome in a daily game. Everything from the second dig onward carries
-  exactly the risk it always did; only the bust payout changed.
+- **A bust loses the whole unbanked round — all of it, no exceptions.**
+  There used to be a first-find safety net: a bust banked the value of the
+  first answer you found instead of 0. Removed on purpose, by the same
+  person who added it — it made the opening dig of every round a free move
+  with nothing at stake, which is the opposite of what a press-your-luck
+  game is for. Every dig is a decision now, including the first. Don't
+  reintroduce a partial save without a real argument for why this one's
+  different from the last one.
 - **Breadth bonus: +2 per find beyond the second.** Three finds pays +2, five
-  pays +6. Paid only when you bank or clear the board — a bust forfeits the
-  bonus entirely, including on the guaranteed first find. This is a flat bonus
-  keyed to find *count*, not a multiplier on value — the "no multipliers" rule
-  above still holds; a centimetre is still a centimetre.
+  pays +6. Paid only when you bank or clear the board — a bust forfeits it
+  entirely, same as everything else unbanked. This is a flat bonus keyed to
+  find *count*, not a multiplier on value — the "no multipliers" rule above
+  still holds; a centimetre is still a centimetre.
 - **Par is a per-round benchmark**, not a difficulty gate. It defaults to the
   sum of the three cheapest answers when a round doesn't set one explicitly.
 - **The day's banked total is never shown against `POSSIBLE`.** That
@@ -483,6 +487,17 @@ round's total available value.
 
 Current values were assigned by feel and should be re-derived from something
 measurable — Wikipedia pageviews bucketed into the four bands is the usual approach.
+
+An answer's optional `tag` (`content/TEMPLATE.md`) shows next to its name
+everywhere the name is displayed — chips, the reveal, "still down there," the
+daily review — via a shared `withTag()` helper (`70-game.js`) both that file and
+`85-daily.js` call rather than each rendering it differently. Added for
+Science's one-letter-symbol round (`003/03-science.json`): the prompt is
+about the symbol, but `fact` (the only place the symbol lived before) only
+ever shows once an answer's already found — a player checking "still down
+there" after the round just saw fourteen bare element names with no way to
+tell which one they'd been failing to think of. `tag` puts "Vanadium (V)"
+wherever "Vanadium" alone would've shown.
 
 Be generous about including debatable-but-true answers. A valid answer that isn't on
 the list wipes the round, which is the most enraging thing this game can do.
@@ -746,50 +761,34 @@ harness's stub DOM doesn't track `document.activeElement` at all right now;
 teaching it to would be real scope, not a quick addition, if focus behavior
 ever needs regression coverage here.
 
-## Rumble's overlay: the banked number is always the headline
+## Rumble's overlay: one outcome, one number
 
-`rumble(lost, kept)` in `80-rumble.js` headlines `kept`, never `lost` — in every
-reachable state, not just some of them. An earlier version of this panel headlined
-whichever number was more dramatic (the loss, when there was one), which reads as a
-score rather than a bust summary, and put a bare, unlabeled **0** directly above
-"Your first find, 15, is safe" on the one path where nothing was lost — a flat
-contradiction. The fix isn't "pick the right number sometimes," it's dropping the
-lost-as-headline idea entirely: `kept` is always what a player actually walks away
-with, so it's always what's large, always labelled "banked" (`.banked em`), including
-at 0 — that's the one case where 0 genuinely is the honest headline, since it's also
-the only case where nothing was lost either.
+`rumble(lost)` in `80-rumble.js` shows exactly three things: the random taunt, how
+much was lost, and the dismiss button. That's it — no branching on what happened,
+because a bust always does the same thing: it loses the whole unbanked round.
+`lost` is just `roundDepth` captured before the bust resets it (`dug` in
+`endRound()`, `70-game.js`) — there's nothing else to compute.
 
-Three shapes, chosen by what actually happened, share that one headline:
+**This used to be considerably more complicated, and got simpler by removing a
+feature, not by refactoring one.** For a while, a bust banked the value of
+whichever answer was found first instead of 0 — a first-find safety net, added
+mid-project. It was reverted by the same person who added it: a guaranteed-safe
+first dig makes the opening move of every round free, which is the opposite of
+what a press-your-luck game is supposed to feel like. Everything that existed only
+to support that feature came out with it — a `kept` parameter alongside `lost`, a
+three-way branch on which of five ("nothing found," "one find, nothing else lost,"
+"several finds, some lost") had happened, a `firstFind` variable threaded through
+`endRound()` and the `rumble()` call, a `.banked`/`bankedNum` headline that was
+always `kept` and never `lost`, a `.kept` secondary line that only sometimes
+rendered, and a matching three-case split in `reviewAnswersHtml()`
+(`85-daily.js`) and the day-summary story line (`90-results.js`) for whether a
+bust had a `kept` amount worth mentioning. All of it assumed a bust could pay
+something; none of it is reachable once a bust always pays 0. If you're tempted
+to reintroduce a partial save, re-read the bullet in "Scoring" above first — this
+isn't the first time, and it wasn't a good idea the first time either.
 
-- **Nothing found before the bust** (`kept===0`): no secondary line — there's no
-  find to reference — just `0` / "banked".
-- **Busted with exactly one find** (`lost===0`, so `kept` is that find's value):
-  "Rumble couldn't touch your first find." above the headline. Never mentions a
-  loss, because there wasn't one — the second dig is what busted, before anything
-  more was found.
-- **Busted with several finds** (`lost>0`): "Rumble stole `lost` — your first find
-  is still yours." above the same headline shape. The loss is real here, so it
-  gets a sentence, but never the large number — that's still `kept`.
-
-Both secondary lines used to read "Your first find is safe" (with or without the
-loss clause) — real feedback: "safe" is reassurance, like nothing bad had
-happened, when waking Rumble always means something bad happened, even on the one
-guaranteed-safe find. Rewritten so Rumble is the subject of both sentences —
-failing to take the one find the rules protect, or succeeding at taking
-everything else — instead of the find just passively *being* in a safe state.
-Same math, same headline rule, just no longer describing a bust as good news.
-
-`lost` itself is `dug - firstFind` (`endRound()` in `70-game.js`), where `dug` is
-`roundDepth` captured before the bust resets it and `firstFind` is the value of
-whichever answer was found first. Since `roundDepth` only ever increases as answers
-are accepted, `dug` is always `firstFind` plus the sum of everything found
-afterward — `lost` can never be negative, and `kept===0` and `lost===0` are only
-ever both true together (no finds means nothing accumulated, either to keep or lose).
-
-The daily "Review your answers" list (`reviewAnswersHtml()` in `85-daily.js`) gets
-the same treatment: a busted round reads "Domain — rumbled" alone when nothing was
-kept, or "Domain — rumbled · kept N" when it was — the per-round echo of the same
-"lead with what was kept" rule, not a second, differently-tuned copy of it.
+The intro screen's "Your first find each round is safe, even if Rumble wakes up"
+line is gone the same way — it was true, and now it would be false.
 
 ## Rumble's costumes
 
