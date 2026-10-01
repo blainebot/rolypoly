@@ -8,7 +8,8 @@
     "build": "node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
     "smoke": "node scripts/smoke.mjs",
-    "check": "npm run validate && npm run build && npm run smoke",
+    "probe": "node scripts/probe.mjs",
+    "check": "npm run validate && npm run probe && npm run build && npm run smoke",
     "serve": "npm run build && npx --yes serve dist"
   }
 }

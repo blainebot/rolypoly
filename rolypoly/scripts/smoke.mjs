@@ -303,6 +303,23 @@ function shortSurnamePool() {
   ];
 }
 
+// A fifth synthetic pool, modelled on a pair of real bugs scripts/probe.mjs
+// found on its first run: "michigan" exact-matched Michigan instead of
+// Michigan State, and "godfather" exact-matched The Godfather instead of
+// The Godfather Part II — both because the shorter answer's own name is
+// the literal, un-prefixed text of the guess, so the old exact-match check
+// took it as a sure thing with no regard for the longer sibling sitting
+// right there in the same round. Only two pairs exist anywhere in the real
+// content (content/games/*/*.json was audited when the fix landed); this
+// pool reproduces the shape generically so the fix isn't pinned to those
+// two specific names.
+function prefixSiblingPool() {
+  return [
+    { n: "Michigan", v: 4, f: "fact" },
+    { n: "Michigan State", v: 8, f: "fact", alias: ["msu"] },
+  ];
+}
+
 async function digAnswer(E, flush, name) {
   E.$("answer").value = name;
   E.dig();
@@ -572,6 +589,40 @@ await test("matcher: a short word with no alias doesn't auto-credit — the fuzz
   loadSynthetic(E, [{ n: "Yoko Ono", v: 5, f: "fact" }, { n: "George Martin", v: 6, f: "fact" }]);
   await digAnswer(E, flush, "Ono");
   assertEqual(E.found.length, 0, "a 3-letter guess below MIN_FUZZY must not auto-credit without an explicit alias");
+});
+
+await test("matcher: an exact match that's also a word-boundary prefix of a sibling answer is ambiguous, not an instant credit", async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, prefixSiblingPool());
+  await digAnswer(E, flush, "Michigan");
+  assertEqual(E.found.length, 0, "a bare guess that exactly names one answer but is also a clean prefix of another must not auto-credit either one");
+  assert(E.$("msg").textContent.includes("more specific"), `expected the ambiguous "be more specific" message, got: ${E.$("msg").textContent}`);
+});
+
+await test("matcher: once the shorter sibling is already found, the same guess offers a confirm for the longer one instead of re-asking to be more specific", async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, prefixSiblingPool());
+  // Michigan has no alias of its own, in this pool or the real content it's
+  // modelled on — the only way to it is the bare word, which is exactly the
+  // ambiguous guess under test, so there's no legitimate dig() sequence that
+  // reaches "Michigan already found, Michigan State still open." Seeding it
+  // directly is the only way to exercise this half of the fix.
+  E.found.push(E.avail().find((a) => a.n === "Michigan"));
+  await digAnswer(E, flush, "Michigan");
+  assert(typeof E.$("yesBtn").onclick === "function", 'with Michigan already found, a bare "Michigan" should offer a confirm for Michigan State, not re-ask to be more specific');
+  await confirmYes(E, flush);
+  assertEqual(E.found.length, 2, "confirming should credit the one remaining live candidate");
+  assertEqual(E.found[1].n, "Michigan State", "the confirm should be for Michigan State, the only live candidate left");
+});
+
+await test("matcher: once the longer sibling is already found, the bare guess credits the short name directly, no confirm needed", async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, prefixSiblingPool());
+  await digAnswer(E, flush, "msu"); // Michigan State, via its own alias — no ambiguity to begin with
+  assertEqual(E.found.length, 1, "msu should credit Michigan State directly");
+  await digAnswer(E, flush, "Michigan");
+  assertEqual(E.found.length, 2, "with Michigan State already found, \"Michigan\" is no longer ambiguous and should credit directly");
+  assertEqual(E.found[1].n, "Michigan", "direct credit, not a confirm prompt, since nothing else is still live");
 });
 
 await test("extras: correct but outside the scoring fifteen — no score, no bust, no reveal", async () => {

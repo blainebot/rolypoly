@@ -15,15 +15,16 @@ softens it needs a real argument.
 ## Commands
 
 ```bash
-npm run check     # validate content, build, then smoke-test the result
+npm run check     # validate content, probe matcher coverage, build, then smoke-test the result
 npm run build     # writes dist/index.html
 npm run validate  # content checks only
+npm run probe     # derives plausible guesses for every answer, checks each against the real matcher
 npm run smoke     # plays scripted games against the built engine
 npm run serve     # build and serve dist/ locally
 ```
 
 **`npm run check` must pass before any commit.** Vercel, Netlify, and Cloudflare
-Pages all run the same three scripts, so a failure there means a failed deploy.
+Pages all run the same four scripts, so a failure there means a failed deploy.
 
 ## Hard constraints
 
@@ -259,6 +260,22 @@ feel like it's being second-guessed), then calls `fuzzyMatches()`: one match rou
 to "Did you mean X?", never an automatic accept; several fall through to "be more
 specific, nothing lost"; none wakes Rumble.
 
+**One exception to "instant credit, no confirm":** `scripts/probe.mjs`'s first run
+found two real pairs — "michigan" exact-matching Michigan instead of Michigan State,
+"godfather" exact-matching The Godfather instead of The Godfather Part II — where the
+exact match was also a clean word-boundary prefix of a *different* answer's name in
+the same round (`norm(other.n).startsWith(key+" ")`). The shorter name isn't wrong,
+exactly, but it's not obviously what a player typing the bare shared word meant
+either, so `dig()` now treats that case as ambiguous rather than an automatic win for
+whichever answer happens to be the shorter, unprefixed one. It still collapses back
+to instant credit once only one live candidate is left — found via the longer
+sibling already being credited some other way (its own alias, its full name), never
+by retyping the same ambiguous guess, since that stays ambiguous no matter how many
+times you type it. Only the two pairs above exist anywhere in the current content
+(every round was checked when this landed); `scripts/probe.mjs`'s own `resolveGuess()`
+mirrors this same rule, since it replicates `dig()`'s decision order rather than
+calling it.
+
 `fuzzyMatches()` used to be two separately-tuned functions, `partialMatches()`
 (whole-token and whole-string-prefix matching) and `nearMiss()` (edit-distance typo
 tolerance) — a fork that kept growing new special cases as gaps turned up in play
@@ -328,7 +345,25 @@ girl-scout-cookie pool (plus two answers outside that theme, `Kakapos` and
 existing Pink-Floyd-themed pool's `park`/`Hyde Park`/`Jurassic Park` ambiguity case
 still covers the two-tier confirm-vs-specific contract on the new implementation.
 
-## Scoring
+**`scripts/probe.mjs` (`npm run probe`) is that same audit, kept as a standing
+tool instead of a one-off pass** — it was promised here, by this description,
+for years before it actually existed as a file. For every answer in every
+round, it derives the guesses a real player would plausibly type (the full
+name and each alias, every token down to 2 characters, first/last token,
+first+last with the middle dropped, no leading article, hyphens/spaces
+flattened, singular/plural, a character deleted or two swapped at a few
+positions — no hand-written guess lists, everything mechanical) and runs each
+one through the real matcher, never a reimplementation of it: `norm` and
+`fuzzyMatches` loaded straight from `src/js/10-matching.js` into a bare `vm`
+context, the same trick `smoke.mjs` uses to run the real engine instead of a
+stand-in. Every guess lands in one of four buckets — OK (credits the answer
+it came from, outright or via a confirm), WRONG (credits a *different*
+answer — the real-bug case), AMBIGUOUS ("be more specific," nothing lost),
+BUST (matches nothing, or is swallowed by an extra/distractor that was never
+going to credit it either). Only WRONG and BUST fail the run; AMBIGUOUS is
+reported but never gates anything; most of it is content doing exactly what
+it should ("avenue" matching eleven Monopoly properties isn't a bug) and is
+there for a person to read and judge, not a rule to automate away.
 
 - **A bust loses the whole unbanked round — all of it, no exceptions.**
   There used to be a first-find safety net: a bust banked the value of the

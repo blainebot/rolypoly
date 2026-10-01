@@ -179,6 +179,30 @@ function dig(){
   const key=norm(raw), pool=avail();
   const hit=pool.find(a=>norm(a.n)===key||(a.alias||[]).some(al=>norm(al)===key));
   if(hit){
+    // An exact match that's also a clean word-boundary prefix of a
+    // *different* answer's name in the same round ("michigan" exactly
+    // naming Michigan, but also the whole first word of "Michigan State")
+    // is a genuine ambiguity, not a free pass to the shorter name just
+    // because the guess happens to spell it exactly — a real player typing
+    // the bare shared word could mean either. Only a few pairs in the
+    // whole site ever hit this (content/games/*/*.json audited when this
+    // was added); a substring that isn't a *whole word* ("mich" inside
+    // "michigan") never reaches here, since it isn't an exact match at all.
+    const siblings=pool.filter(a=>a!==hit&&norm(a.n).startsWith(key+" "));
+    if(siblings.length){
+      const live=[hit,...siblings].filter(a=>!found.includes(a));
+      if(live.length>1){
+        say(`More than one answer matches "${raw}". Be more specific — nothing lost.`,"");
+        $("answer").select();return;
+      }
+      // Down to one live candidate collapses the ambiguity: if it's a
+      // *different* answer than the one that matched exactly, that's a
+      // real redirect worth confirming, not a silent switch; if it's `hit`
+      // itself (or nothing — every sibling already found), there's no
+      // ambiguity left at all, so fall through to the ordinary exact-match
+      // handling right below, same as if no sibling had ever existed.
+      if(live.length===1&&live[0]!==hit){askConfirm(raw,live[0]);return}
+    }
     if(found.includes(hit)){say("Already dug that one.","");$("answer").select();return}
     accept(hit);return;
   }
