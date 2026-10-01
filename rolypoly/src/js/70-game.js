@@ -29,6 +29,7 @@ function loadRound(resuming){
   if(!resuming){roundDepth=0;found=[];chamberHit=false}
   $("chamberBox").innerHTML="";
   $("domain").textContent=r.domain.toLowerCase();
+  $("opener").hidden=idx!==0;
   $("prompt").textContent=r.prompt;
   $("facts").innerHTML="";
   $("roundSummary").innerHTML="";
