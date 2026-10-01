@@ -10,6 +10,8 @@ see **difficulty** below for what does.
   "prompt": "Name a country that shares a land border with Germany.",
   "difficulty": 2,
   "closed": true,
+  "multiplier": 1.5,
+  "label": "Final Dig",
   "par": 12,
   "answers": [
     {
@@ -38,6 +40,24 @@ see **difficulty** below for what does.
   single letter). `scripts/build.mjs` sorts each game's five rounds by this
   number, easiest to hardest, before the round is compiled — see "Ordering a
   game's rounds" below.
+- **multiplier** — optional, a number above 0, default 1. Scales every answer's
+  `value` and the round's `par` by this factor (rounded to the nearest whole
+  number) when the round is compiled — content keeps writing plain,
+  comparable-across-rounds values, and `build.mjs` is the one place that
+  actually applies the scale. Nothing else in the round needs to know about
+  it: the breadth and clear bonuses stay flat regardless (they're keyed to
+  find *count*, never to value — see "Scoring" in CLAUDE.md), and every
+  on-screen number (the chip, the reveal, "still down there," the bank
+  button) is already the final, scaled figure by the time a player sees it —
+  never a raw number that quietly becomes something else later. The validator
+  errors on a multiplier above 1 with no `label`: a player should always be
+  able to see a boosted round coming, never discover it after the fact.
+- **label** — optional, a short string. A small badge shown next to the
+  domain name at the top of the round — leave it unset for an ordinary
+  round. If `multiplier` is above 1, the compiled label gets " · {multiplier}x"
+  appended automatically (write `"label": "Final Dig"` with `"multiplier":
+  1.5` and the round shows "Final Dig · 1.5x" — change the multiplier later
+  and the badge updates on its own, nothing to keep in sync by hand).
 - **closed** — optional, a boolean. Whether the topic's answer count is fixed
   by a real authority (see "Choosing a topic" below) or can keep growing no
   matter how thorough the list gets. Type-checked when present, but not
@@ -70,6 +90,9 @@ see **difficulty** below for what does.
 - **par** — optional integer, the "you did fine" benchmark shown at the end of
   the round. When omitted it defaults to the sum of the three cheapest answers.
   The validator errors if par exceeds the round's total available value.
+  Written in the same pre-`multiplier` units as every `value` above it —
+  compared against the round's raw total, not the scaled one, so the two
+  stay in the same units the check is written in.
 - **extras** — optional, and rarely the tool you want (see below before using
   it). Answers that are correct but sit outside the scoring fifteen — the cap
   on `answers` (the validator warns past 15). Each needs a **name** and,

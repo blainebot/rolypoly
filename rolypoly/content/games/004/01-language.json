@@ -3,6 +3,7 @@
   "prompt": "Name one of the first fifteen letters of the Greek alphabet.",
   "scene": "toga",
   "difficulty": 1,
+  "label": "Easy Opener",
   "closed": true,
   "note": "Prompt is deliberately narrowed to the first fifteen letters in sequence (Alpha through Omicron), not just 'a Greek letter' with the fifteen most-recognisable scoring — that first version let a real letter like Pi feel right but never bust, when it's genuinely wrong for what's actually being asked. The remaining nine (Pi through Omega) are distractors with bust:true, not extras, for exactly that reason. All twenty-four letters are still accounted for either way.",
   "answers": [

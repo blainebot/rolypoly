@@ -240,8 +240,6 @@ GitHub Pages) and the CI workflow.
 
 Don't reintroduce these without asking:
 
-- **No multipliers.** Rounds are equally weighted. A centimetre is a centimetre;
-  once the score stops matching the dig, the depth track becomes decoration.
 - **No stolen answers.** Rumble used to take answers off the board mid-round. It was
   cut for being confusing. Every answer is reachable.
 - **No ghost opponent, no second mascot.** Poly digs. Rumble is the disaster. That
@@ -343,17 +341,51 @@ still covers the two-tier confirm-vs-specific contract on the new implementation
 - **Breadth bonus: +2 per find beyond the second.** Three finds pays +2, five
   pays +6. Paid only when you bank or clear the board — a bust forfeits it
   entirely, same as everything else unbanked. This is a flat bonus keyed to
-  find *count*, not a multiplier on value — the "no multipliers" rule above
-  still holds; a centimetre is still a centimetre.
+  find *count*, not a multiplier on value, and a round's `multiplier` (below)
+  deliberately leaves it untouched — a centimetre's *value* can be scaled,
+  but breadth is a separate reward for a separate kind of risk, not something
+  a round should be able to inflate just by also being the boosted one.
+- **A round can carry a `multiplier`** (optional, default 1) that scales every
+  answer's value and the round's par — see content/TEMPLATE.md. This reverses
+  "no multipliers," an earlier rule from when rounds played in filename order:
+  a multiplier on an arbitrary round made whichever one happened to land last
+  dominate the day for no reason connected to the round itself. That
+  objection doesn't hold anymore now that rounds are ordered easiest to
+  hardest ("Round order" below) — a late multiplier now amplifies a
+  genuinely harder round, not an arbitrary one. `scripts/build.mjs`'s
+  `toEngine()` is the one place the scale is actually applied: content keeps
+  writing plain, comparable-across-rounds numbers, and every figure a player
+  sees — the chip when a find lands, the reveal, "still down there," the
+  bank button, par — is already final by the time it reaches the screen,
+  never a raw number that quietly becomes something else at the end. A
+  round's optional `label` is the badge that discloses this (small pill next
+  to the domain name, top of the round) — it's a general-purpose field, not
+  exclusively for multipliers (every game's easiest round carries "Easy
+  Opener" and its fourth "Getting Harder", neither multiplied), but the
+  validator errors if a multiplier above 1 has no label, since a boosted
+  round must be something a player can see coming, not a surprise multiplier
+  working against them. Each game's last round currently carries one, at
+  1.5x, labelled "Final Dig" (the compiled label becomes "Final Dig · 1.5x"
+  automatically — see `label` in TEMPLATE.md for why that suffix is never
+  hand-typed). Change the number to see a different spread before committing
+  to anything stronger; it's one field.
 - **Par is a per-round benchmark**, not a difficulty gate. It defaults to the
-  sum of the three cheapest answers when a round doesn't set one explicitly.
+  sum of the three cheapest answers when a round doesn't set one explicitly,
+  written in the same pre-multiplier units as every answer's value — the
+  multiplier scales the final par the same way it scales everything else.
 - **The day's banked total is never shown against `POSSIBLE`.** That
   denominator is the sum of every answer on every list plus every clear and
-  breadth bonus — nobody will ever approach it, and "145 of 1411" reads as a
-  failure no matter how the day actually went. `POSSIBLE` stays in
-  `90-results.js`, unused by anything a player sees, in case a tier threshold
-  ever wants deriving from it. If you're tempted to surface it again, that's
-  the argument you're up against.
+  breadth bonus (multiplier-scaled per round, same as everywhere else) —
+  nobody will ever approach it, and "145 of 1411" reads as a failure no
+  matter how the day actually went. `POSSIBLE` stays in `90-results.js`,
+  unused by anything a player sees, in case a tier threshold ever wants
+  deriving from it. If you're tempted to surface it again, that's the
+  argument you're up against. The formula is duplicated three places —
+  here, `scripts/build.mjs`'s printed total, and `api/score.js`'s
+  `possibleFor()` — and only the last one has to apply the multiplier itself,
+  since it reads raw content directly rather than `toEngine()`'s already-
+  scaled output; keep it in sync with `toEngine()`'s `scale()` if that ever
+  changes.
 
 ## Day tiers
 

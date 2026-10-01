@@ -28,6 +28,10 @@ async function redis(...command) {
 
 // Same formula as scripts/build.mjs's printed total and src/js/90-results.js's
 // POSSIBLE — duplicated rather than shared, same call as validate.mjs's norm().
+// Unlike those two, this reads raw content files directly rather than the
+// already-multiplier-scaled engine output, so it has to apply a round's
+// multiplier itself (same rounding as build.mjs's toEngine — see its
+// comment for why the breadth/clear bonus terms are left out of the scale).
 function possibleFor(game) {
   const dir = join(root, "content", "games", game);
   const files = readdirSync(dir).filter(f => f.endsWith(".json"));
@@ -35,7 +39,8 @@ function possibleFor(game) {
   for (const f of files) {
     const r = JSON.parse(readFileSync(join(dir, f), "utf8"));
     const n = r.answers.length;
-    possible += r.answers.reduce((s, a) => s + a.value, 0) + 10 + Math.max(0, n - 2) * 2;
+    const m = typeof r.multiplier === "number" ? r.multiplier : 1;
+    possible += r.answers.reduce((s, a) => s + Math.round(a.value * m), 0) + 10 + Math.max(0, n - 2) * 2;
   }
   return possible;
 }

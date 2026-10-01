@@ -76,6 +76,17 @@ for (const { num, f, file } of files) {
   if (r.note !== undefined && typeof r.note !== "string")
     errors.push(where("note must be a string"));
 
+  // Multiplier scales every answer's value and the round's par (see
+  // content/TEMPLATE.md) — a player should always be able to see a boosted
+  // round coming, never discover it after the fact, so a multiplier above 1
+  // with no label is an error, not a warning.
+  if (r.multiplier !== undefined && (typeof r.multiplier !== "number" || !(r.multiplier > 0)))
+    errors.push(where("multiplier must be a number above 0"));
+  if (r.label !== undefined && typeof r.label !== "string")
+    errors.push(where("label must be a string"));
+  if (typeof r.multiplier === "number" && r.multiplier > 1 && !r.label)
+    errors.push(where(`multiplier is ${r.multiplier} but there's no label — a boosted round must say so`));
+
   // Closed set or not (see "Choosing a topic" in content/TEMPLATE.md) —
   // optional so the fourteen rounds written before this existed don't all
   // need retrofitting, but type-checked when present, and `closed: false`
@@ -186,8 +197,16 @@ for (const { num, f, file } of files) {
   if (values.length) {
     const total = values.reduce((s, v) => s + v, 0);
     const par = [...values].sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
+    // par and total are compared in the same pre-multiplier units they're
+    // both written in (see TEMPLATE.md's "par"), so this check doesn't need
+    // to know the multiplier — but the *suggested* default is what a player
+    // will actually see, which build.mjs's toEngine scales, so the printed
+    // number needs the same scaling to not read as stale once a round
+    // carries a multiplier.
+    const mult = typeof r.multiplier === "number" ? r.multiplier : 1;
+    const scaledPar = Math.round(par * mult);
     if (r.par === undefined)
-      warnings.push(where(`no par set — defaulting to ${par} (sum of three cheapest answers)`));
+      warnings.push(where(`no par set — defaulting to ${scaledPar} (sum of three cheapest answers${mult !== 1 ? `, ${par} scaled by the round's ${mult}x multiplier` : ""})`));
     else if (typeof r.par !== "number" || !Number.isInteger(r.par))
       errors.push(where("par must be a whole number"));
     else if (r.par > total)

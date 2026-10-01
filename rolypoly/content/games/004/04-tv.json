@@ -3,6 +3,7 @@
   "prompt": "Name a member of the original 1975 cast of Saturday Night Live.",
   "scene": "liveny",
   "difficulty": 4,
+  "label": "Getting Harder",
   "closed": true,
   "note": "Same fix as the other rounds in this game: these were filed as extras, implying they're still correct for 'the original 1975 cast' - none of them were, which the Bill Murray fact already half-admitted ('the most common wrong answer'). Moved to distractors with bust:true.",
   "answers": [

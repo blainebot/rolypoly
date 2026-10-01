@@ -2,6 +2,7 @@
   "domain": "Food",
   "prompt": "Name an official Girl Scout cookie variety.",
   "difficulty": 1,
+  "label": "Easy Opener",
   "scene": "girlscout",
   "answers": [
     {

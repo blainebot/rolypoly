@@ -181,8 +181,11 @@ function createSandbox({ day, active, localStorage }) {
   ROUNDS, GAMENO, POSSIBLE, DAY, DAY_TIERS, CHAMBER_AT, RELICS, SITE_DOMAIN,
 };`;
   vm.runInContext(engineSource + epilogue, context, { filename: "dist/index.html <script>" });
-  if (typeof active === "string" && context.GAMENO !== active) {
-    throw new Error(`built game is "${context.GAMENO}", expected "${active}" — pass the right activeGame or drop the check`);
+  // GAMENO is a top-level `const` in the engine source, so — like every
+  // other arrow-const/let binding — it only exists on __TEST__, never as a
+  // bare property of the sandbox global; context.GAMENO is always undefined.
+  if (typeof active === "string" && context.__TEST__.GAMENO !== active) {
+    throw new Error(`built game is "${context.__TEST__.GAMENO}", expected "${active}" — pass the right activeGame or drop the check`);
   }
   return { context, E: context.__TEST__, flush };
 }
@@ -401,6 +404,28 @@ await test("a full five-round game: final total and share text", async () => {
   assertEqual(lines[2], String(E.banked), "share text's bare score line");
   assert(!share.includes("of"), 'share text must not show "N of POSSIBLE" — see CLAUDE.md "Scoring"');
   assertEqual([...lines[3]].length, 5, "share text emoji row: one mark per round");
+});
+
+// Multiplier/label are a build-time concern (scripts/build.mjs's toEngine) —
+// the engine itself never learns a round's raw multiplier, since every
+// number it reads (an answer's v, a round's par) already comes out scaled
+// and every label already carries its "· Nx" suffix. So this isn't a test
+// of engine logic like the rest of this file; it's a check on the real
+// compiled output for the one real round currently carrying a multiplier
+// (game 002's History round, TEST_DAY's active game), reading the same raw
+// content file build.mjs did to confirm the scaling actually landed.
+await test("multiplier: a round's par and answer values come out of the build already scaled, and its label states the multiplier", async () => {
+  const { E } = fresh({ active: "002" });
+  const raw = JSON.parse(readFileSync(join(root, "content", "games", "002", "05-history.json"), "utf8"));
+  assert(typeof raw.multiplier === "number" && raw.multiplier > 1, "this test targets a round that's supposed to carry a multiplier above 1 — content may have changed");
+  const compiled = E.ROUNDS[E.ROUNDS.length - 1];
+  assertEqual(compiled.domain, raw.domain, "sanity check: this is really the round the test thinks it is");
+  assertEqual(compiled.label, `Final Dig · ${raw.multiplier}x`, "a multiplier above 1 must be stated in the label text, not just applied silently");
+  const rawJefferson = raw.answers.find((a) => a.name === "Thomas Jefferson");
+  const compiledJefferson = compiled.answers.find((a) => a.n === "Thomas Jefferson");
+  assertEqual(compiledJefferson.v, Math.round(rawJefferson.value * raw.multiplier), "an answer's compiled value must already be scaled — never a raw number a player sees change later");
+  const rawPar = [...raw.answers.map((a) => a.value)].sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
+  assertEqual(compiled.par, Math.round(rawPar * raw.multiplier), "par must be scaled by the same multiplier as the answers it's compared against");
 });
 
 await test("matcher: exact name", async () => {

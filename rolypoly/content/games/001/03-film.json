@@ -2,6 +2,7 @@
   "domain": "Film",
   "prompt": "Name a film released from 1970 through 1979 that won Best Picture.",
   "difficulty": 3,
+  "label": "Getting Harder",
   "answers": [
     {
       "name": "The Godfather",

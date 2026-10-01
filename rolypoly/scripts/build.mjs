@@ -17,42 +17,60 @@ const config = JSON.parse(read("content", "config.json"));
 const defaultPar = answers =>
   answers.map(a => a.value).sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
 
-const toEngine = r => ({
-  domain: r.domain,
-  prompt: r.prompt,
-  par: typeof r.par === "number" ? r.par : defaultPar(r.answers),
-  ...(r.scene ? { s: r.scene } : {}),
-  answers: r.answers.map(a => ({
-    n: a.name,
-    v: a.value,
-    f: a.fact,
-    ...(a.tag ? { tag: a.tag } : {}),
-    ...(a.aliases && a.aliases.length ? { alias: a.aliases } : {})
-  })),
-  // Correct but outside the scoring fifteen — no value, never in avail()'s
-  // pool, so it can't score or bust or show up in the reveal. `fact` is
-  // optional: shown in place of the generic "not one of today's fifteen"
-  // close when present (dig()'s extras check, 70-game.js), same role a
-  // distractor's `note` plays.
-  ...(r.extras && r.extras.length ? {
-    extras: r.extras.map(x => ({
-      n: x.name,
-      ...(x.fact ? { f: x.fact } : {}),
-      ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
-    }))
-  } : {}),
-  // Wrong-category guesses worth naming instead of busting — never
-  // correct, so no value or fact either; `note` is the author's own
-  // explanation of what the guess actually is.
-  ...(r.distractors && r.distractors.length ? {
-    distractors: r.distractors.map(x => ({
-      n: x.name,
-      note: x.note,
-      ...(x.bust ? { bust: true } : {}),
-      ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
-    }))
-  } : {})
-});
+// Round content is written in plain, comparable-across-rounds units; this is
+// the one place that actually applies a round's multiplier, so nothing
+// downstream (the engine, the smoke tests, a player reading the screen) ever
+// has to know it exists — par and every answer value come out of toEngine()
+// already final. The breadth and clear bonuses are deliberately left out of
+// this scaling: they're a flat reward keyed to find *count* in 70-game.js,
+// never to value, so a round's multiplier doesn't touch them.
+const mulOf = r => typeof r.multiplier === "number" ? r.multiplier : 1;
+const scale = (n, m) => Math.round(n * m);
+
+const toEngine = r => {
+  const m = mulOf(r);
+  return {
+    domain: r.domain,
+    prompt: r.prompt,
+    par: scale(typeof r.par === "number" ? r.par : defaultPar(r.answers), m),
+    ...(r.scene ? { s: r.scene } : {}),
+    // A label is baked to its final display text here, same as every answer
+    // value below — the multiplier suffix is never authored by hand, so
+    // changing "multiplier" is the one edit that moves both the scoring and
+    // the badge that discloses it (see TEMPLATE.md's "label").
+    ...(r.label ? { label: m > 1 ? `${r.label} · ${m}x` : r.label } : {}),
+    answers: r.answers.map(a => ({
+      n: a.name,
+      v: scale(a.value, m),
+      f: a.fact,
+      ...(a.tag ? { tag: a.tag } : {}),
+      ...(a.aliases && a.aliases.length ? { alias: a.aliases } : {})
+    })),
+    // Correct but outside the scoring fifteen — no value, never in avail()'s
+    // pool, so it can't score or bust or show up in the reveal. `fact` is
+    // optional: shown in place of the generic "not one of today's fifteen"
+    // close when present (dig()'s extras check, 70-game.js), same role a
+    // distractor's `note` plays.
+    ...(r.extras && r.extras.length ? {
+      extras: r.extras.map(x => ({
+        n: x.name,
+        ...(x.fact ? { f: x.fact } : {}),
+        ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
+      }))
+    } : {}),
+    // Wrong-category guesses worth naming instead of busting — never
+    // correct, so no value or fact either; `note` is the author's own
+    // explanation of what the guess actually is.
+    ...(r.distractors && r.distractors.length ? {
+      distractors: r.distractors.map(x => ({
+        n: x.name,
+        note: x.note,
+        ...(x.bust ? { bust: true } : {}),
+        ...(x.aliases && x.aliases.length ? { alias: x.aliases } : {})
+      }))
+    } : {})
+  };
+};
 
 const games = {};
 for (const num of readdirSync(gamesDir).sort()) {
