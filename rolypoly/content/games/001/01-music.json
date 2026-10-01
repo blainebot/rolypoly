@@ -21,7 +21,8 @@
     {
       "name": "Yoko Ono",
       "value": 12,
-      "fact": "Sang a line on The Continuing Story of Bungalow Bill."
+      "fact": "Sang a line on The Continuing Story of Bungalow Bill.",
+      "aliases": ["ono"]
     },
     {
       "name": "Nicky Hopkins",

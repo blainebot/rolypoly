@@ -17,7 +17,8 @@
     {
       "name": "Cheshire Cat",
       "value": 5,
-      "fact": "Vanishes by degrees until only the grin is left, which Alice calls the most curious thing she ever saw."
+      "fact": "Vanishes by degrees until only the grin is left, which Alice calls the most curious thing she ever saw.",
+      "aliases": ["cat"]
     },
     {
       "name": "Mad Hatter",

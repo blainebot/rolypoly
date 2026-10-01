@@ -284,6 +284,22 @@ function statePropertyPool() {
   ];
 }
 
+// A fourth synthetic pool, modelled on the real bug report: a tester typed
+// "Ono" for "Yoko Ono" and it wasn't credited. The automatic surname/word
+// matching in 10-matching.js (views()/tokenViews()) only ever compares a
+// guess and a candidate word of MIN_FUZZY (4) characters or more — a
+// deliberate floor, so a short guess can't accidentally fuzzy-match
+// something unrelated. A surname shorter than that floor needs an explicit
+// alias instead, which is an exact-text check in dig() and so isn't bound
+// by the floor at all. The fix was content, not engine: Yoko Ono now
+// carries "aliases": ["ono"] in content/games/001/01-music.json.
+function shortSurnamePool() {
+  return [
+    { n: "Yoko Ono", v: 5, f: "fact", alias: ["ono"] },
+    { n: "George Martin", v: 6, f: "fact" },
+  ];
+}
+
 async function digAnswer(E, flush, name) {
   E.$("answer").value = name;
   E.dig();
@@ -516,6 +532,21 @@ await test('matcher: a typo in a short word still busts — typo tolerance never
   assertEqual(E.found.length, 0, "should not match anything");
   assertEqual(E.results.length, 1, "should end the round");
   assertEqual(E.results[0].bust, true, "a short-word typo below the floor should still bust");
+});
+
+await test("matcher: a short alias (below the fuzzy-match floor) still credits on an exact guess", async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, shortSurnamePool());
+  await digAnswer(E, flush, "Ono");
+  assertEqual(E.found.length, 1, "an exact alias match must credit even though it's shorter than MIN_FUZZY");
+  assertEqual(E.found[0].n, "Yoko Ono", "matched answer via short alias");
+});
+
+await test("matcher: a short word with no alias doesn't auto-credit — the fuzzy-match floor is deliberate", async () => {
+  const { E, flush } = fresh();
+  loadSynthetic(E, [{ n: "Yoko Ono", v: 5, f: "fact" }, { n: "George Martin", v: 6, f: "fact" }]);
+  await digAnswer(E, flush, "Ono");
+  assertEqual(E.found.length, 0, "a 3-letter guess below MIN_FUZZY must not auto-credit without an explicit alias");
 });
 
 await test("extras: correct but outside the scoring fifteen — no score, no bust, no reveal", async () => {
