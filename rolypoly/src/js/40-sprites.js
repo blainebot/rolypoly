@@ -389,43 +389,14 @@ const SCENE={
 // which ran it out past 160 and clipped it.
 const HA=`<text class="ha ha1" x="136" y="58">ha</text><text class="ha ha2" x="138" y="42">ha</text><text class="ha ha3" x="137" y="76">ha</text>`;
 
-function SLEEPER(awake){
-  const eyes = awake
-    ? `<rect class="sclera" x="29" y="61" width="14" height="14"/>
-<rect class="sclera" x="57" y="61" width="14" height="14"/>
-<g class="glance"><rect class="eye" x="33" y="64" width="6" height="8"/>
-<rect class="eye" x="61" y="64" width="6" height="8"/></g>`
-    : `<rect class="eye" x="30" y="67" width="12" height="3"/><rect class="eye" x="58" y="67" width="12" height="3"/>`;
-  const zs = awake ? "" : `<text class="zz z1" x="84" y="46">z</text>
-<text class="zz z2" x="94" y="32">z</text><text class="zz z3" x="104" y="20">z</text>`;
-  return `<svg class="densvg" viewBox="0 0 124 100" role="img" aria-label="Rumble asleep in his burrow">
-<rect class="rimlt" x="12" y="26" width="72" height="5"/>
-<rect class="rim" x="4" y="31" width="88" height="7"/>
-<rect class="rim" x="0" y="38" width="8" height="62"/><rect class="rim" x="84" y="38" width="8" height="62"/>
-<rect class="tunnel" x="8" y="38" width="76" height="62"/>
-<rect class="tunnel" x="16" y="31" width="60" height="7"/>
-<g class="sleephead">
-<rect class="furdk" x="14" y="52" width="11" height="11"/><rect class="furdk" x="67" y="52" width="11" height="11"/>
-<rect class="fur" x="24" y="56" width="44" height="7"/>
-<rect class="fur" x="18" y="63" width="56" height="9"/>
-<rect class="fur" x="18" y="72" width="56" height="9"/>
-<rect class="fur" x="26" y="81" width="40" height="6"/>
-<rect class="furlt" x="20" y="74" width="7" height="7"/><rect class="furlt" x="65" y="74" width="7" height="7"/>
-${eyes}
-<rect class="furdk" x="40" y="75" width="13" height="5"/>
-<rect class="incisor" x="39" y="84" width="6" height="3"/><rect class="incisor" x="48" y="84" width="6" height="3"/>
-<rect class="tooth" x="39" y="87" width="6" height="11"/><rect class="tooth" x="48" y="87" width="6" height="11"/>
-</g>
-${zs}
-</svg>`}
-
 // Rumble's head is drawn in its own native frame, roughly twice the scale of
-// the 160×120 viewBox it sits in, and placed with one transform (HEAD_AT).
+// the viewBoxes it sits in, and placed with one transform per sprite —
+// HEAD_AT in GOPHER (the bust panel), SLEEP_AT in SLEEPER (the den).
 // A scene's `eyes` and `hat` render inside that same transform, so they're
 // authored in head coordinates, not viewBox coordinates — see "Rumble's
 // costumes" in CLAUDE.md for the landmarks (skull top, eye line, muzzle).
 // `prop` and `float` stay in viewBox coordinates, outside the head.
-function RUMBLE_HEAD(eyes){return `
+function RUMBLE_HEAD(eyes,chomp=true){return `
 <rect class="furdk" x="36" y="14" width="30" height="30"/>
 <rect class="furdk" x="150" y="14" width="30" height="30"/>
 <rect class="fur" x="44" y="22" width="16" height="16"/>
@@ -445,7 +416,7 @@ function RUMBLE_HEAD(eyes){return `
 <rect class="muzzle" x="84" y="74" width="48" height="28"/>
 <rect class="furdk" x="94" y="80" width="28" height="14"/>
 ${eyes}
-<g class="jaw">
+<g${chomp?' class="jaw"':""}>
 <rect class="tooth" x="92" y="102" width="14" height="22"/>
 <rect class="tooth" x="110" y="102" width="14" height="22"/>
 <rect class="incisor" x="92" y="102" width="14" height="5"/>
@@ -457,6 +428,31 @@ const EYES_CLOSED=`<rect class="eye" x="56" y="54" width="28" height="8"/>
 // to read as the new rounder head, small enough to leave his shoulders and
 // arms showing above the dirt.
 const HEAD_AT="translate(-18.8,-0.4) scale(.6)";
+
+// Wide awake, for the moment Rumble wakes in his den: the pupils glance
+// sideways once (.glance) before the den collapses.
+const EYES_OPEN=`<rect class="sclera" x="54" y="46" width="32" height="24"/>
+<rect class="sclera" x="130" y="46" width="32" height="24"/>
+<g class="glance"><rect class="eye" x="62" y="52" width="14" height="14"/>
+<rect class="eye" x="138" y="52" width="14" height="14"/></g>`;
+// Fits the head inside the burrow's tunnel (x 8–84) with the ears below the
+// rim and the teeth ending just above the bottom edge.
+const SLEEP_AT="translate(-3.7,41.6) scale(.46)";
+
+function SLEEPER(awake){
+  const zs = awake ? "" : `<text class="zz z1" x="84" y="46">z</text>
+<text class="zz z2" x="94" y="32">z</text><text class="zz z3" x="104" y="20">z</text>`;
+  return `<svg class="densvg" viewBox="0 0 124 100" role="img" aria-label="Rumble asleep in his burrow">
+<rect class="rimlt" x="12" y="26" width="72" height="5"/>
+<rect class="rim" x="4" y="31" width="88" height="7"/>
+<rect class="rim" x="0" y="38" width="8" height="62"/><rect class="rim" x="84" y="38" width="8" height="62"/>
+<rect class="tunnel" x="8" y="38" width="76" height="62"/>
+<rect class="tunnel" x="16" y="31" width="60" height="7"/>
+<g class="sleephead"><g transform="${SLEEP_AT}">
+${RUMBLE_HEAD(awake?EYES_OPEN:EYES_CLOSED,false)}
+</g></g>
+${zs}
+</svg>`}
 
 function GOPHER(scene){
   const sc=SCENE[scene]||{};

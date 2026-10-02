@@ -930,7 +930,11 @@ behind it, as the German flag does.
 
 **Two coordinate frames.** Rumble's head (`RUMBLE_HEAD()` in `40-sprites.js`) is
 drawn in its own native frame, roughly twice the scale of GOPHER's 160×120 viewBox,
-and placed with one transform, `HEAD_AT` (scale 0.6, centred on the body). A scene's
+and placed with one transform, `HEAD_AT` (scale 0.6, centred on the body). The den
+(`SLEEPER()`) draws the same head with its own transform, `SLEEP_AT` (scale 0.46,
+fitted inside the burrow), slit eyes asleep and `EYES_OPEN` for the moment he
+wakes — and passes `chomp=false`, since a sleeping Rumble shouldn't be chewing. One
+head, two placements: redraw it once and both pick it up. In GOPHER, a scene's
 `eyes` and `hat` render *inside* that transform, so they're authored in head
 coordinates; `prop` and `float` render outside it, in viewBox coordinates. Head
 landmarks, native frame: ears x=36–66 and 150–180, y=14–44; skull top y=20, sides
@@ -944,8 +948,9 @@ start at y≥74. The "ha" text floats straight up in the strip from x=136 to the
 viewBox edge, right of every side prop; anything new on that side has to stop by
 x=136 or it'll sit under the laughter.
 
-Animations inside the head transform (`jaw`, `look`, `lookLR`) are in SVG user
-units, so their keyframes are the old on-screen distances divided by 0.6 — change
+Animations inside the head transform (`jaw`, `look`, `lookLR`, and the den's
+`glance`) are in SVG user units, so their keyframes are the old on-screen distances
+divided by the head's scale — change
 `HEAD_AT`'s scale and those need re-deriving, or the chomp and glances shrink with
 it. Same reason Poly's `stepA`/`stepB` leg lift is 11 units: her walk viewBox is
 300 wide, rendered at 64px.

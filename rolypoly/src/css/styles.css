@@ -136,7 +136,9 @@ body{
 .glint{fill:#fff}
 .sclera{fill:#F7EFD9}
 .glance{transform-box:fill-box;transform-origin:center;animation:glance .5s ease-out forwards}
-@keyframes glance{0%,30%{transform:translateX(0)}38%,100%{transform:translateX(5px)}}
+/* Inside the den's head transform (SLEEP_AT, scale .46): 10 units takes the
+   pupils from the middle of the sclera to its edge. */
+@keyframes glance{0%,30%{transform:translateX(0)}38%,100%{transform:translateX(10px)}}
 .zz{font-family:"Pixelify Sans",monospace;font-size:17px;fill:#F3EDE0;opacity:0;
   transform-box:fill-box;transform-origin:center}
 .z1{animation:zfloat 3.3s ease-out infinite}
