@@ -882,6 +882,14 @@ ever needs regression coverage here.
 `rumble(lost)` in `80-rumble.js` shows exactly three things: the random taunt, how
 much was lost, and the dismiss button. That's it — no branching on what happened,
 because a bust always does the same thing: it loses the whole unbanked round.
+
+**One wording exception, not an outcome exception:** a bust before the first find
+used to say "0 lost" — true, but it read like a bug in a screenshot. That case
+shows "Round over / before your first find" in the number's slot instead. It's
+"before your first find," not "on the first dig," because forgiven guesses (a
+distractor, "be more specific") don't add depth, so `lost` can be 0 several
+guesses in. It is still a full bust — round ended, nothing banked — and the copy
+deliberately doesn't soften that. `scripts/smoke.mjs` covers both shapes.
 `lost` is just `roundDepth` captured before the bust resets it (`dug` in
 `endRound()`, `70-game.js`) — there's nothing else to compute.
 
@@ -920,21 +928,52 @@ scene with black props needs a mid-tone background, roughly 0.06–0.13 luminanc
 Aim for 1.8:1 minimum on every prop. When a clash is unavoidable, put a cream plate
 behind it, as the German flag does.
 
-**The face trap.** `hat` renders *last* inside `figure` — after `eyes`, the nose, and
-the jaw/teeth group (`GOPHER()` in `40-sprites.js`) — so anything in `hat` that
-reaches down far enough paints over them. Default eyes sit at y=28–33 (x=24–33 and
-55–64 in the 160×120 viewBox); the nose stripe is y=40–47; teeth are y=50–68. Shipped
-broken twice from this exact mistake: `bigten`'s helmet and facemask were one solid
-block from y=6 to y=60, blotting out the whole face (fixed by pulling the dome up to
-stop at y=25, and turning the facemask into three thin bars with real gaps low across
-the muzzle, starting after the nose at y=47 — see the comment on that scene for the
-detail); `monopoly`'s top-hat brim independently reached to y=34, blotting out the
-default left eye and the monocle's own top edge, even though the monocle itself
-(`eyes`) was fine. Check both bounds whenever a scene's `hat` or `prop` sits near the
-head: **hat art must stay above y≈26**, clear of the eye row, and any facemask-style
-art must stay low (y≥47) with real gaps, not a solid span down to the teeth. `eyes`
-itself is exempt from the first rule (it's drawn *at* y=28+ by design), but must never
-be covered by something in `hat` that reaches that far down.
+**Two coordinate frames.** Rumble's head (`RUMBLE_HEAD()` in `40-sprites.js`) is
+drawn in its own native frame, roughly twice the scale of GOPHER's 160×120 viewBox,
+and placed with one transform, `HEAD_AT` (scale 0.6, centred on the body). A scene's
+`eyes` and `hat` render *inside* that transform, so they're authored in head
+coordinates; `prop` and `float` render outside it, in viewBox coordinates. Head
+landmarks, native frame: ears x=36–66 and 150–180, y=14–44; skull top y=20, sides
+x=38–178 at the widest; eye line y=54–62 (default closed eyes x=56–84 and 132–160;
+open eyes use 32×24 `sclera` at x=54/130, y=46); muzzle x=84–132, y=74–102, with the
+nose at y=80–94; teeth x=92–124, y=102–124. Keep hat art at y≥9 — the `bob`
+animation lifts the whole head 5 viewBox units, and anything higher clips at the top
+of the panel. On screen (viewBox frame) the head's right edge is x≈89 and the teeth
+reach y≈74, so side props start at x≥90 and body props that sit under the chin
+start at y≥74. The "ha" text floats straight up in the strip from x=136 to the
+viewBox edge, right of every side prop; anything new on that side has to stop by
+x=136 or it'll sit under the laughter.
+
+Animations inside the head transform (`jaw`, `look`, `lookLR`) are in SVG user
+units, so their keyframes are the old on-screen distances divided by 0.6 — change
+`HEAD_AT`'s scale and those need re-deriving, or the chomp and glances shrink with
+it. Same reason Poly's `stepA`/`stepB` leg lift is 11 units: her walk viewBox is
+300 wide, rendered at 64px.
+
+**The face trap.** `hat` renders *last* inside the head — after `eyes`, the nose,
+and the jaw/teeth group — so anything in `hat` that reaches down far enough paints
+over them. Shipped broken twice from this exact mistake: `bigten`'s helmet and
+facemask were once one solid block blotting out the whole face (fixed by stopping
+the dome above the eye line and turning the facemask into three thin bars with real
+gaps low across the jaw, starting below the nose — see the comment on that scene);
+`monopoly`'s top-hat brim independently reached down far enough to blot out the
+monocle's own top edge, even though the monocle itself (`eyes`) was fine. Check
+both bounds whenever a scene's `hat` or `prop` sits near the head: **hat art must
+stop above y≈52** in head coordinates (above y≈43 when a scene's `eyes` rise higher,
+like the monocle), and any facemask-style art must stay below the nose (y≥95) with
+real gaps, not a solid span down to the teeth. `eyes` itself is exempt from the
+first rule, but must never be covered by something in `hat` that reaches that far
+down.
+
+When the head was redrawn (larger and rounder), every hat and custom eye set was
+re-authored in the new head frame, and props the bigger head now collided with
+were moved clear: Geography's flag, Film's clapperboard, Space's planet, the
+animator's easel and the passport moved right; the showdog rosette moved from his
+cheek to his chest; the baseball moved off his eye; the Thriller jacket, lab coat,
+scarf, cravat, sash and guitar moved down below the longer teeth. The art file
+that came with the head described hat scaling as "about 1.6×, shifted down about
+6" — that doesn't match its own coordinates (closer to 2.2× and +26); hats were
+placed against the real landmarks above instead.
 
 ## The mantle is a void, not another band
 

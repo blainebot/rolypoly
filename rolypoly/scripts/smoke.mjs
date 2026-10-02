@@ -378,6 +378,16 @@ await test("rumble panel: shows the taunt and the full amount lost, no banked he
   assert(!html.includes('class="kept"'), `the kept-vs-lost branching is gone — there is one outcome now: ${html}`);
 });
 
+await test("rumble panel: a bust before the first find says the round is over instead of '0 lost'", async () => {
+  const { E, flush } = fresh();
+  await digAnswer(E, flush, "zzz-not-a-real-answer-99999");
+  assertEqual(E.banked, 0, "nothing banked");
+  assertEqual(E.results[0].bust, true, "still a bust");
+  const html = E.$("rumbleBox").innerHTML;
+  assert(!html.includes('id="lostNum"'), `no number should render when nothing was dug — "0 lost" reads like a bug: ${html}`);
+  assert(html.includes("Round over") && html.includes("before your first find"), `expected the zero-case copy, got: ${html}`);
+});
+
 await test("clearing a whole round pays the +10 clear bonus and the breadth bonus", async () => {
   const { E, flush } = fresh();
   const all = E.avail();

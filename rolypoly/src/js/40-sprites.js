@@ -1,39 +1,108 @@
-function bow(x,y){return `<rect class="bow" x="${x}" y="${y}" width="8" height="9"/>`+
-  `<rect class="bowknot" x="${x+9}" y="${y+2}" width="5" height="5"/>`+
-  `<rect class="bow" x="${x+15}" y="${y}" width="8" height="9"/>`}
+// Poly is five overlapping armour plates, front to back: each plate's leading
+// top edge is "spk", the seam where the next plate overlaps it is "seg", and
+// the body is "shell" — all three read from --shell/-lt/-dk, so the whole bug
+// recolours to the last find's tier. Never hardcode a shell colour. Antenna
+// ("ant"/"anttip") and feet ("foot") are the fixed accents that keep her
+// recognisable in every tier. She faces left; renderBug() mirrors her with
+// scaleX when she walks right. No shading or anti-aliasing anywhere — at the
+// ~64px she actually renders, soft edges turn to mush.
+//
+// The width attributes only matter where CSS doesn't size the sprite (the
+// intro's .cast); they're kept at the old sprites' widths so swapping the art
+// didn't also resize the title screen.
+function WALK(who){return `<svg width="70" height="33" viewBox="0 0 300 140" role="img" aria-label="${who} walking">
+<rect class="anttip" x="40" y="26" width="8" height="8"/>
+<rect class="ant" x="48" y="34" width="8" height="8"/>
+<rect class="ant" x="56" y="42" width="8" height="8"/>
+<rect class="ant" x="64" y="50" width="8" height="8"/>
+<rect class="anttip" x="18" y="52" width="8" height="8"/>
+<rect class="ant" x="26" y="56" width="10" height="8"/>
+<rect class="ant" x="36" y="60" width="10" height="8"/>
+<rect class="ant" x="46" y="64" width="10" height="8"/>
 
-function WALK(who){return `<svg width="70" height="50" viewBox="0 0 112 76" role="img" aria-label="${who} walking">
-${bow(9,17)}
-<rect class="foot" x="0" y="12" width="8" height="8"/><rect class="seg" x="8" y="20" width="8" height="8"/>
-<rect class="shell" x="24" y="20" width="64" height="8"/><rect class="shell" x="16" y="28" width="80" height="8"/>
-<rect class="shell" x="8" y="36" width="88" height="8"/><rect class="shell" x="8" y="44" width="88" height="8"/>
-<rect class="seg" x="36" y="20" width="6" height="32"/><rect class="seg" x="56" y="20" width="6" height="32"/>
-<rect class="seg" x="76" y="20" width="6" height="32"/>
-<rect class="spk" x="28" y="20" width="7" height="7"/><rect class="spk" x="48" y="20" width="7" height="7"/>
-<rect class="spk" x="68" y="20" width="7" height="7"/>
-<rect class="eye" x="14" y="34" width="9" height="9"/>
-<g class="legA"><rect class="shell" x="24" y="52" width="8" height="8"/><rect class="foot" x="24" y="60" width="8" height="7"/>
-<rect class="shell" x="68" y="52" width="8" height="8"/><rect class="foot" x="68" y="60" width="8" height="7"/></g>
-<g class="legB"><rect class="shell" x="46" y="52" width="8" height="8"/><rect class="foot" x="46" y="60" width="8" height="7"/></g>
+<rect class="shell" x="56" y="64" width="40" height="8"/>
+<rect class="shell" x="48" y="72" width="48" height="8"/>
+<rect class="shell" x="44" y="80" width="52" height="8"/>
+<rect class="shell" x="44" y="88" width="52" height="8"/>
+<rect class="shell" x="48" y="96" width="48" height="8"/>
+<rect class="shell" x="56" y="104" width="40" height="8"/>
+<rect class="spk" x="60" y="64" width="22" height="8"/>
+<rect class="eye" x="50" y="78" width="18" height="16"/>
+<rect class="glint" x="54" y="81" width="7" height="7"/>
+
+<rect class="shell" x="96" y="48" width="36" height="8"/>
+<rect class="shell" x="92" y="56" width="44" height="8"/>
+<rect class="shell" x="90" y="64" width="48" height="40"/>
+<rect class="shell" x="96" y="104" width="42" height="8"/>
+<rect class="spk" x="100" y="48" width="26" height="8"/>
+<rect class="spk" x="96" y="56" width="22" height="8"/>
+<rect class="seg" x="132" y="48" width="6" height="64"/>
+
+<rect class="shell" x="136" y="40" width="40" height="8"/>
+<rect class="shell" x="130" y="48" width="52" height="56"/>
+<rect class="shell" x="136" y="104" width="46" height="8"/>
+<rect class="spk" x="140" y="40" width="28" height="8"/>
+<rect class="spk" x="134" y="48" width="24" height="8"/>
+<rect class="seg" x="176" y="40" width="6" height="72"/>
+
+<rect class="shell" x="180" y="40" width="38" height="8"/>
+<rect class="shell" x="174" y="48" width="50" height="56"/>
+<rect class="shell" x="180" y="104" width="44" height="8"/>
+<rect class="spk" x="184" y="40" width="26" height="8"/>
+<rect class="spk" x="178" y="48" width="22" height="8"/>
+<rect class="seg" x="218" y="40" width="6" height="72"/>
+
+<rect class="shell" x="222" y="48" width="34" height="8"/>
+<rect class="shell" x="218" y="56" width="50" height="40"/>
+<rect class="shell" x="220" y="96" width="44" height="8"/>
+<rect class="shell" x="224" y="104" width="36" height="8"/>
+<rect class="spk" x="226" y="48" width="24" height="8"/>
+<rect class="spk" x="222" y="56" width="20" height="8"/>
+<rect class="seg" x="260" y="56" width="6" height="48"/>
+
+<rect class="shell" x="264" y="64" width="30" height="24"/>
+<rect class="spk" x="266" y="64" width="16" height="8"/>
+
+<g class="legA">
+<rect class="shell" x="62" y="112" width="14" height="14"/><rect class="foot" x="62" y="126" width="14" height="8"/>
+<rect class="shell" x="160" y="112" width="14" height="14"/><rect class="foot" x="160" y="126" width="14" height="8"/>
+<rect class="shell" x="246" y="112" width="14" height="12"/><rect class="foot" x="246" y="124" width="14" height="8"/>
+</g>
+<g class="legB">
+<rect class="shell" x="110" y="112" width="14" height="14"/><rect class="foot" x="110" y="126" width="14" height="8"/>
+<rect class="shell" x="208" y="112" width="14" height="14"/><rect class="foot" x="208" y="126" width="14" height="8"/>
+</g>
 </svg>`}
 
-function BALL(who){return `<svg width="50" height="58" viewBox="0 0 64 74" role="img" aria-label="${who} curled up">
-${bow(20,0)}
-<rect class="shell" x="19" y="12" width="26" height="6"/>
-<rect class="shell" x="11" y="18" width="43" height="6"/>
-<rect class="shell" x="6" y="24" width="52" height="6"/>
-<rect class="shell" x="3" y="30" width="57" height="6"/>
-<rect class="shell" x="2" y="36" width="60" height="6"/>
-<rect class="shell" x="2" y="42" width="60" height="6"/>
-<rect class="shell" x="3" y="48" width="57" height="6"/>
-<rect class="shell" x="6" y="54" width="52" height="6"/>
-<rect class="shell" x="11" y="60" width="43" height="6"/>
-<rect class="shell" x="19" y="66" width="26" height="6"/>
-<rect class="seg" x="17" y="20" width="5" height="44"/>
-<rect class="seg" x="30" y="13" width="5" height="58"/>
-<rect class="seg" x="43" y="20" width="5" height="44"/>
-<rect class="spk" x="22" y="22" width="6" height="6"/><rect class="spk" x="37" y="30" width="6" height="6"/>
-<rect class="eye" x="6" y="38" width="8" height="8"/></svg>`}
+// Curled: a proper circle with the plate seams radiating from the centre, so
+// it reads as the same creature rolled up rather than a generic ball. The
+// antenna tip peeking out at the front is what sells the pose.
+function BALL(who){return `<svg width="50" height="50" viewBox="0 0 96 96" role="img" aria-label="${who} curled up">
+<rect class="anttip" x="6" y="30" width="7" height="7"/>
+<rect class="ant" x="13" y="34" width="8" height="6"/>
+<rect class="shell" x="30" y="6" width="36" height="6"/>
+<rect class="shell" x="20" y="12" width="56" height="6"/>
+<rect class="shell" x="14" y="18" width="68" height="6"/>
+<rect class="shell" x="10" y="24" width="76" height="6"/>
+<rect class="shell" x="7" y="30" width="82" height="6"/>
+<rect class="shell" x="5" y="36" width="86" height="6"/>
+<rect class="shell" x="4" y="42" width="88" height="12"/>
+<rect class="shell" x="5" y="54" width="86" height="6"/>
+<rect class="shell" x="7" y="60" width="82" height="6"/>
+<rect class="shell" x="10" y="66" width="76" height="6"/>
+<rect class="shell" x="14" y="72" width="68" height="6"/>
+<rect class="shell" x="20" y="78" width="56" height="6"/>
+<rect class="shell" x="30" y="84" width="36" height="6"/>
+<rect class="spk" x="30" y="10" width="26" height="6"/>
+<rect class="spk" x="20" y="16" width="20" height="6"/>
+<rect class="spk" x="14" y="22" width="14" height="6"/>
+<rect class="seg" x="24" y="14" width="5" height="68"/>
+<rect class="seg" x="42" y="7" width="5" height="82"/>
+<rect class="seg" x="60" y="10" width="5" height="76"/>
+<rect class="seg" x="74" y="20" width="5" height="56"/>
+<rect class="eye" x="8" y="42" width="12" height="12"/>
+<rect class="glint" x="11" y="45" width="5" height="5"/>
+</svg>`}
 
 // Never named to the player (see "The mantle" in CLAUDE.md) — the
 // comment on each entry is just so an author editing this list can tell
@@ -65,26 +134,28 @@ function RELIC(i){return `<g class="relic">${RELICS[i].g}</g>`}
 const SCENE={
  Music:{
   bg:"#6B4A2E",
-  hat:`<rect class="hair" x="12" y="4" width="64" height="10"/><rect class="hair" x="6" y="10" width="12" height="20"/>
-<rect class="hair" x="70" y="10" width="12" height="20"/><rect class="hair" x="16" y="14" width="56" height="8"/>
-<rect class="hair" x="20" y="22" width="14" height="4"/><rect class="hair" x="54" y="22" width="14" height="4"/>`,
-  prop:`<rect class="gtr" x="40" y="64" width="34" height="7"/><rect class="gtrdk" x="30" y="61" width="10" height="13"/>
-<rect class="gtr" x="70" y="70" width="32" height="28"/>
-<rect class="gtrlt" x="74" y="74" width="24" height="20"/><rect class="gtrdk" x="80" y="79" width="10" height="9"/>`,
+  hat:`<rect class="hair" x="62" y="10" width="92" height="10"/>
+<rect class="hair" x="30" y="14" width="26" height="58"/><rect class="hair" x="160" y="14" width="26" height="58"/>
+<rect class="hair" x="44" y="20" width="128" height="16"/>
+<rect class="hair" x="56" y="36" width="34" height="9"/><rect class="hair" x="126" y="36" width="34" height="9"/>
+<rect class="hair" x="90" y="36" width="36" height="4"/>`,
+  prop:`<rect class="gtr" x="40" y="74" width="34" height="7"/><rect class="gtrdk" x="30" y="71" width="10" height="13"/>
+<rect class="gtr" x="70" y="78" width="32" height="28"/>
+<rect class="gtrlt" x="74" y="82" width="24" height="20"/><rect class="gtrdk" x="80" y="87" width="10" height="9"/>`,
   float:`<g class="nt nt1"><rect class="note" x="128" y="46" width="10" height="7"/><rect class="note" x="136" y="30" width="3" height="17"/></g>
 <g class="nt nt2"><rect class="note" x="138" y="34" width="10" height="7"/><rect class="note" x="146" y="18" width="3" height="17"/></g>
 <g class="nt nt3"><rect class="note" x="130" y="66" width="10" height="7"/><rect class="note" x="138" y="50" width="3" height="17"/></g>`},
  Geography:{
   bg:"#2E3A42",
-  prop:`<rect class="pole" x="86" y="12" width="3" height="80"/>
-<g class="flagwave"><rect class="flagedge" x="86" y="9" width="38" height="27"/>
-<rect class="flagK" x="89" y="12" width="32" height="7"/>
-<rect class="flagR" x="89" y="19" width="32" height="7"/>
-<rect class="flagY" x="89" y="26" width="32" height="7"/></g>`},
+  prop:`<rect class="pole" x="90" y="12" width="3" height="80"/>
+<g class="flagwave"><rect class="flagedge" x="90" y="9" width="38" height="27"/>
+<rect class="flagK" x="93" y="12" width="32" height="7"/>
+<rect class="flagR" x="93" y="19" width="32" height="7"/>
+<rect class="flagY" x="93" y="26" width="32" height="7"/></g>`},
  Film:{
   bg:"#55514C",
   prop:(()=>{
-    const bx=84,by=50,bw=46,bh=9,n=7,slant=5,unit=(bw+slant)/n;
+    const bx=90,by=50,bw=46,bh=9,n=7,slant=5,unit=(bw+slant)/n;
     let stripes="";
     for(let i=0;i<n;i++){
       const cls=i%2?"clapx":"clap";
@@ -101,12 +172,12 @@ const SCENE={
   })()},
  Space:{
   bg:"#101A3A",
-  eyes:`<rect class="fur" x="22" y="24" width="13" height="13"/><rect class="fur" x="53" y="24" width="13" height="13"/>
-<g class="pupil"><rect class="eye" x="26" y="28" width="7" height="7"/><rect class="eye" x="57" y="28" width="7" height="7"/></g>`,
-  prop:`<g class="orbit"><rect class="ring" x="82" y="30" width="44" height="4"/>
-<rect class="planet" x="96" y="20" width="14" height="4"/><rect class="planet" x="92" y="24" width="22" height="14"/>
-<rect class="planet" x="96" y="38" width="14" height="4"/>
-<rect class="ring" x="82" y="30" width="12" height="4"/><rect class="ring" x="114" y="30" width="12" height="4"/></g>`},
+  eyes:`<rect class="sclera" x="54" y="46" width="32" height="24"/><rect class="sclera" x="130" y="46" width="32" height="24"/>
+<g class="pupil"><rect class="eye" x="63" y="52" width="14" height="14"/><rect class="eye" x="139" y="52" width="14" height="14"/></g>`,
+  prop:`<g class="orbit"><rect class="ring" x="90" y="30" width="44" height="4"/>
+<rect class="planet" x="104" y="20" width="14" height="4"/><rect class="planet" x="100" y="24" width="22" height="14"/>
+<rect class="planet" x="104" y="38" width="14" height="4"/>
+<rect class="ring" x="90" y="30" width="12" height="4"/><rect class="ring" x="122" y="30" width="12" height="4"/></g>`},
 
  pinkfloyd:{
   bg:"#241F47",
@@ -124,15 +195,15 @@ const SCENE={
 
  arctic:{
   bg:"#10394F",
-  hat:`<rect class="pom" x="38" y="0" width="12" height="7"/>
-<rect class="wool" x="22" y="7" width="46" height="7"/>
-<rect class="wool" x="14" y="14" width="62" height="7"/>
-<rect class="cuff" x="12" y="21" width="66" height="7"/>
-<rect class="woollt" x="24" y="9" width="8" height="5"/><rect class="woollt" x="52" y="16" width="8" height="5"/>`,
-  prop:`<rect class="scarf" x="10" y="70" width="68" height="10"/>
-<rect class="cuff" x="26" y="70" width="7" height="10"/><rect class="cuff" x="56" y="70" width="7" height="10"/>
-<rect class="scarf" x="62" y="80" width="14" height="20"/>
-<rect class="cuff" x="62" y="88" width="14" height="5"/>`,
+  hat:`<rect class="pom" x="96" y="9" width="24" height="12"/>
+<rect class="wool" x="70" y="19" width="76" height="11"/>
+<rect class="wool" x="52" y="30" width="112" height="10"/>
+<rect class="cuff" x="42" y="40" width="132" height="10"/>
+<rect class="woollt" x="82" y="21" width="14" height="8"/><rect class="woollt" x="126" y="31" width="14" height="8"/>`,
+  prop:`<rect class="scarf" x="10" y="74" width="68" height="10"/>
+<rect class="cuff" x="26" y="74" width="7" height="10"/><rect class="cuff" x="56" y="74" width="7" height="10"/>
+<rect class="scarf" x="62" y="84" width="14" height="20"/>
+<rect class="cuff" x="62" y="92" width="14" height="5"/>`,
   float:`<g class="flake f1"><rect x="16" y="0" width="6" height="6" fill="#F3EDE0"/></g>
 <g class="flake f2"><rect x="52" y="0" width="5" height="5" fill="#F3EDE0"/></g>
 <g class="flake f3"><rect x="98" y="0" width="6" height="6" fill="#F3EDE0"/></g>
@@ -158,43 +229,42 @@ const SCENE={
 
  revolution:{
   bg:"#5E4A3A",
-  hat:`<rect class="tri" x="30" y="4" width="26" height="12"/>
-<rect class="tri" x="2" y="8" width="16" height="10"/><rect class="tri" x="68" y="8" width="16" height="10"/>
-<rect class="tri" x="4" y="16" width="78" height="7"/>
-<rect class="braid" x="4" y="16" width="78" height="3"/>
-<rect class="braid" x="34" y="7" width="6" height="9"/>`,
+  hat:`<rect class="tri" x="74" y="10" width="68" height="22"/>
+<rect class="tri" x="32" y="18" width="32" height="18"/><rect class="tri" x="152" y="18" width="32" height="18"/>
+<rect class="tri" x="34" y="32" width="148" height="12"/>
+<rect class="braid" x="34" y="32" width="148" height="4"/>
+<rect class="braid" x="84" y="14" width="10" height="18"/>`,
   prop:`<rect class="coat" x="10" y="76" width="20" height="24"/>
 <rect class="coat" x="58" y="76" width="20" height="24"/>
 <rect class="coatdk" x="10" y="76" width="20" height="4"/><rect class="coatdk" x="58" y="76" width="20" height="4"/>
-<rect class="cuff" x="34" y="68" width="20" height="8"/>
-<rect class="cuff" x="38" y="76" width="13" height="9"/>
+<rect class="cuff" x="34" y="74" width="20" height="8"/>
+<rect class="cuff" x="38" y="82" width="13" height="9"/>
 <rect class="braid" x="30" y="82" width="4" height="4"/><rect class="braid" x="30" y="92" width="4" height="4"/>
 <rect class="braid" x="54" y="82" width="4" height="4"/><rect class="braid" x="54" y="92" width="4" height="4"/>`},
 
  Food:{
   bg:"#1F3A22",
-  prop:`<rect class="stem" x="60" y="46" width="3" height="6"/><rect class="leafy" x="63" y="46" width="9" height="4"/>
-<g class="apw"><rect class="apple" x="52" y="52" width="22" height="18"/><rect class="apple" x="56" y="70" width="14" height="4"/></g>
-<g class="apb"><rect class="apple" x="60" y="52" width="14" height="18"/><rect class="apple" x="52" y="52" width="8" height="5"/>
-<rect class="apple" x="52" y="65" width="8" height="5"/><rect class="apple" x="60" y="70" width="10" height="4"/></g>`},
+  prop:`<rect class="stem" x="64" y="52" width="3" height="6"/><rect class="leafy" x="67" y="52" width="9" height="4"/>
+<g class="apw"><rect class="apple" x="56" y="58" width="22" height="18"/><rect class="apple" x="60" y="76" width="14" height="4"/></g>
+<g class="apb"><rect class="apple" x="64" y="58" width="14" height="18"/><rect class="apple" x="56" y="58" width="8" height="5"/>
+<rect class="apple" x="56" y="71" width="8" height="5"/><rect class="apple" x="64" y="76" width="10" height="4"/></g>`},
 
  bigten:{
   bg:"#1E4A2A",
-  // The dome sits on the crown and stops above the eye row (default eyes
-  // start at y=28) — nothing here reaches past y=28. The facemask is two
-  // thin side rails plus three thin horizontal bars low across the muzzle
-  // (starting at y=47, after the nose stripe at y=40-47 ends), with real
-  // gaps between them so the incisors and teeth read through — a solid
-  // cage here was the original bug: eyes, nose and teeth all painted over.
-  hat:`<rect class="helm" x="16" y="4" width="52" height="6"/>
-<rect class="helm" x="10" y="10" width="64" height="8"/>
-<rect class="helm" x="6" y="18" width="72" height="7"/>
-<rect class="helmstripe" x="38" y="4" width="8" height="21"/>
-<rect class="helmdk" x="6" y="25" width="72" height="3"/>
-<rect class="mask" x="14" y="28" width="3" height="36"/><rect class="mask" x="69" y="28" width="3" height="36"/>
-<rect class="mask" x="17" y="47" width="52" height="3"/>
-<rect class="mask" x="17" y="54" width="52" height="3"/>
-<rect class="mask" x="17" y="61" width="52" height="3"/>`,
+  // The dome covers the skull and ears and stops at y=50, above the eye line
+  // (y=54). The facemask is two side rails outside the cheeks plus three thin
+  // bars low across the jaw — the first one below the nose (which ends at
+  // y=94) — with real gaps so the teeth read through. A solid cage here was
+  // the original bug: eyes, nose and teeth all painted over.
+  hat:`<rect class="helm" x="66" y="10" width="84" height="6"/>
+<rect class="helm" x="36" y="16" width="144" height="10"/>
+<rect class="helm" x="34" y="26" width="148" height="18"/>
+<rect class="helmstripe" x="100" y="10" width="16" height="34"/>
+<rect class="helmdk" x="34" y="44" width="148" height="6"/>
+<rect class="mask" x="28" y="50" width="6" height="64"/><rect class="mask" x="182" y="50" width="6" height="64"/>
+<rect class="mask" x="34" y="96" width="148" height="5"/>
+<rect class="mask" x="34" y="108" width="148" height="5"/>
+<rect class="mask" x="34" y="119" width="148" height="5"/>`,
   prop:`<rect class="pads" x="2" y="66" width="26" height="16"/>
 <rect class="pads" x="60" y="66" width="26" height="16"/>
 <rect class="jersey" x="12" y="78" width="64" height="22"/>
@@ -204,26 +274,25 @@ const SCENE={
 
  girlscout:{
   bg:"#4A3A28",
-  hat:`<rect class="beret" x="16" y="6" width="52" height="8"/>
-<rect class="beret" x="10" y="14" width="64" height="9"/>
-<rect class="beretdk" x="10" y="23" width="64" height="4"/>
-<rect class="beret" x="58" y="2" width="9" height="6"/>`,
-  prop:`<polygon class="sash" points="14,66 32,66 76,100 54,100"/>
-<rect class="badgeA" x="26" y="74" width="8" height="8"/>
-<rect class="badgeB" x="38" y="82" width="8" height="8"/>
-<rect class="badgeC" x="50" y="90" width="8" height="8"/>
-<rect class="badgeD" x="20" y="68" width="6" height="6"/>`},
+  hat:`<rect class="beret" x="120" y="10" width="14" height="8"/>
+<rect class="beret" x="70" y="16" width="100" height="12"/>
+<rect class="beret" x="44" y="28" width="134" height="12"/>
+<rect class="beretdk" x="46" y="40" width="130" height="8"/>`,
+  prop:`<polygon class="sash" points="14,70 32,70 76,104 54,104"/>
+<rect class="badgeD" x="18" y="71" width="6" height="6"/>
+<rect class="badgeA" x="24" y="77" width="8" height="8"/>
+<rect class="badgeB" x="33" y="83" width="8" height="8"/>
+<rect class="badgeC" x="42" y="89" width="8" height="8"/>`},
 
  labcoat:{
   bg:"#14383C",
-  hat:`<rect class="gogrim" x="12" y="8" width="66" height="7"/>
-<rect class="goggle" x="18" y="12" width="20" height="12"/>
-<rect class="goggle" x="50" y="12" width="20" height="12"/>
-<rect class="gogrim" x="38" y="14" width="12" height="6"/>
-<rect class="gogrim" x="12" y="15" width="8" height="10"/><rect class="gogrim" x="68" y="15" width="8" height="10"/>`,
-  prop:`<rect class="lab" x="10" y="72" width="26" height="28"/>
-<rect class="lab" x="52" y="72" width="26" height="28"/>
-<rect class="labdk" x="34" y="72" width="8" height="28"/><rect class="labdk" x="46" y="72" width="8" height="28"/>
+  hat:`<rect class="gogrim" x="38" y="26" width="140" height="10"/>
+<rect class="gogrim" x="56" y="16" width="44" height="32"/><rect class="gogrim" x="116" y="16" width="44" height="32"/>
+<rect class="goggle" x="60" y="20" width="36" height="24"/><rect class="goggle" x="120" y="20" width="36" height="24"/>
+<rect class="gogrim" x="100" y="26" width="16" height="10"/>`,
+  prop:`<rect class="lab" x="10" y="74" width="26" height="28"/>
+<rect class="lab" x="52" y="74" width="26" height="28"/>
+<rect class="labdk" x="34" y="74" width="8" height="28"/><rect class="labdk" x="46" y="74" width="8" height="28"/>
 <rect class="flaskrim" x="92" y="24" width="24" height="5"/>
 <rect class="flask" x="98" y="29" width="12" height="14"/>
 <rect class="flask" x="94" y="43" width="20" height="6"/>
@@ -236,25 +305,24 @@ const SCENE={
 
  monopoly:{
   bg:"#3E5A47",
-  // hat paints over eyes (see GOPHER()'s render order) — the brim used to
-  // reach y=34 and blot out the default left eye (y=28) along with the
-  // monocle's own top edge (y=22). Shrunk and pulled up so the brim stops
-  // at y=22, clear of both.
-  hat:`<rect class="tophat" x="20" y="0" width="48" height="16"/>
-<rect class="hatband" x="20" y="12" width="48" height="6"/>
-<rect class="tophat" x="6" y="17" width="76" height="5"/>
-<rect class="hatlt" x="24" y="2" width="6" height="12"/>`,
-  eyes:`<rect class="eye" x="24" y="28" width="9" height="5"/>
-<rect class="mono" x="50" y="22" width="22" height="20"/>
-<rect class="monoglass" x="54" y="26" width="14" height="12"/>
-<rect class="eye" x="57" y="30" width="8" height="5"/>
-<rect class="chain" x="72" y="40" width="3" height="18"/>
-<rect class="chain" x="74" y="56" width="10" height="3"/>`},
+  // hat paints over eyes (see GOPHER()'s render order) — the brim has to stop
+  // above the monocle's top edge (y=44), not just the eye line, or it blots
+  // out the frame. Brim ends at y=41.
+  hat:`<rect class="tophat" x="72" y="9" width="72" height="25"/>
+<rect class="hatband" x="72" y="26" width="72" height="8"/>
+<rect class="tophat" x="50" y="34" width="116" height="7"/>
+<rect class="hatlt" x="78" y="12" width="9" height="14"/>`,
+  eyes:`<rect class="eye" x="56" y="54" width="28" height="8"/>
+<rect class="mono" x="124" y="44" width="44" height="34"/>
+<rect class="monoglass" x="130" y="48" width="32" height="26"/>
+<rect class="eye" x="132" y="54" width="28" height="8"/>
+<rect class="chain" x="166" y="76" width="5" height="28"/>
+<rect class="chain" x="168" y="100" width="18" height="5"/>`},
 
  penguins:{
   bg:"#2A5A72",
-  eyes:`<rect class="fur" x="22" y="24" width="13" height="13"/><rect class="fur" x="53" y="24" width="13" height="13"/>
-<g class="lookLR"><rect class="eye" x="26" y="28" width="7" height="7"/><rect class="eye" x="57" y="28" width="7" height="7"/></g>`,
+  eyes:`<rect class="sclera" x="54" y="46" width="32" height="24"/><rect class="sclera" x="130" y="46" width="32" height="24"/>
+<g class="lookLR"><rect class="eye" x="63" y="52" width="14" height="14"/><rect class="eye" x="139" y="52" width="14" height="14"/></g>`,
   float:(()=>{
     const p=`<rect class="pengdk" x="10" y="0" width="12" height="6"/>
 <rect class="pengdk" x="8" y="6" width="16" height="6"/><rect class="pengdk" x="6" y="12" width="20" height="6"/>
@@ -276,46 +344,50 @@ const SCENE={
  // shipped broken from exactly that).
  animator:{
   bg:"#3A3228",
-  prop:`<rect class="easel" x="86" y="30" width="4" height="60"/><rect class="easel" x="100" y="30" width="4" height="60"/>
-<rect class="easelbar" x="84" y="56" width="24" height="4"/>
-<rect class="canvas" x="82" y="18" width="30" height="26"/>
-<rect class="canvaslt" x="86" y="22" width="22" height="18"/>
+  prop:`<rect class="easel" x="96" y="30" width="4" height="60"/><rect class="easel" x="110" y="30" width="4" height="60"/>
+<rect class="easelbar" x="94" y="56" width="24" height="4"/>
+<rect class="canvas" x="92" y="18" width="30" height="26"/>
+<rect class="canvaslt" x="96" y="22" width="22" height="18"/>
 <rect class="brush" x="70" y="70" width="3" height="20"/><rect class="brushtip" x="68" y="88" width="6" height="6"/>`},
 
  showdog:{
   bg:"#4A3824",
-  prop:`<rect class="rosette" x="68" y="46" width="24" height="4"/>
-<rect class="rosette" x="64" y="50" width="32" height="18"/>
-<rect class="rosette" x="68" y="68" width="24" height="4"/>
-<rect class="rosettelt" x="72" y="54" width="16" height="10"/>
-<rect class="ribbon" x="74" y="72" width="6" height="22"/><rect class="ribbon" x="84" y="72" width="6" height="22"/>`},
+  prop:`<rect class="rosette" x="56" y="75" width="18" height="3"/>
+<rect class="rosette" x="52" y="78" width="26" height="12"/>
+<rect class="rosette" x="56" y="90" width="18" height="3"/>
+<rect class="rosettelt" x="58" y="81" width="14" height="6"/>
+<rect class="ribbon" x="57" y="93" width="5" height="10"/><rect class="ribbon" x="68" y="93" width="5" height="10"/>`},
 
  redjacket:{
   bg:"#2E1620",
-  prop:`<rect class="jacket" x="8" y="66" width="24" height="30"/>
-<rect class="jacket" x="58" y="66" width="24" height="30"/>
-<rect class="jacketdk" x="8" y="66" width="24" height="5"/><rect class="jacketdk" x="58" y="66" width="24" height="5"/>
-<rect class="zipper" x="38" y="64" width="4" height="34"/>
-<rect class="zippull" x="37" y="64" width="6" height="4"/>
+  prop:`<rect class="jacket" x="8" y="74" width="24" height="26"/>
+<rect class="jacket" x="58" y="74" width="24" height="26"/>
+<rect class="jacketdk" x="8" y="74" width="24" height="5"/><rect class="jacketdk" x="58" y="74" width="24" height="5"/>
+<rect class="zipper" x="38" y="74" width="4" height="26"/>
+<rect class="zippull" x="37" y="74" width="6" height="4"/>
 <rect class="cuff" x="2" y="90" width="12" height="7"/>
 <rect class="glove" x="0" y="80" width="16" height="14"/>`},
 
  ballpark:{
   bg:"#5E4A2E",
-  prop:`<rect class="mitt" x="78" y="58" width="28" height="24"/>
-<rect class="mittlt" x="84" y="62" width="16" height="14"/>
-<rect class="lace" x="88" y="64" width="2" height="10"/><rect class="lace" x="94" y="64" width="2" height="10"/>
-<rect class="ball" x="58" y="38" width="14" height="14"/>
-<rect class="stitch" x="61" y="41" width="2" height="2"/><rect class="stitch" x="67" y="45" width="2" height="2"/><rect class="stitch" x="61" y="49" width="2" height="2"/>`},
+  prop:`<rect class="mitt" x="82" y="58" width="28" height="24"/>
+<rect class="mittlt" x="88" y="62" width="16" height="14"/>
+<rect class="lace" x="92" y="64" width="2" height="10"/><rect class="lace" x="98" y="64" width="2" height="10"/>
+<rect class="ball" x="90" y="40" width="14" height="14"/>
+<rect class="stitch" x="93" y="43" width="2" height="2"/><rect class="stitch" x="99" y="47" width="2" height="2"/><rect class="stitch" x="93" y="51" width="2" height="2"/>`},
 
  passport:{
   bg:"#163038",
-  prop:`<rect class="passport" x="82" y="48" width="26" height="34"/>
-<rect class="passportlt" x="86" y="52" width="18" height="10"/>
-<rect class="stamp" x="88" y="66" width="6" height="6"/><rect class="stamp" x="96" y="70" width="6" height="6"/>
-<rect class="tagstring" x="70" y="40" width="2" height="12"/><rect class="tag" x="64" y="50" width="12" height="10"/>`}
+  prop:`<rect class="passport" x="92" y="48" width="26" height="34"/>
+<rect class="passportlt" x="96" y="52" width="18" height="10"/>
+<rect class="stamp" x="98" y="66" width="6" height="6"/><rect class="stamp" x="106" y="70" width="6" height="6"/>
+<rect class="tagstring" x="124" y="44" width="2" height="12"/><rect class="tag" x="120" y="54" width="12" height="10"/>`}
 };
-const HA=`<text class="ha ha1" x="128" y="52">ha</text><text class="ha ha2" x="138" y="38">ha</text><text class="ha ha3" x="130" y="72">ha</text>`;
+// Each "ha" is ~21 units wide and floats 24 straight up (haFloat), so it
+// lives in the strip right of every scene's side prop (those end by x=136)
+// and left of the viewBox edge at 160. It used to drift 16 sideways as well,
+// which ran it out past 160 and clipped it.
+const HA=`<text class="ha ha1" x="136" y="58">ha</text><text class="ha ha2" x="138" y="42">ha</text><text class="ha ha3" x="137" y="76">ha</text>`;
 
 function SLEEPER(awake){
   const eyes = awake
@@ -347,9 +419,47 @@ ${eyes}
 ${zs}
 </svg>`}
 
+// Rumble's head is drawn in its own native frame, roughly twice the scale of
+// the 160×120 viewBox it sits in, and placed with one transform (HEAD_AT).
+// A scene's `eyes` and `hat` render inside that same transform, so they're
+// authored in head coordinates, not viewBox coordinates — see "Rumble's
+// costumes" in CLAUDE.md for the landmarks (skull top, eye line, muzzle).
+// `prop` and `float` stay in viewBox coordinates, outside the head.
+function RUMBLE_HEAD(eyes){return `
+<rect class="furdk" x="36" y="14" width="30" height="30"/>
+<rect class="furdk" x="150" y="14" width="30" height="30"/>
+<rect class="fur" x="44" y="22" width="16" height="16"/>
+<rect class="fur" x="156" y="22" width="16" height="16"/>
+<rect class="fur" x="72" y="20" width="72" height="10"/>
+<rect class="fur" x="56" y="30" width="104" height="10"/>
+<rect class="fur" x="46" y="40" width="124" height="10"/>
+<rect class="fur" x="40" y="50" width="136" height="10"/>
+<rect class="fur" x="38" y="60" width="140" height="20"/>
+<rect class="fur" x="40" y="80" width="136" height="10"/>
+<rect class="fur" x="46" y="90" width="124" height="10"/>
+<rect class="fur" x="56" y="100" width="104" height="10"/>
+<rect class="furlt" x="72" y="20" width="56" height="10"/>
+<rect class="furlt" x="56" y="30" width="48" height="10"/>
+<rect class="furlt" x="44" y="76" width="26" height="24"/>
+<rect class="furlt" x="146" y="76" width="26" height="24"/>
+<rect class="muzzle" x="84" y="74" width="48" height="28"/>
+<rect class="furdk" x="94" y="80" width="28" height="14"/>
+${eyes}
+<g class="jaw">
+<rect class="tooth" x="92" y="102" width="14" height="22"/>
+<rect class="tooth" x="110" y="102" width="14" height="22"/>
+<rect class="incisor" x="92" y="102" width="14" height="5"/>
+<rect class="incisor" x="110" y="102" width="14" height="5"/>
+</g>`}
+const EYES_CLOSED=`<rect class="eye" x="56" y="54" width="28" height="8"/>
+<rect class="eye" x="132" y="54" width="28" height="8"/>`;
+// Scale 0.6, centred on the body (x≈46) with the ear tips at y≈8 — big enough
+// to read as the new rounder head, small enough to leave his shoulders and
+// arms showing above the dirt.
+const HEAD_AT="translate(-18.8,-0.4) scale(.6)";
+
 function GOPHER(scene){
   const sc=SCENE[scene]||{};
-  const eyes=sc.eyes||`<rect class="eye" x="24" y="28" width="9" height="5"/><rect class="eye" x="55" y="28" width="9" height="5"/>`;
   return `<svg class="goph ${scene?"sc-"+scene:""}" width="150" height="113" viewBox="0 0 160 120" role="img" aria-label="Rumble the gopher">
 <g class="figure">
 <rect class="fur" x="16" y="68" width="56" height="10"/>
@@ -357,19 +467,10 @@ function GOPHER(scene){
 <rect class="furlt" x="28" y="80" width="30" height="18"/>
 <g class="armL"><rect class="fur" x="2" y="80" width="14" height="9"/><rect class="furdk" x="0" y="84" width="7" height="9"/></g>
 <g class="armR"><rect class="fur" x="72" y="80" width="14" height="9"/><rect class="furdk" x="82" y="84" width="7" height="9"/></g>
-<g class="bob">
-<rect class="furdk" x="6" y="10" width="14" height="14"/><rect class="furdk" x="68" y="10" width="14" height="14"/>
-<rect class="fur" x="10" y="14" width="6" height="6"/><rect class="fur" x="72" y="14" width="6" height="6"/>
-<rect class="fur" x="20" y="18" width="48" height="8"/><rect class="fur" x="12" y="26" width="64" height="8"/>
-<rect class="fur" x="12" y="34" width="64" height="8"/><rect class="fur" x="12" y="42" width="64" height="8"/>
-<rect class="fur" x="20" y="50" width="48" height="8"/>
-<rect class="furlt" x="14" y="36" width="8" height="8"/><rect class="furlt" x="66" y="36" width="8" height="8"/>
-${eyes}
-<rect class="furdk" x="36" y="40" width="16" height="7"/>
-<g class="jaw"><rect class="incisor" x="35" y="50" width="8" height="4"/><rect class="incisor" x="45" y="50" width="8" height="4"/>
-<rect class="tooth" x="35" y="54" width="8" height="14"/><rect class="tooth" x="45" y="54" width="8" height="14"/></g>
+<g class="bob"><g transform="${HEAD_AT}">
+${RUMBLE_HEAD(sc.eyes||EYES_CLOSED)}
 ${sc.hat||""}
-</g>
+</g></g>
 ${sc.prop||""}
 </g>
 <rect class="dirt" x="0" y="96" width="160" height="24"/>

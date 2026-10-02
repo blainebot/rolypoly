@@ -18,18 +18,20 @@ function rumble(lost){
   document.body.classList.add("shaking");
   $("flash").classList.remove("on");void $("flash").offsetWidth;$("flash").classList.add("on");
   setTimeout(()=>{
-    // One outcome now: a bust loses the whole unbanked round, no exceptions,
-    // so the panel has exactly one number to show, not a headline chosen
-    // from a set of shapes. See CLAUDE.md's "Rumble's overlay" for why this
-    // used to be more complicated (a guaranteed-safe first find) and isn't
-    // anymore — that feature made the opening dig of every round free,
-    // which was never the point of a press-your-luck game.
+    // A bust loses the whole unbanked round, no exceptions — the number is
+    // just how much that was. The one wording exception is a bust before the
+    // first find: "0 lost" is true but reads like a bug, so that case says
+    // what actually happened instead. Not a partial save and not reassurance
+    // — the round is still over. See CLAUDE.md's "Rumble's overlay".
+    const lostHtml=lost>0
+      ? `<div class="lost"><span id="lostNum">${lost}</span><em>lost</em></div>`
+      : `<div class="lost"><span>Round over</span><em>before your first find</em></div>`;
     $("rumbleBox").innerHTML=`<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-label="Rumble">
       <div class="rumble" style="background:${(SCENE[scene]||{}).bg||"var(--bust)"}">
         <div class="gopher">${GOPHER(scene)}</div>
         <b>RUMBLED!</b>
         <p class="taunt">${TAUNTS[Math.floor(Math.random()*TAUNTS.length)]}</p>
-        <div class="lost"><span id="lostNum">${lost}</span><em>lost</em></div>
+        ${lostHtml}
         <button id="shakeBtn">Shake it off</button>
       </div></div>`;
     const close=()=>{

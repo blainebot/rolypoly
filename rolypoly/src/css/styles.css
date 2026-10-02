@@ -106,8 +106,10 @@ body{
 .legA,.legB{transform-box:fill-box}
 .legA{animation:stepA .34s steps(1) infinite}
 .legB{animation:stepB .34s steps(1) infinite}
-@keyframes stepA{0%,49%{transform:translateY(0)}50%,100%{transform:translateY(-4px)}}
-@keyframes stepB{0%,49%{transform:translateY(-4px)}50%,100%{transform:translateY(0)}}
+/* SVG user units, not screen px: 11 units in WALK's 300-wide viewBox is the
+   same ~2.3px lift at 64px that 4 units was in the old 112-wide one. */
+@keyframes stepA{0%,49%{transform:translateY(0)}50%,100%{transform:translateY(-11px)}}
+@keyframes stepB{0%,49%{transform:translateY(-11px)}50%,100%{transform:translateY(0)}}
 .flash{position:fixed;inset:0;background:var(--bust);opacity:0;pointer-events:none;z-index:3}
 .flash.on{animation:flashIn .8s}
 .den{line-height:0}
@@ -301,7 +303,8 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 /* sprites */
 .shell{fill:var(--shell)}.seg{fill:var(--shell-dk)}.spk{fill:var(--shell-lt)}
 .eye{fill:#1B1610}.foot{fill:var(--foot)}
-.bow{fill:#C94F7C}.bowknot{fill:#8E2F52}.leaf{fill:#7D8A5A}.stem{fill:#414A2C}
+.ant{fill:#6B4A28}.anttip{fill:#E8639A}.muzzle{fill:#E2C396}
+.leaf{fill:#7D8A5A}.stem{fill:#414A2C}
 .fur{fill:#B0824F}.furdk{fill:#6E4A28}.furlt{fill:#D2A874}
 .tooth{fill:#F7EFD9}.incisor{fill:#E0A03A}
 .hair{fill:#241C15}.pole{fill:#6E4A28}
@@ -357,7 +360,7 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .passport{fill:#5E2B3A}.passportlt{fill:#E8C07A}.stamp{fill:#3E8E5A}
 .tagstring{fill:#6E4A28}.tag{fill:#C1934F}
 .lookLR{transform-box:fill-box;transform-origin:center;animation:lookLR 2.2s steps(1) infinite}
-@keyframes lookLR{0%,49%{transform:translateX(-4px)}50%,100%{transform:translateX(4px)}}
+@keyframes lookLR{0%,49%{transform:translateX(-6.7px)}50%,100%{transform:translateX(6.7px)}}
 .bub1,.bub2,.bub3{transform-box:fill-box;animation:fizz 1.8s ease-out infinite}
 .bub2{animation-delay:.6s}.bub3{animation-delay:1.2s}
 @keyframes fizz{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}
@@ -391,16 +394,19 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .ha3{animation:haFloat 1.1s ease-out .74s infinite}
 
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-2.5deg)}50%{transform:translateY(-5px) rotate(2.5deg)}}
-@keyframes jaw{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+/* jaw, look and lookLR all animate inside GOPHER's head transform (scale .6,
+   HEAD_AT in 40-sprites.js), in SVG user units: these are the old on-screen
+   distances divided by .6, so the chomp and the glances didn't shrink with it. */
+@keyframes jaw{0%,100%{transform:translateY(0)}50%{transform:translateY(8.3px)}}
 @keyframes strum{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(11deg)}}
 @keyframes wave{0%,100%{transform:rotate(-3deg) skewY(3deg)}50%{transform:rotate(3deg) skewY(-3deg)}}
 @keyframes snap{0%,52%{transform:rotate(-28deg)}60%,100%{transform:rotate(0)}}
 @keyframes orbit{0%,100%{transform:translate(0,0)}50%{transform:translate(-8px,-9px)}}
-@keyframes look{0%,100%{transform:translate(1.5px,0)}50%{transform:translate(-1.5px,-1px)}}
+@keyframes look{0%,100%{transform:translate(2.5px,0)}50%{transform:translate(-2.5px,-1.7px)}}
 @keyframes chompA{0%,49%{opacity:1}50%,100%{opacity:0}}
 @keyframes chompB{0%,49%{opacity:0}50%,100%{opacity:1}}
 @keyframes noteUp{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}100%{opacity:0;transform:translate(12px,-32px)}}
-@keyframes haFloat{0%{opacity:0;transform:translate(0,0)}25%{opacity:1}100%{opacity:0;transform:translate(16px,-24px)}}
+@keyframes haFloat{0%{opacity:0;transform:translate(0,0)}25%{opacity:1}100%{opacity:0;transform:translate(0,-24px)}}
 @keyframes burst{0%{transform:translateY(50px) scale(.6);opacity:0}70%{transform:translateY(-6px) scale(1.05);opacity:1}100%{transform:translateY(0) scale(1)}}
 @keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes flashIn{0%{opacity:0}25%{opacity:.75}100%{opacity:0}}
