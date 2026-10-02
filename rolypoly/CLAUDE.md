@@ -360,10 +360,36 @@ stand-in. Every guess lands in one of four buckets — OK (credits the answer
 it came from, outright or via a confirm), WRONG (credits a *different*
 answer — the real-bug case), AMBIGUOUS ("be more specific," nothing lost),
 BUST (matches nothing, or is swallowed by an extra/distractor that was never
-going to credit it either). Only WRONG and BUST fail the run; AMBIGUOUS is
-reported but never gates anything; most of it is content doing exactly what
-it should ("avenue" matching eleven Monopoly properties isn't a bug) and is
-there for a person to read and judge, not a rule to automate away.
+going to credit it either). AMBIGUOUS is reported but never gates anything;
+most of it is content doing exactly what it should ("avenue" matching eleven
+Monopoly properties isn't a bug) and is there for a person to read and judge,
+not a rule to automate away.
+
+**Only WRONG and BUST can fail the run, and even then only when "genuine"**
+(`NON_GATING_RULES`/`isGenuine()` in `probe.mjs`) — a BUST only gates when at
+least one rule that derived it is something a real person would plausibly
+type verbatim, and the guess clears `MIN_FUZZY` (below that floor the matcher
+can't reach it through fuzzy matching at all by design, same as "Ono" needing
+an alias rather than a lowered floor). The two deliberately adversarial
+mutation rules (a character deleted, two swapped — testing *past* where
+`tolerance()` is supposed to give up) and the plural/singular and
+first+last-with-middle-dropped rules don't gate on their own either; review
+found those three the most prone to landing on a fragment nobody would
+actually type ("atom mother", "dogs", "thes"). Without these cuts some
+mutation or pluralized fragment busts on effectively every run across 400+
+answers, and the build could never go green no matter how clean the content
+is — these non-gating BUSTs still print, under their own heading, same
+transparency as AMBIGUOUS, just never the reason the build goes red.
+
+**`scripts/probe-allowlist.json` covers the other kind of judgment call**: a
+WRONG/BUST a person has actually looked at and decided isn't worth fixing (a
+matcher quirk too narrow to chase, or — "bulldog" vs French Bulldog — not a
+bug at all, the specified behavior, just one the probe can't know was
+intentional). An allowed finding still prints, under its own heading, never
+just quietly vanishing — it only stops being the reason the build goes red.
+A stale entry (nothing in the current run matches it — content changed
+enough that the exception no longer applies) warns instead of silently
+rotting in the file forever.
 
 - **A bust loses the whole unbanked round — all of it, no exceptions.**
   There used to be a first-find safety net: a bust banked the value of the

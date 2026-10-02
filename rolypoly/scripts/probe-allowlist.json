@@ -1,0 +1,26 @@
+[
+  {
+    "game": "002",
+    "file": "04-film.json",
+    "guess": "war worlds",
+    "reason": "A matcher edit-distance quirk, not a content bug: dropping 'of the' from 'War of the Worlds' lands closer to 'War Horse' than to its own source. Reviewed 2026 — left alone on request; revisit if it's ever easy to fix without reopening the per-token typo-tolerance tuning in 10-matching.js."
+  },
+  {
+    "game": "003",
+    "file": "02-food.json",
+    "guess": "caramel chip",
+    "reason": "Caramel Chocolate Chip's first+last-token guess lands closer to Samoas' alias 'caramel delites' than to its own name. Reviewed 2026 — left alone on request."
+  },
+  {
+    "game": "005",
+    "file": "02-nature.json",
+    "guess": "bulldog",
+    "reason": "Not a bug — this is the specified behavior: 'bulldog' alone must resolve to Bulldog, not silently take French Bulldog. The probe derives this guess from French Bulldog's own name and flags it as a mismatch with no way to know the redirect was intentional."
+  },
+  {
+    "game": "002",
+    "file": "04-film.json",
+    "guess": "thebfg",
+    "reason": "The 'flattened' rule (hyphens/spaces removed) runs on the raw name before norm()'s own leading-article strip, so it produces 'thebfg' here — but a real player either types 'The BFG' with the space, or just 'BFG' (already an alias); nobody drops the space while keeping 'the'. Reviewed 2026 — not worth narrowing the flattened rule itself, which is load-bearing for genuine hyphen cases (Do-si-dos/do si dos)."
+  }
+]

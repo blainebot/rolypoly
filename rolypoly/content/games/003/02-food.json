@@ -23,7 +23,8 @@
       "value": 6,
       "fact": "Sold as Peanut Butter Patties by the other baker.",
       "aliases": [
-        "peanut butter patties"
+        "peanut butter patties",
+        "peanut patties"
       ]
     },
     {
@@ -40,6 +41,7 @@
       "fact": "Oatmeal sandwich cookies, sold elsewhere as Peanut Butter Sandwich.",
       "aliases": [
         "peanut butter sandwich",
+        "peanut sandwich",
         "dosidos"
       ]
     },

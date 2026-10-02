@@ -18,7 +18,8 @@
     {
       "name": "Emu",
       "value": 6,
-      "fact": "Australia's largest bird, and the winner of the 1932 Emu War."
+      "fact": "Australia's largest bird, and the winner of the 1932 Emu War.",
+      "aliases": ["emus"]
     },
     {
       "name": "Kiwi",
@@ -48,7 +49,8 @@
     {
       "name": "Moa",
       "value": 18,
-      "fact": "Nine species once lived in New Zealand. The tallest stood twelve feet."
+      "fact": "Nine species once lived in New Zealand. The tallest stood twelve feet.",
+      "aliases": ["moas"]
     },
     {
       "name": "Steamer duck",
