@@ -1,0 +1,75 @@
+{
+  "domain": "Geography",
+  "prompt": "Name one of Europe's ten smallest sovereign countries by area.",
+  "scene": "passport",
+  "difficulty": 5,
+  "closed": true,
+  "label": "Final Dig",
+  "multiplier": 1.5,
+  "note": "Definition used: sovereign states conventionally counted as European by area rankings, including Vatican City (via the Holy See) and Kosovo (partial recognition — see its own fact). Cyprus is geographically part of Asia Minor but is politically and culturally European (EU member since 2004, Council of Europe), the convention standard area-ranking sources use for it. Area figures and ranking verified via current sources, Oct 2026: Vatican City, Monaco, San Marino, Liechtenstein, Malta, Andorra, Luxembourg, Cyprus, Kosovo, Montenegro.",
+  "answers": [
+    {
+      "name": "Vatican City",
+      "value": 3,
+      "fact": "At 0.49 square kilometers, the smallest sovereign state on Earth, not just in Europe.",
+      "aliases": ["vatican", "holy see", "the vatican"]
+    },
+    {
+      "name": "Monaco",
+      "value": 4,
+      "fact": "Fits inside New York's Central Park almost twice over, yet hosts a Formula 1 Grand Prix through its own streets."
+    },
+    {
+      "name": "San Marino",
+      "value": 7,
+      "fact": "Claims to be the world's oldest surviving republic, founded by tradition in the year 301."
+    },
+    {
+      "name": "Liechtenstein",
+      "value": 9,
+      "fact": "One of only two doubly landlocked countries on Earth — bordered solely by Switzerland and Austria, both themselves landlocked."
+    },
+    {
+      "name": "Malta",
+      "value": 11,
+      "fact": "A former British colony; English remains an official language alongside Maltese."
+    },
+    {
+      "name": "Andorra",
+      "value": 13,
+      "fact": "Has no standing army, and its head of state is shared jointly by France's president and a Spanish bishop."
+    },
+    {
+      "name": "Luxembourg",
+      "value": 15,
+      "fact": "The only remaining sovereign grand duchy in the world."
+    },
+    {
+      "name": "Cyprus",
+      "value": 19,
+      "fact": "Geographically part of Asia Minor, but politically and culturally counted as European — an EU member since 2004."
+    },
+    {
+      "name": "Montenegro",
+      "value": 23,
+      "fact": "Independence from Serbia was decided by a 2006 referendum that passed just over the required margin."
+    },
+    {
+      "name": "Kosovo",
+      "value": 29,
+      "fact": "Recognized by over 100 UN member states, but not by Serbia, Russia, or China, among others."
+    }
+  ],
+  "extras": [
+    { "name": "Slovenia", "fact": "A small Alpine country, but well outside Europe's smallest ten by area." },
+    { "name": "North Macedonia", "fact": "Renamed from simply 'Macedonia' in 2019 to settle a decades-long dispute with Greece." },
+    { "name": "Albania", "fact": "Sealed off from most outside contact for decades under Cold War-era isolationist rule." },
+    { "name": "Moldova", "fact": "Wedged between Romania and Ukraine, and among Europe's poorest countries by some measures." },
+    { "name": "Belgium", "fact": "Small by reputation, but several times the area of every country actually on this round's list." },
+    { "name": "Netherlands", "fact": "A notable share of its land sits below sea level, held back by dikes — not the same thing as being small." },
+    { "name": "Switzerland", "fact": "Famously small-feeling, but larger in area than every country on this round's actual list." },
+    { "name": "Estonia", "fact": "The northernmost of the Baltic states, and still larger than anything in the true top ten." },
+    { "name": "Slovakia", "fact": "Split from the Czech Republic in the 'Velvet Divorce' of 1993." },
+    { "name": "Iceland", "fact": "Often assumed to be tiny — it's actually larger in area than Ireland." }
+  ]
+}

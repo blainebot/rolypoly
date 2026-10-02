@@ -1,0 +1,68 @@
+{
+  "domain": "Music",
+  "prompt": "Name a song from Michael Jackson's Thriller.",
+  "scene": "redjacket",
+  "difficulty": 3,
+  "closed": true,
+  "note": "The standard nine-track Thriller (1982) running order — no regional variant issue here, unlike some early-80s albums. Genuinely closed: all nine are scoring answers, nothing trimmed into extras, so every excluded Jackson song below is wrong on the merits (a different album), never just past a cutoff on this one.",
+  "answers": [
+    {
+      "name": "Thriller",
+      "value": 3,
+      "fact": "The title track and closing song, built around Vincent Price's spoken outro — paid session work he almost turned down."
+    },
+    {
+      "name": "Billie Jean",
+      "value": 4,
+      "fact": "The bassline was recorded first and kept as the foundation of the whole track, unusually for Jackson's process."
+    },
+    {
+      "name": "Beat It",
+      "value": 5,
+      "fact": "Eddie Van Halen played the guitar solo for free, as a favor, without telling his own band first."
+    },
+    {
+      "name": "Human Nature",
+      "value": 8,
+      "fact": "Co-written by Toto's Steve Porcaro, originally for his own daughter, before Quincy Jones asked to use it."
+    },
+    {
+      "name": "P.Y.T. (Pretty Young Thing)",
+      "value": 10,
+      "fact": "Jackson's sisters Janet and La Toya sang the uncredited backing vocals.",
+      "aliases": ["pyt", "pretty young thing"]
+    },
+    {
+      "name": "Wanna Be Startin' Somethin'",
+      "value": 12,
+      "fact": "Its closing chant samples a Cameroonian song, 'Soul Makossa,' uncredited until a later lawsuit settled it.",
+      "aliases": ["startin somethin", "wanna be starting something"]
+    },
+    {
+      "name": "The Girl Is Mine",
+      "value": 17,
+      "fact": "A duet with Paul McCartney — the second time the two had recorded together, after McCartney's own 'Say Say Say.'"
+    },
+    {
+      "name": "Baby Be Mine",
+      "value": 23,
+      "fact": "Never released as a single, one of only two Thriller tracks that wasn't."
+    },
+    {
+      "name": "The Lady in My Life",
+      "value": 28,
+      "fact": "The album's closing ballad; Jackson reportedly re-recorded his vocal after producer Quincy Jones asked for more 'pleading.'",
+      "aliases": ["lady in my life"]
+    }
+  ],
+  "distractors": [
+    { "name": "Smooth Criminal", "note": "That's from Bad (1987), not Thriller." },
+    { "name": "Bad", "note": "The title track from the next album, not this one." },
+    { "name": "Man in the Mirror", "note": "Also from Bad (1987), not Thriller." },
+    { "name": "Black or White", "note": "That's from Dangerous (1991), two albums later." },
+    { "name": "Rock With You", "note": "That's from Off the Wall (1979), the album before Thriller." },
+    { "name": "Don't Stop 'Til You Get Enough", "note": "Also from Off the Wall (1979), not Thriller." },
+    { "name": "Remember the Time", "note": "That's from Dangerous (1991), not Thriller." },
+    { "name": "Dirty Diana", "note": "That's from Bad (1987), not Thriller." }
+  ]
+}

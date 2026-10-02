@@ -39,6 +39,7 @@ const toEngine = r => {
     // changing "multiplier" is the one edit that moves both the scoring and
     // the badge that discloses it (see TEMPLATE.md's "label").
     ...(r.label ? { label: m > 1 ? `${r.label} · ${m}x` : r.label } : {}),
+    ...(r.asOf ? { asOf: r.asOf } : {}),
     answers: r.answers.map(a => ({
       n: a.name,
       v: scale(a.value, m),

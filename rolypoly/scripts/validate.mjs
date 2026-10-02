@@ -86,6 +86,8 @@ for (const { num, f, file } of files) {
     errors.push(where("label must be a string"));
   if (typeof r.multiplier === "number" && r.multiplier > 1 && !r.label)
     errors.push(where(`multiplier is ${r.multiplier} but there's no label — a boosted round must say so`));
+  if (r.asOf !== undefined && typeof r.asOf !== "string")
+    errors.push(where("asOf must be a string"));
 
   // Closed set or not (see "Choosing a topic" in content/TEMPLATE.md) —
   // optional so the fourteen rounds written before this existed don't all

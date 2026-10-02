@@ -10,6 +10,7 @@ see **difficulty** below for what does.
   "prompt": "Name a country that shares a land border with Germany.",
   "difficulty": 2,
   "closed": true,
+  "asOf": "As of 2026.",
   "multiplier": 1.5,
   "label": "Final Dig",
   "par": 12,
@@ -58,15 +59,36 @@ see **difficulty** below for what does.
   appended automatically (write `"label": "Final Dig"` with `"multiplier":
   1.5` and the round shows "Final Dig · 1.5x" — change the multiplier later
   and the badge updates on its own, nothing to keep in sync by hand).
+- **asOf** — optional, a short string. Rendered under the prompt in small
+  muted text, player-facing (unlike `note`). For a topic that's only complete
+  at a specific point in time, not forever — Pixar's filmography, an annual
+  ranking — where dating the prompt itself would read awkwardly ("...of
+  2026" makes sense for a yearly ranking; it doesn't for "Name a Pixar film
+  with a one-word title," where the year is a hedge on completeness, not part
+  of the question). Set **closed: true** alongside it: a list that's complete
+  *as of a stated moment* is a closed, fixed set by the same logic that makes
+  "Declaration signers" or "the 1975 SNL cast" closed despite having once
+  been live situations themselves — see "Choosing a topic" below. **If a
+  topic is only complete at a moment in time, say so where the player can see
+  it — in the prompt's own wording, or in `asOf` when dating the prompt would
+  be awkward — rather than leaving it implicit or relying on `closed: false`
+  and a review reminder that's easy to let go stale.** Something released or
+  ranked later becomes a correction to make (an answer or an `extra` to add)
+  the next time the file's touched, not a bust waiting to happen to whoever
+  plays before that review happens.
 - **closed** — optional, a boolean. Whether the topic's answer count is fixed
   by a real authority (see "Choosing a topic" below) or can keep growing no
   matter how thorough the list gets. Type-checked when present, but not
   required — most rounds written before this field existed don't have it.
-  Set **closed: false** for the rare case where a genuinely closed topic
-  wasn't available and the round shipped anyway on an open one: the validator
-  then warns *every* run, not just once, showing `note` (below) as the
-  reminder of what mitigates it — a one-time warning would go stale exactly
-  the way an actually-open answer list does.
+  **closed: false** is the fallback for a topic that genuinely can't be
+  dated into a closed set at all — the validator then warns *every* run, not
+  just once, showing `note` (below) as the reminder of what mitigates it, on
+  the theory that a one-time warning would go stale exactly the way an
+  actually-open answer list does. Prefer dating the topic (`asOf`, or the
+  prompt itself) over this when the set is merely open-*until-restated*
+  rather than genuinely unbounded — a dated snapshot needs no recurring
+  review at all, where `closed: false` is an ongoing maintenance debt that's
+  easy to forget.
 - **note** — optional, a string. Author-facing only: never shown to players,
   never read by the engine (`build.mjs` drops it before compiling). Expected
   alongside `closed: false`, explaining the mitigation (a review cadence, a

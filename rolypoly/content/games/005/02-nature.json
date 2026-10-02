@@ -1,0 +1,78 @@
+{
+  "domain": "Nature",
+  "prompt": "Name one of the AKC's ten most popular dog breeds of 2025.",
+  "scene": "showdog",
+  "difficulty": 2,
+  "closed": true,
+  "note": "American Kennel Club registration-based ranking for 2025, published by the AKC in March 2026. Dated in the prompt itself rather than with asOf, since the year is part of the question being asked, not a hedge on completeness — see 'asOf' in TEMPLATE.md. Re-verify against akc.org if this round is ever reused past the 2026 edition of the ranking.",
+  "answers": [
+    {
+      "name": "Labrador Retriever",
+      "value": 3,
+      "fact": "America's favorite for over three decades running, before French Bulldogs finally overtook it.",
+      "aliases": ["lab"]
+    },
+    {
+      "name": "Golden Retriever",
+      "value": 4,
+      "fact": "Bred in 19th-century Scotland for retrieving shot waterfowl without damaging the bird."
+    },
+    {
+      "name": "German Shepherd Dog",
+      "value": 5,
+      "fact": "The AKC's official name is 'German Shepherd Dog' — 'Shepherd' alone undersells what it was bred for.",
+      "aliases": ["german shepherd", "gsd"]
+    },
+    {
+      "name": "French Bulldog",
+      "value": 6,
+      "fact": "Took the number one spot in 2022, ending the Labrador's 31-year run at the top.",
+      "aliases": ["frenchie"]
+    },
+    {
+      "name": "Poodle",
+      "value": 7,
+      "fact": "Bred as a water retriever in Germany — the fashionable reputation came later, from France."
+    },
+    {
+      "name": "Bulldog",
+      "value": 8,
+      "fact": "Originally bred for bull-baiting, a blood sport banned in England by 1835.",
+      "aliases": ["english bulldog"]
+    },
+    {
+      "name": "Beagle",
+      "value": 9,
+      "fact": "Its nose is why it's the breed US Customs uses to sniff out agricultural imports at airports."
+    },
+    {
+      "name": "Dachshund",
+      "value": 11,
+      "fact": "Bred to go underground after badgers — the name literally means 'badger dog' in German."
+    },
+    {
+      "name": "Rottweiler",
+      "value": 14,
+      "fact": "Descended from Roman cattle-driving dogs that followed the empire's roads into Germany."
+    },
+    {
+      "name": "German Shorthaired Pointer",
+      "value": 21,
+      "fact": "A true all-purpose gun dog, bred to point, track, and retrieve on both land and water.",
+      "aliases": ["gsp"]
+    }
+  ],
+  "extras": [
+    { "name": "Yorkshire Terrier", "fact": "A longtime top-ten regular, bred to catch rats in Yorkshire's textile mills." },
+    { "name": "Boxer", "fact": "Named for the way it stands on its hind legs and swats with its front paws when play-fighting." },
+    { "name": "Australian Shepherd", "fact": "Despite the name, developed in the American West, not Australia." },
+    { "name": "Pembroke Welsh Corgi", "fact": "Elizabeth II owned more than thirty over her reign, keeping the breed in the public eye for decades.", "aliases": ["corgi"] },
+    { "name": "Doberman Pinscher", "fact": "Named for Karl Friedrich Louis Dobermann, a tax collector who wanted a protective companion.", "aliases": ["doberman"] },
+    { "name": "Cavalier King Charles Spaniel", "fact": "Named for King Charles II, who was rarely seen without one underfoot.", "aliases": ["cavalier"] },
+    { "name": "Shih Tzu", "fact": "The name means 'lion dog' in Mandarin, bred for the Chinese imperial court." },
+    { "name": "Siberian Husky", "fact": "Bred by the Chukchi people of Siberia as an endurance sled dog, not a sprinter." },
+    { "name": "Great Dane", "fact": "Despite the name, the breed was developed in Germany, not Denmark." },
+    { "name": "Pug", "fact": "Brought to Europe from China in the 16th century and quickly adopted by Dutch royalty." },
+    { "name": "Chihuahua", "fact": "The world's smallest recognized dog breed, named for the Mexican state." }
+  ]
+}

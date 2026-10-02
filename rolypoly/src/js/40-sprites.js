@@ -268,7 +268,52 @@ const SCENE={
 <rect class="pengbk" x="7" y="42" width="8" height="4"/><rect class="pengbk" x="18" y="42" width="8" height="4"/>`;
     return `<g transform="translate(4,54) scale(1.25)">${p}</g>`
          + `<g transform="translate(116,52) scale(1.35)">${p}</g>`;
-  })()}
+  })()},
+
+ // All five below are prop-only by design — no hat, no eyes — sidestepping
+ // the face trap entirely rather than relying on getting the y-coordinates
+ // right (see "Rumble's costumes" in CLAUDE.md for the two scenes that
+ // shipped broken from exactly that).
+ animator:{
+  bg:"#3A3228",
+  prop:`<rect class="easel" x="86" y="30" width="4" height="60"/><rect class="easel" x="100" y="30" width="4" height="60"/>
+<rect class="easelbar" x="84" y="56" width="24" height="4"/>
+<rect class="canvas" x="82" y="18" width="30" height="26"/>
+<rect class="canvaslt" x="86" y="22" width="22" height="18"/>
+<rect class="brush" x="70" y="70" width="3" height="20"/><rect class="brushtip" x="68" y="88" width="6" height="6"/>`},
+
+ showdog:{
+  bg:"#4A3824",
+  prop:`<rect class="rosette" x="68" y="46" width="24" height="4"/>
+<rect class="rosette" x="64" y="50" width="32" height="18"/>
+<rect class="rosette" x="68" y="68" width="24" height="4"/>
+<rect class="rosettelt" x="72" y="54" width="16" height="10"/>
+<rect class="ribbon" x="74" y="72" width="6" height="22"/><rect class="ribbon" x="84" y="72" width="6" height="22"/>`},
+
+ redjacket:{
+  bg:"#2E1620",
+  prop:`<rect class="jacket" x="8" y="66" width="24" height="30"/>
+<rect class="jacket" x="58" y="66" width="24" height="30"/>
+<rect class="jacketdk" x="8" y="66" width="24" height="5"/><rect class="jacketdk" x="58" y="66" width="24" height="5"/>
+<rect class="zipper" x="38" y="64" width="4" height="34"/>
+<rect class="zippull" x="37" y="64" width="6" height="4"/>
+<rect class="cuff" x="2" y="90" width="12" height="7"/>
+<rect class="glove" x="0" y="80" width="16" height="14"/>`},
+
+ ballpark:{
+  bg:"#5E4A2E",
+  prop:`<rect class="mitt" x="78" y="58" width="28" height="24"/>
+<rect class="mittlt" x="84" y="62" width="16" height="14"/>
+<rect class="lace" x="88" y="64" width="2" height="10"/><rect class="lace" x="94" y="64" width="2" height="10"/>
+<rect class="ball" x="58" y="38" width="14" height="14"/>
+<rect class="stitch" x="61" y="41" width="2" height="2"/><rect class="stitch" x="67" y="45" width="2" height="2"/><rect class="stitch" x="61" y="49" width="2" height="2"/>`},
+
+ passport:{
+  bg:"#163038",
+  prop:`<rect class="passport" x="82" y="48" width="26" height="34"/>
+<rect class="passportlt" x="86" y="52" width="18" height="10"/>
+<rect class="stamp" x="88" y="66" width="6" height="6"/><rect class="stamp" x="96" y="70" width="6" height="6"/>
+<rect class="tagstring" x="70" y="40" width="2" height="12"/><rect class="tag" x="64" y="50" width="12" height="10"/>`}
 };
 const HA=`<text class="ha ha1" x="128" y="52">ha</text><text class="ha ha2" x="138" y="38">ha</text><text class="ha ha3" x="130" y="72">ha</text>`;
 

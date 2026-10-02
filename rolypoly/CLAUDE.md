@@ -526,13 +526,36 @@ aging out of a commit message. `closed: false` is the honest escape hatch for
 a topic that genuinely can't close at all — `validate.mjs` warns on it every
 single run, surfacing `note`'s mitigation each time rather than once, since a
 one-time note goes stale exactly the way the moons round's answer list did.
-No round currently uses it: game 004's business round ("Companies that had
-crossed a trillion dollars in value by May 2026") looked like this case at
-first — a live "worth more than a trillion dollars *right now*" genuinely
-can't close, new companies cross that line — but dating the prompt to a
-fixed cutoff converts it into a historical fact instead, the same trick that
-makes "Declaration signers" or "the 1975 SNL cast" closed despite once
-having been live, ongoing situations themselves.
+**No round uses it.** Every round that looked like this case at first —
+game 004's business round ("Companies that had crossed a trillion dollars in
+value by May 2026"), later game 005's Pixar and dog-breed rounds — turned out
+to have a cheaper fix: a live "worth more than a trillion dollars *right
+now*" (or "Pixar's current filmography," or "this year's most popular
+breeds") genuinely can't close, but dating it to a fixed cutoff converts it
+into a historical fact instead, the same trick that makes "Declaration
+signers" or "the 1975 SNL cast" closed despite once having been live, ongoing
+situations themselves. Two ways to date a round, same underlying idea:
+
+- **Bake the date into the prompt itself** when the year is actually part of
+  the question, not a hedge — "Name one of the AKC's ten most popular dog
+  breeds of 2025" is asking about a specific year's ranking; leaving the year
+  out wouldn't just be less precise, it'd be a different, open-ended question.
+- **`asOf`** (optional string, rendered under the prompt in small muted text,
+  `content/TEMPLATE.md`) when dating the *prompt* would read like it's part
+  of the question when it isn't — "Name a Pixar feature film with a one-word
+  title" is what's actually being asked; the year is a hedge on how complete
+  the list is as of writing, not a qualifier on the question itself, so it
+  goes under the prompt instead of inside it.
+
+**The rule, regardless of which: if a set is only complete at a moment in
+time, say so somewhere the player can see — in the prompt or in `asOf` —
+never leave it implicit, and never lean on `closed: false` plus a review
+reminder as the fix.** A reminder is a maintenance debt that's easy to let
+go stale exactly the way the moons round did; a dated snapshot needs no
+recurring review at all, and whatever gets released or re-ranked after the
+stated date is a correction to make next time the file's touched (a new
+answer, or an `extra`), not a bust waiting to happen to whoever plays before
+that correction lands.
 
 Values are in centimetres and set both score and Poly's shell colour:
 

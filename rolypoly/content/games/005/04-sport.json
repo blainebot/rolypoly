@@ -1,0 +1,64 @@
+{
+  "domain": "Sport",
+  "prompt": "Name a current NFL or MLB team named for a bird.",
+  "scene": "ballpark",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "note": "Closed by current roster of two specific leagues (NFL, MLB) as of 2026 — eight teams. Franchise relocations/renamings are rare but do happen (the Washington NFL franchise and Cleveland's MLB team both changed names this decade); re-check this list if either league's lineup shifts, same as any closed-by-current-membership round.",
+  "answers": [
+    {
+      "name": "Philadelphia Eagles",
+      "value": 3,
+      "fact": "NFL. Named in 1933 for the Blue Eagle, the New Deal-era NRA's compliance emblem — not for the bird directly."
+    },
+    {
+      "name": "Baltimore Ravens",
+      "value": 4,
+      "fact": "NFL. Named by a fan vote for Edgar Allan Poe's 'The Raven' — Poe is buried in Baltimore."
+    },
+    {
+      "name": "Seattle Seahawks",
+      "value": 5,
+      "fact": "NFL. A seahawk isn't a distinct species — the name refers to the osprey, which hunts fish along the coast."
+    },
+    {
+      "name": "Arizona Cardinals",
+      "value": 9,
+      "fact": "NFL. The oldest continuously run professional football franchise in the US, dating to 1898 in Chicago."
+    },
+    {
+      "name": "Atlanta Falcons",
+      "value": 10,
+      "fact": "NFL. Named via a 1965 fan contest; the winning entry called the falcon 'proud and dignified, with great courage.'"
+    },
+    {
+      "name": "Toronto Blue Jays",
+      "value": 12,
+      "fact": "MLB. The only current bird-named team outside the two Cardinals and the Orioles, and the only one based outside the US.",
+      "aliases": ["jays", "blue jays"]
+    },
+    {
+      "name": "Baltimore Orioles",
+      "value": 16,
+      "fact": "MLB. Named for Maryland's state bird, which is itself named for Lord Baltimore's family colors."
+    },
+    {
+      "name": "St. Louis Cardinals",
+      "value": 20,
+      "fact": "MLB. Named for the color of their uniform trim before anyone decided to match it to an actual bird.",
+      "aliases": ["stl", "stl cardinals"]
+    }
+  ],
+  "distractors": [
+    { "name": "Pelicans", "note": "That's the NBA's New Orleans Pelicans — this round is NFL and MLB only." },
+    { "name": "Hawks", "note": "That's the NBA's Atlanta Hawks — this round is NFL and MLB only." },
+    { "name": "Penguins", "note": "That's the NHL's Pittsburgh Penguins — this round is NFL and MLB only." },
+    { "name": "Ducks", "note": "A real bird, but that's the NHL's Anaheim Ducks — the wrong two leagues." },
+    { "name": "Columbus Blue Jackets", "note": "Not actually bird-named at all — the NHL's Columbus team, probably confused with the Blue Jays.", "aliases": ["blue jackets"] },
+    { "name": "Kansas Jayhawks", "note": "A mythical mashup, not a real bird — and Kansas is college ball, not the NFL or MLB anyway.", "aliases": ["jayhawks"] },
+    { "name": "Air Force Falcons", "note": "A real bird name, but Air Force is college football, not the NFL." },
+    { "name": "Atlanta Thrashers", "note": "A real bird name, but the Thrashers were NHL, and the franchise relocated to Winnipeg in 2011.", "aliases": ["thrashers"] },
+    { "name": "UNC Wilmington Seahawks", "note": "Also bird-named, but that's college basketball, not the NFL." }
+  ]
+}

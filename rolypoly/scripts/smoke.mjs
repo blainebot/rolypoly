@@ -11,7 +11,7 @@
 // difference. Nothing here reimplements game rules; every assertion below
 // is checked against the actual compiled engine's own state and functions.
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
@@ -428,19 +428,28 @@ await test("a full five-round game: final total and share text", async () => {
 // number it reads (an answer's v, a round's par) already comes out scaled
 // and every label already carries its "· Nx" suffix. So this isn't a test
 // of engine logic like the rest of this file; it's a check on the real
-// compiled output for the one real round currently carrying a multiplier
-// (game 002's History round, TEST_DAY's active game), reading the same raw
-// content file build.mjs did to confirm the scaling actually landed.
+// compiled output for whichever real round currently carries a multiplier.
+// Deliberately not pinned to one hard-coded game/file: which game TEST_DAY's
+// fixed date resolves to shifts whenever content/schedule.json's rotation
+// changes length (adding game 005 did exactly this, breaking an earlier
+// version of this test that hard-coded game 002) — reading GAMENO back from
+// the compiled result and finding its own multiplied round survives that.
 await test("multiplier: a round's par and answer values come out of the build already scaled, and its label states the multiplier", async () => {
-  const { E } = fresh({ active: "002" });
-  const raw = JSON.parse(readFileSync(join(root, "content", "games", "002", "05-history.json"), "utf8"));
-  assert(typeof raw.multiplier === "number" && raw.multiplier > 1, "this test targets a round that's supposed to carry a multiplier above 1 — content may have changed");
-  const compiled = E.ROUNDS[E.ROUNDS.length - 1];
-  assertEqual(compiled.domain, raw.domain, "sanity check: this is really the round the test thinks it is");
+  const { E } = fresh();
+  const gameDir = join(root, "content", "games", E.GAMENO);
+  const files = readdirSync(gameDir).filter((f) => f.endsWith(".json"));
+  const multipliedFile = files.find((f) => {
+    const r = JSON.parse(readFileSync(join(gameDir, f), "utf8"));
+    return typeof r.multiplier === "number" && r.multiplier > 1;
+  });
+  assert(multipliedFile, `expected some round in game ${E.GAMENO} to carry a multiplier above 1 — content may have changed`);
+  const raw = JSON.parse(readFileSync(join(gameDir, multipliedFile), "utf8"));
+  const compiled = E.ROUNDS.find((r) => r.domain === raw.domain);
+  assert(compiled, "sanity check: the multiplied round's domain should appear somewhere in the compiled game");
   assertEqual(compiled.label, `Final Dig · ${raw.multiplier}x`, "a multiplier above 1 must be stated in the label text, not just applied silently");
-  const rawJefferson = raw.answers.find((a) => a.name === "Thomas Jefferson");
-  const compiledJefferson = compiled.answers.find((a) => a.n === "Thomas Jefferson");
-  assertEqual(compiledJefferson.v, Math.round(rawJefferson.value * raw.multiplier), "an answer's compiled value must already be scaled — never a raw number a player sees change later");
+  const rawAnswer = raw.answers[0];
+  const compiledAnswer = compiled.answers.find((a) => a.n === rawAnswer.name);
+  assertEqual(compiledAnswer.v, Math.round(rawAnswer.value * raw.multiplier), "an answer's compiled value must already be scaled — never a raw number a player sees change later");
   const rawPar = [...raw.answers.map((a) => a.value)].sort((a, b) => a - b).slice(0, 3).reduce((s, v) => s + v, 0);
   assertEqual(compiled.par, Math.round(rawPar * raw.multiplier), "par must be scaled by the same multiplier as the answers it's compared against");
 });

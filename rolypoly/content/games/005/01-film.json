@@ -1,0 +1,93 @@
+{
+  "domain": "Film",
+  "prompt": "Name a Pixar feature film with a one-word title.",
+  "scene": "animator",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "asOf": "As of 2026.",
+  "note": "Verified against a current list of Pixar's theatrical features (Oct 2026): thirteen one-word titles, including Elio (released June 2025) and Hoppers (released March 2026, the newest at the time of writing). A later release extends the list rather than breaking it — add it here the same way, don't wait for a full review pass.",
+  "answers": [
+    {
+      "name": "Cars",
+      "value": 3,
+      "fact": "2006. Radiator Springs is modeled on real Route 66 towns bypassed by the interstate."
+    },
+    {
+      "name": "Up",
+      "value": 4,
+      "fact": "2009. The opening montage of Carl and Ellie's marriage runs under four minutes and is one of the most-cited tearjerkers in film."
+    },
+    {
+      "name": "WALL-E",
+      "value": 5,
+      "fact": "2008. The first act runs almost without dialogue — a bet that the story alone could carry a children's film.",
+      "aliases": ["wall e", "walle"]
+    },
+    {
+      "name": "Coco",
+      "value": 6,
+      "fact": "2017. Built around Dia de los Muertos, with a standing council of Mexican and Mexican-American cultural consultants."
+    },
+    {
+      "name": "Brave",
+      "value": 7,
+      "fact": "2012. Pixar's first film with a solo female lead, and its first set in a real historical backdrop."
+    },
+    {
+      "name": "Ratatouille",
+      "value": 8,
+      "fact": "2007. The crew animated a working 'taste map' to track every ingredient Remy could smell on screen."
+    },
+    {
+      "name": "Soul",
+      "value": 10,
+      "fact": "2020. Released straight to streaming during the pandemic — Pixar's first film to skip a theatrical debut."
+    },
+    {
+      "name": "Luca",
+      "value": 12,
+      "fact": "2021. Set on the Italian Riviera; the sea monsters' true forms only ever show once they're wet."
+    },
+    {
+      "name": "Lightyear",
+      "value": 14,
+      "fact": "2022. Framed in-universe as the film Andy's toy was modeled on, rather than the other way around."
+    },
+    {
+      "name": "Onward",
+      "value": 16,
+      "fact": "2020. A half-worked resurrection spell leaves its two leads as mostly just a pair of legs for most of the runtime."
+    },
+    {
+      "name": "Elemental",
+      "value": 19,
+      "fact": "2023. Opened soft, then turned into a sleeper hit through word of mouth over the summer."
+    },
+    {
+      "name": "Elio",
+      "value": 23,
+      "fact": "2025. Pixar's first film centered on a human child's first contact with an actual alien civilization."
+    },
+    {
+      "name": "Hoppers",
+      "value": 27,
+      "fact": "2026. A college student transfers her mind into a robotic beaver to live among the wildlife she's trying to save."
+    }
+  ],
+  "distractors": [
+    { "name": "Toy Story", "note": "A real Pixar film, but a three-word title — this round only counts one-word ones.", "bust": true },
+    { "name": "Toy Story 2", "note": "A real sequel, and still three words.", "bust": true },
+    { "name": "Toy Story 3", "note": "Still three words, same as the first two.", "bust": true },
+    { "name": "Toy Story 4", "note": "The fourth one doesn't shrink the title any more than the first three did.", "bust": true },
+    { "name": "Finding Nemo", "note": "A real Pixar film, just two words — not a one-word title.", "bust": true },
+    { "name": "The Incredibles", "note": "Two words plus an article — a real Pixar film all the same, just not a one-word title.", "bust": true },
+    { "name": "Monsters Inc", "note": "Two words — 'Inc' doesn't make it a one-word title.", "bust": true, "aliases": ["monsters inc."] },
+    { "name": "Inside Out", "note": "Two real words, just not one of them.", "bust": true },
+    { "name": "Turning Red", "note": "A real, recent Pixar film — two words, not one.", "bust": true },
+    { "name": "A Bug's Life", "note": "Three words — one of Pixar's very first films, still not one-word.", "bust": true },
+    { "name": "Finding Dory", "note": "Finding Nemo's sequel, and just as many words.", "bust": true },
+    { "name": "Frozen", "note": "Disney Animation, not Pixar — a different studio under the same corporate roof." },
+    { "name": "Moana", "note": "Also Disney Animation, not Pixar — one of the most common mix-ups between the two studios." }
+  ]
+}

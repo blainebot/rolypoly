@@ -32,6 +32,8 @@ function loadRound(resuming){
   $("roundLabel").hidden=!r.label;
   $("roundLabel").textContent=r.label||"";
   $("prompt").textContent=r.prompt;
+  $("asOf").hidden=!r.asOf;
+  $("asOf").textContent=r.asOf||"";
   $("facts").innerHTML="";
   $("roundSummary").innerHTML="";
   $("missedBox").innerHTML="";
