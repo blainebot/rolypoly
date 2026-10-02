@@ -338,50 +338,93 @@ const SCENE={
          + `<g transform="translate(116,52) scale(1.35)">${p}</g>`;
   })()},
 
- // All five below are prop-only by design — no hat, no eyes — sidestepping
- // the face trap entirely rather than relying on getting the y-coordinates
- // right (see "Rumble's costumes" in CLAUDE.md for the two scenes that
- // shipped broken from exactly that).
+ // Game 005. Same rules as above: hat/eyes in head coordinates, props in
+ // viewBox coordinates, side props between x=90 and the "ha" strip at 136.
  animator:{
-  bg:"#3A3228",
-  prop:`<rect class="easel" x="96" y="30" width="4" height="60"/><rect class="easel" x="110" y="30" width="4" height="60"/>
-<rect class="easelbar" x="94" y="56" width="24" height="4"/>
-<rect class="canvas" x="92" y="18" width="30" height="26"/>
-<rect class="canvaslt" x="96" y="22" width="22" height="18"/>
-<rect class="brush" x="70" y="70" width="3" height="20"/><rect class="brushtip" x="68" y="88" width="6" height="6"/>`},
+  bg:"#55514C",
+  // Eyeshade visor: band across the forehead, brim just above the eyes, and
+  // a translucent shadow strip under the brim that shades them without
+  // covering them (the face trap).
+  hat:`<rect class="visorband" x="40" y="32" width="136" height="8"/>
+<rect class="visor" x="46" y="40" width="124" height="9"/>
+<rect class="visorsh" x="54" y="49" width="108" height="4"/>`,
+  prop:`<polygon class="eraser" points="83,77 87,79 89,75 85,73"/>
+<polygon class="pencil" points="85,73 89,75 103,49 99,47"/>
+<polygon class="lead" points="99,47 103,49 104,42"/>
+<rect class="paper" x="100" y="88" width="30" height="8"/>
+<rect class="paperdk" x="100" y="90" width="30" height="1"/><rect class="paperdk" x="100" y="93" width="30" height="1"/>
+<polygon class="paper" points="98,86 124,82 126,85 100,89"/>
+<polygon class="paper" points="108,84 134,86 133,88 107,86"/>`,
+  float:`<g class="flake f1"><rect class="paper" x="104" y="0" width="9" height="11"/></g>
+<g class="flake f3"><rect class="paper" x="128" y="0" width="8" height="10"/></g>
+<g class="flake f5"><rect class="paper" x="148" y="0" width="9" height="11"/></g>`},
 
  showdog:{
-  bg:"#4A3824",
-  prop:`<rect class="rosette" x="56" y="75" width="18" height="3"/>
-<rect class="rosette" x="52" y="78" width="26" height="12"/>
-<rect class="rosette" x="56" y="90" width="18" height="3"/>
-<rect class="rosettelt" x="58" y="81" width="14" height="6"/>
-<rect class="ribbon" x="57" y="93" width="5" height="10"/><rect class="ribbon" x="68" y="93" width="5" height="10"/>`},
+  bg:"#2A4A33",
+  // Groomed for the ring: a puff of fur gathered into a topknot (the dark
+  // band is where it's tied), with a tiny bow at the side of the tie.
+  hat:`<rect class="fur" x="100" y="9" width="16" height="3"/><rect class="fur" x="96" y="12" width="24" height="7"/>
+<rect class="furlt" x="100" y="12" width="9" height="4"/>
+<rect class="furdk" x="94" y="19" width="28" height="3"/>
+<rect class="bow" x="118" y="15" width="7" height="7"/><rect class="bowknot" x="125" y="17" width="4" height="4"/>
+<rect class="bow" x="129" y="15" width="7" height="7"/>`,
+  prop:`<rect class="rosette" x="12" y="66" width="18" height="3"/>
+<rect class="rosette" x="8" y="69" width="26" height="16"/>
+<rect class="rosette" x="12" y="85" width="18" height="3"/>
+<rect class="rosettelt" x="14" y="73" width="14" height="8"/>
+<rect class="ribbon" x="11" y="88" width="6" height="10"/><rect class="ribbon" x="25" y="88" width="6" height="10"/>
+<rect class="trophy" x="100" y="74" width="20" height="10"/>
+<rect class="trophy" x="96" y="76" width="4" height="6"/><rect class="trophy" x="120" y="76" width="4" height="6"/>
+<rect class="trophy" x="104" y="84" width="12" height="3"/><rect class="trophy" x="108" y="87" width="4" height="4"/>
+<rect class="trophydk" x="102" y="91" width="16" height="5"/>
+<rect class="trophylt" x="103" y="76" width="4" height="6"/>`},
 
  redjacket:{
-  bg:"#2E1620",
-  prop:`<rect class="jacket" x="8" y="74" width="24" height="26"/>
-<rect class="jacket" x="58" y="74" width="24" height="26"/>
-<rect class="jacketdk" x="8" y="74" width="24" height="5"/><rect class="jacketdk" x="58" y="74" width="24" height="5"/>
-<rect class="zipper" x="38" y="74" width="4" height="26"/>
-<rect class="zippull" x="37" y="74" width="6" height="4"/>
-<rect class="cuff" x="2" y="90" width="12" height="7"/>
-<rect class="glove" x="0" y="80" width="16" height="14"/>`},
+  bg:"#1A1A20",
+  // A gopher in a jacket, nothing more — no hair, hat or facial feature
+  // that could read as a likeness. The jacket and one white glove carry it.
+  prop:`<rect class="jacket" x="8" y="72" width="26" height="28"/>
+<rect class="jacket" x="56" y="72" width="26" height="28"/>
+<rect class="jacket" x="34" y="74" width="22" height="26"/>
+<polygon class="chevron" points="8,72 45,86 82,72 82,77 45,91 8,77"/>
+<polygon class="chevron" points="8,82 45,96 82,82 82,87 45,101 8,87"/>
+<rect class="jacketdk" x="76" y="76" width="12" height="4"/>
+<rect class="glove" x="78" y="62" width="12" height="14"/><rect class="glove" x="75" y="66" width="4" height="6"/>`},
 
  ballpark:{
-  bg:"#5E4A2E",
-  prop:`<rect class="mitt" x="82" y="58" width="28" height="24"/>
-<rect class="mittlt" x="88" y="62" width="16" height="14"/>
-<rect class="lace" x="92" y="64" width="2" height="10"/><rect class="lace" x="98" y="64" width="2" height="10"/>
-<rect class="ball" x="90" y="40" width="14" height="14"/>
-<rect class="stitch" x="93" y="43" width="2" height="2"/><rect class="stitch" x="99" y="47" width="2" height="2"/><rect class="stitch" x="93" y="51" width="2" height="2"/>`},
+  bg:"#23384F",
+  // Cap on sideways, brim off to one side, a cardinal on the crown. The bird
+  // lives in `hat`, not `float`: float doesn't bob with his head, so a
+  // perched bird there would hover while the cap moved out from under it.
+  // Rhymes with penguins — same lookLR eye-dart, pupils pushed up to watch.
+  hat:`<rect class="cap" x="70" y="18" width="76" height="8"/>
+<rect class="cap" x="52" y="26" width="112" height="8"/>
+<rect class="cap" x="42" y="34" width="132" height="8"/>
+<rect class="capdk" x="42" y="42" width="132" height="3"/>
+<rect class="capdk" x="102" y="14" width="12" height="4"/><rect class="capbrim" x="166" y="36" width="44" height="8"/>
+<rect class="card" x="78" y="11" width="14" height="7"/><rect class="card" x="73" y="13" width="6" height="3"/>
+<rect class="card" x="88" y="9" width="4" height="3"/><rect class="card" x="90" y="11" width="7" height="6"/>
+<rect class="cardk" x="93" y="12" width="3" height="3"/><rect class="cardbk" x="97" y="13" width="3" height="2"/>`,
+  eyes:`<rect class="sclera" x="54" y="46" width="32" height="24"/><rect class="sclera" x="130" y="46" width="32" height="24"/>
+<g class="lookLR"><rect class="eye" x="63" y="47" width="14" height="12"/><rect class="eye" x="139" y="47" width="14" height="12"/></g>`,
+  prop:`<rect class="stick" x="88" y="48" width="3" height="36"/>
+<polygon class="pennant" points="91,50 91,66 128,58"/>
+<polygon class="pennantlt" points="91,55 91,61 106,58"/>`},
 
  passport:{
-  bg:"#163038",
-  prop:`<rect class="passport" x="92" y="48" width="26" height="34"/>
-<rect class="passportlt" x="96" y="52" width="18" height="10"/>
-<rect class="stamp" x="98" y="66" width="6" height="6"/><rect class="stamp" x="106" y="70" width="6" height="6"/>
-<rect class="tagstring" x="124" y="44" width="2" height="12"/><rect class="tag" x="120" y="54" width="12" height="10"/>`}
+  bg:"#3E2E22",
+  // The joke is scale: a full-size magnifying glass over a map not much
+  // bigger than one of its own pixels. Passport in the other paw.
+  prop:`<rect class="passport" x="2" y="68" width="12" height="15"/>
+<rect class="passportlt" x="5" y="72" width="6" height="4"/>
+<rect class="lens" x="94" y="70" width="18" height="3"/><rect class="lens" x="94" y="85" width="18" height="3"/>
+<rect class="lens" x="91" y="73" width="3" height="12"/><rect class="lens" x="112" y="73" width="3" height="12"/>
+<rect class="lensglass" x="94" y="73" width="18" height="12"/>
+<rect class="lens" x="86" y="86" width="8" height="3"/>
+<rect class="map" x="101" y="93" width="4" height="3"/><rect class="mapdk" x="102" y="94" width="2" height="1"/>
+<rect class="case" x="118" y="82" width="18" height="14"/>
+<rect class="casedk" x="118" y="87" width="18" height="2"/><rect class="casedk" x="124" y="78" width="6" height="4"/>
+<rect class="tag" x="131" y="78" width="4" height="5"/>`}
 };
 // Each "ha" is ~21 units wide and floats 24 straight up (haFloat), so it
 // lives in the strip right of every scene's side prop (those end by x=136)

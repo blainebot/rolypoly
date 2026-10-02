@@ -972,10 +972,15 @@ down.
 
 When the head was redrawn (larger and rounder), every hat and custom eye set was
 re-authored in the new head frame, and props the bigger head now collided with
-were moved clear: Geography's flag, Film's clapperboard, Space's planet, the
-animator's easel and the passport moved right; the showdog rosette moved from his
-cheek to his chest; the baseball moved off his eye; the Thriller jacket, lab coat,
-scarf, cravat, sash and guitar moved down below the longer teeth. The art file
+were moved clear: Geography's flag, Film's clapperboard, Space's planet and the
+baseball moved off his face; the lab coat, scarf, cravat, sash and guitar moved
+down below the longer teeth. The game-005 scenes (animator, showdog, redjacket,
+ballpark, passport) were drawn fresh against the new head. Two choices in them
+are worth knowing before copying them: `ballpark`'s cardinal is in `hat`, not
+`float`, because `float` doesn't bob and the bird has to stay on the cap; and
+`redjacket`'s white "ha" is a CSS rule on `.sc-redjacket`, not a different `HA`.
+New scenes go through the same contrast check as the rest (1.8:1 against the
+surface each piece actually sits on — fur, panel, or the prop underneath). The art file
 that came with the head described hat scaling as "about 1.6×, shifted down about
 6" — that doesn't match its own coordinates (closer to 2.2× and +26); hats were
 placed against the real landmarks above instead.
