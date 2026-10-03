@@ -95,6 +95,11 @@ see **difficulty** below for what does.
   source that gets checked); also fine for citing the authority behind a
   closed topic, or any other rationale worth keeping attached to the file
   it's about instead of scattered in a commit message or this doc.
+- **source**, **valueLogic** — optional strings, author-facing like `note`:
+  the authority that closes the set, and why the values sit where they do.
+  `build.mjs` only copies the fields the engine reads, so these never ship.
+  Working fields like `sourceStatus` or `review` are to-dos for whoever builds
+  the round: resolve them, record the outcome in `note`, then delete them.
 - **name** — the canonical answer. If a term is a brand and another is the real
   thing, the real thing is the name and the brand is an alias. (Cripps Pink is
   the variety; Pink Lady is the trademark.)

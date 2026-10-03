@@ -1,0 +1,109 @@
+{
+  "domain": "World",
+  "prompt": "Name a country in the G7.",
+  "scene": "globe",
+  "difficulty": 2,
+  "closed": true,
+  "source": "G7 Information Centre, University of Toronto: https://www.g7.utoronto.ca/",
+  "valueLogic": "The United States, United Kingdom, France and Germany come immediately. Japan is next. Italy and Canada form the tail - Canada because it joined a year after the others, Italy because people simply forget it.",
+  "note": "England is accepted for the United Kingdom: strictly wrong, but the intent is unambiguous and busting on it would read as pedantry. The EU attends every summit but isn't one of the seven, so it's a non-busting distractor.",
+  "answers": [
+    {
+      "name": "United States",
+      "value": 4,
+      "fact": "The largest economy in the group, and a founding member in 1975.",
+      "aliases": [
+        "usa",
+        "us",
+        "america",
+        "united states of america"
+      ]
+    },
+    {
+      "name": "United Kingdom",
+      "value": 5,
+      "fact": "A founding member, and host of the third summit, in London in 1977.",
+      "aliases": [
+        "uk",
+        "britain",
+        "great britain",
+        "england"
+      ]
+    },
+    {
+      "name": "France",
+      "value": 5,
+      "fact": "Convened the first summit at Rambouillet in 1975 and hosted again at Evian in 2026."
+    },
+    {
+      "name": "Germany",
+      "value": 6,
+      "fact": "A founding member, attending as West Germany until reunification.",
+      "aliases": [
+        "west germany"
+      ]
+    },
+    {
+      "name": "Japan",
+      "value": 7,
+      "fact": "The only member outside Europe and North America."
+    },
+    {
+      "name": "Italy",
+      "value": 10,
+      "fact": "A founding member, and the most frequently forgotten of the six originals."
+    },
+    {
+      "name": "Canada",
+      "value": 13,
+      "fact": "Joined in 1976, turning the G6 into the G7, and the single hardest to name."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "European Union",
+      "note": "Attends every summit but is not one of the seven member countries.",
+      "aliases": [
+        "eu"
+      ]
+    },
+    {
+      "name": "Russia",
+      "note": "A member from 1998 until its suspension in 2014, when the G8 went back to being the G7."
+    },
+    {
+      "name": "China",
+      "note": "Not a member, despite the size of its economy."
+    },
+    {
+      "name": "Spain",
+      "note": "Not a member."
+    },
+    {
+      "name": "Australia",
+      "note": "Not a member, though frequently invited as a guest."
+    },
+    {
+      "name": "South Korea",
+      "note": "Not a member, though frequently invited as a guest.",
+      "aliases": [
+        "korea"
+      ]
+    },
+    {
+      "name": "India",
+      "note": "Not a member, though frequently invited as a guest."
+    },
+    {
+      "name": "Brazil",
+      "note": "Not a member."
+    },
+    {
+      "name": "Netherlands",
+      "note": "Not a member.",
+      "aliases": [
+        "holland"
+      ]
+    }
+  ]
+}

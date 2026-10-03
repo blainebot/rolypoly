@@ -377,6 +377,24 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .frame{fill:#F5D58A}.shade{fill:#5E2A55}.shadelt{fill:#B07AA8}
 .vinyl{fill:#141414}.vinylgr{fill:#5A5A5A}.vlabel{fill:#E0663A}
 .sc-miner .armR,.sc-seventies .armR{transform:rotate(-58deg)}
+.rb0{fill:#E0392B}.rb1{fill:#F08A2E}.rb2{fill:#F2C744}.rb3{fill:#4FB85A}.rb4{fill:#3E7BC4}.rb5{fill:#5A4FCF}.rb6{fill:#9B5FD0}
+.beam{fill:#F3EDE0}.prism{fill:#CFE8EE;fill-opacity:.55}.prismlt{fill:#F3EDE0}
+.specs{fill:#1B1410}.chalk{fill:#F3EDE0}.bframe{fill:#C9954A}.board{fill:#24452E}
+.chalktx{font-family:"Pixelify Sans",monospace;font-size:11px;fill:#F3EDE0}
+.bush{fill:#E8DCC0}.bushband{fill:#3A2412}.bushbrim{fill:#F3EDE0}
+.strap{fill:#3A2412}.binoc{fill:#1B1410}.binoclt{fill:#8FCBEA}.route{fill:#C8312A}
+.morpho{fill:#3E9BE0}.morphodk{fill:#7FC0E8}
+.holly{fill:#1F5A35}.hberry{fill:#FF4A3A}.spine{fill:#8E1F1A}
+.ptrunk{fill:#8E6420}.ptree{fill:#3E8E5A}.pear{fill:#E0D85A}.pdg{fill:#A0785A}.pdglt{fill:#D8C0A0}
+.lecttop{fill:#D8D2C6}.lectern{fill:#3E5C8C}.lectdk{fill:#17171A}.mic{fill:#1B1410}.gavel{fill:#8E5A2E}
+.sc-chalkboard .armR,.sc-explorer .armR,.sc-podium .armR{transform:rotate(-58deg)}
+.lantern{fill:#C8312A}.lanterndk{fill:#7A1F1F}.lanternlt{fill:#F08A2E}.lgold{fill:#E8C07A}
+.lanyard{fill:#3E5C8C}.idcard{fill:#F3EDE0}.idband{fill:#3E5C8C}
+.gocean{fill:#3E7BC4}.gland{fill:#6FCB5A}.gbrass{fill:#C9954A}
+.hood{fill:#3E5A3A}.hooddk{fill:#24361F}.cloak{fill:#3E5A3A}.clasp{fill:#C9C2B0}.staff{fill:#A0785A}
+.boater{fill:#F2D89A}.boaterlt{fill:#F7E6B8}.sband{fill:#8E1F1A}
+.river{fill:#7FC0E8}.hull{fill:#F3EDE0}.cabwin{fill:#3E5C8C}.stack{fill:#8A8272}.pwheel{fill:#C8312A}.steam{fill:#F3EDE0;fill-opacity:.8}
+.sc-lantern .armR,.sc-fellowship .armR{transform:rotate(-58deg)}
 .lookLR{transform-box:fill-box;transform-origin:center;animation:lookLR 2.2s steps(1) infinite}
 @keyframes lookLR{0%,49%{transform:translateX(-6.7px)}50%,100%{transform:translateX(6.7px)}}
 .bub1,.bub2,.bub3{transform-box:fill-box;animation:fizz 1.8s ease-out infinite}

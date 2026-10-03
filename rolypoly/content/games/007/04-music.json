@@ -1,0 +1,160 @@
+{
+  "domain": "Music",
+  "prompt": "Name one of the twelve gifts in 'The Twelve Days of Christmas'.",
+  "scene": "carol",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "source": "Frederic Austin's 1909 arrangement, which fixed the modern English text and the 'five gold rings' melody.",
+  "valueLogic": "The partridge and the gold rings are near-universal. The middle band is the birds. The human gifts - maids, pipers, ladies, lords - are where people falter, and they get confused with each other, so they carry the highest values.",
+  "note": "'Birds' is deliberately not an alias of the calling birds: five gifts are birds, so the bare word gets a non-busting nudge to be specific instead of crediting one of them.",
+  "answers": [
+    {
+      "name": "A partridge in a pear tree",
+      "value": 3,
+      "fact": "The first gift, and the only one that comes with its own tree.",
+      "aliases": [
+        "partridge",
+        "pear tree",
+        "partridge in a pear tree"
+      ]
+    },
+    {
+      "name": "Five gold rings",
+      "value": 4,
+      "fact": "The fifth, and the line everyone slows down for.",
+      "aliases": [
+        "gold rings",
+        "golden rings",
+        "five golden rings",
+        "rings",
+        "five rings"
+      ]
+    },
+    {
+      "name": "Two turtle doves",
+      "value": 6,
+      "fact": "The second. Turtle doves were a long-standing symbol of faithful love.",
+      "aliases": [
+        "turtle doves",
+        "turtledoves",
+        "doves",
+        "two doves"
+      ]
+    },
+    {
+      "name": "Three French hens",
+      "value": 8,
+      "fact": "The third gift, and the third bird in a row.",
+      "aliases": [
+        "french hens",
+        "hens",
+        "three hens"
+      ]
+    },
+    {
+      "name": "Twelve drummers drumming",
+      "value": 9,
+      "fact": "The twelfth and final gift, and the line the song builds to.",
+      "aliases": [
+        "drummers",
+        "drummers drumming",
+        "twelve drummers"
+      ]
+    },
+    {
+      "name": "Four calling birds",
+      "value": 10,
+      "fact": "Originally colly birds - colly meaning black, so blackbirds.",
+      "aliases": [
+        "calling birds",
+        "colly birds",
+        "collie birds",
+        "four birds"
+      ]
+    },
+    {
+      "name": "Seven swans a-swimming",
+      "value": 11,
+      "fact": "The seventh, and by some reckonings the most expensive gift in the song.",
+      "aliases": [
+        "swans",
+        "swans a swimming",
+        "swans swimming",
+        "seven swans"
+      ]
+    },
+    {
+      "name": "Ten lords a-leaping",
+      "value": 12,
+      "fact": "The tenth, and the gift most often swapped with the ladies by mistake.",
+      "aliases": [
+        "lords",
+        "lords a leaping",
+        "lords leaping",
+        "ten lords"
+      ]
+    },
+    {
+      "name": "Six geese a-laying",
+      "value": 13,
+      "fact": "The sixth. Some argue the gold rings were ring-necked birds, which would make six birds in a row.",
+      "aliases": [
+        "geese",
+        "geese a laying",
+        "geese laying",
+        "six geese"
+      ]
+    },
+    {
+      "name": "Nine ladies dancing",
+      "value": 14,
+      "fact": "The ninth, and frequently confused with the leaping lords.",
+      "aliases": [
+        "ladies",
+        "ladies dancing",
+        "nine ladies"
+      ]
+    },
+    {
+      "name": "Eleven pipers piping",
+      "value": 15,
+      "fact": "The eleventh, and the one most often misremembered as drummers.",
+      "aliases": [
+        "pipers",
+        "pipers piping",
+        "eleven pipers"
+      ]
+    },
+    {
+      "name": "Eight maids a-milking",
+      "value": 17,
+      "fact": "The eighth, and the single hardest of the twelve to recall unprompted.",
+      "aliases": [
+        "maids",
+        "maids a milking",
+        "maids milking",
+        "milkmaids",
+        "eight maids"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Thirteen",
+      "note": "There is no thirteenth gift - the song has twelve."
+    },
+    {
+      "name": "Lords a-dancing",
+      "note": "A blend of two gifts. The lords leap and the ladies dance.",
+      "aliases": [
+        "ladies leaping",
+        "lords dancing"
+      ]
+    },
+    {
+      "name": "Birds",
+      "note": "Five of the gifts are birds - say which one."
+    }
+  ]
+}

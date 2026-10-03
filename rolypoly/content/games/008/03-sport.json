@@ -1,0 +1,148 @@
+{
+  "domain": "Sport",
+  "prompt": "Name one of baseball's nine standard fielding positions.",
+  "scene": "ballpark",
+  "difficulty": 3,
+  "closed": true,
+  "source": "Official Baseball Rules, which number the nine defensive positions 1 through 9.",
+  "valueLogic": "Pitcher and catcher are instant. The infield follows. The three outfield spots are where people stall, because most players think of the outfield as one thing rather than three separate positions.",
+  "note": "One- and two-character abbreviations (P, C, SS, 1B, LF...) are exact matches: norm() keeps them intact, and fuzzy matching has a four-character floor (MIN_FUZZY), so P and C can't fuzzy into each other or anything else.",
+  "answers": [
+    {
+      "name": "Pitcher",
+      "value": 4,
+      "fact": "Position number one, and the only fielder who starts every play with the ball.",
+      "aliases": [
+        "p"
+      ]
+    },
+    {
+      "name": "Catcher",
+      "value": 4,
+      "fact": "Position two, and the only player who faces the rest of the field.",
+      "aliases": [
+        "c"
+      ]
+    },
+    {
+      "name": "First baseman",
+      "value": 6,
+      "fact": "Position three, and involved in more putouts than any other fielder.",
+      "aliases": [
+        "first base",
+        "1b",
+        "first"
+      ]
+    },
+    {
+      "name": "Shortstop",
+      "value": 7,
+      "fact": "Position six, between second and third, and usually the best infielder on the team.",
+      "aliases": [
+        "ss",
+        "short stop"
+      ]
+    },
+    {
+      "name": "Second baseman",
+      "value": 8,
+      "fact": "Position four, and the pivot on many double plays.",
+      "aliases": [
+        "second base",
+        "2b",
+        "second"
+      ]
+    },
+    {
+      "name": "Third baseman",
+      "value": 8,
+      "fact": "Position five. The spot is called the hot corner for the speed of the balls hit there.",
+      "aliases": [
+        "third base",
+        "3b",
+        "third"
+      ]
+    },
+    {
+      "name": "Center fielder",
+      "value": 10,
+      "fact": "Position eight, with the most ground to cover of anyone on the field.",
+      "aliases": [
+        "center field",
+        "cf",
+        "centre fielder",
+        "centre field",
+        "centerfield",
+        "centerfielder"
+      ]
+    },
+    {
+      "name": "Left fielder",
+      "value": 11,
+      "fact": "Position seven, and traditionally where a strong bat with a weaker glove is hidden.",
+      "aliases": [
+        "left field",
+        "lf"
+      ]
+    },
+    {
+      "name": "Right fielder",
+      "value": 13,
+      "fact": "Position nine, and needs the strongest throwing arm of the three outfielders.",
+      "aliases": [
+        "right field",
+        "rf"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Designated hitter",
+      "note": "A batting role, not one of the nine defensive positions.",
+      "aliases": [
+        "dh"
+      ]
+    },
+    {
+      "name": "Outfielder",
+      "note": "Correct baseball term, but the three outfield spots count separately here.",
+      "aliases": [
+        "outfield",
+        "of"
+      ]
+    },
+    {
+      "name": "Infielder",
+      "note": "Correct term, but the infield positions count separately here.",
+      "aliases": [
+        "infield"
+      ]
+    },
+    {
+      "name": "Closer",
+      "note": "A pitching role rather than a fielding position."
+    },
+    {
+      "name": "Relief pitcher",
+      "note": "Still the pitcher position - number one.",
+      "aliases": [
+        "reliever"
+      ]
+    },
+    {
+      "name": "Utility player",
+      "note": "A role, not a position.",
+      "aliases": [
+        "utility"
+      ]
+    },
+    {
+      "name": "Base coach",
+      "note": "Not a fielder."
+    },
+    {
+      "name": "Umpire",
+      "note": "Not on either team."
+    }
+  ]
+}

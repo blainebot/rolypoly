@@ -1,0 +1,110 @@
+{
+  "domain": "Geography",
+  "prompt": "Name a sovereign country in South America.",
+  "scene": "explorer",
+  "difficulty": 3,
+  "closed": true,
+  "source": "United Nations member states (https://www.un.org/en/about-us/member-states); twelve sovereign states on the South American continent.",
+  "valueLogic": "Brazil and Argentina are produced by nearly everyone. The middle band is the countries people reach after a moment's thought. Guyana and Suriname form a genuine tail - most players stop at ten.",
+  "answers": [
+    {
+      "name": "Brazil",
+      "value": 3,
+      "fact": "Almost half the continent by area, and the only Portuguese-speaking country in it."
+    },
+    {
+      "name": "Argentina",
+      "value": 3,
+      "fact": "Second largest, and reaches from the tropics all the way to Tierra del Fuego."
+    },
+    {
+      "name": "Chile",
+      "value": 5,
+      "fact": "2,600 miles long and never more than 220 wide."
+    },
+    {
+      "name": "Peru",
+      "value": 6,
+      "fact": "Home to Machu Picchu and to the largest share of the Amazon after Brazil."
+    },
+    {
+      "name": "Colombia",
+      "value": 7,
+      "fact": "The only South American country with coasts on both the Pacific and the Caribbean."
+    },
+    {
+      "name": "Venezuela",
+      "value": 8,
+      "fact": "Holds the largest proven oil reserves of any country on Earth."
+    },
+    {
+      "name": "Ecuador",
+      "value": 10,
+      "fact": "Named for the equator, which runs through it just north of Quito."
+    },
+    {
+      "name": "Bolivia",
+      "value": 11,
+      "fact": "One of two landlocked countries on the continent, and it still maintains a navy."
+    },
+    {
+      "name": "Uruguay",
+      "value": 12,
+      "fact": "The smallest Spanish-speaking country in South America."
+    },
+    {
+      "name": "Paraguay",
+      "value": 13,
+      "fact": "The other landlocked one. Guarani is official alongside Spanish, and most people speak it."
+    },
+    {
+      "name": "Guyana",
+      "value": 18,
+      "fact": "The only South American country whose official language is English."
+    },
+    {
+      "name": "Suriname",
+      "value": 21,
+      "fact": "The smallest sovereign state on the continent, and Dutch-speaking."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "French Guiana",
+      "note": "An overseas department of France, not a sovereign country.",
+      "aliases": [
+        "guyane"
+      ]
+    },
+    {
+      "name": "Falkland Islands",
+      "note": "A British overseas territory, not a sovereign country.",
+      "aliases": [
+        "falklands",
+        "malvinas"
+      ]
+    },
+    {
+      "name": "Panama",
+      "note": "It borders Colombia, but it's in Central America."
+    },
+    {
+      "name": "Trinidad and Tobago",
+      "note": "A Caribbean country, not South American.",
+      "aliases": [
+        "trinidad"
+      ]
+    },
+    {
+      "name": "Galapagos",
+      "note": "Islands belonging to Ecuador, not a country.",
+      "aliases": [
+        "galapagos islands"
+      ]
+    },
+    {
+      "name": "Mexico",
+      "note": "That's in North America."
+    }
+  ]
+}

@@ -701,6 +701,18 @@ reach as everything else (so "Buckeye" singular, or a typo, still gets caught): 
 score, no bust, no confirm step — same reasoning as extras, accepting or declining
 the "hint" changes nothing, so there's nothing worth interrupting play to ask about.
 
+**The full order in `dig()`:** an exact match on a scoring answer; then an exact
+match on an extra or distractor; then `fuzzyMatches()` against the scoring
+answers; then fuzzy extras; then fuzzy distractors; then a bust. The second step
+was added while building game 007, and it was a real bug across shipped games.
+The fuzzy step only knew about the scoring list, so an authored wrong answer one
+or two edits from a real one was offered as that real answer. "Hades" got "did
+you mean Ares?", and so did "Eros"; "Upsilon" got Epsilon; "Badgers" got Rutgers;
+"Ford" got Al Gore. Accepting the offer scored a wrong guess. Anything the author
+wrote down by name is the more specific match. `scripts/probe.mjs` mirrors this
+order, and a smoke test pins it ("an exact distractor outranks a fuzzy answer
+match").
+
 Each distractor carries its own `note` rather than a templated message, since the
 wrong category isn't always the same shape — a round could just as easily need this
 for a brand name instead of a variety, or a nickname instead of a person. `note` is
@@ -1003,7 +1015,16 @@ from those: scene classes share one stylesheet with the page, so a generic
 name collides (a record's `.label` would have recoloured the round-label
 badge — it's `.vlabel`); and a background close to the fur's luminance
 (~0.26) fails fur-vs-panel even when every prop passes, which is why pilot's
-cap is white on a dark sky rather than navy on a mid one. The art file
+cap is white on a dark sky rather than navy on a mid one. Game 007 added prism, chalkboard, explorer, carol and podium. Two more
+traps: `.tree` and `.berry` were already taken by the world's trees (the
+pear tree is `.ptree`/`.ptrunk`, the holly berries `.hberry`); and a scene
+can't reference `EYES_CLOSED` or the other head constants, which are
+declared after `SCENE`, so the reference throws at load and takes the whole
+page down. Inline the rects instead, as chalkboard does. Game 008 added lantern, globe, fellowship and riverboat
+(baseball reuses ballpark). Keep culture- and franchise-themed scenes to
+objects: the zodiac scene is a paper lantern on a stick, nothing worn; the
+Fellowship scene is a plain traveller's hood, cloak and staff, with no leaf
+brooch or anything else from the films. The art file
 that came with the head described hat scaling as "about 1.6×, shifted down about
 6" — that doesn't match its own coordinates (closer to 2.2× and +26); hats were
 placed against the real landmarks above instead.

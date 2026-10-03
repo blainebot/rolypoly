@@ -1,0 +1,136 @@
+{
+  "domain": "Literature",
+  "prompt": "Name an original member of the Fellowship of the Ring.",
+  "scene": "fellowship",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "source": "J.R.R. Tolkien, The Fellowship of the Ring, Book II chapter 3, 'The Ring Goes South'.",
+  "valueLogic": "Frodo, Gandalf and Aragorn are named first by anyone who knows the story. Legolas, Gimli and Sam follow. Boromir is the first one people forget. Merry and Pippin are easy by nickname but genuinely hard by full name, which is why they carry the highest values and why both forms are accepted.",
+  "note": "Merry and Pippin are accepted by nickname: the round shouldn't punish people who know the characters perfectly well. Bill the pony travelled with them but isn't one of the nine, so he's a non-busting distractor.",
+  "answers": [
+    {
+      "name": "Frodo Baggins",
+      "value": 4,
+      "fact": "The Ring-bearer, and the reason the Fellowship exists at all.",
+      "aliases": [
+        "frodo"
+      ]
+    },
+    {
+      "name": "Gandalf",
+      "value": 4,
+      "fact": "The Grey at the start, and the only member who does not finish the first book with the others.",
+      "aliases": [
+        "gandalf the grey",
+        "mithrandir",
+        "gandalf the white"
+      ]
+    },
+    {
+      "name": "Aragorn",
+      "value": 5,
+      "fact": "Known as Strider in Bree, and the heir to the throne of Gondor.",
+      "aliases": [
+        "strider",
+        "elessar"
+      ]
+    },
+    {
+      "name": "Legolas",
+      "value": 6,
+      "fact": "The only elf, and the son of the Elvenking of Mirkwood."
+    },
+    {
+      "name": "Gimli",
+      "value": 7,
+      "fact": "The only dwarf, and son of Gloin from The Hobbit."
+    },
+    {
+      "name": "Samwise Gamgee",
+      "value": 7,
+      "fact": "Frodo's gardener, and the only member who goes the whole way with him.",
+      "aliases": [
+        "sam",
+        "sam gamgee",
+        "samwise"
+      ]
+    },
+    {
+      "name": "Boromir",
+      "value": 10,
+      "fact": "Son of the Steward of Gondor, and the only one of the nine who doesn't survive the quest."
+    },
+    {
+      "name": "Peregrin Took",
+      "value": 13,
+      "fact": "Pippin. The youngest of the nine, and included largely out of loyalty.",
+      "aliases": [
+        "pippin",
+        "peregrin",
+        "pippin took"
+      ]
+    },
+    {
+      "name": "Meriadoc Brandybuck",
+      "value": 15,
+      "fact": "Merry. The hardest of the nine to produce by his full name.",
+      "aliases": [
+        "merry",
+        "meriadoc",
+        "merry brandybuck"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Bilbo Baggins",
+      "note": "Offered to carry the Ring from Rivendell, but was far too old to go.",
+      "aliases": [
+        "bilbo"
+      ]
+    },
+    {
+      "name": "Elrond",
+      "note": "Convened the council that formed the Fellowship, and did not join it."
+    },
+    {
+      "name": "Arwen",
+      "note": "Not a member of the Fellowship in the book."
+    },
+    {
+      "name": "Galadriel",
+      "note": "Hosted them in Lothlorien, but was never a member."
+    },
+    {
+      "name": "Tom Bombadil",
+      "note": "Met before Rivendell, and never part of the quest."
+    },
+    {
+      "name": "Faramir",
+      "note": "Boromir's brother, and met much later."
+    },
+    {
+      "name": "Gollum",
+      "note": "Followed the Fellowship, but was certainly not in it.",
+      "aliases": [
+        "smeagol"
+      ]
+    },
+    {
+      "name": "Bill the pony",
+      "note": "Carried their baggage from Bree, but is not one of the nine.",
+      "aliases": [
+        "bill"
+      ]
+    },
+    {
+      "name": "Saruman",
+      "note": "The opposing wizard."
+    },
+    {
+      "name": "Thorin",
+      "note": "From The Hobbit, and long dead by the time the Fellowship formed."
+    }
+  ]
+}

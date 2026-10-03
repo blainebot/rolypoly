@@ -1,0 +1,140 @@
+{
+  "domain": "Culture",
+  "prompt": "Name an animal in the Chinese zodiac.",
+  "scene": "lantern",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "source": "The twelve-animal cycle of the Chinese zodiac (shengxiao).",
+  "valueLogic": "Dragon and tiger are produced first by almost everyone. The middle band is the familiar domestic animals. Ox and goat form the tail - both are regularly forgotten, and the goat is further muddled by the goat/sheep translation.",
+  "note": "Goat takes sheep and ram, Rat takes mouse, Ox takes cow/bull/buffalo: each Chinese character covers both animals, so these are translations, not leniency. Cat is a non-busting distractor because the Vietnamese zodiac has it in the rabbit's place.",
+  "answers": [
+    {
+      "name": "Dragon",
+      "value": 4,
+      "fact": "The only mythical animal of the twelve, and the most sought-after birth year."
+    },
+    {
+      "name": "Tiger",
+      "value": 4,
+      "fact": "Third in the cycle, and a symbol of courage rather than danger."
+    },
+    {
+      "name": "Horse",
+      "value": 5,
+      "fact": "Seventh, and the midpoint of the twelve-year cycle."
+    },
+    {
+      "name": "Snake",
+      "value": 5,
+      "fact": "Sixth, and in Chinese tradition a sign of wisdom rather than treachery."
+    },
+    {
+      "name": "Monkey",
+      "value": 6,
+      "fact": "Ninth, and associated with cleverness and mischief alike."
+    },
+    {
+      "name": "Dog",
+      "value": 6,
+      "fact": "Eleventh, and the sign of loyalty.",
+      "aliases": [
+        "dogs"
+      ]
+    },
+    {
+      "name": "Rat",
+      "value": 7,
+      "fact": "First in the cycle. The story goes that it rode the ox across the river and jumped off to win.",
+      "aliases": [
+        "mouse",
+        "rats"
+      ]
+    },
+    {
+      "name": "Rabbit",
+      "value": 8,
+      "fact": "Fourth. In the Vietnamese zodiac this position is held by the cat instead.",
+      "aliases": [
+        "hare"
+      ]
+    },
+    {
+      "name": "Pig",
+      "value": 8,
+      "fact": "Twelfth and last, said to have overslept on the day of the race.",
+      "aliases": [
+        "boar",
+        "pigs"
+      ]
+    },
+    {
+      "name": "Rooster",
+      "value": 10,
+      "fact": "Tenth, and the only bird in the cycle.",
+      "aliases": [
+        "chicken",
+        "cock",
+        "hen"
+      ]
+    },
+    {
+      "name": "Ox",
+      "value": 12,
+      "fact": "Second. It led the race almost to the end before the rat jumped off its back.",
+      "aliases": [
+        "cow",
+        "bull",
+        "buffalo",
+        "cows",
+        "oxen"
+      ]
+    },
+    {
+      "name": "Goat",
+      "value": 14,
+      "fact": "Eighth, and the hardest to recall. The character means goat or sheep, which is why both are accepted.",
+      "aliases": [
+        "sheep",
+        "ram",
+        "rams"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Cat",
+      "note": "The Vietnamese zodiac has a cat where the Chinese has a rabbit. Correct elsewhere, not here."
+    },
+    {
+      "name": "Leo",
+      "note": "A Western zodiac sign, not a Chinese one."
+    },
+    {
+      "name": "Scorpio",
+      "note": "Western zodiac.",
+      "aliases": [
+        "scorpion"
+      ]
+    },
+    {
+      "name": "Taurus",
+      "note": "Western zodiac - though it is also a bull."
+    },
+    {
+      "name": "Aries",
+      "note": "Western zodiac."
+    },
+    {
+      "name": "Pisces",
+      "note": "Western zodiac.",
+      "aliases": [
+        "fish"
+      ]
+    },
+    {
+      "name": "Phoenix",
+      "note": "Appears throughout Chinese mythology, but not in the zodiac."
+    }
+  ]
+}

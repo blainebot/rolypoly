@@ -1,0 +1,77 @@
+{
+  "domain": "Colour",
+  "prompt": "Name one of the seven colours traditionally identified in a rainbow.",
+  "scene": "prism",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "source": "Newton's seven-colour ROYGBIV convention, Opticks (1704).",
+  "valueLogic": "Five of the seven are named by almost anyone, so they sit at 3-6. Violet is often said as purple, hence 10. Indigo is the one people genuinely forget and the only real tail, at 14.",
+  "note": "Purple is kept as an alias for violet: in everyday English they're the same answer, and busting on it would read as a bug.",
+  "answers": [
+    {
+      "name": "Red",
+      "value": 3,
+      "fact": "The longest visible wavelength, and the outer band of the arc."
+    },
+    {
+      "name": "Blue",
+      "value": 3,
+      "fact": "Newton placed it between green and indigo in his seven."
+    },
+    {
+      "name": "Green",
+      "value": 4,
+      "fact": "The middle band, and the wavelength the human eye is most sensitive to."
+    },
+    {
+      "name": "Yellow",
+      "value": 4,
+      "fact": "Between orange and green, and the narrowest band to most eyes."
+    },
+    {
+      "name": "Orange",
+      "value": 6,
+      "fact": "Named after the fruit, not the other way round - the colour word came later."
+    },
+    {
+      "name": "Violet",
+      "value": 10,
+      "fact": "The shortest visible wavelength, and the inner band of the arc.",
+      "aliases": [
+        "purple"
+      ]
+    },
+    {
+      "name": "Indigo",
+      "value": 14,
+      "fact": "Newton added it to make seven, to match the notes of a musical scale. Most people cannot pick it out."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Pink",
+      "note": "Not a spectral colour at all - it has no single wavelength."
+    },
+    {
+      "name": "Cyan",
+      "note": "A real colour, but not one of Newton's seven."
+    },
+    {
+      "name": "Turquoise",
+      "note": "Not one of the seven."
+    },
+    {
+      "name": "White",
+      "note": "All wavelengths together, which is what the prism splits."
+    },
+    {
+      "name": "Black",
+      "note": "The absence of light."
+    },
+    {
+      "name": "Brown",
+      "note": "Not a spectral colour."
+    }
+  ]
+}

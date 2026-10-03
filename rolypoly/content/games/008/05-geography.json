@@ -1,0 +1,94 @@
+{
+  "domain": "Geography",
+  "prompt": "Name a US state that borders the Mississippi River.",
+  "scene": "riverboat",
+  "difficulty": 5,
+  "label": "Final Dig",
+  "closed": true,
+  "multiplier": 1.5,
+  "source": "US Geological Survey and National Park Service descriptions of the Mississippi River corridor.",
+  "valueLogic": "The states named for or defined by the river come first. The middle band is the upper river. Wisconsin and Kentucky are the genuine tail - both touch the river only along part of one border, and both are routinely missed.",
+  "note": "Ten states. Ohio, Nebraska, Kansas and the rest are non-busting distractors: they're in the drainage basin but never touch the river, the most common mistake here.",
+  "answers": [
+    {
+      "name": "Mississippi",
+      "value": 4,
+      "fact": "Shares the river's name, and the river forms most of its western border."
+    },
+    {
+      "name": "Louisiana",
+      "value": 5,
+      "fact": "Where the river finally reaches the Gulf, through the bird's-foot delta below New Orleans."
+    },
+    {
+      "name": "Missouri",
+      "value": 6,
+      "fact": "St Louis sits just below where the Missouri River joins the Mississippi."
+    },
+    {
+      "name": "Minnesota",
+      "value": 8,
+      "fact": "The river rises here, at Lake Itasca, narrow enough to step across."
+    },
+    {
+      "name": "Illinois",
+      "value": 9,
+      "fact": "The river forms the state's entire western border, from Wisconsin down to Kentucky."
+    },
+    {
+      "name": "Iowa",
+      "value": 10,
+      "fact": "The river forms its whole eastern border."
+    },
+    {
+      "name": "Arkansas",
+      "value": 12,
+      "fact": "The river forms most of its eastern border."
+    },
+    {
+      "name": "Tennessee",
+      "value": 13,
+      "fact": "Memphis sits on the bluffs above the river, the only high ground for miles."
+    },
+    {
+      "name": "Wisconsin",
+      "value": 15,
+      "fact": "The river forms its south-western border, below the confluence with the St Croix."
+    },
+    {
+      "name": "Kentucky",
+      "value": 19,
+      "fact": "A short western stretch only, which is why it is the hardest of the ten to name."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Ohio",
+      "note": "In the drainage basin, but the Ohio River joins the Mississippi at the Illinois-Kentucky line, not in Ohio."
+    },
+    {
+      "name": "Nebraska",
+      "note": "In the drainage basin, but does not touch the river."
+    },
+    {
+      "name": "Kansas",
+      "note": "In the drainage basin, but does not touch the river."
+    },
+    {
+      "name": "Indiana",
+      "note": "In the drainage basin, but does not touch the river."
+    },
+    {
+      "name": "Alabama",
+      "note": "Close, but the river does not reach it."
+    },
+    {
+      "name": "Texas",
+      "note": "In the basin along its northern edge, but never touches the river."
+    },
+    {
+      "name": "Montana",
+      "note": "The headwaters of the Missouri are here, but the Mississippi is not."
+    }
+  ]
+}

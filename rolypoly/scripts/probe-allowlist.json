@@ -22,5 +22,53 @@
     "file": "04-film.json",
     "guess": "thebfg",
     "reason": "The 'flattened' rule (hyphens/spaces removed) runs on the raw name before norm()'s own leading-article strip, so it produces 'thebfg' here — but a real player either types 'The BFG' with the space, or just 'BFG' (already an alias); nobody drops the space while keeping 'the'. Reviewed 2026 — not worth narrowing the flattened rule itself, which is load-bearing for genuine hyphen cases (Do-si-dos/do si dos)."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "one",
+    "reason": "Not a bug: the probe splits the multi-word numeric aliases ('one hundred', 'five hundred', 'one thousand') into tokens, and each token is itself a different numeral's correct answer ('one' is I, 'five' is V, '100'/'hundred' is C). A player typing it means that numeral."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "100",
+    "reason": "Not a bug: the probe splits the multi-word numeric aliases ('one hundred', 'five hundred', 'one thousand') into tokens, and each token is itself a different numeral's correct answer ('one' is I, 'five' is V, '100'/'hundred' is C). A player typing it means that numeral."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "five",
+    "reason": "Not a bug: the probe splits the multi-word numeric aliases ('one hundred', 'five hundred', 'one thousand') into tokens, and each token is itself a different numeral's correct answer ('one' is I, 'five' is V, '100'/'hundred' is C). A player typing it means that numeral."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "hundred",
+    "reason": "Not a bug: the probe splits the multi-word numeric aliases ('one hundred', 'five hundred', 'one thousand') into tokens, and each token is itself a different numeral's correct answer ('one' is I, 'five' is V, '100'/'hundred' is C). A player typing it means that numeral."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "100s",
+    "reason": "A plural of a number nobody types as an answer; the confirm it offers can be declined at no cost. Not worth special-casing digits in the fuzzy matcher."
+  },
+  {
+    "game": "007",
+    "file": "02-maths.json",
+    "guess": "500s",
+    "reason": "A plural of a number nobody types as an answer; the confirm it offers can be declined at no cost. Not worth special-casing digits in the fuzzy matcher."
+  },
+  {
+    "game": "007",
+    "file": "04-music.json",
+    "guess": "tens",
+    "reason": "Derived from 'Ten lords' with the noun dropped; 'tens' alone isn't a guess anyone makes for a gift, and the confirm it offers (hens) can be declined at no cost."
+  },
+  {
+    "game": "007",
+    "file": "04-music.json",
+    "guess": "birds",
+    "reason": "Intended. Five of the twelve gifts are birds, so the bare word gets the non-busting \"say which one\" distractor (nothing lost) instead of crediting the calling birds. The probe derives it from Four calling birds and counts any distractor landing as a bust."
   }
 ]

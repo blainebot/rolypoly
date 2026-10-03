@@ -1,0 +1,106 @@
+{
+  "domain": "Maths",
+  "prompt": "Name one of the seven symbols used in Roman numerals.",
+  "scene": "chalkboard",
+  "difficulty": 2,
+  "closed": true,
+  "source": "The seven classical Roman numeral symbols: I, V, X, L, C, D, M.",
+  "valueLogic": "I, V and X are produced instantly by almost anyone. C and L take a moment. M is known but often forgotten in the list. D is the genuine tail - most players never reach it, which is exactly the gradient the primes round lacked.",
+  "note": "Single-letter names and numeric aliases verified against the matcher: norm() keeps digits and single characters, and exact matching runs before any length-gated fuzzy step. No other round in the game uses digits.",
+  "answers": [
+    {
+      "name": "I",
+      "value": 3,
+      "fact": "One. A single tally mark, and the origin of the whole system.",
+      "aliases": [
+        "1",
+        "one"
+      ]
+    },
+    {
+      "name": "V",
+      "value": 4,
+      "fact": "Five. One theory: an open hand, thumb and fingers forming the V.",
+      "aliases": [
+        "5",
+        "five"
+      ]
+    },
+    {
+      "name": "X",
+      "value": 5,
+      "fact": "Ten. Often explained as two Vs joined point to point - two hands.",
+      "aliases": [
+        "10",
+        "ten"
+      ]
+    },
+    {
+      "name": "C",
+      "value": 9,
+      "fact": "One hundred, from centum. The source of per cent and century.",
+      "aliases": [
+        "100",
+        "one hundred",
+        "hundred"
+      ]
+    },
+    {
+      "name": "L",
+      "value": 12,
+      "fact": "Fifty. Unlike C for centum or M for mille, it isn't the initial of its Latin word.",
+      "aliases": [
+        "50",
+        "fifty"
+      ]
+    },
+    {
+      "name": "M",
+      "value": 14,
+      "fact": "One thousand, from mille - the root of mile, a thousand Roman paces.",
+      "aliases": [
+        "1000",
+        "one thousand",
+        "thousand"
+      ]
+    },
+    {
+      "name": "D",
+      "value": 19,
+      "fact": "Five hundred. The symbol almost nobody produces unprompted, and the whole tail of this round.",
+      "aliases": [
+        "500",
+        "five hundred"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "N",
+      "note": "Used by medieval scribes for nulla, zero - but not one of the seven classical symbols."
+    },
+    {
+      "name": "Zero",
+      "note": "The Romans had no symbol for it, which is why the system is so awkward to calculate with.",
+      "aliases": [
+        "0"
+      ]
+    },
+    {
+      "name": "IV",
+      "note": "A combination of two symbols rather than a symbol itself."
+    },
+    {
+      "name": "IX",
+      "note": "A combination, not a symbol."
+    },
+    {
+      "name": "MM",
+      "note": "Two thousand - M repeated, not a separate symbol."
+    },
+    {
+      "name": "K",
+      "note": "Not a Roman numeral. A modern shorthand for thousand."
+    }
+  ]
+}

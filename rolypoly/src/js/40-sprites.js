@@ -505,7 +505,168 @@ const SCENE={
   prop:`<rect class="vinyl" x="94" y="52" width="18" height="30"/><rect class="vinyl" x="88" y="58" width="30" height="18"/>
 <rect class="vinyl" x="91" y="55" width="24" height="24"/>
 <rect class="vinylgr" x="94" y="60" width="18" height="2"/><rect class="vinylgr" x="94" y="72" width="18" height="2"/>
-<rect class="vlabel" x="98" y="62" width="10" height="10"/><rect class="vinyl" x="102" y="66" width="2" height="2"/>`}
+<rect class="vlabel" x="98" y="62" width="10" height="10"/><rect class="vinyl" x="102" y="66" width="2" height="2"/>`},
+
+ // Game 007.
+ prism:{
+  bg:"#17171F",
+  // Eyes open and turned toward the rainbow he's splitting.
+  eyes:`<rect class="sclera" x="54" y="46" width="32" height="24"/><rect class="sclera" x="130" y="46" width="32" height="24"/>
+<rect class="eye" x="70" y="52" width="14" height="14"/><rect class="eye" x="146" y="52" width="14" height="14"/>`,
+  // White light in from the left, seven bands fanning out to the right,
+  // red least bent at the top and violet most bent at the bottom. The fan
+  // stops at x=136, where the "ha" strip starts.
+  prop:(()=>{
+    let fan="";
+    for(let i=0;i<7;i++){
+      const y0=83.6+i*.4,y1=y0+.4,Y0=70+i*4,Y1=Y0+4;
+      fan+=`<polygon class="rb${i}" points="118,${y0.toFixed(1)} 136,${Y0} 136,${Y1} 118,${y1.toFixed(1)}"/>`;
+    }
+    return `<polygon class="beam" points="90,82 108,83 108,86 90,85"/>
+<polygon class="prism" points="100,96 112,72 124,96"/>
+<polygon class="prismlt" points="105,92 112,78 114,82 109,92"/>${fan}`;
+  })()},
+
+ chalkboard:{
+  bg:"#4E3E30",
+  // Half-moon reading glasses perched below the eyes, so he peers over them.
+  eyes:`<rect class="eye" x="56" y="54" width="28" height="8"/><rect class="eye" x="132" y="54" width="28" height="8"/>
+<rect class="specs" x="52" y="62" width="36" height="3"/><rect class="specs" x="128" y="62" width="36" height="3"/>
+<rect class="specs" x="52" y="62" width="3" height="10"/><rect class="specs" x="85" y="62" width="3" height="10"/>
+<rect class="specs" x="128" y="62" width="3" height="10"/><rect class="specs" x="161" y="62" width="3" height="10"/>
+<rect class="specs" x="55" y="71" width="30" height="3"/><rect class="specs" x="131" y="71" width="30" height="3"/>
+<rect class="specs" x="88" y="63" width="40" height="2"/>`,
+  // Chalk in the raised paw; a board on an easel with a sum in numerals.
+  prop:`<polygon class="chalk" points="84,73 87,74 93,64 90,63"/>
+<polygon class="bframe" points="98,96 101,96 106,79 103,79"/><polygon class="bframe" points="130,96 133,96 127,79 124,79"/>
+<rect class="bframe" x="94" y="46" width="42" height="34"/>
+<rect class="board" x="97" y="49" width="36" height="28"/>
+<text class="chalktx" x="100" y="60" textLength="30" lengthAdjust="spacingAndGlyphs">XX+XXII</text>
+<text class="chalktx" x="100" y="73" textLength="22" lengthAdjust="spacingAndGlyphs">=XLII</text>`},
+
+ explorer:{
+  bg:"#1F3A2A",
+  // Canvas bush hat; the brim stops at y=44, above the eye line.
+  hat:`<rect class="bush" x="70" y="12" width="76" height="10"/>
+<rect class="bush" x="60" y="22" width="96" height="14"/>
+<rect class="bushband" x="60" y="30" width="96" height="6"/>
+<rect class="bushbrim" x="34" y="36" width="148" height="8"/>`,
+  // Binoculars on the chest, a folded map in the raised paw.
+  prop:`<rect class="strap" x="30" y="70" width="3" height="10"/><rect class="strap" x="57" y="70" width="3" height="10"/>
+<rect class="binoc" x="34" y="78" width="10" height="13"/><rect class="binoc" x="46" y="78" width="10" height="13"/>
+<rect class="binoc" x="44" y="81" width="2" height="5"/>
+<rect class="binoclt" x="35" y="88" width="8" height="2"/><rect class="binoclt" x="47" y="88" width="8" height="2"/>
+<rect class="map" x="88" y="56" width="28" height="20"/>
+<rect class="mapdk" x="96" y="60" width="9" height="10"/><rect class="mapdk" x="99" y="70" width="4" height="3"/>
+<rect class="route" x="90" y="66" width="3" height="2"/><rect class="route" x="106" y="62" width="3" height="2"/><rect class="route" x="111" y="66" width="3" height="2"/>
+<rect class="paperdk" x="102" y="56" width="1" height="20"/>`,
+  // Two blue butterflies drifting, in place of the "ha".
+  float:(()=>{
+    const b=`<rect class="morpho" x="0" y="0" width="6" height="5"/><rect class="morpho" x="8" y="0" width="6" height="5"/>
+<rect class="morphodk" x="1" y="5" width="5" height="3"/><rect class="morphodk" x="8" y="5" width="5" height="3"/>
+<rect class="eye" x="6" y="1" width="2" height="7"/>`;
+    return `<g transform="translate(112,14)"><g class="pig pg1">${b}</g></g><g transform="translate(138,40)"><g class="pig pg3">${b}</g></g>`;
+  })()},
+
+ carol:{
+  bg:"#4A1E28",
+  // A sprig of holly tucked at the side of the crown, berries on the leaves.
+  hat:`<polygon class="holly" points="118,24 132,14 140,18 128,28"/>
+<polygon class="holly" points="132,26 148,20 152,28 136,32"/>
+<rect class="hberry" x="128" y="20" width="5" height="5"/><rect class="hberry" x="134" y="24" width="5" height="5"/><rect class="hberry" x="139" y="20" width="5" height="5"/>`,
+  // An open carol book held in both paws, and a partridge in a pear tree.
+  prop:`<rect class="paper" x="18" y="76" width="26" height="16"/><rect class="paper" x="46" y="76" width="26" height="16"/>
+<rect class="spine" x="44" y="75" width="2" height="18"/>
+<rect class="paperdk" x="21" y="80" width="20" height="1"/><rect class="paperdk" x="21" y="84" width="20" height="1"/><rect class="paperdk" x="21" y="88" width="14" height="1"/>
+<rect class="paperdk" x="49" y="80" width="20" height="1"/><rect class="paperdk" x="49" y="84" width="20" height="1"/><rect class="paperdk" x="49" y="88" width="17" height="1"/>
+<rect class="ptrunk" x="114" y="70" width="5" height="26"/>
+<rect class="ptree" x="102" y="46" width="30" height="10"/><rect class="ptree" x="98" y="56" width="38" height="12"/><rect class="ptree" x="104" y="68" width="26" height="4"/>
+<rect class="pear" x="104" y="58" width="4" height="5"/><rect class="pear" x="124" y="50" width="4" height="5"/><rect class="pear" x="128" y="61" width="4" height="5"/>
+<rect class="pdg" x="110" y="38" width="12" height="8"/><rect class="pdg" x="120" y="35" width="5" height="5"/>
+<rect class="pdglt" x="112" y="40" width="6" height="4"/><rect class="eye" x="122" y="36" width="2" height="2"/>
+<rect class="cardbk" x="125" y="37" width="2" height="2"/><rect class="pdg" x="106" y="38" width="4" height="4"/>`},
+
+ podium:{
+  bg:"#1E2330",
+  // A plain lectern — a star, not a seal — with a mic by his chin, and the
+  // Senate gavel a vice president presides with, in the raised paw.
+  prop:`<rect class="lecttop" x="6" y="72" width="78" height="5"/>
+<rect class="lectern" x="12" y="77" width="66" height="23"/>
+<rect class="lectdk" x="12" y="77" width="66" height="2"/>
+<rect class="wings" x="43" y="81" width="2" height="3"/><rect class="wings" x="39" y="84" width="10" height="3"/>
+<rect class="wings" x="41" y="87" width="6" height="3"/><rect class="wings" x="40" y="90" width="3" height="2"/><rect class="wings" x="45" y="90" width="3" height="2"/>
+<rect class="mic" x="60" y="64" width="5" height="6"/><rect class="mic" x="62" y="70" width="2" height="2"/>
+<polygon class="mhandle" points="83,78 86,79 101,59 98,58"/>
+<polygon class="gavel" points="96.7,48.4 109.5,58 105.3,63.6 92.5,54"/>`},
+
+ // Game 008. Baseball reuses ballpark.
+ lantern:{
+  bg:"#1E1A2A",
+  // A red paper lantern on a stick, held up in the raised paw. Just the
+  // lantern — nothing worn, nothing that reads as a costume of a people.
+  prop:`<polygon class="mhandle" points="84,78 87,79 115,41 112,40"/>
+<rect class="lgold" x="113" y="40" width="2" height="6"/>
+<rect class="lgold" x="106" y="46" width="16" height="3"/>
+<rect class="lantern" x="104" y="49" width="20" height="4"/><rect class="lantern" x="102" y="53" width="24" height="12"/>
+<rect class="lantern" x="104" y="65" width="20" height="4"/>
+<rect class="lanterndk" x="109" y="49" width="2" height="20"/><rect class="lanterndk" x="117" y="49" width="2" height="20"/>
+<rect class="lanternlt" x="104" y="55" width="4" height="7"/>
+<rect class="lgold" x="106" y="69" width="16" height="3"/><rect class="lgold" x="113" y="72" width="2" height="9"/>`},
+
+ globe:{
+  bg:"#2A2F45",
+  // Summit delegate: a lanyard and pass on the chest, a desk globe on the
+  // mound. Generic pass — no G7 or host-country marks.
+  prop:`<polygon class="lanyard" points="28,70 32,70 41,84 38,85"/><polygon class="lanyard" points="58,70 62,70 52,85 49,84"/>
+<rect class="idcard" x="37" y="84" width="16" height="12"/><rect class="idband" x="37" y="84" width="16" height="4"/>
+<rect class="paperdk" x="40" y="90" width="10" height="1"/><rect class="paperdk" x="40" y="93" width="7" height="1"/>
+<rect class="gbrass" x="104" y="92" width="22" height="4"/><rect class="gbrass" x="113" y="83" width="4" height="9"/>
+<rect class="gocean" x="109" y="54" width="12" height="3"/><rect class="gocean" x="105" y="57" width="20" height="3"/>
+<rect class="gocean" x="103" y="60" width="24" height="15"/>
+<rect class="gocean" x="105" y="75" width="20" height="3"/><rect class="gocean" x="109" y="78" width="12" height="3"/>
+<rect class="gland" x="107" y="59" width="7" height="6"/><rect class="gland" x="111" y="65" width="4" height="7"/>
+<rect class="gland" x="118" y="61" width="6" height="4"/><rect class="gland" x="119" y="70" width="4" height="5"/>
+<rect class="gbrass" x="99" y="60" width="2" height="15"/><rect class="gbrass" x="129" y="60" width="2" height="15"/>
+<rect class="gbrass" x="101" y="56" width="3" height="4"/><rect class="gbrass" x="126" y="56" width="3" height="4"/>
+<rect class="gbrass" x="101" y="75" width="3" height="4"/><rect class="gbrass" x="126" y="75" width="3" height="4"/>
+<rect class="gbrass" x="104" y="79" width="22" height="2"/>`},
+
+ fellowship:{
+  bg:"#15141C",
+  // A traveller, nothing from any film: hooded cloak, plain clasp, a staff.
+  // The hood stops at y=44 across the forehead and its sides run down
+  // outside the eyes (x≤44 and x≥172), so the face stays clear.
+  hat:`<rect class="hood" x="64" y="10" width="88" height="10"/>
+<rect class="hood" x="46" y="20" width="124" height="12"/>
+<rect class="hood" x="36" y="32" width="144" height="10"/>
+<rect class="hooddk" x="42" y="42" width="132" height="3"/>
+<rect class="hood" x="30" y="42" width="14" height="42"/><rect class="hood" x="172" y="42" width="14" height="42"/>`,
+  prop:`<rect class="cloak" x="8" y="72" width="28" height="28"/><rect class="cloak" x="54" y="72" width="28" height="28"/>
+<rect class="cloak" x="4" y="78" width="6" height="22"/><rect class="hooddk" x="30" y="72" width="6" height="28"/><rect class="hooddk" x="54" y="72" width="6" height="28"/>
+<rect class="clasp" x="40" y="75" width="10" height="6"/><rect class="hooddk" x="43" y="77" width="4" height="2"/>
+<polygon class="staff" points="85,96 88,96 99,34 96,33"/>
+<rect class="staff" x="93" y="27" width="9" height="7"/><rect class="staff" x="100" y="24" width="3" height="5"/>`},
+
+ riverboat:{
+  bg:"#1F3A4F",
+  // Straw boater (brim ends y=37), and a paddle steamer on the mound with
+  // steam rising from both stacks in place of the "ha".
+  hat:`<rect class="boater" x="66" y="12" width="84" height="12"/>
+<rect class="sband" x="66" y="24" width="84" height="6"/>
+<rect class="boaterlt" x="44" y="30" width="128" height="7"/>`,
+  prop:`<rect class="river" x="90" y="93" width="46" height="3"/>
+<rect class="hull" x="94" y="86" width="38" height="7"/><rect class="sband" x="94" y="90" width="38" height="2"/>
+<rect class="hull" x="100" y="78" width="26" height="8"/>
+<rect class="cabwin" x="103" y="81" width="3" height="3"/><rect class="cabwin" x="109" y="81" width="3" height="3"/>
+<rect class="cabwin" x="115" y="81" width="3" height="3"/><rect class="cabwin" x="121" y="81" width="3" height="3"/>
+<rect class="hull" x="104" y="73" width="18" height="5"/>
+<rect class="stack" x="106" y="56" width="4" height="17"/><rect class="stack" x="116" y="56" width="4" height="17"/>
+<rect class="stack" x="104" y="54" width="8" height="3"/><rect class="stack" x="114" y="54" width="8" height="3"/>
+<rect class="pwheel" x="126" y="78" width="10" height="14"/>
+<rect class="stack" x="130" y="78" width="2" height="14"/><rect class="stack" x="126" y="84" width="10" height="2"/>`,
+  float:`<g class="bub1"><rect class="steam" x="105" y="46" width="6" height="6"/></g>
+<g class="bub2"><rect class="steam" x="115" y="46" width="6" height="6"/></g>
+<g class="bub3"><rect class="steam" x="110" y="44" width="5" height="5"/></g>`}
 };
 // Each "ha" is ~21 units wide and floats 24 straight up (haFloat), so it
 // lives in the strip right of every scene's side prop (those end by x=136)

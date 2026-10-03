@@ -1,0 +1,174 @@
+{
+  "domain": "History",
+  "prompt": "Name one of the ten most recent US vice presidents.",
+  "scene": "podium",
+  "difficulty": 5,
+  "label": "Final Dig",
+  "closed": true,
+  "multiplier": 1.5,
+  "asOf": "As of 2026.",
+  "source": "US Senate, Vice Presidents of the United States: https://www.senate.gov/about/officers-staff/vice-president/vice-presidents.htm",
+  "valueLogic": "Values track living memory. The four most recent are easy. Gore and Cheney are a decade back. Quayle and Bush are a generation. Mondale and Rockefeller are the tail - Rockefeller was never elected to either office and is the hardest name in the round.",
+  "note": "'George Bush' and 'Bush' credit George H. W. Bush. He was the only vice president named Bush, and in office he was simply George Bush, so that's a correct answer rather than an ambiguous one. 'George W Bush' and 'Dubya' hit the non-busting distractor.",
+  "answers": [
+    {
+      "name": "JD Vance",
+      "value": 3,
+      "fact": "The sitting vice president, sworn in in January 2025.",
+      "aliases": [
+        "j d vance",
+        "vance",
+        "james vance"
+      ]
+    },
+    {
+      "name": "Kamala Harris",
+      "value": 4,
+      "fact": "The first woman, and the first Black and South Asian American, to hold the office.",
+      "aliases": [
+        "harris"
+      ]
+    },
+    {
+      "name": "Mike Pence",
+      "value": 5,
+      "fact": "Served 2017 to 2021, and presided over the certification of his own defeat.",
+      "aliases": [
+        "pence",
+        "michael pence"
+      ]
+    },
+    {
+      "name": "Joe Biden",
+      "value": 6,
+      "fact": "Vice president 2009 to 2017, and later president.",
+      "aliases": [
+        "biden",
+        "joseph biden"
+      ]
+    },
+    {
+      "name": "Al Gore",
+      "value": 8,
+      "fact": "Served 1993 to 2001, and cast four tie-breaking votes in the Senate.",
+      "aliases": [
+        "gore",
+        "albert gore"
+      ]
+    },
+    {
+      "name": "Dick Cheney",
+      "value": 9,
+      "fact": "Served 2001 to 2009, and cast eight tie-breaking votes.",
+      "aliases": [
+        "cheney",
+        "richard cheney"
+      ]
+    },
+    {
+      "name": "George H. W. Bush",
+      "value": 11,
+      "fact": "Reagan's vice president 1981 to 1989, then president.",
+      "aliases": [
+        "george hw bush",
+        "bush senior",
+        "george bush senior",
+        "hw bush"
+      ]
+    },
+    {
+      "name": "Dan Quayle",
+      "value": 13,
+      "fact": "Served 1989 to 1993, at 41 one of the youngest to hold the office.",
+      "aliases": [
+        "quayle",
+        "james danforth quayle",
+        "danforth quayle"
+      ]
+    },
+    {
+      "name": "Walter Mondale",
+      "value": 17,
+      "fact": "Served 1977 to 1981, and the first vice president given an office in the West Wing.",
+      "aliases": [
+        "mondale",
+        "fritz mondale"
+      ]
+    },
+    {
+      "name": "Nelson Rockefeller",
+      "value": 21,
+      "fact": "Appointed under the 25th Amendment in 1974, and never elected vice president or president.",
+      "aliases": [
+        "rockefeller"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "George W. Bush",
+      "note": "President, but never vice president.",
+      "aliases": [
+        "george w bush",
+        "dubya"
+      ]
+    },
+    {
+      "name": "Barack Obama",
+      "note": "President, never vice president.",
+      "aliases": [
+        "obama"
+      ]
+    },
+    {
+      "name": "Donald Trump",
+      "note": "President, never vice president.",
+      "aliases": [
+        "trump"
+      ]
+    },
+    {
+      "name": "Bill Clinton",
+      "note": "President, never vice president.",
+      "aliases": [
+        "clinton"
+      ]
+    },
+    {
+      "name": "Gerald Ford",
+      "note": "Vice president, but before Rockefeller - outside the ten most recent.",
+      "aliases": [
+        "ford"
+      ]
+    },
+    {
+      "name": "Spiro Agnew",
+      "note": "Vice president until 1973, outside the ten most recent.",
+      "aliases": [
+        "agnew"
+      ]
+    },
+    {
+      "name": "Lyndon Johnson",
+      "note": "Vice president 1961-63, well outside the ten most recent.",
+      "aliases": [
+        "lbj",
+        "johnson"
+      ]
+    },
+    {
+      "name": "Hubert Humphrey",
+      "note": "Vice president 1965-69, outside the ten most recent.",
+      "aliases": [
+        "humphrey"
+      ]
+    },
+    {
+      "name": "Tim Walz",
+      "note": "A nominee, never vice president.",
+      "aliases": [
+        "walz"
+      ]
+    }
+  ]
+}
