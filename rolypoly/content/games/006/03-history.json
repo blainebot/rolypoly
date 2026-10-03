@@ -1,0 +1,99 @@
+{
+  "domain": "History",
+  "prompt": "Name one of the original thirteen American colonies.",
+  "scene": "revolution",
+  "difficulty": 3,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Virginia",
+      "value": 3,
+      "fact": "The first, founded at Jamestown in 1607, and the largest by population."
+    },
+    {
+      "name": "Massachusetts",
+      "value": 4,
+      "fact": "Plymouth in 1620, then the much larger Massachusetts Bay a decade later.",
+      "aliases": [
+        "massachusetts bay"
+      ]
+    },
+    {
+      "name": "New York",
+      "value": 5,
+      "fact": "Dutch until 1664, when the English took it and renamed New Amsterdam."
+    },
+    {
+      "name": "Pennsylvania",
+      "value": 6,
+      "fact": "Granted to William Penn in 1681 to settle a debt the king owed his father."
+    },
+    {
+      "name": "Georgia",
+      "value": 8,
+      "fact": "The last, chartered in 1732, and it banned slavery until 1751."
+    },
+    {
+      "name": "Maryland",
+      "value": 9,
+      "fact": "Chartered in 1632 as a refuge for English Catholics."
+    },
+    {
+      "name": "Connecticut",
+      "value": 10,
+      "fact": "Its 1639 Fundamental Orders are sometimes called the first written constitution."
+    },
+    {
+      "name": "New Jersey",
+      "value": 11,
+      "fact": "Split into East and West Jersey for a quarter century before reuniting in 1702."
+    },
+    {
+      "name": "Rhode Island",
+      "value": 12,
+      "fact": "Founded by Roger Williams after Massachusetts banished him for dissent."
+    },
+    {
+      "name": "North Carolina",
+      "value": 13,
+      "fact": "Split from South Carolina in 1712 after decades as one unwieldy colony."
+    },
+    {
+      "name": "South Carolina",
+      "value": 14,
+      "fact": "Built on rice and indigo, and the wealthiest colony per head by 1770."
+    },
+    {
+      "name": "Delaware",
+      "value": 16,
+      "fact": "Swedish, then Dutch, then English, and it shared Pennsylvania's governor until 1776."
+    },
+    {
+      "name": "New Hampshire",
+      "value": 18,
+      "fact": "Separated from Massachusetts in 1679, and in January 1776 the first colony to write its own constitution."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Vermont",
+      "note": "An independent republic until 1791 - never one of the thirteen."
+    },
+    {
+      "name": "Maine",
+      "note": "Part of Massachusetts until 1820."
+    },
+    {
+      "name": "Florida",
+      "note": "Spanish, then British, but never one of the thirteen."
+    },
+    {
+      "name": "West Virginia",
+      "note": "Part of Virginia until 1863."
+    },
+    {
+      "name": "Ohio",
+      "note": "Not a colony - it became a state in 1803."
+    }
+  ]
+}

@@ -80,10 +80,18 @@ obvious place to edit this, and the only place a rotation is authored:
 Games cycle through `order` one per day starting from `start`, wrapping
 indefinitely in both directions (dates before `start` resolve too — the
 modulo arithmetic in `gameForDay()` handles negative offsets correctly, not
-just positive ones). Add a new game to the rotation by appending its number
-to `order`; nothing else needs to change, and there's never a date with no
+just positive ones). Add a new game to the rotation by putting its number in
+`order`; nothing else needs to change, and there's never a date with no
 answer the way a manually-maintained date → game dictionary could end up
 with if someone forgot to extend it.
+
+**Growing `order` changes today's game unless you place the new entry with
+care.** The index is `days % order.length`, so a longer list shifts every
+day, today included. Appending blindly would swap the live game mid-day for
+anyone partway through it. When game 006 went in, today (day 19) was playing
+005. The list was rotated so index `19 % 6 = 1` is still 005 and 006 lands on
+the next day: `004, 005, 006, 002, 001, 003`. Do the same arithmetic for the
+deploy date (Eastern) before committing a schedule change.
 
 `content/config.json`'s `activeGame` is a **manual override for local
 development** — set it to force a specific game regardless of the date, for
@@ -649,6 +657,15 @@ every real case so far has turned out to be a `distractors` case, **the working
 assumption for any new round should be that it needs `distractors`, not `extras`**
 — treat reaching for `extras` as the thing to double-check, not the default.
 
+(Game 005's dog-breed and smallest-countries rounds did ship `extras` for
+outside-the-top-ten items, so "zero" above is out of date. Game 006 arrived
+the same way — every round's `extras` held wrong guesses: chains outside the
+ten, non-dwarfs, non-colonies, songs from other albums. They ship as
+non-busting `distractors` instead. The player gets the same outcome (nothing
+lost), but the line reads "'Pizza Hut' isn't it — …" rather than the extras
+line's "is right, but not one of today's fifteen", which would be false for
+every one of them.)
+
 An extra needs only a `name` — no value, since it never scores — plus optional
 `aliases` and an optional `fact`. Submitting one without a `fact` says so ("Right,
 but not one of today's fifteen — nothing lost"); with one, the fact takes the
@@ -980,7 +997,13 @@ are worth knowing before copying them: `ballpark`'s cardinal is in `hat`, not
 `float`, because `float` doesn't bob and the bird has to stay on the cap; and
 `redjacket`'s white "ha" is a CSS rule on `.sc-redjacket`, not a different `HA`.
 New scenes go through the same contrast check as the rest (1.8:1 against the
-surface each piece actually sits on — fur, panel, or the prop underneath). The art file
+surface each piece actually sits on — fur, panel, or the prop underneath).
+Game 006 added drivethru, miner, pilot and seventies the same way. Two traps
+from those: scene classes share one stylesheet with the page, so a generic
+name collides (a record's `.label` would have recoloured the round-label
+badge — it's `.vlabel`); and a background close to the fur's luminance
+(~0.26) fails fur-vs-panel even when every prop passes, which is why pilot's
+cap is white on a dark sky rather than navy on a mid one. The art file
 that came with the head described hat scaling as "about 1.6×, shifted down about
 6" — that doesn't match its own coordinates (closer to 2.2× and +26); hats were
 placed against the real landmarks above instead.

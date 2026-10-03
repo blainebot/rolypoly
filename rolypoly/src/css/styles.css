@@ -365,6 +365,18 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .map{fill:#F3EDE0}.mapdk{fill:#3E8E5A}.case{fill:#C98A3C}.casedk{fill:#6E4A28}.tag{fill:#F3EDE0}
 .sc-animator .armR,.sc-redjacket .armR,.sc-ballpark .armR{transform:rotate(-58deg)}
 .sc-redjacket .ha{fill:#fff}
+.crew{fill:#F3EDE0}.crewdk{fill:#8A8272}.crewband{fill:#8E1F1A}.headset{fill:#1B1410}
+.cup{fill:#F3EDE0}.cuplid{fill:#D8D2C6}.straw{fill:#E8C07A}.bag{fill:#C98A3C}.bagdk{fill:#6E4A28}
+.mhat{fill:#E0B83A}.mhatlt{fill:#F2CF6A}.mhatdk{fill:#F5D58A}.lampcase{fill:#3A3A3A}.lamp{fill:#FFF2A8}
+.mhandle{fill:#C9954A}.pick{fill:#B7AFA0}.gemR{fill:#E0663A}.gemB{fill:#8FCBEA}.gemG{fill:#6FCB5A}.gemY{fill:#F2C744}
+.pcap{fill:#F3EDE0}.pbadge{fill:#24345A}.pband{fill:#17171A}.wings{fill:#E8C07A}
+.collar{fill:#F3EDE0}.tie{fill:#24345A}
+.plane{fill:#F3EDE0}.planedk{fill:#3E5C8C}.trail{fill:#F3EDE0;fill-opacity:.6}
+.jet{transform-box:fill-box;animation:drift1 5s ease-in-out infinite}
+.hband{fill:#3A2412}.hbandlt{fill:#F2C744}
+.frame{fill:#F5D58A}.shade{fill:#5E2A55}.shadelt{fill:#B07AA8}
+.vinyl{fill:#141414}.vinylgr{fill:#5A5A5A}.vlabel{fill:#E0663A}
+.sc-miner .armR,.sc-seventies .armR{transform:rotate(-58deg)}
 .lookLR{transform-box:fill-box;transform-origin:center;animation:lookLR 2.2s steps(1) infinite}
 @keyframes lookLR{0%,49%{transform:translateX(-6.7px)}50%,100%{transform:translateX(6.7px)}}
 .bub1,.bub2,.bub3{transform-box:fill-box;animation:fizz 1.8s ease-out infinite}

@@ -1,0 +1,122 @@
+{
+  "domain": "Music",
+  "prompt": "Name a song from the original release of Fleetwood Mac's Rumours.",
+  "scene": "seventies",
+  "difficulty": 5,
+  "label": "Final Dig",
+  "closed": true,
+  "multiplier": 1.5,
+  "answers": [
+    {
+      "name": "Dreams",
+      "value": 3,
+      "fact": "The band's only US number one, written by Stevie Nicks in about ten minutes."
+    },
+    {
+      "name": "Go Your Own Way",
+      "value": 4,
+      "fact": "Buckingham's song about Nicks, which she then had to sing harmony on every night."
+    },
+    {
+      "name": "Don't Stop",
+      "value": 5,
+      "fact": "Christine McVie's, and later Bill Clinton's 1992 campaign song.",
+      "aliases": [
+        "dont stop",
+        "dont stop thinking about tomorrow"
+      ]
+    },
+    {
+      "name": "The Chain",
+      "value": 7,
+      "fact": "The only track credited to all five, stitched together from discarded parts."
+    },
+    {
+      "name": "Songbird",
+      "value": 11,
+      "fact": "Recorded at night in an empty Berkeley concert hall, for the acoustics."
+    },
+    {
+      "name": "Second Hand News",
+      "value": 13,
+      "fact": "The opening track. The percussion is Buckingham slapping a studio chair.",
+      "aliases": [
+        "secondhand news"
+      ]
+    },
+    {
+      "name": "You Make Loving Fun",
+      "value": 14,
+      "fact": "Christine McVie wrote it about an affair and told her husband it was about her dog.",
+      "aliases": [
+        "you make lovin fun"
+      ]
+    },
+    {
+      "name": "Never Going Back Again",
+      "value": 15,
+      "fact": "Buckingham alone on guitar, and at two minutes the shortest track on the album.",
+      "aliases": [
+        "never going back"
+      ]
+    },
+    {
+      "name": "Gold Dust Woman",
+      "value": 17,
+      "fact": "The closing track. Nicks cut the final vocal at 4am in a darkened studio."
+    },
+    {
+      "name": "Oh Daddy",
+      "value": 20,
+      "fact": "Christine McVie's, and reportedly about Mick Fleetwood."
+    },
+    {
+      "name": "I Don't Want to Know",
+      "value": 22,
+      "fact": "A late replacement on the tracklist, and the hardest of the eleven to name.",
+      "aliases": [
+        "i dont want to know",
+        "dont want to know",
+        "dont know"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Silver Springs",
+      "note": "Cut from Rumours at the last minute and relegated to a B-side."
+    },
+    {
+      "name": "Rhiannon",
+      "note": "From the 1975 self-titled album, not Rumours."
+    },
+    {
+      "name": "Landslide",
+      "note": "Also from the 1975 album."
+    },
+    {
+      "name": "Sara",
+      "note": "From Tusk, in 1979."
+    },
+    {
+      "name": "Tusk",
+      "note": "The title track of the album after Rumours."
+    },
+    {
+      "name": "Little Lies",
+      "note": "From Tango in the Night, a decade later."
+    },
+    {
+      "name": "Everywhere",
+      "note": "Also from Tango in the Night."
+    },
+    {
+      "name": "Big Love",
+      "note": "Also from Tango in the Night."
+    },
+    {
+      "name": "Gypsy",
+      "note": "A Stevie Nicks song, from Mirage."
+    }
+  ]
+}

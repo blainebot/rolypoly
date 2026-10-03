@@ -1,0 +1,178 @@
+{
+  "domain": "Geography",
+  "prompt": "Name one of the ten busiest US airports by total passengers.",
+  "scene": "pilot",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "asOf": "By total passengers in 2024, per Airports Council International.",
+  "note": "Ranked by TOTAL passengers, not enplanements - enplanements roughly halve the figures and reorder the list.",
+  "answers": [
+    {
+      "name": "Atlanta",
+      "value": 3,
+      "fact": "108 million passengers, the busiest in the world almost every year since 1998.",
+      "aliases": [
+        "hartsfield",
+        "hartsfield jackson",
+        "atl"
+      ]
+    },
+    {
+      "name": "Los Angeles",
+      "value": 4,
+      "fact": "Fifth busiest, and the westernmost of the ten.",
+      "aliases": [
+        "lax"
+      ]
+    },
+    {
+      "name": "Chicago O'Hare",
+      "value": 5,
+      "fact": "Fourth at 80 million, and still short of its 2019 peak.",
+      "aliases": [
+        "ohare",
+        "chicago",
+        "ord"
+      ]
+    },
+    {
+      "name": "Dallas Fort Worth",
+      "value": 6,
+      "fact": "Second at 88 million, and larger in area than Manhattan.",
+      "aliases": [
+        "dfw",
+        "dallas",
+        "fort worth"
+      ]
+    },
+    {
+      "name": "Denver",
+      "value": 8,
+      "fact": "Third at 82 million, and the largest airport by land area in the country.",
+      "aliases": [
+        "den"
+      ]
+    },
+    {
+      "name": "John F. Kennedy",
+      "value": 9,
+      "fact": "Sixth at 63 million. Renamed for the president weeks after his death in 1963.",
+      "aliases": [
+        "jfk",
+        "kennedy",
+        "new york"
+      ]
+    },
+    {
+      "name": "Las Vegas",
+      "value": 12,
+      "fact": "Eighth, and its 58 million was the highest in the airport's history.",
+      "aliases": [
+        "harry reid",
+        "mccarran",
+        "las"
+      ]
+    },
+    {
+      "name": "Orlando",
+      "value": 14,
+      "fact": "Ninth at 57 million, and the busiest airport in Florida.",
+      "aliases": [
+        "mco"
+      ]
+    },
+    {
+      "name": "Charlotte",
+      "value": 16,
+      "fact": "Seventh at 59 million, up 10% in a year - the fastest grower in the ten.",
+      "aliases": [
+        "charlotte douglas",
+        "clt"
+      ]
+    },
+    {
+      "name": "Miami",
+      "value": 17,
+      "fact": "Tenth at 56 million, and the busiest international gateway in the southeast.",
+      "aliases": [
+        "mia"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Seattle",
+      "note": "Eleventh - just outside the ten.",
+      "aliases": [
+        "seatac",
+        "sea tac"
+      ]
+    },
+    {
+      "name": "Newark",
+      "note": "Outside the ten by total passengers.",
+      "aliases": [
+        "ewr"
+      ]
+    },
+    {
+      "name": "San Francisco",
+      "note": "Outside the ten.",
+      "aliases": [
+        "sfo"
+      ]
+    },
+    {
+      "name": "Phoenix",
+      "note": "Outside the ten, though among the busiest by aircraft movements.",
+      "aliases": [
+        "sky harbor",
+        "phx"
+      ]
+    },
+    {
+      "name": "Boston",
+      "note": "Eighteenth in North America.",
+      "aliases": [
+        "logan",
+        "bos"
+      ]
+    },
+    {
+      "name": "Minneapolis",
+      "note": "Outside the ten.",
+      "aliases": [
+        "msp"
+      ]
+    },
+    {
+      "name": "Detroit",
+      "note": "Twenty-second in North America.",
+      "aliases": [
+        "dtw"
+      ]
+    },
+    {
+      "name": "LaGuardia",
+      "note": "A separate New York airport, outside the ten.",
+      "aliases": [
+        "lga"
+      ]
+    },
+    {
+      "name": "Houston",
+      "note": "Outside the ten.",
+      "aliases": [
+        "iah"
+      ]
+    },
+    {
+      "name": "Philadelphia",
+      "note": "Outside the ten.",
+      "aliases": [
+        "phl"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "domain": "Film",
+  "prompt": "Name one of the seven dwarfs in Snow White.",
+  "scene": "miner",
+  "difficulty": 2,
+  "closed": true,
+  "answers": [
+    {
+      "name": "Grumpy",
+      "value": 3,
+      "fact": "The holdout who objects to Snow White staying, and the last to come round."
+    },
+    {
+      "name": "Dopey",
+      "value": 4,
+      "fact": "The only one who never speaks - the others say he simply never tried."
+    },
+    {
+      "name": "Sleepy",
+      "value": 6,
+      "fact": "Drowsy throughout, and the one most often confused with Dopey."
+    },
+    {
+      "name": "Happy",
+      "value": 7,
+      "fact": "The stout, cheerful one, and the dwarf who introduces the others."
+    },
+    {
+      "name": "Sneezy",
+      "value": 10,
+      "fact": "His sneezes are strong enough to blow the others across the room."
+    },
+    {
+      "name": "Doc",
+      "value": 13,
+      "fact": "The leader, who muddles his words whenever he gets flustered."
+    },
+    {
+      "name": "Bashful",
+      "value": 16,
+      "fact": "The shy one, and the single most forgotten name of the seven."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Snow White",
+      "note": "The heroine, but not one of the dwarfs."
+    },
+    {
+      "name": "The Evil Queen",
+      "note": "The villain, not a dwarf.",
+      "aliases": [
+        "evil queen",
+        "the queen",
+        "queen"
+      ]
+    },
+    {
+      "name": "The Huntsman",
+      "note": "Sent to kill Snow White, and not a dwarf.",
+      "aliases": [
+        "huntsman"
+      ]
+    },
+    {
+      "name": "Prince Charming",
+      "note": "Not a dwarf, and in this story barely a character.",
+      "aliases": [
+        "the prince",
+        "prince"
+      ]
+    },
+    {
+      "name": "Thorin",
+      "note": "From The Hobbit - a different set of dwarves entirely.",
+      "aliases": [
+        "thorin oakenshield"
+      ]
+    },
+    {
+      "name": "Balin",
+      "note": "One of Tolkien's thirteen, not one of these seven."
+    },
+    {
+      "name": "Bombur",
+      "note": "One of Tolkien's thirteen."
+    },
+    {
+      "name": "Gimli",
+      "note": "Tolkien again, and a generation later at that."
+    },
+    {
+      "name": "Sleazy",
+      "note": "Not one of them, though people guess it surprisingly often."
+    },
+    {
+      "name": "Stubby",
+      "note": "One of about fifty names Disney considered and dropped."
+    },
+    {
+      "name": "Jumpy",
+      "note": "Another name considered and dropped."
+    }
+  ]
+}

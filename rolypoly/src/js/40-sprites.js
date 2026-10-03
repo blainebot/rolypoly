@@ -424,7 +424,88 @@ const SCENE={
 <rect class="map" x="101" y="93" width="4" height="3"/><rect class="mapdk" x="102" y="94" width="2" height="1"/>
 <rect class="case" x="118" y="82" width="18" height="14"/>
 <rect class="casedk" x="118" y="87" width="18" height="2"/><rect class="casedk" x="124" y="78" width="6" height="4"/>
-<rect class="tag" x="131" y="78" width="4" height="5"/>`}
+<rect class="tag" x="131" y="78" width="4" height="5"/>`},
+
+ // Game 006. Generic on purpose: no chain's colours or marks, no dwarf, no
+ // band member — a crew cap, a miner, a pilot, a pair of shades.
+ drivethru:{
+  bg:"#2E4B5A",
+  // Paper crew cap, plus a headset whose boom runs down the cheek outside
+  // the eye (x≥160 at the eye line) to a mic beside the muzzle.
+  hat:`<rect class="crew" x="66" y="14" width="84" height="10"/>
+<rect class="crew" x="56" y="24" width="104" height="12"/>
+<rect class="crewdk" x="106" y="14" width="4" height="22"/>
+<rect class="crewband" x="52" y="36" width="112" height="6"/>
+<rect class="headset" x="168" y="40" width="12" height="20"/>
+<polygon class="headset" points="170,58 175,61 141,99 136,96"/>
+<rect class="headset" x="128" y="94" width="12" height="7"/>`,
+  prop:`<rect class="straw" x="103" y="64" width="3" height="12"/>
+<rect class="cuplid" x="92" y="75" width="18" height="4"/>
+<rect class="cup" x="94" y="79" width="14" height="17"/>
+<rect class="crewband" x="94" y="84" width="14" height="5"/>
+<rect class="bag" x="114" y="74" width="20" height="22"/>
+<rect class="bagdk" x="114" y="74" width="20" height="3"/><rect class="bagdk" x="118" y="82" width="12" height="2"/>
+<rect class="paper" x="128" y="69" width="5" height="8"/>`},
+
+ miner:{
+  bg:"#3A3530",
+  // Hard hat with a lamp; the brim stops at y=48, above the eye line.
+  hat:`<rect class="mhat" x="72" y="12" width="72" height="8"/>
+<rect class="mhat" x="56" y="20" width="104" height="12"/>
+<rect class="mhat" x="44" y="32" width="128" height="10"/>
+<rect class="mhatlt" x="78" y="16" width="14" height="8"/>
+<rect class="mhatdk" x="38" y="42" width="140" height="6"/>
+<rect class="lampcase" x="96" y="20" width="24" height="18"/>
+<rect class="lamp" x="100" y="24" width="16" height="10"/>`,
+  // Pickaxe in the raised paw, and seven small gems on the mound.
+  prop:`<polygon class="mhandle" points="82,79 86,81 112,33 108,31"/>
+<polygon class="pick" points="94,36 110,25 132,29 134,33 112,30 97,40"/>
+<rect class="gemR" x="102" y="90" width="6" height="6"/><rect class="gemB" x="109" y="90" width="6" height="6"/>
+<rect class="gemG" x="116" y="90" width="6" height="6"/><rect class="gemY" x="123" y="90" width="6" height="6"/>
+<rect class="gemB" x="130" y="90" width="6" height="6"/>
+<rect class="gemG" x="112" y="84" width="6" height="6"/><rect class="gemR" x="119" y="84" width="6" height="6"/>`},
+
+ pilot:{
+  bg:"#2D4F6E",
+  // Captain's cap: white crown, wings badge, black band and visor with gold braid.
+  // Visor ends at y=47, above the eye line.
+  hat:`<rect class="pcap" x="62" y="12" width="92" height="10"/>
+<rect class="pcap" x="48" y="22" width="120" height="12"/>
+<rect class="pband" x="48" y="34" width="120" height="6"/>
+<rect class="pbadge" x="88" y="22" width="40" height="4"/><rect class="pbadge" x="102" y="18" width="12" height="11"/>
+<rect class="pband" x="54" y="40" width="108" height="7"/>
+<rect class="wings" x="62" y="40" width="92" height="2"/>`,
+  prop:`<rect class="collar" x="30" y="72" width="10" height="5"/><rect class="collar" x="48" y="72" width="10" height="5"/>
+<rect class="tie" x="40" y="74" width="8" height="5"/>
+<polygon class="tie" points="40,79 48,79 50,92 44,98 38,92"/>
+<rect class="wings" x="58" y="82" width="14" height="2"/><rect class="wings" x="62" y="80" width="6" height="5"/>`,
+  // A small jet crossing the corner, nose first, with a short contrail.
+  float:`<g class="jet"><rect class="trail" x="98" y="23" width="10" height="2"/><rect class="trail" x="110" y="23" width="6" height="2"/>
+<polygon class="plane" points="118,16 122,16 126,21 118,21"/>
+<rect class="plane" x="118" y="21" width="30" height="5"/><rect class="plane" x="148" y="22" width="4" height="3"/>
+<polygon class="plane" points="130,24 138,24 132,31 127,31"/>
+<rect class="planedk" x="134" y="22" width="2" height="2"/><rect class="planedk" x="138" y="22" width="2" height="2"/><rect class="planedk" x="142" y="22" width="2" height="2"/></g>`},
+
+ seventies:{
+  bg:"#7A4E2E",
+  // Woven headband and big round tinted shades. The shades are `eyes`, so
+  // they're allowed over the eye line — they are the eyes here.
+  hat:`<rect class="hband" x="44" y="34" width="128" height="7"/>
+<rect class="hbandlt" x="56" y="36" width="8" height="3"/><rect class="hbandlt" x="80" y="36" width="8" height="3"/>
+<rect class="hbandlt" x="104" y="36" width="8" height="3"/><rect class="hbandlt" x="128" y="36" width="8" height="3"/>
+<rect class="hbandlt" x="152" y="36" width="8" height="3"/>`,
+  eyes:`<rect class="frame" x="40" y="54" width="12" height="3"/><rect class="frame" x="164" y="54" width="12" height="3"/>
+<rect class="frame" x="88" y="52" width="40" height="3"/>
+<rect class="frame" x="54" y="44" width="32" height="28"/><rect class="frame" x="50" y="48" width="40" height="20"/>
+<rect class="frame" x="130" y="44" width="32" height="28"/><rect class="frame" x="126" y="48" width="40" height="20"/>
+<rect class="shade" x="57" y="47" width="26" height="22"/><rect class="shade" x="53" y="51" width="34" height="14"/>
+<rect class="shade" x="133" y="47" width="26" height="22"/><rect class="shade" x="129" y="51" width="34" height="14"/>
+<rect class="shadelt" x="60" y="50" width="7" height="5"/><rect class="shadelt" x="136" y="50" width="7" height="5"/>`,
+  // An LP held up by its edge in the raised paw.
+  prop:`<rect class="vinyl" x="94" y="52" width="18" height="30"/><rect class="vinyl" x="88" y="58" width="30" height="18"/>
+<rect class="vinyl" x="91" y="55" width="24" height="24"/>
+<rect class="vinylgr" x="94" y="60" width="18" height="2"/><rect class="vinylgr" x="94" y="72" width="18" height="2"/>
+<rect class="vlabel" x="98" y="62" width="10" height="10"/><rect class="vinyl" x="102" y="66" width="2" height="2"/>`}
 };
 // Each "ha" is ~21 units wide and floats 24 straight up (haFloat), so it
 // lives in the strip right of every scene's side prop (those end by x=136)

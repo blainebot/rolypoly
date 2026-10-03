@@ -1,0 +1,146 @@
+{
+  "domain": "Food",
+  "prompt": "Name one of the ten largest US fast-food chains by systemwide sales.",
+  "scene": "drivethru",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "asOf": "By US systemwide sales in 2025, per QSR Magazine.",
+  "answers": [
+    {
+      "name": "McDonald's",
+      "value": 3,
+      "fact": "$55 billion in US sales in 2025, more than the next two combined.",
+      "aliases": [
+        "mcdonalds"
+      ]
+    },
+    {
+      "name": "Starbucks",
+      "value": 5,
+      "fact": "Second by sales, and second only to Subway for US locations, with nearly 17,000."
+    },
+    {
+      "name": "Subway",
+      "value": 6,
+      "fact": "Tenth by sales but easily first by locations - 18,773 of them."
+    },
+    {
+      "name": "Burger King",
+      "value": 7,
+      "fact": "Eighth, after four straight years of outgrowing the rest of the burger category.",
+      "aliases": [
+        "bk"
+      ]
+    },
+    {
+      "name": "Taco Bell",
+      "value": 8,
+      "fact": "Fourth, and the fastest riser among the legacy chains."
+    },
+    {
+      "name": "Wendy's",
+      "value": 9,
+      "fact": "Sixth. Founded in Columbus in 1969 and named for the founder's daughter.",
+      "aliases": [
+        "wendys"
+      ]
+    },
+    {
+      "name": "Chick-fil-A",
+      "value": 10,
+      "fact": "Third by sales on only 3,287 restaurants - by far the highest average per store.",
+      "aliases": [
+        "chickfila",
+        "chick fil a"
+      ]
+    },
+    {
+      "name": "Domino's",
+      "value": 12,
+      "fact": "Ninth. The company has said it sells delivery more than it sells pizza.",
+      "aliases": [
+        "dominos",
+        "dominos pizza"
+      ]
+    },
+    {
+      "name": "Dunkin'",
+      "value": 13,
+      "fact": "Fifth, with 9,999 locations - one short of a round number.",
+      "aliases": [
+        "dunkin",
+        "dunkin donuts"
+      ]
+    },
+    {
+      "name": "Chipotle",
+      "value": 15,
+      "fact": "Seventh, and the only one of the ten that owns every one of its US restaurants."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Pizza Hut",
+      "note": "A giant, but outside the top ten by US sales."
+    },
+    {
+      "name": "KFC",
+      "note": "Outside the ten in the US, though enormous worldwide."
+    },
+    {
+      "name": "Popeyes",
+      "note": "Growing fast, still outside the ten."
+    },
+    {
+      "name": "Sonic",
+      "note": "Outside the ten.",
+      "aliases": [
+        "sonic drive in"
+      ]
+    },
+    {
+      "name": "Arby's",
+      "note": "Outside the ten.",
+      "aliases": [
+        "arbys"
+      ]
+    },
+    {
+      "name": "Dairy Queen",
+      "note": "Outside the ten.",
+      "aliases": [
+        "dq"
+      ]
+    },
+    {
+      "name": "Panera",
+      "note": "Outside the ten.",
+      "aliases": [
+        "panera bread"
+      ]
+    },
+    {
+      "name": "Panda Express",
+      "note": "Eleventh - just missed."
+    },
+    {
+      "name": "Raising Cane's",
+      "note": "Second-highest sales per restaurant in the country, but not top ten overall.",
+      "aliases": [
+        "raising canes"
+      ]
+    },
+    {
+      "name": "In-N-Out",
+      "note": "Third-highest sales per restaurant, on only 431 locations.",
+      "aliases": [
+        "in n out"
+      ]
+    },
+    {
+      "name": "Five Guys",
+      "note": "Outside the ten."
+    }
+  ]
+}
