@@ -70,5 +70,23 @@
     "file": "04-music.json",
     "guess": "birds",
     "reason": "Intended. Five of the twelve gifts are birds, so the bare word gets the non-busting \"say which one\" distractor (nothing lost) instead of crediting the calling birds. The probe derives it from Four calling birds and counts any distractor landing as a bust."
+  },
+  {
+    "game": "009",
+    "file": "03-screen.json",
+    "guess": "gots",
+    "reason": "A plural of the GOT abbreviation that nobody types; the confirm it offers (Lost) can be declined at no cost."
+  },
+  {
+    "game": "009",
+    "file": "05-history.json",
+    "guess": "john adams",
+    "reason": "Not a bug: the probe derives this first+last form from John Quincy Adams, but John Adams is itself a correct answer and the exact match is right."
+  },
+  {
+    "game": "009",
+    "file": "05-history.json",
+    "guess": "harrison",
+    "reason": "Intended. Two presidents were named Harrison, so the bare surname gets a non-busting \"say which\" distractor instead of silently resolving to William Henry (only one of them is in the first ten)."
   }
 ]

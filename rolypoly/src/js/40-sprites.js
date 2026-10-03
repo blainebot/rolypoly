@@ -666,7 +666,159 @@ const SCENE={
 <rect class="stack" x="130" y="78" width="2" height="14"/><rect class="stack" x="126" y="84" width="10" height="2"/>`,
   float:`<g class="bub1"><rect class="steam" x="105" y="46" width="6" height="6"/></g>
 <g class="bub2"><rect class="steam" x="115" y="46" width="6" height="6"/></g>
-<g class="bub3"><rect class="steam" x="110" y="44" width="5" height="5"/></g>`}
+<g class="bub3"><rect class="steam" x="110" y="44" width="5" height="5"/></g>`},
+
+ // Game 009.
+ monk:{
+  bg:"#2A2018",
+  // A plain brown habit and rope cord, a candle in the raised paw, and a
+  // bound book on the mound. Nothing on the head.
+  // The cowl rests on the shoulders either side of the teeth (x 36-54 stays
+  // clear down to y=74).
+  prop:`<rect class="habit" x="8" y="72" width="28" height="28"/><rect class="habit" x="54" y="72" width="28" height="28"/>
+<rect class="habit" x="34" y="78" width="22" height="22"/>
+<rect class="habit" x="6" y="64" width="30" height="10"/><rect class="habit" x="54" y="64" width="30" height="10"/>
+<rect class="cowl" x="10" y="72" width="26" height="2"/><rect class="cowl" x="54" y="72" width="26" height="2"/>
+<rect class="cord" x="8" y="88" width="74" height="3"/><rect class="cord" x="58" y="91" width="3" height="8"/><rect class="cord" x="63" y="91" width="3" height="6"/>
+<rect class="candle" x="85" y="60" width="5" height="16"/>
+<rect class="flame" x="86" y="52" width="3" height="8"/><rect class="flamecore" x="86.5" y="56" width="2" height="3"/>
+<rect class="tome" x="104" y="86" width="22" height="10"/>
+<rect class="tomegold" x="104" y="88" width="22" height="1"/><rect class="tomegold" x="104" y="93" width="22" height="1"/><rect class="paper" x="124" y="87" width="2" height="8"/>`},
+
+ flagpole:{
+  bg:"#1A1F2E",
+  // The raised paw grips the pole; the flag waves on the same animation as
+  // Geography's.
+  prop:`<rect class="fpole" x="89" y="10" width="3" height="86"/><rect class="fpole" x="88" y="7" width="5" height="4"/>
+<g class="flagwave"><rect class="usw" x="92" y="12" width="40" height="21"/>
+<rect class="usr" x="92" y="12" width="40" height="3"/><rect class="usr" x="92" y="18" width="40" height="3"/>
+<rect class="usr" x="92" y="24" width="40" height="3"/><rect class="usr" x="92" y="30" width="40" height="3"/>
+<rect class="usb" x="92" y="12" width="17" height="12"/>
+<rect class="usw" x="94" y="14" width="2" height="2"/><rect class="usw" x="99" y="14" width="2" height="2"/><rect class="usw" x="104" y="14" width="2" height="2"/>
+<rect class="usw" x="96" y="18" width="2" height="2"/><rect class="usw" x="101" y="18" width="2" height="2"/><rect class="usw" x="106" y="18" width="1" height="2"/></g>`},
+
+ trophy:{
+  bg:"#3A1E3A",
+  // Awards night: bow tie and shirt front, a generic gold star award in the
+  // raised paw (not any academy's statuette), and an old set on the mound.
+  prop:`<rect class="shirt" x="38" y="80" width="14" height="20"/>
+<rect class="bowtie" x="35" y="75" width="8" height="8"/><rect class="bowtie" x="47" y="75" width="8" height="8"/><rect class="bowtie" x="43" y="77" width="4" height="4"/>
+<rect class="awardbase" x="85" y="72" width="12" height="6"/>
+<rect class="award" x="89" y="58" width="4" height="14"/>
+<polygon class="award" points="91,40 94,47 101,47 95,52 97,59 91,55 85,59 87,52 81,47 88,47"/>
+<rect class="tv" x="108" y="74" width="26" height="22"/><rect class="tvscreen" x="111" y="77" width="16" height="14"/>
+<rect class="award" x="129" y="79" width="3" height="3"/><rect class="award" x="129" y="85" width="3" height="3"/>
+<polygon class="fpole" points="117,74 119,74 112,64 111,65"/><polygon class="fpole" points="121,74 123,74 128,64 126,63"/>`},
+
+ lighthouse:{
+  bg:"#142338",
+  // Sou'wester rain hat (brim ends y=40) and a lighthouse on the mound with
+  // its beam reaching out toward the "ha" strip but stopping at x=136.
+  hat:`<rect class="souw" x="66" y="12" width="84" height="10"/>
+<rect class="souw" x="56" y="22" width="104" height="10"/>
+<rect class="souwdk" x="56" y="28" width="104" height="3"/>
+<rect class="souw" x="40" y="32" width="136" height="8"/>`,
+  prop:`<polygon class="lhbeam" points="120,40 136,32 136,50 120,46"/>
+<rect class="lhred" x="113" y="30" width="4" height="4"/><rect class="lhred" x="108" y="34" width="14" height="4"/>
+<rect class="lhlamp" x="110" y="38" width="10" height="9"/>
+<rect class="lhdark" x="106" y="47" width="18" height="3"/>
+<rect class="lhwhite" x="109" y="50" width="12" height="10"/><rect class="lhred" x="108" y="60" width="14" height="10"/>
+<rect class="lhwhite" x="106" y="70" width="18" height="12"/><rect class="lhred" x="104" y="82" width="22" height="14"/>
+<rect class="lhdark" x="113" y="86" width="4" height="10"/>`},
+
+ powdered:{
+  bg:"#5A4A6A",
+  // A powdered wig: crown down to y=42 and side rolls outside the eyes
+  // (x≤50 and x≥166). Quill in the raised paw, inkwell and parchment on the
+  // mound. A period costume, not anyone's likeness.
+  hat:`<rect class="wig" x="62" y="10" width="92" height="10"/>
+<rect class="wig" x="46" y="20" width="124" height="12"/>
+<rect class="wig" x="38" y="32" width="140" height="10"/>
+<rect class="wigdk" x="62" y="18" width="92" height="2"/><rect class="wigdk" x="46" y="30" width="124" height="2"/>
+<rect class="wig" x="26" y="42" width="24" height="10"/><rect class="wig" x="166" y="42" width="24" height="10"/>
+<rect class="wigdk" x="26" y="52" width="24" height="2"/><rect class="wigdk" x="166" y="52" width="24" height="2"/>
+<rect class="wig" x="26" y="54" width="24" height="10"/><rect class="wig" x="166" y="54" width="24" height="10"/>
+<rect class="wigdk" x="26" y="64" width="24" height="2"/><rect class="wigdk" x="166" y="64" width="24" height="2"/>
+<rect class="wig" x="28" y="66" width="20" height="9"/><rect class="wig" x="168" y="66" width="20" height="9"/>`,
+  prop:`<polygon class="pquill" points="85,76 87,77 104,42 100,41"/><polygon class="pquill" points="96,50 100,41 106,38 104,50"/>
+<rect class="ink" x="88" y="74" width="2" height="4"/>
+<rect class="ink" x="104" y="86" width="12" height="10"/><rect class="ink" x="107" y="83" width="6" height="3"/>
+<rect class="paper" x="118" y="84" width="18" height="12"/><rect class="paperdk" x="118" y="84" width="18" height="2"/>
+<rect class="paperdk" x="121" y="89" width="12" height="1"/><rect class="paperdk" x="121" y="92" width="9" height="1"/>`},
+
+ // Game 010.
+ mortarboard:{
+  bg:"#3E5C8C",
+  // Mortarboard: skullcap, the flat board seen edge-on, and a tassel that
+  // hangs to the side and stops at y=48, above the eye.
+  hat:`<polygon class="mbcap" points="36,24 108,10 180,24 108,36"/>
+<rect class="mbcap" x="62" y="28" width="92" height="14"/>
+<rect class="mbgold" x="104" y="20" width="8" height="5"/>
+<polygon class="mbgold" points="110,22 156,26 156,29 110,25"/>
+<rect class="mbgold" x="154" y="28" width="3" height="12"/><rect class="mbgold" x="151" y="40" width="9" height="8"/>`,
+  prop:`<polygon class="mbscroll" points="79,78 86,83 107,57 100,52"/>
+<polygon class="mbribbon" points="89,66 94,70 96,67 91,63"/>`},
+
+ arcade:{
+  bg:"#1A1A2E",
+  // A generic controller held in both paws and a generic cabinet on the
+  // mound — no console's or game's marks.
+  prop:`<rect class="ctrl" x="20" y="78" width="50" height="14"/><rect class="ctrl" x="16" y="82" width="8" height="12"/><rect class="ctrl" x="66" y="82" width="8" height="12"/>
+<rect class="ctrllt" x="26" y="83" width="10" height="3"/><rect class="ctrllt" x="29.5" y="79.5" width="3" height="10"/>
+<rect class="btnr" x="56" y="80" width="5" height="5"/><rect class="btnb" x="62" y="85" width="5" height="5"/>
+<rect class="cab" x="104" y="50" width="28" height="46"/><rect class="cabmq" x="106" y="52" width="24" height="6"/>
+<rect class="cabscr" x="108" y="61" width="20" height="15"/>
+<rect class="ctrllt" x="111" y="81" width="3" height="5"/><rect class="btnr" x="119" y="81" width="4" height="4"/><rect class="btnb" x="125" y="81" width="4" height="4"/>`},
+
+ sleigh:{
+  bg:"#141C33",
+  // Antler headband (a costume headband, not a red nose), a sleigh with a
+  // parcel on the mound, and snow falling in place of the "ha".
+  hat:`<rect class="aband" x="58" y="26" width="100" height="5"/>
+<rect class="antler" x="70" y="9" width="9" height="19"/><rect class="antler" x="52" y="14" width="20" height="7"/><rect class="antler" x="52" y="9" width="7" height="6"/><rect class="antler" x="77" y="15" width="11" height="6"/>
+<rect class="antler" x="137" y="9" width="9" height="19"/><rect class="antler" x="144" y="14" width="20" height="7"/><rect class="antler" x="157" y="9" width="7" height="6"/><rect class="antler" x="128" y="15" width="11" height="6"/>`,
+  prop:`<rect class="giftbox" x="104" y="68" width="14" height="12"/><rect class="giftrib" x="110" y="68" width="3" height="12"/><rect class="giftrib" x="104" y="73" width="14" height="2"/>
+<rect class="sleighb" x="98" y="78" width="34" height="10"/><rect class="sleighb" x="124" y="70" width="8" height="10"/>
+<rect class="runner" x="98" y="86" width="34" height="2"/>
+<rect class="runner" x="100" y="88" width="3" height="5"/><rect class="runner" x="126" y="88" width="3" height="5"/>
+<rect class="runner" x="94" y="93" width="40" height="2"/><rect class="runner" x="92" y="90" width="3" height="4"/>`,
+  float:`<g class="flake f1"><rect x="16" y="0" width="5" height="5" fill="#F3EDE0"/></g>
+<g class="flake f2"><rect x="58" y="0" width="4" height="4" fill="#F3EDE0"/></g>
+<g class="flake f3"><rect x="100" y="0" width="5" height="5" fill="#F3EDE0"/></g>
+<g class="flake f4"><rect x="138" y="0" width="4" height="4" fill="#F3EDE0"/></g>
+<g class="flake f5"><rect x="80" y="0" width="4" height="4" fill="#F3EDE0"/></g>
+<g class="flake f6"><rect x="122" y="0" width="5" height="5" fill="#F3EDE0"/></g>`},
+
+ treaty:{
+  bg:"#17202E",
+  // Charcoal suit, shirt and tie (clear of the teeth: the shirt starts at
+  // y=74), a silver pen in the raised paw, and the signed document with a
+  // wax seal on the mound. No alliance emblem.
+  prop:`<rect class="suit" x="8" y="72" width="28" height="28"/><rect class="suit" x="54" y="72" width="28" height="28"/>
+<rect class="shirt" x="36" y="74" width="18" height="26"/>
+<rect class="ptie" x="42" y="75" width="6" height="4"/><polygon class="ptie" points="42,79 48,79 49,94 45,98 41,94"/>
+<polygon class="pen" points="84,74 86,76 101,56 98,54"/><polygon class="mbgold" points="98,54 101,56 103,51"/>
+<rect class="paper" x="102" y="84" width="32" height="12"/><rect class="paperdk" x="105" y="87" width="18" height="1"/>
+<rect class="paperdk" x="105" y="90" width="14" height="1"/><rect class="wax" x="126" y="87" width="6" height="6"/>`},
+
+ grunge:{
+  bg:"#16161A",
+  // Knit beanie (cuff ends y=46) and an open check flannel over a tee —
+  // no band logo, no likeness. A cassette on the mound.
+  hat:`<rect class="beanie" x="66" y="12" width="84" height="10"/>
+<rect class="beanie" x="54" y="22" width="108" height="12"/>
+<rect class="beanie" x="46" y="34" width="124" height="6"/>
+<rect class="beaniedk" x="44" y="40" width="128" height="6"/>
+<rect class="beanielt" x="70" y="24" width="4" height="10"/><rect class="beanielt" x="90" y="24" width="4" height="10"/>
+<rect class="beanielt" x="110" y="24" width="4" height="10"/><rect class="beanielt" x="130" y="24" width="4" height="10"/>`,
+  prop:`<rect class="shirt" x="36" y="76" width="18" height="24"/>
+<rect class="plaid" x="8" y="72" width="28" height="28"/><rect class="plaid" x="54" y="72" width="28" height="28"/>
+<rect class="plaiddk" x="8" y="80" width="28" height="3"/><rect class="plaiddk" x="8" y="91" width="28" height="3"/>
+<rect class="plaiddk" x="54" y="80" width="28" height="3"/><rect class="plaiddk" x="54" y="91" width="28" height="3"/>
+<rect class="plaiddk" x="16" y="72" width="3" height="28"/><rect class="plaiddk" x="27" y="72" width="3" height="28"/>
+<rect class="plaiddk" x="62" y="72" width="3" height="28"/><rect class="plaiddk" x="73" y="72" width="3" height="28"/>
+<rect class="cass" x="106" y="82" width="26" height="14"/><rect class="paper" x="109" y="84" width="20" height="5"/>
+<rect class="reel" x="112" y="90" width="4" height="4"/><rect class="reel" x="122" y="90" width="4" height="4"/>`}
 };
 // Each "ha" is ~21 units wide and floats 24 straight up (haFloat), so it
 // lives in the strip right of every scene's side prop (those end by x=136)

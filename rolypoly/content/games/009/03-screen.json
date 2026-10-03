@@ -1,0 +1,158 @@
+{
+  "domain": "Screen",
+  "prompt": "Name a series that has won the Emmy for Outstanding Drama Series since 2000.",
+  "scene": "trophy",
+  "difficulty": 3,
+  "closed": true,
+  "asOf": "As of the 2026 ceremony.",
+  "source": "Television Academy, Outstanding Drama Series winners: https://www.televisionacademy.com/awards/nominees-winners",
+  "valueLogic": "Game of Thrones, Breaking Bad and The Sopranos are named first by almost anyone. The middle band is the recent prestige run. The West Wing, Lost and 24 are the real tail - defining shows of the 2000s that a younger player may never have watched.",
+  "note": "Dated with asOf, so a new winner is a correction to make next September, not a bust in waiting. Repeat winners count once. The Pitt's 2026 win is as supplied; verify it against the Television Academy before relying on it.",
+  "answers": [
+    {
+      "name": "Game of Thrones",
+      "value": 4,
+      "fact": "Four wins - 2015, 2016, 2018 and 2019 - tied with The West Wing and Mad Men for the most this century.",
+      "aliases": [
+        "got"
+      ]
+    },
+    {
+      "name": "Breaking Bad",
+      "value": 5,
+      "fact": "Won in 2013 and 2014, for its final two runs."
+    },
+    {
+      "name": "The Sopranos",
+      "value": 5,
+      "fact": "The first cable series ever nominated in the category, and won in 2004 and 2007.",
+      "aliases": [
+        "sopranos"
+      ]
+    },
+    {
+      "name": "Succession",
+      "value": 6,
+      "fact": "Three wins - 2020, 2022 and 2023."
+    },
+    {
+      "name": "Mad Men",
+      "value": 7,
+      "fact": "Four straight wins from 2008 to 2011."
+    },
+    {
+      "name": "The Crown",
+      "value": 9,
+      "fact": "Won in 2021, for its fourth season.",
+      "aliases": [
+        "crown"
+      ]
+    },
+    {
+      "name": "The Handmaid's Tale",
+      "value": 10,
+      "fact": "Won in 2017, the first streaming series to take the category.",
+      "aliases": [
+        "handmaids tale"
+      ]
+    },
+    {
+      "name": "The West Wing",
+      "value": 12,
+      "fact": "Four straight wins from 2000 to 2003, and the century's first winner.",
+      "aliases": [
+        "west wing"
+      ]
+    },
+    {
+      "name": "Homeland",
+      "value": 13,
+      "fact": "Won in 2012, between the Mad Men and Breaking Bad runs."
+    },
+    {
+      "name": "Lost",
+      "value": 15,
+      "fact": "Won in 2005, for its first season."
+    },
+    {
+      "name": "Shogun",
+      "value": 16,
+      "fact": "Won in 2024, and the first largely non-English-language series to take it.",
+      "aliases": [
+        "shōgun"
+      ]
+    },
+    {
+      "name": "24",
+      "value": 18,
+      "fact": "Won in 2006, and the only winner this century whose title is a number.",
+      "aliases": [
+        "twenty four"
+      ]
+    },
+    {
+      "name": "The Pitt",
+      "value": 20,
+      "fact": "The most recent winner, and the only show to take it in back-to-back years since Succession.",
+      "aliases": [
+        "pitt"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "The Wire",
+      "note": "Never won the category, and never even nominated for it.",
+      "aliases": [
+        "wire"
+      ]
+    },
+    {
+      "name": "The White Lotus",
+      "note": "Competes as a drama but has not won this category."
+    },
+    {
+      "name": "The Last of Us",
+      "note": "Nominated, not a winner."
+    },
+    {
+      "name": "Stranger Things",
+      "note": "Nominated, never a winner."
+    },
+    {
+      "name": "Better Call Saul",
+      "note": "Nominated repeatedly and never won."
+    },
+    {
+      "name": "Andor",
+      "note": "A 2025 nominee."
+    },
+    {
+      "name": "Severance",
+      "note": "Nominated, not a winner of this category."
+    },
+    {
+      "name": "The Bear",
+      "note": "Competes as a comedy, not a drama."
+    },
+    {
+      "name": "Ted Lasso",
+      "note": "A comedy winner, not a drama winner."
+    },
+    {
+      "name": "ER",
+      "note": "Won in 1996, before 2000."
+    },
+    {
+      "name": "The X-Files",
+      "note": "Nominated several times in the 1990s, but never won.",
+      "aliases": [
+        "x files"
+      ]
+    },
+    {
+      "name": "NYPD Blue",
+      "note": "Won in 1995, before 2000."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "domain": "Folklore",
+  "prompt": "Name one of Santa's reindeer, including Rudolph.",
+  "scene": "sleigh",
+  "difficulty": 3,
+  "closed": true,
+  "source": "Clement Clarke Moore, 'A Visit from St. Nicholas' (1823), plus Robert L. May's 1939 Rudolph.",
+  "valueLogic": "Rudolph is free - he is in the title of the song. Dasher, Dancer and Prancer come as a rhyming group. Blitzen and Vixen are distinctive enough to stick. Donner, Comet and Cupid are the tail: Comet and Cupid especially, because they are the only two that are neither motion words nor part of a rhyme.",
+  "note": "Donder, Dunder and Blixem are the poem's own spellings, so they're aliases worth the same points. Olive and Clarice are later inventions and non-busting distractors.",
+  "answers": [
+    {
+      "name": "Rudolph",
+      "value": 4,
+      "fact": "Invented in 1939 for a Montgomery Ward promotional booklet, not in the original poem.",
+      "aliases": [
+        "rudolf",
+        "rudolph the red nosed reindeer"
+      ]
+    },
+    {
+      "name": "Dasher",
+      "value": 6,
+      "fact": "First named in the poem, and the first of the eight listed."
+    },
+    {
+      "name": "Dancer",
+      "value": 6,
+      "fact": "Second in the poem's list."
+    },
+    {
+      "name": "Prancer",
+      "value": 7,
+      "fact": "Third, and rhymes with Dancer, which is why people recall them as a pair."
+    },
+    {
+      "name": "Blitzen",
+      "value": 10,
+      "fact": "Blixem in the 1823 original - Dutch for lightning.",
+      "aliases": [
+        "blixem",
+        "blitzem"
+      ]
+    },
+    {
+      "name": "Vixen",
+      "value": 11,
+      "fact": "Fourth in the poem, and the only one named for an animal - a vixen is a female fox."
+    },
+    {
+      "name": "Donner",
+      "value": 13,
+      "fact": "Dunder in the 1823 poem and Donder in Moore's later version - Dutch for thunder, paired with Blitzen's lightning.",
+      "aliases": [
+        "donder",
+        "dunder"
+      ]
+    },
+    {
+      "name": "Comet",
+      "value": 15,
+      "fact": "Fifth in the poem, and the only one named for something in space."
+    },
+    {
+      "name": "Cupid",
+      "value": 17,
+      "fact": "Sixth, and the hardest of the nine. The only one named after a god."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Olive",
+      "note": "From the mishearing of 'all of the other reindeer' - a joke, not a reindeer."
+    },
+    {
+      "name": "Clarice",
+      "note": "Rudolph's friend in the 1964 television special, and not one of the nine."
+    },
+    {
+      "name": "Fireball",
+      "note": "From the 1964 special, not the poem."
+    },
+    {
+      "name": "Sven",
+      "note": "From Frozen, and not one of Santa's."
+    },
+    {
+      "name": "Olaf",
+      "note": "A snowman, and from a different story entirely."
+    }
+  ]
+}

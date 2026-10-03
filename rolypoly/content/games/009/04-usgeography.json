@@ -1,0 +1,79 @@
+{
+  "domain": "Geography",
+  "prompt": "Name a US state that borders one of the Great Lakes.",
+  "scene": "lighthouse",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "source": "US Environmental Protection Agency, Great Lakes basin: https://www.epa.gov/greatlakes",
+  "valueLogic": "Michigan and New York are immediate. Illinois and Ohio follow. The tail is Indiana and Pennsylvania, both of which touch a lake along only a short stretch of one border and both of which are consistently missed.",
+  "note": "Eight states. Ontario borders four of the lakes but is a Canadian province; it and the states that never touch a lake are non-busting distractors.",
+  "answers": [
+    {
+      "name": "Michigan",
+      "value": 4,
+      "fact": "Touches four of the five, more than any other state, and is the only one split in two by them."
+    },
+    {
+      "name": "New York",
+      "value": 5,
+      "fact": "Borders Erie and Ontario, and is the only state touching Lake Ontario."
+    },
+    {
+      "name": "Illinois",
+      "value": 6,
+      "fact": "About 63 miles of Lake Michigan shoreline, including all of Chicago's lakefront."
+    },
+    {
+      "name": "Ohio",
+      "value": 8,
+      "fact": "Most of its northern border is Lake Erie."
+    },
+    {
+      "name": "Wisconsin",
+      "value": 9,
+      "fact": "Borders both Superior and Michigan."
+    },
+    {
+      "name": "Minnesota",
+      "value": 11,
+      "fact": "Touches Superior only, at the lake's western tip, where Duluth sits."
+    },
+    {
+      "name": "Indiana",
+      "value": 15,
+      "fact": "About 45 miles of Lake Michigan, the shortest Great Lakes shoreline of any state, and routinely forgotten."
+    },
+    {
+      "name": "Pennsylvania",
+      "value": 19,
+      "fact": "A short stretch of Lake Erie around the city of Erie, and the hardest of the eight to name."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Ontario",
+      "note": "Borders four of the five lakes, but is a Canadian province."
+    },
+    {
+      "name": "Iowa",
+      "note": "In the broader region, but touches no Great Lake."
+    },
+    {
+      "name": "Missouri",
+      "note": "Touches no Great Lake."
+    },
+    {
+      "name": "Vermont",
+      "note": "Borders Lake Champlain, which is not one of the Great Lakes."
+    },
+    {
+      "name": "Lake Champlain",
+      "note": "A lake, not a state - and not one of the Great Lakes either."
+    },
+    {
+      "name": "Quebec",
+      "note": "A Canadian province, and does not border a Great Lake."
+    }
+  ]
+}

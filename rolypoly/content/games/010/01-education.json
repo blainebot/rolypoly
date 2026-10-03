@@ -1,0 +1,128 @@
+{
+  "domain": "Education",
+  "prompt": "Name an Ivy League school.",
+  "scene": "mortarboard",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "source": "The Ivy League official membership: https://ivyleague.com/",
+  "valueLogic": "Harvard, Yale and Princeton are produced instantly. Columbia and Cornell follow. Brown and Penn sit in the middle, Penn partly because people confuse it with Penn State. Dartmouth is the tail - it is reliably the last of the eight anyone names.",
+  "note": "Penn State and the other prestigious non-Ivies are non-busting distractors: the Penn/Penn State confusion is extremely common and the note explains it.",
+  "answers": [
+    {
+      "name": "Harvard University",
+      "value": 4,
+      "fact": "Founded 1636, the oldest university in the country and the oldest of the eight.",
+      "aliases": [
+        "harvard"
+      ]
+    },
+    {
+      "name": "Yale University",
+      "value": 4,
+      "fact": "Founded 1701, and the third-oldest university in the country.",
+      "aliases": [
+        "yale"
+      ]
+    },
+    {
+      "name": "Princeton University",
+      "value": 5,
+      "fact": "Founded 1746, and the only one of the eight with no medical or law school.",
+      "aliases": [
+        "princeton"
+      ]
+    },
+    {
+      "name": "Columbia University",
+      "value": 7,
+      "fact": "Founded 1754 as King's College, and renamed after the Revolution.",
+      "aliases": [
+        "columbia"
+      ]
+    },
+    {
+      "name": "Cornell University",
+      "value": 9,
+      "fact": "Founded 1865, by far the youngest of the eight, and partly a public land-grant school.",
+      "aliases": [
+        "cornell"
+      ]
+    },
+    {
+      "name": "Brown University",
+      "value": 10,
+      "fact": "Founded 1764, and the first to accept students of all religious affiliations.",
+      "aliases": [
+        "brown"
+      ]
+    },
+    {
+      "name": "University of Pennsylvania",
+      "value": 12,
+      "fact": "Founded 1740 and shaped by Benjamin Franklin. Not Penn State, which is a different school entirely.",
+      "aliases": [
+        "penn",
+        "upenn",
+        "u penn"
+      ]
+    },
+    {
+      "name": "Dartmouth College",
+      "value": 15,
+      "fact": "Founded 1769, the smallest of the eight, and the only one still called a college.",
+      "aliases": [
+        "dartmouth"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Penn State",
+      "note": "Pennsylvania State University - a different school, and not in the Ivy League.",
+      "aliases": [
+        "pennsylvania state university"
+      ]
+    },
+    {
+      "name": "Stanford",
+      "note": "Prestigious, but not an Ivy. The Ivy League is an athletic conference in the northeast.",
+      "aliases": [
+        "stanford university"
+      ]
+    },
+    {
+      "name": "MIT",
+      "note": "Not an Ivy, and in a different athletic conference.",
+      "aliases": [
+        "massachusetts institute of technology"
+      ]
+    },
+    {
+      "name": "Duke",
+      "note": "Not an Ivy, despite the 'Southern Ivy' nickname.",
+      "aliases": [
+        "duke university"
+      ]
+    },
+    {
+      "name": "Johns Hopkins",
+      "note": "Not an Ivy."
+    },
+    {
+      "name": "Northwestern",
+      "note": "Not an Ivy."
+    },
+    {
+      "name": "University of Chicago",
+      "note": "Not an Ivy.",
+      "aliases": [
+        "chicago"
+      ]
+    },
+    {
+      "name": "Georgetown",
+      "note": "Not an Ivy."
+    }
+  ]
+}

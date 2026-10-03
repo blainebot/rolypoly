@@ -1,0 +1,152 @@
+{
+  "domain": "History",
+  "prompt": "Name one of the first ten presidents of the United States.",
+  "scene": "powdered",
+  "difficulty": 5,
+  "label": "Final Dig",
+  "closed": true,
+  "multiplier": 1.5,
+  "source": "The White House list of presidents: https://www.whitehouse.gov/about-the-white-house/presidents/",
+  "valueLogic": "Washington and Jefferson are free. Adams, Madison and Jackson follow. Monroe and John Quincy Adams sit in the middle. Van Buren, Tyler and William Henry Harrison are the tail - three presidents most people cannot place in the first ten at all.",
+  "note": "Bare 'Adams' is ambiguous between the two answers and asks the player to be more specific. Bare 'Harrison' hits a non-busting distractor asking which one, so it never silently resolves to William Henry.",
+  "answers": [
+    {
+      "name": "George Washington",
+      "value": 4,
+      "fact": "The first, and the only president elected unanimously by the Electoral College.",
+      "aliases": [
+        "washington"
+      ]
+    },
+    {
+      "name": "Thomas Jefferson",
+      "value": 4,
+      "fact": "Third. Wrote the Declaration and doubled the size of the country with the Louisiana Purchase.",
+      "aliases": [
+        "jefferson"
+      ]
+    },
+    {
+      "name": "John Adams",
+      "value": 6,
+      "fact": "Second, and the first to live in the White House - for the last four months of his term."
+    },
+    {
+      "name": "James Madison",
+      "value": 8,
+      "fact": "Fourth. Known as the father of the Constitution, and the smallest president at 5 foot 4.",
+      "aliases": [
+        "madison"
+      ]
+    },
+    {
+      "name": "Andrew Jackson",
+      "value": 9,
+      "fact": "Seventh, and the first from neither Virginia nor Massachusetts.",
+      "aliases": [
+        "jackson"
+      ]
+    },
+    {
+      "name": "James Monroe",
+      "value": 11,
+      "fact": "Fifth. His Monroe Doctrine shaped American foreign policy for a century.",
+      "aliases": [
+        "monroe"
+      ]
+    },
+    {
+      "name": "John Quincy Adams",
+      "value": 13,
+      "fact": "Sixth. Lost the popular vote and won in the House, then served in Congress for 17 years after.",
+      "aliases": [
+        "john q adams",
+        "jqa",
+        "quincy adams",
+        "j q adams"
+      ]
+    },
+    {
+      "name": "Martin Van Buren",
+      "value": 16,
+      "fact": "Eighth, and the first president born a US citizen rather than a British subject.",
+      "aliases": [
+        "van buren"
+      ]
+    },
+    {
+      "name": "John Tyler",
+      "value": 19,
+      "fact": "Tenth. The first vice president to succeed on a death, and he fathered 15 children.",
+      "aliases": [
+        "tyler"
+      ]
+    },
+    {
+      "name": "William Henry Harrison",
+      "value": 21,
+      "fact": "Ninth. Served 31 days, the shortest presidency, after the longest inaugural address.",
+      "aliases": [
+        "william h harrison",
+        "w h harrison",
+        "wh harrison"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Harrison",
+      "note": "Two presidents were named Harrison - William Henry, the ninth, and Benjamin, the 23rd. Say which."
+    },
+    {
+      "name": "Benjamin Harrison",
+      "note": "The 23rd president, and William Henry Harrison's grandson."
+    },
+    {
+      "name": "James K. Polk",
+      "note": "Eleventh - one place outside the ten.",
+      "aliases": [
+        "polk"
+      ]
+    },
+    {
+      "name": "Zachary Taylor",
+      "note": "Twelfth."
+    },
+    {
+      "name": "Abraham Lincoln",
+      "note": "Sixteenth.",
+      "aliases": [
+        "lincoln"
+      ]
+    },
+    {
+      "name": "Benjamin Franklin",
+      "note": "Never president.",
+      "aliases": [
+        "franklin"
+      ]
+    },
+    {
+      "name": "Alexander Hamilton",
+      "note": "Never president.",
+      "aliases": [
+        "hamilton"
+      ]
+    },
+    {
+      "name": "John Hancock",
+      "note": "Never president.",
+      "aliases": [
+        "hancock"
+      ]
+    },
+    {
+      "name": "Millard Fillmore",
+      "note": "Thirteenth.",
+      "aliases": [
+        "fillmore"
+      ]
+    }
+  ]
+}

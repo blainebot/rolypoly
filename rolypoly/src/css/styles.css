@@ -395,6 +395,23 @@ pre.share{background:var(--panel-2);border:3px solid var(--edge);padding:13px;
 .boater{fill:#F2D89A}.boaterlt{fill:#F7E6B8}.sband{fill:#8E1F1A}
 .river{fill:#7FC0E8}.hull{fill:#F3EDE0}.cabwin{fill:#3E5C8C}.stack{fill:#8A8272}.pwheel{fill:#C8312A}.steam{fill:#F3EDE0;fill-opacity:.8}
 .sc-lantern .armR,.sc-fellowship .armR{transform:rotate(-58deg)}
+.habit{fill:#6E4A28}.cowl{fill:#3A2412}.cord{fill:#E8DCC0}.candle{fill:#F3EDE0}.flame{fill:#F2C744}.flamecore{fill:#D8501E}
+.tome{fill:#A8241E}.tomegold{fill:#E8C07A}
+.fpole{fill:#D8D2C6}.usw{fill:#F3EDE0}.usr{fill:#C8312A}.usb{fill:#2E3E78}
+.shirt{fill:#F3EDE0}.bowtie{fill:#141414}.award{fill:#E8C07A}.awardbase{fill:#17171A}
+.tv{fill:#A0785A}.tvscreen{fill:#8FCBEA}
+.souw{fill:#F2C744}.souwdk{fill:#8E6420}
+.lhred{fill:#C8312A}.lhwhite{fill:#F3EDE0}.lhdark{fill:#3A3A3A}.lhlamp{fill:#FFF2A8}.lhbeam{fill:#FFF2A8;fill-opacity:.5}
+.wig{fill:#ECE6DA}.wigdk{fill:#9A948A}.pquill{fill:#F3EDE0}.ink{fill:#1B1410}
+.sc-monk .armR,.sc-flagpole .armR,.sc-trophy .armR,.sc-powdered .armR{transform:rotate(-58deg)}
+.mbcap{fill:#17171A}.mbgold{fill:#E8C07A}.mbscroll{fill:#F3EDE0}.mbribbon{fill:#C8312A}
+.ctrl{fill:#3A3A3A}.ctrllt{fill:#B7AFA0}.btnr{fill:#E0392B}.btnb{fill:#3E9BE0}
+.cab{fill:#6A3E9A}.cabmq{fill:#F2C744}.cabscr{fill:#6FCB5A}
+.aband{fill:#3A2412}.antler{fill:#E8DCC0}.giftbox{fill:#3E8E5A}.giftrib{fill:#F2C744}.sleighb{fill:#C8312A}.runner{fill:#E8C07A}
+.suit{fill:#5A5A62}.ptie{fill:#A8241E}.pen{fill:#C9C2B0}.wax{fill:#A8241E}
+.beanie{fill:#4A5A3A}.beaniedk{fill:#2E3A24}.beanielt{fill:#8A9A6E}
+.plaid{fill:#A8241E}.plaiddk{fill:#141414}.cass{fill:#8A8272}.reel{fill:#1B1410}
+.sc-mortarboard .armR,.sc-treaty .armR{transform:rotate(-58deg)}
 .lookLR{transform-box:fill-box;transform-origin:center;animation:lookLR 2.2s steps(1) infinite}
 @keyframes lookLR{0%,49%{transform:translateX(-6.7px)}50%,100%{transform:translateX(6.7px)}}
 .bub1,.bub2,.bub3{transform-box:fill-box;animation:fizz 1.8s ease-out infinite}

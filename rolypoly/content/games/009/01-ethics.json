@@ -1,0 +1,102 @@
+{
+  "domain": "Ethics",
+  "prompt": "Name one of the seven deadly sins.",
+  "scene": "monk",
+  "difficulty": 1,
+  "label": "Easy Opener",
+  "closed": true,
+  "source": "Gregory the Great's sixth-century list, as refined by Thomas Aquinas in the Summa Theologiae.",
+  "valueLogic": "Pride, greed and lust come instantly. Wrath and gluttony follow. Envy sits between, because people confuse it with greed. Sloth is the genuine tail - it is the one most often missed and the one whose original meaning is furthest from its modern sense.",
+  "note": "Vanity takes pride and rage takes wrath: common-language equivalents. Jealousy is deliberately a non-busting distractor rather than an alias for envy; the note explains the difference.",
+  "answers": [
+    {
+      "name": "Pride",
+      "value": 4,
+      "fact": "Traditionally the root of the other six, and the sin that cast Lucifer down.",
+      "aliases": [
+        "hubris",
+        "vanity"
+      ]
+    },
+    {
+      "name": "Greed",
+      "value": 4,
+      "fact": "Avarice in the older lists, from the Latin avaritia.",
+      "aliases": [
+        "avarice"
+      ]
+    },
+    {
+      "name": "Lust",
+      "value": 5,
+      "fact": "Lechery in the medieval lists.",
+      "aliases": [
+        "lechery"
+      ]
+    },
+    {
+      "name": "Wrath",
+      "value": 7,
+      "fact": "Anger. Aquinas held that anger at a real injustice could be righteous rather than sinful.",
+      "aliases": [
+        "anger",
+        "rage",
+        "ire"
+      ]
+    },
+    {
+      "name": "Gluttony",
+      "value": 8,
+      "fact": "Overindulgence, and in Aquinas it covers drinking and fussiness as much as quantity.",
+      "aliases": [
+        "overindulgence"
+      ]
+    },
+    {
+      "name": "Envy",
+      "value": 10,
+      "fact": "Distinct from greed: envy wants what another has, greed simply wants more."
+    },
+    {
+      "name": "Sloth",
+      "value": 13,
+      "fact": "Acedia, which originally meant spiritual indifference rather than laziness.",
+      "aliases": [
+        "acedia",
+        "laziness"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Jealousy",
+      "note": "Close to envy, but not the traditional name. Envy wants what you have; jealousy fears losing what it has."
+    },
+    {
+      "name": "Selfishness",
+      "note": "Not one of the seven."
+    },
+    {
+      "name": "Hatred",
+      "note": "Not one of the seven.",
+      "aliases": [
+        "hate"
+      ]
+    },
+    {
+      "name": "Despair",
+      "note": "A sin in some traditions, but not one of these seven."
+    },
+    {
+      "name": "Chastity",
+      "note": "One of the seven heavenly virtues - the opposite of a sin."
+    },
+    {
+      "name": "Deceit",
+      "note": "Not one of the seven.",
+      "aliases": [
+        "lying"
+      ]
+    }
+  ]
+}

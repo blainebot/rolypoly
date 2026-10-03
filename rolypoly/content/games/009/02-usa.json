@@ -1,0 +1,151 @@
+{
+  "domain": "USA",
+  "prompt": "Name a US federal holiday.",
+  "scene": "flagpole",
+  "difficulty": 2,
+  "closed": true,
+  "source": "US Office of Personnel Management list of federal holidays: https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
+  "valueLogic": "The big four come at once. The Monday holidays follow. Juneteenth and Columbus Day are harder. Washington's Birthday is the tail and the best fact in the round - the holiday everyone calls Presidents' Day has never officially been renamed.",
+  "note": "Presidents' Day is accepted for Washington's Birthday: not the legal name, but refusing it would bust almost everyone who knows the holiday. Indigenous Peoples' Day is a non-busting nudge toward Columbus Day rather than an alias, because it isn't the federal name and presidential proclamations have varied.",
+  "answers": [
+    {
+      "name": "Christmas Day",
+      "value": 4,
+      "fact": "A federal holiday since 1870, in the first batch Congress ever designated.",
+      "aliases": [
+        "christmas",
+        "xmas"
+      ]
+    },
+    {
+      "name": "Thanksgiving",
+      "value": 4,
+      "fact": "Fixed to the fourth Thursday in November by Congress in 1941.",
+      "aliases": [
+        "thanksgiving day"
+      ]
+    },
+    {
+      "name": "Independence Day",
+      "value": 5,
+      "fact": "Also in the original 1870 batch, alongside Christmas and New Year's Day.",
+      "aliases": [
+        "fourth of july",
+        "july fourth",
+        "4th of july",
+        "july 4th",
+        "july 4"
+      ]
+    },
+    {
+      "name": "New Year's Day",
+      "value": 5,
+      "fact": "One of the four original federal holidays.",
+      "aliases": [
+        "new years day",
+        "new years",
+        "new year"
+      ]
+    },
+    {
+      "name": "Memorial Day",
+      "value": 7,
+      "fact": "Moved to the last Monday in May by the Uniform Monday Holiday Act of 1968."
+    },
+    {
+      "name": "Labor Day",
+      "value": 8,
+      "fact": "The first Monday in September, made federal in 1894."
+    },
+    {
+      "name": "Veterans Day",
+      "value": 9,
+      "fact": "Originally Armistice Day, marking the end of the First World War in 1918.",
+      "aliases": [
+        "armistice day"
+      ]
+    },
+    {
+      "name": "Martin Luther King Jr. Day",
+      "value": 10,
+      "fact": "Signed into law in 1983 and first observed in 1986.",
+      "aliases": [
+        "mlk day",
+        "martin luther king day",
+        "mlk",
+        "mlk jr day",
+        "martin luther king jr day"
+      ]
+    },
+    {
+      "name": "Juneteenth",
+      "value": 13,
+      "fact": "The newest, signed into law in 2021, marking emancipation reaching Texas in 1865.",
+      "aliases": [
+        "juneteenth national independence day"
+      ]
+    },
+    {
+      "name": "Columbus Day",
+      "value": 15,
+      "fact": "The second Monday in October, and a federal holiday since 1937."
+    },
+    {
+      "name": "Washington's Birthday",
+      "value": 19,
+      "fact": "The legal federal name. Almost everyone calls it Presidents' Day, which is not official.",
+      "aliases": [
+        "presidents day",
+        "president's day",
+        "washingtons birthday"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Easter",
+      "note": "Not a federal holiday, and never has been."
+    },
+    {
+      "name": "Halloween",
+      "note": "Not a federal holiday."
+    },
+    {
+      "name": "Valentine's Day",
+      "note": "Not a federal holiday.",
+      "aliases": [
+        "valentines day"
+      ]
+    },
+    {
+      "name": "Election Day",
+      "note": "Not a federal holiday, despite repeated proposals."
+    },
+    {
+      "name": "St. Patrick's Day",
+      "note": "Not a federal holiday.",
+      "aliases": [
+        "st patricks day"
+      ]
+    },
+    {
+      "name": "Black Friday",
+      "note": "Not a federal holiday."
+    },
+    {
+      "name": "Good Friday",
+      "note": "Not a federal holiday."
+    },
+    {
+      "name": "Inauguration Day",
+      "note": "A holiday for federal workers in the DC area only, not nationwide."
+    },
+    {
+      "name": "Indigenous Peoples' Day",
+      "note": "The same Monday, and proclaimed alongside it in recent years, but the federal holiday's legal name is still Columbus Day.",
+      "aliases": [
+        "indigenous peoples day"
+      ]
+    }
+  ]
+}

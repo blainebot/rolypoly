@@ -1,0 +1,125 @@
+{
+  "domain": "Music",
+  "prompt": "Name a song on the original 1991 release of Nirvana's Nevermind.",
+  "scene": "grunge",
+  "difficulty": 5,
+  "label": "Final Dig",
+  "closed": true,
+  "multiplier": 1.5,
+  "source": "Nirvana, Nevermind (DGC, 1991), original twelve-track listing.",
+  "valueLogic": "The four singles come first. Polly and Something in the Way follow, both being distinctive. The deep album tracks are the tail - Lounge Act, Stay Away and On a Plain are the three that even people who love the record struggle to produce.",
+  "note": "Endless, Nameless is a non-busting distractor: it's a hidden track on later pressings, not on the printed twelve, and the first pressings didn't have it at all.",
+  "answers": [
+    {
+      "name": "Smells Like Teen Spirit",
+      "value": 4,
+      "fact": "Track one. The title came from a deodorant brand, which Cobain did not know at the time.",
+      "aliases": [
+        "teen spirit",
+        "smells like teen spirit"
+      ]
+    },
+    {
+      "name": "Come as You Are",
+      "value": 5,
+      "fact": "Track three, and the second single.",
+      "aliases": [
+        "come as you are"
+      ]
+    },
+    {
+      "name": "Lithium",
+      "value": 6,
+      "fact": "Track five, and the third single."
+    },
+    {
+      "name": "In Bloom",
+      "value": 8,
+      "fact": "Track two, and the fourth single, with the video shot as a 1960s variety show."
+    },
+    {
+      "name": "Polly",
+      "value": 9,
+      "fact": "Track six, and one of the record's two quiet acoustic songs."
+    },
+    {
+      "name": "Something in the Way",
+      "value": 10,
+      "fact": "Track twelve, and the closer. Recorded almost in a whisper."
+    },
+    {
+      "name": "Breed",
+      "value": 12,
+      "fact": "Track four."
+    },
+    {
+      "name": "Drain You",
+      "value": 14,
+      "fact": "Track eight, and a song Cobain said he rated as highly as Teen Spirit."
+    },
+    {
+      "name": "Territorial Pissings",
+      "value": 16,
+      "fact": "Track seven, and the most abrasive thing on the record."
+    },
+    {
+      "name": "On a Plain",
+      "value": 18,
+      "fact": "Track eleven."
+    },
+    {
+      "name": "Stay Away",
+      "value": 20,
+      "fact": "Track ten, originally titled Pay to Play."
+    },
+    {
+      "name": "Lounge Act",
+      "value": 22,
+      "fact": "Track nine, and the hardest of the twelve to name."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Endless, Nameless",
+      "note": "A hidden track after a long silence on most pressings, and not on the printed twelve-track listing.",
+      "aliases": [
+        "endless nameless"
+      ]
+    },
+    {
+      "name": "Heart-Shaped Box",
+      "note": "From In Utero, two years later.",
+      "aliases": [
+        "heart shaped box"
+      ]
+    },
+    {
+      "name": "All Apologies",
+      "note": "From In Utero."
+    },
+    {
+      "name": "Rape Me",
+      "note": "From In Utero."
+    },
+    {
+      "name": "About a Girl",
+      "note": "From Bleach, in 1989."
+    },
+    {
+      "name": "Where Did You Sleep Last Night",
+      "note": "From the MTV Unplugged session."
+    },
+    {
+      "name": "The Man Who Sold the World",
+      "note": "A Bowie cover from Unplugged."
+    },
+    {
+      "name": "Aneurysm",
+      "note": "A B-side from the same era, not on the album."
+    },
+    {
+      "name": "Sliver",
+      "note": "A 1990 single, not on the album."
+    }
+  ]
+}

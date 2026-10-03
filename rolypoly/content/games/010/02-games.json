@@ -1,0 +1,136 @@
+{
+  "domain": "Games",
+  "prompt": "Name a playable character in the original Super Smash Bros. on the Nintendo 64.",
+  "scene": "arcade",
+  "difficulty": 2,
+  "closed": true,
+  "source": "Super Smash Bros. (1999, Nintendo 64) character roster.",
+  "valueLogic": "The eight starting characters sit low to mid - anyone who played the game saw them immediately. The four unlockables are the tail, because they had to be earned: Luigi, Captain Falcon, Ness and Jigglypuff. Ness and Jigglypuff are the genuine deep cuts, since plenty of players never unlocked them at all.",
+  "note": "Characters from later Smash games are non-busting distractors, so nobody busts for naming Zelda, Marth or Sonic.",
+  "answers": [
+    {
+      "name": "Mario",
+      "value": 4,
+      "fact": "On the starting roster, and the face of the whole thing."
+    },
+    {
+      "name": "Pikachu",
+      "value": 4,
+      "fact": "On the starting roster, and the only Pokemon among the eight starters."
+    },
+    {
+      "name": "Link",
+      "value": 5,
+      "fact": "On the starting roster, from The Legend of Zelda."
+    },
+    {
+      "name": "Kirby",
+      "value": 6,
+      "fact": "On the starting roster, and the only one who can copy another fighter's move."
+    },
+    {
+      "name": "Donkey Kong",
+      "value": 7,
+      "fact": "On the starting roster.",
+      "aliases": [
+        "dk"
+      ]
+    },
+    {
+      "name": "Yoshi",
+      "value": 8,
+      "fact": "On the starting roster."
+    },
+    {
+      "name": "Samus",
+      "value": 10,
+      "fact": "On the starting roster, from Metroid.",
+      "aliases": [
+        "samus aran"
+      ]
+    },
+    {
+      "name": "Fox",
+      "value": 12,
+      "fact": "On the starting roster, from Star Fox.",
+      "aliases": [
+        "fox mccloud"
+      ]
+    },
+    {
+      "name": "Luigi",
+      "value": 14,
+      "fact": "Unlockable, by clearing Break the Targets with all eight starters."
+    },
+    {
+      "name": "Captain Falcon",
+      "value": 17,
+      "fact": "Unlockable, from F-Zero, a racing series where he's rarely seen out of his car.",
+      "aliases": [
+        "falcon",
+        "c falcon"
+      ]
+    },
+    {
+      "name": "Ness",
+      "value": 20,
+      "fact": "Unlockable, from EarthBound - a game most players outside Japan had never heard of."
+    },
+    {
+      "name": "Jigglypuff",
+      "value": 22,
+      "fact": "The last unlockable, and the hardest of the twelve to name.",
+      "aliases": [
+        "puff"
+      ]
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Zelda",
+      "note": "Added in Melee, not in the original twelve."
+    },
+    {
+      "name": "Marth",
+      "note": "Added in Melee."
+    },
+    {
+      "name": "Sonic",
+      "note": "Added in Brawl.",
+      "aliases": [
+        "sonic the hedgehog"
+      ]
+    },
+    {
+      "name": "Peach",
+      "note": "Added in Melee.",
+      "aliases": [
+        "princess peach"
+      ]
+    },
+    {
+      "name": "Bowser",
+      "note": "Added in Melee."
+    },
+    {
+      "name": "Mewtwo",
+      "note": "Added in Melee."
+    },
+    {
+      "name": "Ganondorf",
+      "note": "Added in Melee."
+    },
+    {
+      "name": "Wario",
+      "note": "Added in Brawl."
+    },
+    {
+      "name": "Falco",
+      "note": "Added in Melee."
+    },
+    {
+      "name": "Master Hand",
+      "note": "The final boss, never playable in the original."
+    }
+  ]
+}

@@ -1024,7 +1024,15 @@ page down. Inline the rects instead, as chalkboard does. Game 008 added lantern,
 (baseball reuses ballpark). Keep culture- and franchise-themed scenes to
 objects: the zodiac scene is a paper lantern on a stick, nothing worn; the
 Fellowship scene is a plain traveller's hood, cloak and staff, with no leaf
-brooch or anything else from the films. The art file
+brooch or anything else from the films. Game 009 added monk, flagpole, trophy, lighthouse and powdered.
+The awards scene uses a generic gold star, not any academy's statuette
+(those are trademarks). `.quill` was already taken by the world layer, so
+the powdered-wig quill is `.pquill`. Anything worn on the body stays out of
+x 36-54 above y=74, where the teeth are; the monk's cowl stops either side
+of them. Game 010 added mortarboard, arcade, sleigh, treaty and grunge:
+a generic controller and cabinet (no console marks), an antler headband
+rather than a red nose (Rudolph is a licensed character), no alliance
+emblem, and no band logo. The art file
 that came with the head described hat scaling as "about 1.6×, shifted down about
 6" — that doesn't match its own coordinates (closer to 2.2× and +26); hats were
 placed against the real landmarks above instead.

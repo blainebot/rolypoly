@@ -1,0 +1,132 @@
+{
+  "domain": "World",
+  "prompt": "Name one of NATO's twelve original member countries.",
+  "scene": "treaty",
+  "difficulty": 4,
+  "label": "Getting Harder",
+  "closed": true,
+  "source": "NATO, founding members and the North Atlantic Treaty of 4 April 1949: https://www.nato.int/",
+  "valueLogic": "The large western powers come first. The Benelux and Nordic founders sit in the middle. Portugal, Luxembourg and Iceland are the tail - Portugal because people assume it joined later, Luxembourg for its size, and Iceland because an alliance member with no army is counterintuitive.",
+  "note": "Later members (Germany, Greece, Turkey, Spain...) are non-busting distractors: naming one is a reasonable mistake. England is accepted for the United Kingdom, as elsewhere.",
+  "answers": [
+    {
+      "name": "United States",
+      "value": 4,
+      "fact": "Its commitment to Europe's defence was the point of the treaty, which was signed in Washington.",
+      "aliases": [
+        "usa",
+        "us",
+        "america",
+        "united states of america"
+      ]
+    },
+    {
+      "name": "United Kingdom",
+      "value": 5,
+      "fact": "A founding signatory, and one of the principal drafters of the treaty.",
+      "aliases": [
+        "uk",
+        "britain",
+        "great britain",
+        "england"
+      ]
+    },
+    {
+      "name": "France",
+      "value": 5,
+      "fact": "A founding member, though it left the integrated command from 1966 to 2009."
+    },
+    {
+      "name": "Canada",
+      "value": 7,
+      "fact": "A founding member, and with the US one of the two North American signatories."
+    },
+    {
+      "name": "Italy",
+      "value": 9,
+      "fact": "A founding member in 1949, only four years after the war ended."
+    },
+    {
+      "name": "Belgium",
+      "value": 11,
+      "fact": "A founding member, and host of NATO headquarters in Brussels since 1967."
+    },
+    {
+      "name": "Netherlands",
+      "value": 12,
+      "fact": "A founding member.",
+      "aliases": [
+        "holland"
+      ]
+    },
+    {
+      "name": "Norway",
+      "value": 13,
+      "fact": "A founding member, and the only original with a land border with the Soviet Union."
+    },
+    {
+      "name": "Denmark",
+      "value": 14,
+      "fact": "A founding member, which brought Greenland into the alliance's geography."
+    },
+    {
+      "name": "Portugal",
+      "value": 17,
+      "fact": "A founding member, and the one people most often assume joined later."
+    },
+    {
+      "name": "Luxembourg",
+      "value": 19,
+      "fact": "A founding member, and by far the smallest of the twelve by area."
+    },
+    {
+      "name": "Iceland",
+      "value": 21,
+      "fact": "A founding member with no standing army of its own, which makes it unique in the alliance."
+    }
+  ],
+  "distractors": [
+    {
+      "name": "Germany",
+      "note": "Joined in 1955 as West Germany, six years after the founding.",
+      "aliases": [
+        "west germany"
+      ]
+    },
+    {
+      "name": "Greece",
+      "note": "Joined in 1952."
+    },
+    {
+      "name": "Turkey",
+      "note": "Joined in 1952, alongside Greece.",
+      "aliases": [
+        "turkiye"
+      ]
+    },
+    {
+      "name": "Spain",
+      "note": "Joined in 1982."
+    },
+    {
+      "name": "Poland",
+      "note": "Joined in 1999."
+    },
+    {
+      "name": "Finland",
+      "note": "Joined in 2023."
+    },
+    {
+      "name": "Sweden",
+      "note": "Joined in 2024."
+    },
+    {
+      "name": "Ireland",
+      "note": "Not a NATO member at all - it maintains military neutrality."
+    },
+    {
+      "name": "Switzerland",
+      "note": "Not a NATO member."
+    }
+  ]
+}
