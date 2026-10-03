@@ -172,8 +172,9 @@ const NON_GATING_RULES = new Set(["mutate", "plural", "singular", "first-last"])
 const isGenuine = (rules, guess) => guess.length >= MIN_FUZZY && [...rules].some((r) => !NON_GATING_RULES.has(r));
 
 // ---------- resolving a guess, mirroring dig() in 70-game.js ----------
-// Exact match first (name or alias, verbatim), then fuzzyMatches against the
-// scoring pool, then extras, then distractors — the same order dig() checks
+// Exact match first (name or alias, verbatim), then an exact extra or
+// distractor, then fuzzyMatches against the scoring pool, then extras, then
+// distractors — the same order dig() checks
 // them in, replicated here (not imported) only because dig() lives inside
 // the concatenated engine, not as a standalone module; keep this in sync if
 // dig()'s order ever changes.
@@ -201,7 +202,9 @@ function resolveGuess(guess, pool, extras, distractors) {
     return { type: "exact", answer: exact };
   }
 
-  const matches = fuzzyMatches(key, pool);
+  // dig() lets an exact extra/distractor hit outrank a fuzzy answer match.
+  const authored = findExact(key, extras) || findExact(key, distractors);
+  const matches = authored ? [] : fuzzyMatches(key, pool);
   if (matches.length === 1) return { type: "confirm", answer: matches[0] };
   if (matches.length > 1) return { type: "ambiguous", matches };
 

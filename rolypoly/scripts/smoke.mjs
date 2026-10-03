@@ -320,6 +320,15 @@ function prefixSiblingPool() {
   ];
 }
 
+// avail(), minus any answer whose name is also the whole first word(s) of a
+// sibling's ("Michigan" beside "Michigan State"). dig() deliberately treats
+// that exact name as ambiguous, so a test that digs answers by name and
+// expects each to score has to skip them, or it passes or fails depending on
+// which game the schedule happens to put on TEST_DAY.
+function cleanAvail(E) {
+  const pool = E.avail();
+  return pool.filter((a) => !pool.some((b) => b !== a && E.norm(b.n).startsWith(E.norm(a.n) + " ")));
+}
 async function digAnswer(E, flush, name) {
   E.$("answer").value = name;
   E.dig();
@@ -404,7 +413,7 @@ await test("a full five-round game: final total and share text", async () => {
   let expected = 0;
   const busts = [];
   for (let r = 0; r < E.ROUNDS.length; r++) {
-    const picks = E.avail().slice(0, Math.min(3, E.avail().length));
+    const picks = cleanAvail(E).slice(0, Math.min(3, cleanAvail(E).length));
     for (const a of picks) await digAnswer(E, flush, a.n);
     if (r === E.ROUNDS.length - 1) {
       // bust the last round deliberately, so the game exercises both paths
@@ -754,6 +763,21 @@ await test("distractors: bust:true busts like a genuine dead end, with the note 
     `expected the note in the dead-end card, got: ${E.$("deadend").innerHTML}`);
 });
 
+// Real bug, found building game 007: an exact distractor name lost to a
+// fuzzy guess at a real answer — "Hades" in the Olympians round offered
+// "did you mean Ares?" and accepting scored it. "Meddle" is a real answer
+// here and "Medal" sits one edit away; the author listing "Medal" by name
+// means it must take the distractor path, not the confirm.
+await test("distractors: an exact distractor outranks a fuzzy answer match", async () => {
+  const { E, flush } = fresh();
+  const distractors = [{ n: "Medal", note: "Not an album.", bust: true }];
+  loadSynthetic(E, syntheticPool(), undefined, distractors);
+  await digAnswer(E, flush, "Medal");
+  assertEqual(E.found.length, 0, "an exact distractor must not be offered as a real answer");
+  assertEqual(E.results.length, 1, "a busting exact distractor must end the round");
+  assert(E.$("deadend").innerHTML.includes("Not an album."), `expected the note, got: ${E.$("deadend").innerHTML}`);
+});
+
 await test("hidden chamber fires once roundDepth crosses its threshold", async () => {
   const { E, flush } = fresh();
   const targetIdx = E.ROUNDS.findIndex((r) => r.answers.reduce((s, a) => s + a.v, 0) > E.CHAMBER_AT);
@@ -815,7 +839,7 @@ await test("hidden chamber: chamberHit survives a reload taken immediately after
 async function playWholeGame(E, flush) {
   let expected = 0;
   for (let r = 0; r < E.ROUNDS.length; r++) {
-    const picks = E.avail().slice(0, Math.min(3, E.avail().length));
+    const picks = cleanAvail(E).slice(0, Math.min(3, cleanAvail(E).length));
     for (const a of picks) await digAnswer(E, flush, a.n);
     E.bank();
     await flush();
@@ -899,7 +923,7 @@ await test("in-progress: a mid-round reload resumes the same round, found list, 
   // Session 1: bank round 0 for real, then dig two answers into round 1
   // without banking — a genuinely mid-round, unfinished game.
   const { E: E1, flush: flush1 } = fresh({ localStorage: store });
-  const round0Picks = E1.avail().slice(0, 3);
+  const round0Picks = cleanAvail(E1).slice(0, 3);
   for (const a of round0Picks) await digAnswer(E1, flush1, a.n);
   E1.bank();
   await flush1();
@@ -924,7 +948,7 @@ await test("in-progress: a mid-round reload resumes the same round, found list, 
   await flush1();
   assertEqual(E1.idx, 1, "sanity: advanced into round 1");
 
-  const round1Picks = E1.avail().slice(0, 2);
+  const round1Picks = cleanAvail(E1).slice(0, 2);
   for (const a of round1Picks) await digAnswer(E1, flush1, a.n);
   const round1Depth = round1Picks.reduce((s, a) => s + a.v, 0);
   assertEqual(E1.roundDepth, round1Depth, "sanity: round 1's unbanked total before the simulated reload");
@@ -957,7 +981,7 @@ await test("in-progress: a mid-round reload resumes the same round, found list, 
   assertEqual(E2.$("msg").textContent, "Already dug that one.", "re-digging a pre-resume find should say so, the same as any other duplicate");
 
   // The resumed session must still be genuinely playable, not a dead end.
-  const nextPick = E2.avail().find((a) => !E2.found.some((f) => f.n === a.n));
+  const nextPick = cleanAvail(E2).find((a) => !E2.found.some((f) => f.n === a.n));
   await digAnswer(E2, flush2, nextPick.n);
   assertEqual(E2.found.length, round1Picks.length + 1, "digging after a resume still works");
   const round1Finds = [...round1Picks, nextPick];

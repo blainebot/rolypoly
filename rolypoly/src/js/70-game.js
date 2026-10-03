@@ -208,7 +208,16 @@ function dig(){
     if(found.includes(hit)){say("Already dug that one.","");$("answer").select();return}
     accept(hit);return;
   }
-  const matches=fuzzyMatches(key,pool);
+  // An exact hit on an authored extra or distractor outranks a fuzzy guess
+  // at a real answer. Without this, "Hades" (a busting distractor in the
+  // Olympians round) offered "did you mean Ares?", and accepting scored a
+  // wrong answer — the fuzzy step only ever knew about the scoring pool.
+  // The author wrote that exact name down on purpose; it's the more
+  // specific match. Exact matches on real answers still win first, above.
+  const extras=ROUNDS[idx].extras, distractors=ROUNDS[idx].distractors;
+  const exactIn=list=>list&&list.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key));
+  const authored=exactIn(extras)||exactIn(distractors);
+  const matches=authored?[]:fuzzyMatches(key,pool);
   if(matches.length===1){askConfirm(raw,matches[0]);return}
   if(matches.length>1){
     const undug=matches.filter(a=>!found.includes(a));
@@ -225,10 +234,8 @@ function dig(){
   // own optional `f` (fact) — same idea as a distractor's `note`, shown
   // in place of the generic close when present, so "right, but not
   // scored" doesn't have to be the only thing an extra ever says.
-  const extras=ROUNDS[idx].extras;
   if(extras){
-    const hit=extras.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
-      ||fuzzyMatches(key,extras)[0];
+    const hit=exactIn(extras)||fuzzyMatches(key,extras)[0];
     if(hit){
       const tail=hit.f?` ${hit.f} Nothing lost.`:" nothing lost.";
       say(`"${raw}" is right, but not one of today's fifteen —${tail}`,"");
@@ -250,10 +257,8 @@ function dig(){
   // that's a real wrong answer, not a category mix-up, and deserves the
   // same consequence a bust always has, just with the reason spelled out
   // instead of a bare "isn't on the list").
-  const distractors=ROUNDS[idx].distractors;
   if(distractors){
-    const hit=distractors.find(x=>norm(x.n)===key||(x.alias||[]).some(al=>norm(al)===key))
-      ||fuzzyMatches(key,distractors)[0];
+    const hit=exactIn(distractors)||fuzzyMatches(key,distractors)[0];
     if(hit){
       if(hit.bust){bustWith(raw,hit.note);return}
       say(`"${raw}" isn't it — ${hit.note} Nothing lost, try again.`,"");
