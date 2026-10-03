@@ -234,8 +234,11 @@ function loadSynthetic(E, pool = syntheticPool(), extras, distractors) {
   E.ROUNDS[0].prompt = "Test prompt.";
   E.ROUNDS[0].par = 10;
   E.ROUNDS[0].answers = pool;
-  if (extras) E.ROUNDS[0].extras = extras;
-  if (distractors) E.ROUNDS[0].distractors = distractors;
+  // Replace, never inherit: whatever real round sits at ROUNDS[0] on
+  // TEST_DAY has its own extras/distractors, and a synthetic test that
+  // leaves them in place is matching against content it never chose.
+  E.ROUNDS[0].extras = extras;
+  E.ROUNDS[0].distractors = distractors;
   E.$("chooser").innerHTML = ""; // buildIntro() already ran; loadRound() is the real entry point
   E.$("play").hidden = false;
   E.loadRound();
@@ -811,18 +814,25 @@ await test("hidden chamber fires once roundDepth crosses its threshold", async (
 await test("hidden chamber: chamberHit survives a reload taken immediately after the crossing dig", async () => {
   const store = makeLocalStorage();
   const { E, flush } = fresh({ localStorage: store });
-  const targetIdx = E.ROUNDS.findIndex((r) => r.answers.reduce((s, a) => s + a.v, 0) > E.CHAMBER_AT);
-  assert(targetIdx >= 0, `no round in the active game has enough total value to cross CHAMBER_AT (${E.CHAMBER_AT}) — the test can't exercise this without content that clears it`);
+  // The reload has to land mid-round, so the crossing dig can't also be the
+  // one that clears the round (that ends it, and chamberHit is per-round).
+  // Pick a round that reaches CHAMBER_AT with at least its smallest answer
+  // still undug, and dig biggest-first to get there.
+  const targetIdx = E.ROUNDS.findIndex((r) => {
+    const vs = r.answers.map((a) => a.v);
+    return vs.reduce((s, v) => s + v, 0) - Math.min(...vs) >= E.CHAMBER_AT;
+  });
+  assert(targetIdx >= 0, `no round in the active game can reach CHAMBER_AT (${E.CHAMBER_AT}) without being cleared — the test can't exercise a mid-round reload without content that does`);
 
   for (let r = 0; r < targetIdx; r++) {
-    const a = E.avail()[0];
+    const a = cleanAvail(E)[0];
     await digAnswer(E, flush, a.n);
     E.bank();
     await flush();
     E.$("bankBtn").onclick();
     await flush();
   }
-  for (const a of E.avail()) {
+  for (const a of [...cleanAvail(E)].sort((x, y) => y.v - x.v)) {
     if (E.chamberHit) break;
     await digAnswer(E, flush, a.n);
   }
